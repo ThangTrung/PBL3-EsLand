@@ -97,3 +97,109 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Exclude MCP-related files
+MCPForUnity/
+
+# Exclude IDE-specific files
+.idea/
+*.iml
+
+# Exclude package lock files
+Packages/packages-lock.json
+
+# Exclude Unity Collaborate files
+/[Cc]ollab[-Vv]iew[\w\d]*/
+
+# Exclude auto-generated lighting data
+/[Ll]ighting[Dd]ata[\w\d]*/
+
+# Exclude auto-generated shader cache
+/[Ss]hader[Cc]ache/
+
+# Exclude auto-generated ProBuilder files
+/[Pp]ro[Bb]uilder[\w\d]*/
+
+# Exclude auto-generated Burst cache
+/[Bb]urst[Cc]ache/
+
+# Exclude auto-generated artifacts
+/[Aa]rtifacts/
+
+# Exclude temporary files
+/[Tt]emp[Aa]rtifacts/
+
+# Exclude Unity Lockfile
+[Tt]emp/UnityLockfile
+
+# Exclude logs
+*.log
+Logs/
+
+# Exclude crash reports
+crash.dmp
+error.log
+output_log.txt
+
+# Exclude backups
+*.bak
+*.backup
+
+# Exclude user-specific settings
+*.userprefs
+*.user
+*.suo
+*.DotSettings.user
+
+# Exclude build outputs
+*.apk
+*.aab
+*.unitypackage
+*.app
+*.exe
+*.dll
+*.pdb
+*.so
+*.dylib
+*.ipa
+*.xcodeproj
+*.xcworkspace
+*.xcuserstate
+*.xcsettings
+*.xcworkspacedata
+*.xcuserdata
+*.xcscheme
+*.xcschememanagement.plist
+
+# Exclude other unnecessary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
+.DS_Store
+Desktop.ini
+*.class
+*.pyc
+*.jar
+*.swf
+*.tmp
+*.log
+*.csv
+*.dat
+*.bin
+*.cache
+*.diff
+*.patch
+*.orig
+*.rej
+*.sublime-workspace
+*.sublime-project
+*.sublime-settings
+*.sublime-metadata
+*.sublime_session
+*.sublime_session.lock
+*.sublime_session.lock~
+*.sublime_session.lock.bak
+*.sublime_session.lock.bak~
