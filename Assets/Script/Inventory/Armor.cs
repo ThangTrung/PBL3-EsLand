@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Armor : MonoBehaviour
+[System.Serializable]
+public class Armor : Equipment // Kế thừa từ Equipment
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private double defensePower;
+    [SerializeField] private string slotType; // Ví dụ: "Đầu", "Thân", "Chân"
 
-    // Update is called once per frame
-    void Update()
+    public override bool Use()
     {
-        
+        Debug.Log($"Đã mặc {itemName} vào vị trí [{slotType}] - Tăng {defensePower} điểm phòng thủ.");
+        return true;
     }
 }
