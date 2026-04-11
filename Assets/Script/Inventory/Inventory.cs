@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    // Các thuộc tính cơ bản theo UML
     public int Capacity = 20;
     public int CurrentLoad = 0;
-
-    // Khởi tạo danh sách chứa vật phẩm (dùng Item làm kiểu dữ liệu chung)
     public List<Item> itemList = new List<Item>();
-
-    // Hàm thêm vật phẩm (Bắt buộc phải có để test nhặt đồ)
+    
     public bool AddItem(Item newItem)
     {
         if (CurrentLoad < Capacity)
