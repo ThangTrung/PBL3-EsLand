@@ -1,18 +1,30 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using Script.Items;
 
-public class Enemy : MonoBehaviour
+namespace Script.Entities
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Enemy : Character
     {
-        
-    }
+        protected override void Awake()
+        {
+            base.Awake();
+            // Khởi tạo logic AI ở đây
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected override void Update()
+        {
+            base.Update();
+            // Cập nhật logic AI ở đây
+        }
+
+        public void Patrol()
+        {
+            // Thực hiện logic tuần tra
+        }
+
+        public void ChasePlayer(Player player)
+        {
+            // Thực hiện logic đuổi theo Player
+        }
     }
 }
