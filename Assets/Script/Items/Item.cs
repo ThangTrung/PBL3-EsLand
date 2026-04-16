@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Script.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-    public class Item : ScriptableObject
+    public partial class Item : ScriptableObject
     {
         [Header("Item Basic Info")]
         [SerializeField] protected string itemName = "";
@@ -18,11 +18,11 @@ namespace Script.Items
         public Sprite Icon => icon;
         public int MaxStack => maxStack;
         
-        public virtual bool Use(Entities.Character user)
-        {
-            Debug.Log($"{user.name} đang sử dụng vật phẩm: {itemName}");
-            return false;
-        }
+        // public virtual bool Use(Entities.Character user)
+        // {
+        //     Debug.Log($"{user.name} đang sử dụng vật phẩm: {itemName}");
+        //     return false;
+        // }
 
         public virtual void Drop()
         {

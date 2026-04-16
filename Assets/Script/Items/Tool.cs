@@ -2,28 +2,21 @@ using UnityEngine;
 
 namespace Script.Items
 {
-    public enum ToolType { Sword, Bow, Pickaxe, Axe, Hoe }
+    public enum ToolType { Pickaxe, Axe, Sword, Shovel }
 
-    [CreateAssetMenu(fileName = "New Tool", menuName = "Inventory/Equipment/Tool")]
+    [CreateAssetMenu(fileName = "New Tool", menuName = "Inventory/Item/Tool")]
     public class Tool : Equipment
     {
         [Header("Tool Stats")]
-        [SerializeField] private float combatDamage;
-        [SerializeField] private float gatheringPower; 
-        [SerializeField] private ToolType toolType;
-    
-        public float CombatDamage => combatDamage;
-        public float GatheringPower => gatheringPower;
-        public ToolType Type => toolType;
+        public ToolType toolType;
+        public float damage;
+        public float gatherSpeedMultiplier = 1.5f; 
+        public int tier = 1; 
 
-        public override void OnEquip(Entities.Character user)
-        {
-            Debug.Log($"{user.name} đang cầm {ItemName}");
-        }
-
-        public override void OnUnequip(Entities.Character user)
-        {
-            Debug.Log($"{user.name} đã bỏ {ItemName}");
-        }
+        // private void Awake()
+        // {
+        //     maxStackSize = 1;
+        //     equipSlot = EquipSlot.MainHand; // Công cụ luôn cầm ở tay chính
+        // }
     }
 }

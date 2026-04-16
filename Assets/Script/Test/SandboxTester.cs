@@ -1,6 +1,6 @@
 using UnityEngine;
-using Script.Inventory; // Namespace của InventoryController
-using Script.Items;     // Thay bằng namespace chứa class Item của bạn
+using Script.Inventory.Controller; 
+using Script.Items;    
 
 public class InventoryTestScenario : MonoBehaviour
 {

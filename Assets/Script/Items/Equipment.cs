@@ -2,27 +2,27 @@ using UnityEngine;
 
 namespace Script.Items
 {
+    public enum EquipSlot { Head, Chest, Legs, Feet, MainHand, OffHand }
     public abstract class Equipment : Item 
     {
         [Header("Equipment Settings")]
-        [SerializeField] [Min(1)] protected int maxDurability = 100;
-
-        private int _currentDurability;
-
-        protected virtual void OnEnable()
-        {
-            _currentDurability = maxDurability;
-        }
-
+        public EquipSlot equipSlot;
+        public int maxDurability = 100;
+        
         public int MaxDurability => maxDurability;
-        public int Durability => _currentDurability;
+        
+        
+        // Hàm Reset thông số khi mới tạo ra
+        // private void Awake()
+        // {
+        //     maxStackSize = 1; // Trang bị không được cộng dồn (Stack)
+        // }
 
-        public override bool Use(Entities.Character user)
-        {
-            return user.Equip(this);
-        }
-
-        public abstract void OnEquip(Entities.Character user);
-        public abstract void OnUnequip(Entities.Character user);
+        // public override void Use()
+        // {
+        //     // Logic khi bấm Use (hoặc chuột phải) vào trang bị -> Mặc vào người
+        //     Debug.Log($"Đang trang bị {itemName} vào vị trí {equipSlot}");
+        //     // TODO: Gọi hệ thống Equipment System để mặc đồ
+        // }
     }
 }

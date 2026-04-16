@@ -2,24 +2,20 @@
 
 namespace Script.Items
 {
-    [CreateAssetMenu(fileName = "New Consumable", menuName = "Inventory/Consumable")]
+    [CreateAssetMenu(fileName = "New Consumable", menuName = "Inventory/Item/Consumable")]
     public class ConsumableItem : Item
     {
         [Header("Consumable Stats")]
-        [SerializeField] private float healthRegen;
-        [SerializeField] private float hungerRegen;
-        [SerializeField] private float thirstRegen;
+        public int healthRestore;
+        public int hungerRestore;
+        public int thirstRestore;
 
-        public override bool Use(Entities.Character user)
-        {
-            if (user is Entities.Player player)
-            {
-                player.Consume(hungerRegen, thirstRegen, healthRegen);
-                return true;
-            }
-            
-            user.Heal(healthRegen);
-            return true;
-        }
+        // Ghi đè hàm Use của lớp cha
+        // public override void Use()
+        // {
+        //     base.Use();
+        //     // TODO: Gọi script PlayerStats để cộng máu, độ đói...
+        //     Debug.Log($"Hồi {healthRestore} Máu và {hungerRestore} Thức ăn!");
+        // }
     }
 }
