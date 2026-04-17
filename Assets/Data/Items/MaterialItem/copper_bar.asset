@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a93a803b104049a092111427c4694a, type: 3}
   m_Name: copper_bar
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: "Th\u1ECFi \u0110\u1ED3ng"
   description: 
-  icon: {fileID: 0}
-  maxStack: 1
+  icon: {fileID: 21300000, guid: 0340634fbd57b9e4fb4a307b7ddf4d11, type: 3}
+  maxStack: 64
   canBeSmelted: 0
   resultItem: {fileID: 0}
   smeltTime: 5
