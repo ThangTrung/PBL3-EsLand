@@ -1,108 +1,78 @@
 using UnityEngine;
-using UnityEngine.UI;
-
-using Script.Inventory.Controller;
+using Script.Inventory.UI;
 
 namespace Script.Inventory.Controller
 {
     public class ItemActionMenu : MonoBehaviour
     {
-        [Header("Panel")]
-        [SerializeField] private GameObject menuPanel;
-
-        [Header("Buttons")]
-        [SerializeField] private Button useButton;
-        [SerializeField] private Button dropButton;
-        [SerializeField] private Button equipButton;
-        [SerializeField] private Button unequipButton;
+        [Header("Dependencies")]
+        [SerializeField] private ItemActionMenuUI menuUI;
+        [SerializeField] private InventoryController inventoryController;
 
         private InventorySlot _currentSlot;
-        private InventoryController _inventoryController;
-        //private Character _user;
 
-        private void Awake()
+        private void OnEnable()
         {
-            if (menuPanel != null) 
-                menuPanel.SetActive(false);
-        }
-        
-        public void Setup(InventoryController controller)
-        {
-            _inventoryController = controller;
+            menuUI.OnUseClicked += HandleUse;
+            menuUI.OnDropClicked += HandleDrop;
+            menuUI.OnEquipClicked += HandleEquip;
+            menuUI.OnUnequipClicked += HandleUnequip;
         }
 
-        //public void SetUser(Character user) => _user = user;
+        private void OnDisable()
+        {
+            menuUI.OnUseClicked -= HandleUse;
+            menuUI.OnDropClicked -= HandleDrop;
+            menuUI.OnEquipClicked -= HandleEquip;
+            menuUI.OnUnequipClicked -= HandleUnequip;
+        }
 
         public void ShowMenu(InventorySlot slotData, Vector3 worldPos)
         {
             if (slotData == null || slotData.IsEmpty) 
+            {
+                HideMenu();
                 return;
-            
+            }
+
             _currentSlot = slotData;
-            var isEquip = slotData.IsEquipment;
-
-            if (useButton != null) useButton.gameObject.SetActive(!isEquip);
-            if (equipButton != null) equipButton.gameObject.SetActive(isEquip);
-            if (unequipButton != null) unequipButton.gameObject.SetActive(isEquip);
-
-            menuPanel.transform.position = worldPos;
-            menuPanel.SetActive(true);
+            var isEquipment = slotData.IsEquipment;
+            const bool isEquipped = false; 
+            menuUI.Show(worldPos, !isEquipment, isEquipment && !isEquipped, isEquipment && isEquipped);
         }
 
         public void HideMenu()
         {
-            if (menuPanel) 
-                menuPanel.SetActive(false);
             _currentSlot = null;
+            if (menuUI) menuUI.Hide();
         }
-        
-        // private Character GetUser()
-        // {
-        //     if (_user != null) return _user;
-        //     return _inventoryController != null ? _inventoryController.GetComponentInParent<Character>() : null;
-        // }
 
-        // public void OnClickUse()
-        // {
-        //     var user = GetUser();
-        //     if (_currentSlot == null || user == null || _inventoryController == null) return;
-        //     _inventoryController.UseItem(_currentSlot, user);
-        //     HideMenu();
-        // }
-
-        // public void OnClickEquip()
-        // {
-        //     var user = GetUser();
-        //     if (_currentSlot == null || user == null) return;
-        //     if (_currentSlot.Item is Items.Equipment equip)
-        //         user.Equip(equip);
-        //     HideMenu();
-        // }
-
-        // public void OnClickUnequip()
-        // {
-        //     var user = GetUser();
-        //     if (_currentSlot == null || user == null) return;
-        //     if (_currentSlot.Item is Items.Equipment equip)
-        //         user.Unequip(equip);
-        //     HideMenu();
-        // }
-
-        public void OnClickDrop()
+        private void HandleUse()
         {
-            if (_currentSlot == null || _inventoryController == null) return;
-            _inventoryController.RemoveSlot(_currentSlot);
+            // Logic dùng item ở đây
             HideMenu();
         }
 
-        private void Update()
+        private void HandleEquip()
         {
-            if (menuPanel && menuPanel.activeSelf &&
-                Input.GetMouseButtonDown(0) &&
-                !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            // Logic trang bị ở đây
+            HideMenu();
+        }
+
+        private void HandleUnequip()
+        {
+            // Logic tháo trang bị ở đây
+            HideMenu();
+        }
+
+        private void HandleDrop()
+        {
+            if (_currentSlot != null && !_currentSlot.IsEmpty && inventoryController != null)
             {
-                HideMenu();
+                inventoryController.RemoveSlot(_currentSlot);
+                // Tạo prefab rơi ra đất tại đây
             }
+            HideMenu();
         }
     }
 }

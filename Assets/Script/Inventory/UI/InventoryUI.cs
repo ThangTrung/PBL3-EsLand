@@ -1,101 +1,98 @@
 using System.Collections.Generic;
 using UnityEngine;
-
 using Script.Inventory.Controller;
 
 namespace Script.Inventory.UI
 {
     public class InventoryUI : MonoBehaviour
     {
-        [Header("References")]
+        [Header("System References")]
+        [SerializeField] private InventoryController inventoryController;
+        [SerializeField] private ItemActionMenu actionMenu;
+
+        [Header("UI References")]
         [SerializeField] private GameObject canvasRoot;
         [SerializeField] private Transform slotsContainer;
         [SerializeField] private GameObject slotPrefab;
-        [SerializeField] private ItemActionMenu actionMenu;
 
-        private InventoryController _inventoryController;
         private readonly List<InventorySlotUI> _slotUIs = new List<InventorySlotUI>();
 
-        public void Setup(InventoryController controller)
-        {
-            _inventoryController = controller;
-            
-            if (actionMenu != null)
-                actionMenu.Setup(_inventoryController);
+        public bool IsVisible => canvasRoot != null && canvasRoot.activeSelf;
 
-            // Lắng nghe event mở/đóng và thay đổi dữ liệu
-            if (_inventoryController != null)
+        private void Start()
+        {
+            if (inventoryController != null)
             {
-                _inventoryController.OnInventoryChanged += RefreshUI;
-                _inventoryController.OnVisibilityChanged += SetVisible;
+                inventoryController.OnInventoryChanged += RefreshUI;
             }
 
-            // Tạo sẵn các ô UI
             BuildSlots();
-
-            // Ẩn lúc đầu
-            if (canvasRoot != null)
-                canvasRoot.SetActive(false);
+            SetVisible(false); // Mặc định ẩn túi đồ khi vào game
         }
 
         private void OnDestroy()
         {
-            if (_inventoryController == null) 
-                return;
-            _inventoryController.OnInventoryChanged -= RefreshUI;
-            _inventoryController.OnVisibilityChanged -= SetVisible;
+            if (inventoryController != null)
+            {
+                inventoryController.OnInventoryChanged -= RefreshUI;
+            }
         }
 
-        // ── Build ─────────────────────────────────────────────────
+        // Gọi hàm này từ phím tắt (ví dụ nhấn nút Tab hoặc I)
+        public void SetVisible(bool visible)
+        {
+            if (canvasRoot != null)
+                canvasRoot.SetActive(visible);
+
+            switch (visible)
+            {
+                case false when actionMenu != null:
+                    actionMenu.HideMenu();
+                    break;
+                case true:
+                    RefreshUI();
+                    break;
+            }
+        }
 
         private void BuildSlots()
         {
             if (slotPrefab == null || slotsContainer == null) return;
 
-            // Xóa slot cũ (nếu có)
             foreach (Transform child in slotsContainer)
                 Destroy(child.gameObject);
             _slotUIs.Clear();
 
-            int cap = _inventoryController != null ? _inventoryController.Capacity : 20;
-            for (int i = 0; i < cap; i++)
+            var cap = inventoryController != null ? inventoryController.Capacity : 30;
+            for (var i = 0; i < cap; i++)
             {
                 var go = Instantiate(slotPrefab, slotsContainer);
                 var slotUI = go.GetComponent<InventorySlotUI>();
-                if (slotUI != null)
-                {
-                    slotUI.Init(i, actionMenu);
-                    _slotUIs.Add(slotUI);
-                }
+                if (slotUI == null) 
+                    continue;
+                slotUI.Init(i);
+                // Đăng ký nhận sự kiện click từ slot
+                slotUI.OnRightClicked += HandleSlotRightClicked;
+                _slotUIs.Add(slotUI);
             }
-
-            RefreshUI();
         }
 
-        // ── Refresh ───────────────────────────────────────────────
+        private void HandleSlotRightClicked(InventorySlot slotData, Vector3 pos)
+        {
+            if (actionMenu != null)
+                actionMenu.ShowMenu(slotData, pos);
+        }
 
         private void RefreshUI()
         {
-            if (_inventoryController == null) return;
-            var slots = _inventoryController.Slots;
+            if (inventoryController == null || !IsVisible) return;
+            var slots = inventoryController.Slots;
 
             for (var i = 0; i < _slotUIs.Count; i++)
             {
                 var data = (i < slots.Count) ? slots[i] : null;
                 _slotUIs[i].Refresh(data);
             }
-        }
-
-        // ── Visibility ────────────────────────────────────────────
-
-        private void SetVisible(bool visible)
-        {
-            if (canvasRoot != null)
-                canvasRoot.SetActive(visible);
-
-            // Đóng action menu khi đóng inventory
-            if (!visible && actionMenu != null)
-                actionMenu.HideMenu();
         }
     }
 }

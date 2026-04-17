@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: "Th\xE1o b\u1ECF"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: "V\u1EE9t"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -644,7 +644,8 @@ GameObject:
   - component: {fileID: 679043136863342536}
   - component: {fileID: 8840758476308846510}
   - component: {fileID: 539874792132037675}
-  - component: {fileID: 4850698979543639910}
+  - component: {fileID: 8770158978361874518}
+  - component: {fileID: 8405540139692192401}
   m_Layer: 5
   m_Name: Action_Menu
   m_TagString: Untagged
@@ -753,7 +754,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &4850698979543639910
+--- !u!114 &8770158978361874518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3444016844646795635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e99f37bc7672204e8d28c8cde06c18f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuPanel: {fileID: 3444016844646795635}
+  useButton: {fileID: 5510909755969035757}
+  dropButton: {fileID: 6939154232620119434}
+  equipButton: {fileID: 813414584554245672}
+  unequipButton: {fileID: 4882634065167810599}
+--- !u!114 &8405540139692192401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -765,11 +783,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bfb409afac14b54d9f345b28e1f4530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuPanel: {fileID: 3444016844646795635}
-  useButton: {fileID: 5510909755969035757}
-  dropButton: {fileID: 6939154232620119434}
-  equipButton: {fileID: 813414584554245672}
-  unequipButton: {fileID: 4882634065167810599}
+  menuUI: {fileID: 8770158978361874518}
+  inventoryController: {fileID: 7198703297472660479, guid: ea9dffbdfbbb0544cae5e46d98618ba7, type: 3}
 --- !u!1 &4129017406871066647
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,7 +971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: "S\u1EED d\u1EE5ng"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1090,7 +1105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: "Trang b\u1ECB"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
