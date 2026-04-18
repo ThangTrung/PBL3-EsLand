@@ -10,7 +10,7 @@ namespace Script.Inventory.Controller
         [SerializeField] private InventoryController inventoryController;
 
         private InventorySlot _currentSlot;
-
+        
         private void OnEnable()
         {
             menuUI.OnUseClicked += HandleUse;
@@ -29,16 +29,10 @@ namespace Script.Inventory.Controller
 
         public void ShowMenu(InventorySlot slotData, Vector3 worldPos)
         {
-            if (slotData == null || slotData.IsEmpty) 
-            {
-                HideMenu();
-                return;
-            }
-
+            Debug.Log("ShowMenu");
             _currentSlot = slotData;
             var isEquipment = slotData.IsEquipment;
-            const bool isEquipped = false; 
-            menuUI.Show(worldPos, !isEquipment, isEquipment && !isEquipped, isEquipment && isEquipped);
+            menuUI.Show(worldPos, !isEquipment, isEquipment, false);
         }
 
         public void HideMenu()

@@ -20,9 +20,9 @@ namespace Script.Test
 
         private void Start()
         {
-            _inventoryUI = _spawnedController.GetComponentInChildren<InventoryUI>();
             var instance = Instantiate(inventoryPrefab);
             _spawnedController = instance.GetComponentInChildren<InventoryController>();
+            _inventoryUI = _spawnedController.GetComponentInChildren<InventoryUI>();
         }
 
         private void Update()

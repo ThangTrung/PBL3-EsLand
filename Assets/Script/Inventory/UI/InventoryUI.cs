@@ -21,21 +21,14 @@ namespace Script.Inventory.UI
 
         private void Start()
         {
-            if (inventoryController != null)
-            {
-                inventoryController.OnInventoryChanged += RefreshUI;
-            }
-
+            inventoryController.OnInventoryChanged += RefreshUI;
             BuildSlots();
-            SetVisible(false); // Mặc định ẩn túi đồ khi vào game
+            SetVisible(false); 
         }
 
         private void OnDestroy()
         {
-            if (inventoryController != null)
-            {
-                inventoryController.OnInventoryChanged -= RefreshUI;
-            }
+            inventoryController.OnInventoryChanged -= RefreshUI;
         }
 
         // Gọi hàm này từ phím tắt (ví dụ nhấn nút Tab hoặc I)
@@ -57,13 +50,11 @@ namespace Script.Inventory.UI
 
         private void BuildSlots()
         {
-            if (slotPrefab == null || slotsContainer == null) return;
-
             foreach (Transform child in slotsContainer)
                 Destroy(child.gameObject);
             _slotUIs.Clear();
 
-            var cap = inventoryController != null ? inventoryController.Capacity : 30;
+            var cap = inventoryController.Capacity;
             for (var i = 0; i < cap; i++)
             {
                 var go = Instantiate(slotPrefab, slotsContainer);
@@ -71,7 +62,6 @@ namespace Script.Inventory.UI
                 if (slotUI == null) 
                     continue;
                 slotUI.Init(i);
-                // Đăng ký nhận sự kiện click từ slot
                 slotUI.OnRightClicked += HandleSlotRightClicked;
                 _slotUIs.Add(slotUI);
             }
@@ -79,8 +69,8 @@ namespace Script.Inventory.UI
 
         private void HandleSlotRightClicked(InventorySlot slotData, Vector3 pos)
         {
-            if (actionMenu != null)
-                actionMenu.ShowMenu(slotData, pos);
+            Debug.Log("HandleSlotRightClicked");
+            actionMenu.ShowMenu(slotData, pos);
         }
 
         private void RefreshUI()

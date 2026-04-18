@@ -19,6 +19,9 @@ namespace Script.Inventory.UI
         [SerializeField] public TextMeshProUGUI tooltipName;
         [SerializeField] public TextMeshProUGUI tooltipDesc;
 
+        [Header("Actions")]
+        [SerializeField] public ItemActionMenu actionMenu;
+        
         private InventorySlot _slotData;
         public int SlotIndex { get; private set; }
 
@@ -66,10 +69,10 @@ namespace Script.Inventory.UI
         public void OnPointerClick(PointerEventData eventData)
         {
             HideTooltip();
-            if (eventData.button == PointerEventData.InputButton.Right && _slotData is { IsEmpty: false })
-            {
-                OnRightClicked?.Invoke(_slotData, transform.position);
-            }
+            if (eventData.button != PointerEventData.InputButton.Right || _slotData is not { IsEmpty: false }) 
+                return;
+            var worldPos = eventData.position;
+            OnRightClicked?.Invoke(_slotData, worldPos);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
