@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91a93a803b104049a092111427c4694a, type: 3}
-  m_Name: copper_bar
+  m_Name: silver_ore
   m_EditorClassIdentifier: 
-  itemName: "Th\u1ECFi \u0110\u1ED3ng"
+  itemName: "Ph\xF4i b\u1EA1c"
   description: 
-  icon: {fileID: 21300000, guid: 0340634fbd57b9e4fb4a307b7ddf4d11, type: 3}
+  icon: {fileID: 21300000, guid: 60b948ae5b17c0d48b63719fd6241ead, type: 3}
   maxStack: 64
-  canBeSmelted: 0
+  canBeSmelted: 1
   resultItem: {fileID: 0}
   smeltTime: 5
