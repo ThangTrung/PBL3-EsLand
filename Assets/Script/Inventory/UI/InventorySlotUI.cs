@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-
 using Script.Inventory.Controller;
 
 namespace Script.Inventory.UI
@@ -20,14 +19,19 @@ namespace Script.Inventory.UI
         [SerializeField] public TextMeshProUGUI tooltipName;
         [SerializeField] public TextMeshProUGUI tooltipDesc;
 
+        [Header("Actions")]
+        [SerializeField] public ItemActionMenu actionMenu;
+        
         private InventorySlot _slotData;
-        private ItemActionMenu _actionMenu;
         public int SlotIndex { get; private set; }
-        public void Init(int index, ItemActionMenu menu)
+
+        public event Action<InventorySlot, Vector3> OnRightClicked;
+
+        public void Init(int index)
         {
             SlotIndex = index;
-            _actionMenu = menu;
         }
+
         public void Refresh(InventorySlot slotData)
         {
             _slotData = slotData;
@@ -41,19 +45,15 @@ namespace Script.Inventory.UI
             icon.sprite = _slotData.Item.Icon;
             icon.enabled = true;
             
+            amountText.enabled = _slotData.Amount > 1;
             if (_slotData.Amount > 1)
             {
                 amountText.text = _slotData.Amount.ToString();
-                amountText.enabled = true;
-            }
-            else
-            {
-                amountText.enabled = false;
             }
             
             var showDur = _slotData.IsEquipment;
-            durabilityBar.gameObject.SetActive(showDur);
-            if (showDur)
+            if(durabilityBar) durabilityBar.gameObject.SetActive(showDur);
+            if (showDur && durabilityBar)
                 durabilityBar.fillAmount = _slotData.DurabilityPercent;
         }
 
@@ -69,21 +69,21 @@ namespace Script.Inventory.UI
         public void OnPointerClick(PointerEventData eventData)
         {
             HideTooltip();
-            if (eventData.button == PointerEventData.InputButton.Right && _slotData is { IsEmpty: false } && _actionMenu != null)
-                _actionMenu.ShowMenu(_slotData, transform.position);
-            else if (_actionMenu != null)
-                _actionMenu.HideMenu();
+            if (eventData.button != PointerEventData.InputButton.Right || _slotData is not { IsEmpty: false }) 
+                return;
+            var worldPos = eventData.position;
+            OnRightClicked?.Invoke(_slotData, worldPos);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            highlightImage.enabled = true;
+            if(highlightImage) highlightImage.enabled = true;
             if (_slotData is { IsEmpty: false }) ShowTooltip();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            highlightImage.enabled = false;
+            if(highlightImage) highlightImage.enabled = false;
             HideTooltip();
         }
 

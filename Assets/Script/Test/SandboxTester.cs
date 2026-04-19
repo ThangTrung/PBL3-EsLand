@@ -1,36 +1,43 @@
+using Script.Inventory.Controller;
+using Script.Inventory.UI;
+using Script.Items;
 using UnityEngine;
-using Script.Inventory.Controller; 
-using Script.Items;    
+//using Script.Data.Items; 
 
-public class InventoryTestScenario : MonoBehaviour
+namespace Script.Test
 {
-    [Header("=== GẮN PREFAB INVENTORY ===")]
-    public GameObject inventoryPrefab;
-
-    private InventoryController _spawnedController;
-
-    void Start()
+    public class InventoryTestScenario : MonoBehaviour
     {
-        if (inventoryPrefab != null)
+        [Header("Prefab")]
+        public GameObject inventoryPrefab;
+        
+        [Header("Data")]
+        public Item itemToTest; 
+        public int amountToAdd = 1;
+
+        private InventoryController _spawnedController;
+        private InventoryUI _inventoryUI;
+
+        private void Start()
         {
-            GameObject instance = Instantiate(inventoryPrefab);
+            var instance = Instantiate(inventoryPrefab);
             _spawnedController = instance.GetComponentInChildren<InventoryController>();
-            
-            Debug.Log("[Test] Đã load Inventory Canvas thành công!");
+            _inventoryUI = _spawnedController.GetComponentInChildren<InventoryUI>();
         }
-    }
 
-    void Update()
-    {
-        // Nếu chưa load xong thì không làm gì cả
-        if (_spawnedController == null) return;
-
-        // 2. BẤM PHÍM ĐỂ TEST LOGIC
-
-        // Phím Tab: Bật/Tắt giao diện túi đồ
-        if (Input.GetKeyDown(KeyCode.Tab))
+        private void Update()
         {
-            _spawnedController.ToggleDisplay();
+            if(Input.GetKeyDown(KeyCode.Tab))
+                _inventoryUI.SetVisible(!_inventoryUI.IsVisible);
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                SimulateAddingItem();
+            }
+        }
+
+        private void SimulateAddingItem()
+        {
+            _spawnedController.AddItem(itemToTest, amountToAdd);
         }
     }
 }
