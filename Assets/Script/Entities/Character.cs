@@ -42,7 +42,10 @@ namespace Script.Entities
         }
         protected virtual void Update()
         {
-            
+            if (AttackTimer > 0)
+            {
+                AttackTimer -= Time.deltaTime;
+            }
         }
 
         protected virtual void Move(Vector3 direction)
