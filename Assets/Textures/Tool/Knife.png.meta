@@ -100,22 +100,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tool_03_0
+      name: Knife_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 21
-        width: 21
-        height: 22
+        x: 23
+        y: 22
+        width: 19
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5b7d78902a083aee0800000000000000
-      internalID: -1251014838045911115
+      spriteID: b3909a5bfc5e86743907dd50a3e5cc2d
+      internalID: -351778627
       vertices: []
       indices: 
       edges: []
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Tool_03_0: -1251014838045911115
+      Knife_0: -351778627
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

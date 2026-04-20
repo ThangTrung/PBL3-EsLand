@@ -99,5 +99,10 @@ namespace Script.Inventory.UI
         {
             if (tooltipRoot != null) tooltipRoot.SetActive(false);
         }
+        public void ResetState()
+        {
+            if (highlightImage != null) highlightImage.enabled = false;
+            HideTooltip();
+        }
     }
 }

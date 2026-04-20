@@ -17,7 +17,7 @@ namespace Script.Inventory.UI
 
         private readonly List<InventorySlotUI> _slotUIs = new List<InventorySlotUI>();
 
-        public bool IsVisible => canvasRoot != null && canvasRoot.activeSelf;
+        public bool IsVisible => canvasRoot.activeSelf;
 
         private void Start()
         {
@@ -30,22 +30,21 @@ namespace Script.Inventory.UI
         {
             inventoryController.OnInventoryChanged -= RefreshUI;
         }
-
-        // Gọi hàm này từ phím tắt (ví dụ nhấn nút Tab hoặc I)
+        
         public void SetVisible(bool visible)
         {
-            if (canvasRoot != null)
-                canvasRoot.SetActive(visible);
-
-            switch (visible)
+            if (!visible) 
             {
-                case false when actionMenu != null:
-                    actionMenu.HideMenu();
-                    break;
-                case true:
-                    RefreshUI();
-                    break;
+                actionMenu.HideMenu();
+                foreach (var slot in _slotUIs)
+                    slot.ResetState();
+                
+                if (UnityEngine.EventSystems.EventSystem.current)
+                    UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
             }
+            canvasRoot.SetActive(visible);
+            if (visible)
+                RefreshUI();
         }
 
         private void BuildSlots()
@@ -75,7 +74,7 @@ namespace Script.Inventory.UI
 
         private void RefreshUI()
         {
-            if (inventoryController == null || !IsVisible) return;
+            if (!IsVisible) return;
             var slots = inventoryController.Slots;
 
             for (var i = 0; i < _slotUIs.Count; i++)
