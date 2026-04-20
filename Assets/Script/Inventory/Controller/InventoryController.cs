@@ -8,6 +8,20 @@ namespace Script.Inventory.Controller
 {
     public class InventoryController : MonoBehaviour
     {
+        public static InventoryController Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         [Header("Settings")] private const int _capacity = 64;
 
         private readonly List<InventorySlot> _slots = new List<InventorySlot>();

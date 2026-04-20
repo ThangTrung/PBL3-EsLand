@@ -74,12 +74,21 @@ namespace Script.Inventory.UI
 
         private void RefreshUI()
         {
-            if (!IsVisible) return;
+
             var slots = inventoryController.Slots;
+
+            // Báo ra Console để biết hàm này đã thực sự chạy
+            Debug.Log($"[TÚI ĐỒ] Đang cập nhật UI... Tổng số ô chứa đồ: {slots.Count}");
 
             for (var i = 0; i < _slotUIs.Count; i++)
             {
                 var data = (i < slots.Count) ? slots[i] : null;
+
+                // Log ra xem UI có nhận được đúng món đồ không 
+                if (data != null)
+                {
+                    Debug.Log($"[TÚI ĐỒ] Ô số {i} đang vẽ món: {data.Item.ItemName} | Số lượng: {data.Amount}");
+                }
                 _slotUIs[i].Refresh(data);
             }
         }

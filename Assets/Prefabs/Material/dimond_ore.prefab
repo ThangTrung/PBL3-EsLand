@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7685984585330688710
+--- !u!1 &3890871617514162949
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 725352093980981755}
-  - component: {fileID: 5769136314016627615}
-  - component: {fileID: 6694101266857107044}
-  - component: {fileID: 586948645929817155}
-  m_Layer: 6
-  m_Name: gold_node
-  m_TagString: Untagged
+  - component: {fileID: 1269728001574318695}
+  - component: {fileID: 1422910163081301200}
+  - component: {fileID: 3366293882086132163}
+  - component: {fileID: 1346113637767904896}
+  m_Layer: 0
+  m_Name: dimond_ore
+  m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &725352093980981755
+--- !u!4 &1269728001574318695
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685984585330688710}
+  m_GameObject: {fileID: 3890871617514162949}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.1953702, y: -3.3723328, z: 0}
+  m_LocalPosition: {x: 0.77662706, y: -1.8449322, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5769136314016627615
+--- !u!212 &1422910163081301200
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685984585330688710}
+  m_GameObject: {fileID: 3890871617514162949}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0d862866b095ccb41a639de70b421351, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 360784b86fb1da9419f6aaef25139713, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,13 +86,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &6694101266857107044
+--- !u!114 &3366293882086132163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890871617514162949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91102227483325e489e4c56f5954e844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: ed084631b1f3609458214a9b85d2872c, type: 2}
+  flySpeed: 8
+  pickupDistance: 0.2
+--- !u!61 &1346113637767904896
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685984585330688710}
+  m_GameObject: {fileID: 3890871617514162949}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -115,10 +130,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.018968463, y: -0.06776023}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -129,25 +144,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7886822, y: 0.7074399}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &586948645929817155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7685984585330688710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 328ee40b565b55a47bb8197ab3de056e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  staminaCostPerHit: 5
-  resourceName: "Qu\u1EB7ng v\xE0ng"
-  health: 5
-  pickupPrefab: {fileID: 6010068165942717462, guid: 1cd277cfb5a660d44af35ce1a3b092a0, type: 3}
-  lootTable:
-  - item: {fileID: 11400000, guid: 521497fc8a7734b4aba07ba42ee82610, type: 2}
-    minAmount: 1
-    maxAmount: 3

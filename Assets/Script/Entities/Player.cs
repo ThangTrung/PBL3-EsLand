@@ -7,6 +7,11 @@ namespace Script.Entities
 {
     public class Player : Character
     {
+        [Header("Farming Settings")]
+        [SerializeField] private float farmRange = 1.5f;
+        [SerializeField] private LayerMask resourceLayer; 
+        [SerializeField] private int attackDamage = 1;    
+
         [Header("Survival Stats")]
         [SerializeField] private float maxHunger = 100f;
         [SerializeField] private float maxThirst = 100f;
@@ -39,6 +44,7 @@ namespace Script.Entities
 
         protected override void Update()
         {
+            base.Update();
             if (_ui && _ui.IsVisible) 
             {
                 rb.velocity = Vector2.zero;
@@ -48,8 +54,16 @@ namespace Script.Entities
             }
             HandleMovementInput();
             HandleInventoryInput();
+            HandleActionInput();
         }
-        
+
+        private void HandleActionInput()
+        {
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
+            {
+                Attack();
+            }
+        }
         private void HandleMovementInput()
         {
             var moveX = Input.GetAxisRaw("Horizontal");
@@ -77,9 +91,37 @@ namespace Script.Entities
 
         public override void Attack()
         {
-            if (!CanAttack()) 
+            // 1. Kiểm tra Cooldown và Thể lực
+            if (!CanAttack())
                 return;
-            
+
+            // 4. Dò tìm mỏ quặng trong phạm vi farmRange
+            Collider2D[] hitResources = Physics2D.OverlapCircleAll(transform.position, farmRange, resourceLayer);
+
+            if (hitResources.Length > 0)
+            {
+                var node = hitResources[0].GetComponent<ResourceNode>();
+                if (node != null)
+                {
+                    // Lấy "giá" thể lực từ chính mỏ quặng
+                    float currentCost = node.GetStaminaCost();
+
+                    if (Stamina >= currentCost)
+                    {
+                        animator.SetTrigger("attack");
+                        node.GetHit(attackDamage);
+
+                        // Trừ theo giá trị động
+                        Stamina -= currentCost;
+                        Debug.Log($"[FARM] Đã trừ {currentCost} thể lực.");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Mệt quá, không đủ sức!");
+                    }
+                }
+            }
+
             AttackTimer = baseAttackCooldown;
         }
     }
