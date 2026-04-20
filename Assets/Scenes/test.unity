@@ -201,7 +201,7 @@ PrefabInstance:
     - target: {fileID: 3358945420563785785, guid: aa1cb843452dd7440afe2e460150199f, type: 3}
       propertyPath: itemToTest
       value: 
-      objectReference: {fileID: 11400000, guid: 613810f30b292864a902677578dfcd06, type: 2}
+      objectReference: {fileID: 11400000, guid: e5f6598e1ec98674090f0380290015aa, type: 2}
     - target: {fileID: 3358945420563785785, guid: aa1cb843452dd7440afe2e460150199f, type: 3}
       propertyPath: inventoryPrefab
       value: 

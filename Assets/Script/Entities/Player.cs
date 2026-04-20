@@ -1,100 +1,86 @@
+using System;
 using Script.Inventory.Controller;
+using Script.Inventory.UI;
 using UnityEngine;
 
 namespace Script.Entities
 {
-    /// <summary>
-    /// Đại diện cho người chơi, kế thừa từ Character với các cơ chế sinh tồn riêng.
-    /// </summary>
     public class Player : Character
     {
         [Header("Survival Stats")]
         [SerializeField] private float maxHunger = 100f;
         [SerializeField] private float maxThirst = 100f;
         [SerializeField] private float maxStamina = 100f;
+        
+        [Header("Inventory")]
+        [SerializeField] protected GameObject inventory;
 
-        private float _hunger;
-        private float _thirst;
-        private float _stamina;
-
-        public float Hunger { get => _hunger; private set => _hunger = value; }
-        public float Thirst { get => _thirst; private set => _thirst = value; }
-        public float Stamina { get => _stamina; private set => _stamina = value; }
+        private InventoryUI _ui;
+        private InventoryController _inventoryController;
+        private float Hunger { get; set; }
+        private float Thirst { get; set; }
+        public float Stamina { get; private set; }
 
         protected override void Awake()
         {
+            
             base.Awake();
             Hunger = maxHunger;
             Thirst = maxThirst;
             Stamina = maxStamina;
-            
-            // Tự động tìm Inventory nếu chưa gán
-            if (inventory == null)
-                inventory = GetComponentInChildren<InventoryController>(true);
+        }
+
+        private void Start()
+        {  
+            var instance = Instantiate(inventory, transform.position, transform.rotation);
+            _inventoryController = instance.GetComponentInChildren<InventoryController>();
+            _ui = _inventoryController.GetComponentInChildren<InventoryUI>();
         }
 
         protected override void Update()
         {
-            base.Update();
-            HandleInventoryInput();
-            
-            // Giảm dần các chỉ số sinh tồn theo thời gian (ví dụ đơn giản)
-            ReduceSurvivalStats(Time.deltaTime * 0.5f);
-        }
-
-        public void ToggleInventory()
-        {
-            if (inventory == null) return;
-            var ui = inventory.GetComponent<Script.Inventory.UI.InventoryUI>();
-            if (ui != null)
+            if (_ui && _ui.IsVisible) 
             {
-                ui.SetVisible(!ui.IsVisible);
+                rb.velocity = Vector2.zero;
+                animator.SetBool(Animator.StringToHash("isMoving"), false);
+                HandleInventoryInput();
+                return; 
             }
+            HandleMovementInput();
+            HandleInventoryInput();
         }
-
+        
+        private void HandleMovementInput()
+        {
+            var moveX = Input.GetAxisRaw("Horizontal");
+            var moveY = Input.GetAxisRaw("Vertical");
+            var inputDirection = new Vector3(moveX, moveY, 0f);
+            Move(inputDirection);
+        }
+        
         private void HandleInventoryInput()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.Tab))
                 ToggleInventory();
         }
 
-        private void ReduceSurvivalStats(float amount)
+        private void ToggleInventory()
         {
-            Hunger = Mathf.Max(0, Hunger - amount);
-            Thirst = Mathf.Max(0, Thirst - amount);
-            
-            // Nếu đói hoặc khát quá mức, sẽ bị mất máu
-            if (Hunger <= 0 || Thirst <= 0)
-            {
-                TakeDamage(Time.deltaTime * 2f);
-            }
+            var isOpening = !_ui.IsVisible;
+            _ui.SetVisible(isOpening);
+            if (!isOpening) 
+                return;
+            rb.velocity = Vector2.zero;
+            animator.SetBool(Animator.StringToHash("isMoving"), false);
         }
-
-        public void Consume(float hungerAmount, float thirstAmount, float healthAmount)
-        {
-            Hunger = Mathf.Min(Hunger + hungerAmount, maxHunger);
-            Thirst = Mathf.Min(Thirst + thirstAmount, maxThirst);
-            Heal(healthAmount);
-            Debug.Log($"[Player] Đã hồi phục: Đói +{hungerAmount}, Khát +{thirstAmount}, Máu +{healthAmount}");
-        }
+        
 
         public override void Attack()
         {
-            if (!CanAttack()) return;
-
-            Debug.Log($"[Player] Tấn công! Gây {GetTotalDamage()} sát thương.");
+            if (!CanAttack()) 
+                return;
             
-            // Reset cooldown đòn đánh
             AttackTimer = baseAttackCooldown;
-            
-            // TODO: Triển khai logic gây sát thương thực tế (Raycast, Trigger, v.v.)
-        }
-
-        protected override void Die()
-        {
-            base.Die();
-            Debug.Log("[Player] GAME OVER! Người chơi đã hy sinh.");
-            // Triển khai logic Game Over hoặc Respawn ở đây
         }
     }
 }
