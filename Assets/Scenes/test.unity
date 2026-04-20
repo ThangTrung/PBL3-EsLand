@@ -205,7 +205,7 @@ PrefabInstance:
     - target: {fileID: 3358945420563785785, guid: aa1cb843452dd7440afe2e460150199f, type: 3}
       propertyPath: inventoryPrefab
       value: 
-      objectReference: {fileID: 5902385503942940225, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
+      objectReference: {fileID: 2262220339235665670, guid: ea9dffbdfbbb0544cae5e46d98618ba7, type: 3}
     - target: {fileID: 6299227684483679310, guid: aa1cb843452dd7440afe2e460150199f, type: 3}
       propertyPath: m_Name
       value: '[TEST]'

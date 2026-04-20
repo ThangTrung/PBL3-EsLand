@@ -9,7 +9,8 @@ namespace Script.Inventory.UI
     {
         [Header("Panel")]
         [SerializeField] private GameObject menuPanel;
-
+        [SerializeField] private GameObject blockerPanel;
+        
         [Header("Buttons")]
         [SerializeField] private Button useButton;
         [SerializeField] private Button dropButton;
@@ -30,19 +31,30 @@ namespace Script.Inventory.UI
             unequipButton.onClick.AddListener(() => OnUnequipClicked?.Invoke());
         }
         
-        public void Show(Vector3 worldPos, bool showUse, bool showEquip, bool showUnequip)
+        public void Show(Vector3 screenPos, bool showUse, bool showEquip, bool showUnequip)
         {
             useButton.gameObject.SetActive(showUse);
             dropButton.gameObject.SetActive(true);
             equipButton.gameObject.SetActive(showEquip);
             unequipButton.gameObject.SetActive(showUnequip);
-            menuPanel.transform.position = worldPos;
+            
+            var menuRect = menuPanel.GetComponent<RectTransform>();
+            var parentRect = menuRect.parent.GetComponent<RectTransform>();
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentRect, 
+                screenPos, 
+                null, 
+                out var localPoint
+            );
+            menuRect.localPosition = localPoint;
             menuPanel.SetActive(true);
+            blockerPanel.SetActive(true);
         }
 
         public void Hide()
         {
-            if(menuPanel) menuPanel.SetActive(false);
+            menuPanel.SetActive(false);
+            blockerPanel.SetActive(false);
         }
 
         private void Update()

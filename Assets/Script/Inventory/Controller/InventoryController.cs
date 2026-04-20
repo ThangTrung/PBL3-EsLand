@@ -8,15 +8,14 @@ namespace Script.Inventory.Controller
 {
     public class InventoryController : MonoBehaviour
     {
-        [Header("Settings")]
-        [SerializeField] private int capacity = 30;
-        
+        [Header("Settings")] private const int _capacity = 64;
+
         private readonly List<InventorySlot> _slots = new List<InventorySlot>();
         
         public IReadOnlyList<InventorySlot> Slots => _slots;
-        public int Capacity => capacity;
+        public int Capacity => _capacity;
         public int UsedSlots => _slots.Count;
-        private bool IsFull => _slots.Count >= capacity;
+        private bool IsFull => _slots.Count >= _capacity;
 
         // Sự kiện báo hiệu khi Data thay đổi
         public event Action OnInventoryChanged;
