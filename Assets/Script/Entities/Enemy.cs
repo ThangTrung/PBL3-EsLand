@@ -5,109 +5,190 @@ using UnityEngine;
 namespace Script.Entities
 {
     /// <summary>
-    /// Đại diện cho kẻ thù, kế thừa từ Character với logic AI và phần thưởng khi chết.
+    /// Enemy kế thừa Character: dùng stat/combat/cooldown từ Character,
+    /// AI chỉ quyết định hành vi (patrol/chase/attack).
     /// </summary>
     public class Enemy : Character
     {
-        [Header("Enemy AI Settings")]
-        [SerializeField] protected float detectionRange = 10f;
-        [SerializeField] protected float stopDistance = 2f;
-        
-        [Header("Loot Settings")]
-        [SerializeField] protected List<Item> lootTable = new List<Item>();
-        [Range(0, 1)] [SerializeField] protected float dropChance = 0.5f;
+        public enum AIState
+        {
+            Patrol,
+            Chase,
+            Attack
+        }
 
-        protected Transform target;
+        [Header("Target")]
+        [SerializeField] private Transform target;
+        [SerializeField] private string targetTag = "Player";
+
+        [Header("AI Settings")]
+        [SerializeField] private float detectionRange = 10f;
+        [SerializeField] private float attackRange = 2f;
+        [SerializeField] private AIState state = AIState.Patrol;
+
+        [Header("Patrol Settings")]
+        [SerializeField] private float patrolRadius = 4f;
+        [SerializeField] private float patrolReachDistance = 0.3f;
+
+        [Header("Loot Settings (temporary)")]
+        [SerializeField] private List<Item> lootTable = new List<Item>();
+        [Range(0, 1)][SerializeField] private float dropChance = 0.5f;
+
+        private Vector3 _patrolPoint;
 
         protected override void Awake()
         {
             base.Awake();
-            // Khởi tạo logic tìm kiếm mục tiêu (ví dụ: tìm Player)
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null) target = playerObj.transform;
+
+            // ưu tiên target được gán sẵn; nếu không có thì auto-find theo tag
+            if (target == null && !string.IsNullOrWhiteSpace(targetTag))
+            {
+                var go = GameObject.FindGameObjectWithTag(targetTag);
+                if (go != null) target = go.transform;
+            }
+
+            PickNewPatrolPoint();
         }
 
         protected override void Update()
         {
             base.Update();
-            
-            if (IsDead || target == null) return;
+            if (IsDead) return;
+
+            UpdateState();
+            TickState();
+        }
+
+        private void UpdateState()
+        {
+            if (target == null)
+            {
+                state = AIState.Patrol;
+                return;
+            }
 
             float distance = Vector3.Distance(transform.position, target.position);
 
-            if (distance <= detectionRange)
+            if (distance <= attackRange) state = AIState.Attack;
+            else if (distance <= detectionRange) state = AIState.Chase;
+            else state = AIState.Patrol;
+        }
+
+        private void TickState()
+        {
+            switch (state)
             {
-                if (distance > stopDistance)
-                {
-                    MoveTowardsTarget();
-                }
-                else
-                {
-                    Attack();
-                }
-            }
-            else
-            {
-                Patrol();
+                case AIState.Patrol:
+                    Patrol();
+                    break;
+
+                case AIState.Chase:
+                    ChaseTarget();
+                    break;
+
+                case AIState.Attack:
+                    Attack(); // dùng Attack() chuẩn của Character (cooldown)
+                    break;
             }
         }
 
-        protected virtual void MoveTowardsTarget()
+        private void Patrol()
         {
-            // Logic di chuyển cơ bản hướng về phía mục tiêu
-            Vector3 direction = (target.position - transform.position).normalized;
-            transform.position += direction * (GetMoveSpeed() * Time.deltaTime);
-            
-            // Quay mặt về phía mục tiêu
-            if (direction != Vector3.zero)
-                transform.forward = direction;
+            MoveTowards(_patrolPoint);
+
+            if (Vector3.Distance(transform.position, _patrolPoint) <= patrolReachDistance)
+                PickNewPatrolPoint();
         }
 
-        public virtual void Patrol()
+        private void PickNewPatrolPoint()
         {
-            // TODO: Triển khai logic tuần tra (di chuyển giữa các Waypoints)
+            var rand = Random.insideUnitSphere * patrolRadius;
+            rand.y = 0f;
+            _patrolPoint = transform.position + rand;
+        }
+
+        private void ChaseTarget()
+        {
+            if (target == null) return;
+            MoveTowards(target.position);
+        }
+
+        private void MoveTowards(Vector3 pos)
+        {
+            var dir = pos - transform.position;
+            dir.y = 0f;
+
+            if (dir.sqrMagnitude < 0.0001f) return;
+
+            dir.Normalize();
+
+            // dùng moveSpeed từ Character (có tính penalty từ armor nếu sau này enemy cũng equip)
+            transform.position += dir * (GetMoveSpeed() * Time.deltaTime);
+
+            FaceDirection(dir);
+        }
+
+        private void FaceDirection(Vector3 direction)
+        {
+            if (direction.sqrMagnitude < 0.0001f) return;
+            transform.forward = direction;
         }
 
         public override void Attack()
         {
             if (!CanAttack()) return;
+            if (target == null) return;
 
-            Debug.Log($"[Enemy] {characterName} tấn công mục tiêu! Gây {GetTotalDamage()} sát thương.");
-            
-            // Gây sát thương lên mục tiêu nếu mục tiêu có script Character
+            // nếu target chạy ra khỏi range, đừng đánh
+            float distance = Vector3.Distance(transform.position, target.position);
+            if (distance > attackRange) return;
+
+            Debug.Log($"[Enemy] {characterName} tấn công! Gây {GetTotalDamage()} sát thương.");
+
             if (target.TryGetComponent<Character>(out var victim))
-            {
                 victim.TakeDamage(GetTotalDamage());
-            }
 
-            AttackTimer = baseAttackCooldown;
+            AttackTimer = baseAttackCooldown; // chuẩn theo Character
         }
 
         protected override void Die()
         {
+            // Character.Die() set IsDead + event
             base.Die();
-            
+
             Debug.Log($"[Enemy] {characterName} đã bị tiêu diệt.");
-            
+
             DropLoot();
-            
-            // Hủy object sau một khoảng thời gian hoặc chạy hiệu ứng biến mất
+
+            // tuỳ game: có thể disable thay vì destroy (để object pool)
             Destroy(gameObject, 2f);
         }
 
-        protected virtual void DropLoot()
+        private void DropLoot()
         {
-            if (lootTable.Count == 0) return;
+            if (lootTable == null || lootTable.Count == 0) return;
 
-            if (Random.value <= dropChance)
-            {
-                int randomIndex = Random.Range(0, lootTable.Count);
-                Item droppedItem = lootTable[randomIndex];
-                
-                Debug.Log($"[Loot] {characterName} rơi ra vật phẩm: {droppedItem.ItemName}");
-                
-                // TODO: Instantiate Item Pickup object trong thế giới game
-            }
+            if (Random.value > dropChance) return;
+
+            int idx = Random.Range(0, lootTable.Count);
+            var dropped = lootTable[idx];
+            if (dropped == null) return;
+
+            Debug.Log($"[Loot] {characterName} rơi ra vật phẩm: {dropped.ItemName}");
+
+            // TODO: Instantiate pickup prefab (vật phẩm rơi ra ngoài world)
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, patrolRadius);
         }
     }
 }
