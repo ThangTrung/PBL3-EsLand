@@ -91,7 +91,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 4
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -104,7 +104,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -121,183 +121,174 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bushe3_0
+      name: Bush 3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3a226dda7a1daddd0800000000000000
-      internalID: -2460423728298319197
+      spriteID: 14f469eb385a7a746a97e5fed30ddfce
+      internalID: -2074510547
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bushe3_1
+      name: Bush 3_1
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2c3e4a6199e455650800000000000000
-      internalID: 6220964879699076034
+      spriteID: 8aa1d971a7043cf4dac0e79afbd5c169
+      internalID: 1377367684
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bushe3_2
+      name: Bush 3_2
       rect:
         serializedVersion: 2
         x: 256
         y: 0
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0f075d9cec512c3e0800000000000000
-      internalID: -2035040103724388112
+      spriteID: 4f142d4cddc67b6449e58b5e5552cb00
+      internalID: 1913553768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bushe3_3
+      name: Bush 3_3
       rect:
         serializedVersion: 2
         x: 384
         y: 0
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3fc0706a8d144f830800000000000000
-      internalID: 4103977559195585779
+      spriteID: 74eb135050c005b43ad66d1fd67c0f3f
+      internalID: 1041534732
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bushe3_4
+      name: Bush 3_4
       rect:
         serializedVersion: 2
         x: 512
         y: 0
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 51e9b2ce5143c4d20800000000000000
-      internalID: 3264041098698006037
+      spriteID: 145a02079b98c3941ade77a3a50b61fe
+      internalID: 607278427
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bushe3_5
+      name: Bush 3_5
       rect:
         serializedVersion: 2
         x: 640
         y: 0
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 24dfb14927ddcdf50800000000000000
-      internalID: 6907639412660370754
+      spriteID: 68ace312587aecc43b773ed8bd58f594
+      internalID: -151682537
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bushe3_6
+      name: Bush 3_6
       rect:
         serializedVersion: 2
         x: 768
         y: 0
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 14eb6bd6337951cf0800000000000000
-      internalID: -282153154500968895
+      spriteID: a68d9fa1c4cec6a47bcc95ae98fbe8e8
+      internalID: -1016699804
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bushe3_7
+      name: Bush 3_7
       rect:
         serializedVersion: 2
         x: 896
         y: 0
         width: 128
         height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.35}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8945795f1fc23a570800000000000000
-      internalID: 8476668341360481432
+      spriteID: 5482594a79990154d9c1086a70863f0e
+      internalID: -310211936
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
-    customData: 
     physicsShape: []
     bones: []
     spriteID: 5a8c99380c9c449ca90882d059002458
@@ -307,19 +298,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Bushe3_0: -2460423728298319197
-      Bushe3_1: 6220964879699076034
-      Bushe3_2: -2035040103724388112
-      Bushe3_3: 4103977559195585779
-      Bushe3_4: 3264041098698006037
-      Bushe3_5: 6907639412660370754
-      Bushe3_6: -282153154500968895
-      Bushe3_7: 8476668341360481432
+      Bush 3_0: -2074510547
+      Bush 3_1: 1377367684
+      Bush 3_2: 1913553768
+      Bush 3_3: 1041534732
+      Bush 3_4: 607278427
+      Bush 3_5: -151682537
+      Bush 3_6: -1016699804
+      Bush 3_7: -310211936
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

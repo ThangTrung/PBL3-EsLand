@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8984273939658012681}
   - component: {fileID: 1972645210818702831}
   - component: {fileID: 3094895268431642302}
+  - component: {fileID: 8818963481066104691}
+  - component: {fileID: 1648411552491446464}
   m_Layer: 0
   m_Name: Tiny_tree4
   m_TagString: Untagged
@@ -118,10 +120,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.024693325, y: -0.8273108}
+  m_Offset: {x: 0.023363113, y: 0.1827861}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.15}
     oldSize: {x: 3, y: 3}
     newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
@@ -129,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.29034925, y: 0.4080124}
+  m_Size: {x: 0.24511814, y: 0.29716277}
   m_EdgeRadius: 0
 --- !u!95 &3094895268431642302
 Animator:
@@ -152,3 +154,62 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8818963481066104691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165492886914547607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3bd040ccf835143bbb2a178921735d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeAlpha: 0.4
+  fadeSpeed: 0.2
+--- !u!61 &1648411552491446464
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165492886914547607}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.007739544, y: 1.1273936}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.15}
+    oldSize: {x: 3, y: 3}
+    newSize: {x: 3, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.3128195, y: 1.5140421}
+  m_EdgeRadius: 0
