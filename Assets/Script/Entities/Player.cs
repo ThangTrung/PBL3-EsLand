@@ -1,4 +1,4 @@
-using System;
+using Script.Interfaces;
 using Script.Inventory.Controller;
 using Script.Inventory.UI;
 using UnityEngine;
@@ -7,10 +7,11 @@ namespace Script.Entities
 {
     public class Player : Character
     {
-        [Header("Farming Settings")]
-        [SerializeField] private float farmRange = 1.5f;
-        [SerializeField] private LayerMask resourceLayer; 
-        [SerializeField] private int attackDamage = 1;    
+        private static readonly int Interact = Animator.StringToHash("interact");
+
+        [Header("Interaction Settings")]
+        [SerializeField] private float interactionRange = 1.5f;
+        [SerializeField] private LayerMask interactableLayer;
 
         [Header("Survival Stats")]
         [SerializeField] private float maxHunger = 100f;
@@ -22,24 +23,14 @@ namespace Script.Entities
 
         private InventoryUI _ui;
         private InventoryController _inventoryController;
-        private float Hunger { get; set; }
-        private float Thirst { get; set; }
-        public float Stamina { get; private set; }
-
-        protected override void Awake()
-        {
-            
-            base.Awake();
-            Hunger = maxHunger;
-            Thirst = maxThirst;
-            Stamina = maxStamina;
-        }
 
         private void Start()
-        {  
-            var instance = Instantiate(inventory, transform.position, transform.rotation);
+        {
+            var instance = Instantiate(inventory, transform.position, transform.rotation, transform);
             _inventoryController = instance.GetComponentInChildren<InventoryController>();
+            _inventoryController.SetOwner(this);
             _ui = _inventoryController.GetComponentInChildren<InventoryUI>();
+            _ui.SetInventoryProvider(_inventoryController);
         }
 
         protected override void Update()
@@ -59,11 +50,10 @@ namespace Script.Entities
 
         private void HandleActionInput()
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
-            {
+            if (Input.GetMouseButtonDown(0))
                 Attack();
-            }
         }
+
         private void HandleMovementInput()
         {
             var moveX = Input.GetAxisRaw("Horizontal");
@@ -78,6 +68,7 @@ namespace Script.Entities
                 ToggleInventory();
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         private void ToggleInventory()
         {
             var isOpening = !_ui.IsVisible;
@@ -88,41 +79,21 @@ namespace Script.Entities
             animator.SetBool(Animator.StringToHash("isMoving"), false);
         }
         
+        private readonly Collider2D[] _hitResults = new Collider2D[10];
 
         public override void Attack()
         {
-            // 1. Kiểm tra Cooldown và Thể lực
-            if (!CanAttack())
+            if (!CanAttack()) 
                 return;
 
-            // 4. Dò tìm mỏ quặng trong phạm vi farmRange
-            Collider2D[] hitResources = Physics2D.OverlapCircleAll(transform.position, farmRange, resourceLayer);
-
-            if (hitResources.Length > 0)
-            {
-                var node = hitResources[0].GetComponent<ResourceNode>();
-                if (node != null)
-                {
-                    // Lấy "giá" thể lực từ chính mỏ quặng
-                    float currentCost = node.GetStaminaCost();
-
-                    if (Stamina >= currentCost)
-                    {
-                        animator.SetTrigger("attack");
-                        node.GetHit(attackDamage);
-
-                        // Trừ theo giá trị động
-                        Stamina -= currentCost;
-                        Debug.Log($"[FARM] Đã trừ {currentCost} thể lực.");
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Mệt quá, không đủ sức!");
-                    }
-                }
-            }
-
             AttackTimer = baseAttackCooldown;
+            animator.SetTrigger(Interact);
+
+            var hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, interactionRange, _hitResults, interactableLayer);
+
+            if (!_hitResults[0].TryGetComponent<IInteractable>(out var interactable)) 
+                return;
+            interactable.Interact(this);
         }
     }
 }

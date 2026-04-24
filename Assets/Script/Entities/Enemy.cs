@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Script.Interfaces;
 using Script.Items;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ namespace Script.Entities
     /// Enemy kế thừa Character: dùng stat/combat/cooldown từ Character,
     /// AI chỉ quyết định hành vi (patrol/chase/attack).
     /// </summary>
-    public class Enemy : Character
+    public class Enemy : Character, IInteractable
     {
-        public enum AIState
+        private enum AIState
         {
             Patrol,
             Chase,
@@ -35,12 +36,14 @@ namespace Script.Entities
         [Range(0, 1)][SerializeField] private float dropChance = 0.5f;
 
         private Vector3 _patrolPoint;
+        
+        // Implementation of the new interface property
+        public string InteractionAnimationTrigger => "attack";
 
         protected override void Awake()
         {
             base.Awake();
-
-            // ưu tiên target được gán sẵn; nếu không có thì auto-find theo tag
+            
             if (target == null && !string.IsNullOrWhiteSpace(targetTag))
             {
                 var go = GameObject.FindGameObjectWithTag(targetTag);
@@ -61,13 +64,13 @@ namespace Script.Entities
 
         private void UpdateState()
         {
-            if (target == null)
+            if (!target)
             {
                 state = AIState.Patrol;
                 return;
             }
 
-            float distance = Vector3.Distance(transform.position, target.position);
+            var distance = Vector3.Distance(transform.position, target.position);
 
             if (distance <= attackRange) state = AIState.Attack;
             else if (distance <= detectionRange) state = AIState.Chase;
@@ -109,7 +112,7 @@ namespace Script.Entities
 
         private void ChaseTarget()
         {
-            if (target == null) return;
+            if (!target) return;
             MoveTowards(target.position);
         }
 
@@ -122,38 +125,36 @@ namespace Script.Entities
 
             dir.Normalize();
 
-            // dùng moveSpeed từ Character (có tính penalty từ armor nếu sau này enemy cũng equip)
-            transform.position += dir * (GetMoveSpeed() * Time.deltaTime);
+            // Sẽ dùng phương thức Move kế thừa từ Character thay vì tự tính transform.position
+            Move(dir);
 
             FaceDirection(dir);
         }
 
-        private void FaceDirection(Vector3 direction)
+        private static void FaceDirection(Vector3 direction)
         {
             if (direction.sqrMagnitude < 0.0001f) return;
-            transform.forward = direction;
+            // Character.Move đã xử lý lật hình qua localScale dựa trên direction.x
+            // Nếu game là Top-down thật sự cần transform.forward thì giữ lại
+            // Ở Character.cs: transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
         }
 
         public override void Attack()
         {
             if (!CanAttack()) return;
-            if (target == null) return;
-
-            // nếu target chạy ra khỏi range, đừng đánh
-            float distance = Vector3.Distance(transform.position, target.position);
+            if (!target) return;
+            
+            var distance = Vector3.Distance(transform.position, target.position);
             if (distance > attackRange) return;
 
-            Debug.Log($"[Enemy] {characterName} tấn công! Gây {GetTotalDamage()} sát thương.");
+            if (target.TryGetComponent<IDamageable>(out var victim))
+                victim.TakeDamage(GetTotalDamage(), this);
 
-            if (target.TryGetComponent<Character>(out var victim))
-                victim.TakeDamage(GetTotalDamage());
-
-            AttackTimer = baseAttackCooldown; // chuẩn theo Character
+            AttackTimer = baseAttackCooldown;
         }
 
         protected override void Die()
         {
-            // Character.Die() set IsDead + event
             base.Die();
 
             Debug.Log($"[Enemy] {characterName} đã bị tiêu diệt.");
@@ -189,6 +190,12 @@ namespace Script.Entities
 
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(transform.position, patrolRadius);
+        }
+
+        public void Interact(Character interactor)
+        {
+            // When a player interacts with an enemy, the enemy takes damage.
+            TakeDamage(interactor.GetTotalDamage(), interactor);
         }
     }
 }

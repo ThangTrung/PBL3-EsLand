@@ -10,12 +10,11 @@ namespace Script.Items
         public int hungerRestore;
         public int thirstRestore;
 
-        // Ghi đè hàm Use của lớp cha
-        // public override void Use()
-        // {
-        //     base.Use();
-        //     // TODO: Gọi script PlayerStats để cộng máu, độ đói...
-        //     Debug.Log($"Hồi {healthRestore} Máu và {hungerRestore} Thức ăn!");
-        // }
+        public override bool Use(Entities.Character user)
+        {
+            base.Use(user);
+            Debug.Log($"Hồi {healthRestore} Máu và {hungerRestore} Thức ăn cho {user.CharacterName}!");
+            return true;
+        }
     }
 }
