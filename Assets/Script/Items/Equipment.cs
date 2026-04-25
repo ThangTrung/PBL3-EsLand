@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Script.Items
 {
-    public enum EquipSlot { PowerStone, HealthStone, SpeedStone, DefenseStone, MainHand}
+    public enum EquipSlot { AttackStone, HealthStone, SpeedStone, DefenseStone, MainHand}
     
     public abstract class Equipment : Item, IEquippable, IStatModifierProvider
     {
