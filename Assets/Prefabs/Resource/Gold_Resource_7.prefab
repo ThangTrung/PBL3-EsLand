@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 8107682457545654269}
   - component: {fileID: 4232350496537025406}
   - component: {fileID: 1580350105749917211}
-  m_Layer: 0
+  - component: {fileID: -4865297554265958775}
+  - component: {fileID: -2526694964915521474}
+  m_Layer: 6
   m_Name: Gold_Resource_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,3 +154,39 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0581794, y: 0.94688153}
   m_EdgeRadius: 0
+--- !u!114 &-4865297554265958775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328ee40b565b55a47bb8197ab3de056e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaCostPerHit: 5
+  resourceName: "Kh\u1ED1i V\xE0ng"
+  maxHealth: 3
+  requiredTool: 0
+  interactAnimTrigger: 
+--- !u!114 &-2526694964915521474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7540ca8d0eb44e33b33f592bb0ca1a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 0}
+  lootTable:
+  - item: {fileID: 11400000, guid: 521497fc8a7734b4aba07ba42ee82610, type: 2}
+    minAmount: 5
+    maxAmount: 7
+    chance: 0
+  dropForce: 5

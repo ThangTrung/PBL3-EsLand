@@ -27,9 +27,6 @@ namespace Script.Inventory.Controller
         {
             Amount += delta;
             if (Amount < 0) Amount = 0;
-            // Removed: if (Amount == 0) Item = null;
-            // Let the InventoryController or logic decide when to clear the item 
-            // to avoid null reference during UI refresh in the same frame
         }
 
         public void ReduceDurability(int amount)

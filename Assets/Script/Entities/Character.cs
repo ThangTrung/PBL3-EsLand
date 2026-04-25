@@ -30,9 +30,9 @@ namespace Script.Entities
 
         protected virtual void HandleEquip(Equipment equipment)
         {
-            if (animator == null) return;
+            if (!animator) return;
 
-            if (equipment != null && equipment.overrideController != null)
+            if (equipment && equipment.overrideController)
             {
                 animator.runtimeAnimatorController = equipment.overrideController;
             }
@@ -40,6 +40,12 @@ namespace Script.Entities
             {
                 animator.runtimeAnimatorController = baseAnimator;
             }
+        }
+
+        private void HandleUnequip(EquipSlot slot)
+        {
+            if (slot == EquipSlot.MainHand && animator)
+                animator.runtimeAnimatorController = baseAnimator;
         }
         
         public string CharacterName => characterName;
@@ -80,7 +86,7 @@ namespace Script.Entities
             equipmentManager.OnItemUnequipped += (slot, item) =>
             {
                 if (slot == EquipSlot.MainHand)
-                    HandleEquip(null);
+                    HandleUnequip(slot);
             };
         }
         protected virtual void Update()
@@ -150,7 +156,7 @@ namespace Script.Entities
         public virtual float GetTotalDamage()
         {
             var total = baseDamage;
-            if (equipmentManager != null)
+            if (equipmentManager)
                 total += equipmentManager.GetTotalDamageModifier();
             return total;
         }
@@ -166,7 +172,7 @@ namespace Script.Entities
         protected virtual float GetTotalDefense()
         {
             var total = baseDefense;
-            if (equipmentManager != null)
+            if (equipmentManager)
                 total += equipmentManager.GetTotalDefenseModifier();
             return total;
         }
@@ -174,14 +180,15 @@ namespace Script.Entities
         protected virtual float GetMoveSpeed()
         {
             var speed = baseMoveSpeed;
-            if (equipmentManager != null)
+            if (equipmentManager)
                 speed += equipmentManager.GetTotalSpeedModifier();
             return Mathf.Max(1f, speed);
         }
 
         public virtual void Equip(IEquippable item)
         {
-            if (equipmentManager != null)
+            Debug.Log("2");
+            if (equipmentManager)
                 equipmentManager.Equip(item);
         }
 

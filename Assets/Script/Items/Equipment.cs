@@ -12,7 +12,7 @@ namespace Script.Items
         public EquipSlot equipSlot;
         public AnimatorOverrideController overrideController;
         
-        public EquipSlot EquipSlot => equipSlot;
+        public EquipSlot Slot => equipSlot;
 
         public virtual void OnEquip(Character character) { }
         public virtual void OnUnequip(Character character) { }

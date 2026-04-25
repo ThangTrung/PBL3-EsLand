@@ -77,7 +77,7 @@ namespace Script.Inventory.Controller
         {
             if (_currentSlot != null && _currentSlot.Item is IEquippable equippable && Inventory?.ActionHandler != null)
             {
-                Inventory.ActionHandler.UnequipItem(equippable.EquipSlot);
+                Inventory.ActionHandler.UnequipItem(equippable.Slot);
             }
             HideMenu();
         }

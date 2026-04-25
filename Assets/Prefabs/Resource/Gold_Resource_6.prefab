@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 929898933375706906}
   - component: {fileID: 852157040863743317}
   - component: {fileID: 6921790535751811005}
-  m_Layer: 0
+  - component: {fileID: -5830038321622165656}
+  m_Layer: 6
   m_Name: Gold_Resource_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,3 +153,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0636616, y: 0.8869593}
   m_EdgeRadius: 0
+--- !u!114 &-5830038321622165656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843340195584360617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328ee40b565b55a47bb8197ab3de056e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaCostPerHit: 5
+  resourceName: "Kh\u1ED1i V\xE0ng"
+  maxHealth: 3
+  requiredTool: 0
+  interactAnimTrigger: 

@@ -22,15 +22,13 @@ namespace Script.Entities
         public void Equip(IEquippable item)
         {
             if (item == null) return;
-
-            if (_equippedItems.ContainsKey(item.EquipSlot))
-            {
-                Unequip(item.EquipSlot);
-            }
-
-            _equippedItems[item.EquipSlot] = item;
+            if (_equippedItems.ContainsKey(item.Slot))
+                Unequip(item.Slot);
+            
+            _equippedItems[item.Slot] = item;
             item.OnEquip(_character);
-            OnItemEquipped?.Invoke(item.EquipSlot, item);
+            OnItemEquipped?.Invoke(item.Slot, item);
+            Debug.Log("3");
         }
 
         public void Unequip(EquipSlot slot)

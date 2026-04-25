@@ -5,9 +5,11 @@
         bool Use(Entities.Character user);
     }
 
+    public enum ToolType { Pickaxe, Axe, Knife, Hammer, None }
+
     public interface IEquippable
     {
-        Items.EquipSlot EquipSlot { get; }
+        Items.EquipSlot Slot { get; }
         void OnEquip(Entities.Character character);
         void OnUnequip(Entities.Character character);
     }
@@ -24,7 +26,7 @@
 
     public interface IGatheringTool
     {
-        Items.ToolType ToolType { get; }
+        ToolType Type { get; }
         float GatherSpeedMultiplier { get; }
         int Tier { get; }
     }

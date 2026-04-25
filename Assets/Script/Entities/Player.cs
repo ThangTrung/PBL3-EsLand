@@ -9,6 +9,9 @@ namespace Script.Entities
     {
         private static readonly int Interact = Animator.StringToHash("interact");
 
+        [Header("Debug Test")]
+        public Script.Items.Equipment testPickaxe;
+        
         [Header("Interaction Settings")]
         [SerializeField] private float interactionRange = 1.5f;
         [SerializeField] private LayerMask interactableLayer;
@@ -42,6 +45,11 @@ namespace Script.Entities
                 animator.SetBool(Animator.StringToHash("isMoving"), false);
                 HandleInventoryInput();
                 return; 
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                Debug.Log("1");
+                if (testPickaxe) Equip(testPickaxe);
             }
             HandleMovementInput();
             HandleInventoryInput();
@@ -79,7 +87,7 @@ namespace Script.Entities
             animator.SetBool(Animator.StringToHash("isMoving"), false);
         }
         
-        private readonly Collider2D[] _hitResults = new Collider2D[10];
+        
 
         public override void Attack()
         {
@@ -87,13 +95,29 @@ namespace Script.Entities
                 return;
 
             AttackTimer = baseAttackCooldown;
-            animator.SetTrigger(Interact);
+            animator.SetTrigger("interact");
 
+            var target = FindInteractableTarget();
+            target?.Interact(this);
+        }
+        
+        private readonly Collider2D[] _hitResults = new Collider2D[10];
+        private IInteractable FindInteractableTarget()
+        {
             var hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, interactionRange, _hitResults, interactableLayer);
+            if (hitCount <= 0)
+                return null;
 
-            if (!_hitResults[0].TryGetComponent<IInteractable>(out var interactable)) 
-                return;
-            interactable.Interact(this);
+            for (var i = 0; i < hitCount; i++)
+            {
+                if (!_hitResults[i])
+                    continue;
+
+                if (_hitResults[i].TryGetComponent<IInteractable>(out var interactable))
+                    return interactable;
+            }
+
+            return null;
         }
     }
 }

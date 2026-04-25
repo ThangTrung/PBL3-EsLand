@@ -64,7 +64,7 @@ namespace Script.Inventory.Controller
             var manager = _owner.GetComponent<Entities.EquipmentManager>();
             if (!manager) return false;
             
-            var equipped = manager.GetEquippedItem(equippable.EquipSlot);
+            var equipped = manager.GetEquippedItem(equippable.Slot);
             return equipped != null && ReferenceEquals(equipped, slot.Item);
         }
     }
