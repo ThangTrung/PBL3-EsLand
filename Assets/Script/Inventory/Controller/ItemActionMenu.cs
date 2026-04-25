@@ -1,3 +1,4 @@
+using Script.Interfaces;
 using UnityEngine;
 using Script.Inventory.UI;
 
@@ -7,12 +8,14 @@ namespace Script.Inventory.Controller
     {
         [Header("Dependencies")]
         [SerializeField] private ItemActionMenuUI menuUI;
-        [SerializeField] private InventoryController inventoryController;
+        [SerializeField] private MonoBehaviour inventoryProvider;
+        private IInventory Inventory => inventoryProvider as IInventory;
 
-        private InventorySlot _currentSlot;
+        private IInventorySlot _currentSlot;
         
         private void OnEnable()
         {
+            if (menuUI == null) return;
             menuUI.OnUseClicked += HandleUse;
             menuUI.OnDropClicked += HandleDrop;
             menuUI.OnEquipClicked += HandleEquip;
@@ -21,18 +24,29 @@ namespace Script.Inventory.Controller
 
         private void OnDisable()
         {
+            if (menuUI == null) return;
             menuUI.OnUseClicked -= HandleUse;
             menuUI.OnDropClicked -= HandleDrop;
             menuUI.OnEquipClicked -= HandleEquip;
             menuUI.OnUnequipClicked -= HandleUnequip;
         }
 
-        public void ShowMenu(InventorySlot slotData, Vector3 worldPos)
+        public void ShowMenu(IInventorySlot slotData, Vector3 worldPos)
         {
-            Debug.Log("ShowMenu");
             _currentSlot = slotData;
-            var isEquipment = slotData.IsEquipment;
-            menuUI.Show(worldPos, !isEquipment, isEquipment, false);
+            if (_currentSlot == null || _currentSlot.IsEmpty) return;
+
+            var canUse = _currentSlot.Item is IItemUsable;
+            var isEquippable = _currentSlot.Item is IEquippable equippable;
+            var isEquipped = false;
+            
+            if (isEquippable && Inventory?.ActionHandler != null)
+            {
+                isEquipped = Inventory.ActionHandler.IsEquipped(_currentSlot);
+            }
+            
+            // Show Equip if not equipped, show Unequip if already equipped
+            menuUI.Show(worldPos, canUse, isEquippable && !isEquipped, isEquippable && isEquipped);
         }
 
         public void HideMenu()
@@ -43,28 +57,36 @@ namespace Script.Inventory.Controller
 
         private void HandleUse()
         {
-            // Logic dùng item ở đây
+            if (_currentSlot != null && Inventory?.ActionHandler != null)
+            {
+                Inventory.ActionHandler.UseItem(_currentSlot);
+            }
             HideMenu();
         }
 
         private void HandleEquip()
         {
-            // Logic trang bị ở đây
+            if (_currentSlot != null && Inventory?.ActionHandler != null)
+            {
+                Inventory.ActionHandler.EquipItem(_currentSlot);
+            }
             HideMenu();
         }
 
         private void HandleUnequip()
         {
-            // Logic tháo trang bị ở đây
+            if (_currentSlot != null && _currentSlot.Item is IEquippable equippable && Inventory?.ActionHandler != null)
+            {
+                Inventory.ActionHandler.UnequipItem(equippable.Slot);
+            }
             HideMenu();
         }
 
         private void HandleDrop()
         {
-            if (_currentSlot != null && !_currentSlot.IsEmpty && inventoryController != null)
+            if (_currentSlot != null && Inventory?.ActionHandler != null)
             {
-                inventoryController.RemoveSlot(_currentSlot);
-                // Tạo prefab rơi ra đất tại đây
+                Inventory.ActionHandler.DropItem(_currentSlot);
             }
             HideMenu();
         }

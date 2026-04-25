@@ -1,75 +1,97 @@
+using System;
+using Script.Interfaces;
+using Script.Items;
 using UnityEngine;
-using System.Collections.Generic;
 
-public class ResourceNode : MonoBehaviour
+namespace Script.World
 {
-    [Header("Cài đặt tài nguyên")]
-    [SerializeField] private float staminaCostPerHit = 5f;
-    public float GetStaminaCost() => staminaCostPerHit;
-    [SerializeField] private string resourceName;
-    [SerializeField] private int health = 3; // Số lần đập thì vỡ
-    [SerializeField] private GameObject pickupPrefab; 
-
-    [Header("Danh sách đồ rơi (Loot Table)")]
-    [SerializeField] private List<LootItem> lootTable;
-
-    [System.Serializable]
-    public class LootItem
+    public class ResourceNode : MonoBehaviour, IInteractable, IDamageable
     {
-        public Script.Items.Item item; // File ScriptableObject của món đồ
-        public int minAmount = 1;
-        public int maxAmount = 3;
-    }
+        [Header("Resource Settings")]
+        [SerializeField] private string resourceName = "";
+        [SerializeField] private float maxHealth = 3f;
+        [SerializeField] private ToolType requiredTool = ToolType.None;
+        [SerializeField] private float staminaCostPerHit = 5f;
 
-    // Hàm này sẽ được Player gọi khi vung cuốc/rìu
-    public void GetHit(int damage)
-    {
-        health -= damage;
+        public float MaxHealth => maxHealth;
+        public float CurrentHealth { get; private set; }
+        public bool IsDead { get; private set; }
 
-        // Hiệu ứng rung rinh khi bị đập (Option)
-        transform.localScale = Vector3.one * 1.2f;
+        public event Action<float> OnHealthChanged;
+        public event Action OnDamaged;
+        public event Action OnDie;
 
-        if (health <= 0)
+        private void Awake()
         {
-            SpawnLoot();
-            Destroy(gameObject); // Vỡ mỏ quặng
+            CurrentHealth = maxHealth;
         }
-    }
 
-    private void Update()
-    {
-        // Hồi phục lại scale sau khi bị đập
-        transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime * 10f);
-    }
-
-    private void SpawnLoot()
-    {
-        foreach (var loot in lootTable)
+        private void Update()
         {
-            int count = Random.Range(loot.minAmount, loot.maxAmount + 1);
-            for (int i = 0; i < count; i++)
+            if (transform.localScale.x > 1.01f)
             {
-                // 1. Tạo ra "xác" cục đồ
-                GameObject droppedObj = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
-
-                // 2. "Thổi hồn" (Data) vào cục đồ đó
-                var pickupScript = droppedObj.GetComponent<Script.Items.ItemPickup>();
-                if (pickupScript != null)
-                {
-                    // Quan trọng: Gán đúng loại Item cho cục đồ vừa rơi ra
-                    // Khoa cần sửa lại biến itemData trong ItemPickup thành 'public' hoặc tạo thêm hàm Init nhé!
-                    pickupScript.itemData = loot.item;
-                }
-
-                // 3. Làm cho đồ văng ra một chút cho đẹp (Lực ném ngẫu nhiên)
-                Rigidbody2D rb = droppedObj.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    Vector2 randomDir = Random.insideUnitCircle.normalized;
-                    float force = Random.Range(5f, 7f);
-                    rb.AddForce(randomDir * force, ForceMode2D.Impulse);
-                }
+                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, Time.deltaTime * 10f);
             }
         }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        public void Interact(Entities.Character interactor)
+        {
+            if (IsDead) return;
+
+            var finalDamage = 0f;
+            var equipmentManager = interactor.GetComponent<Entities.EquipmentManager>();
+            var mainItem = equipmentManager?.GetEquippedItem(EquipSlot.MainHand);
+            
+            if (requiredTool != Interfaces.ToolType.None)
+            {
+                if (mainItem is IGatheringTool tool && tool.Type == requiredTool)
+                {
+                    finalDamage = (mainItem is IWeapon weapon) ? weapon.Damage : 1f;
+                    finalDamage *= tool.GatherSpeedMultiplier;
+                }
+                else
+                {
+                    return; 
+                }
+            }
+            else
+            {
+                finalDamage = (mainItem is IWeapon w) ? w.Damage : 1f;
+            }
+            
+            TakeDamage(finalDamage, interactor);
+        }
+
+        public void TakeDamage(float amount, Entities.Character source = null)
+        {
+            if (IsDead || amount <= 0) return;
+
+            CurrentHealth -= amount;
+            OnDamaged?.Invoke();
+            OnHealthChanged?.Invoke(CurrentHealth);
+            
+            transform.localScale = Vector3.one * 1.2f;
+
+            if (CurrentHealth <= 0)
+            {
+                Die();
+            }
+        }
+
+        private void Die()
+        {
+            IsDead = true;
+            OnDie?.Invoke();
+            
+            if (TryGetComponent<LootSpawner>(out var spawner))
+            {
+                spawner.SpawnLoot();
+            }
+            
+            Destroy(gameObject);
+        }
+
+        public float GetStaminaCost() => staminaCostPerHit;
     }
 }

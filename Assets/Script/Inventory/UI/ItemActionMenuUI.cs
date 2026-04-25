@@ -31,6 +31,7 @@ namespace Script.Inventory.UI
             unequipButton.onClick.AddListener(() => OnUnequipClicked?.Invoke());
         }
         
+        // ReSharper disable Unity.PerformanceAnalysis
         public void Show(Vector3 screenPos, bool showUse, bool showEquip, bool showUnequip)
         {
             useButton.gameObject.SetActive(showUse);

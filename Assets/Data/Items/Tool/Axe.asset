@@ -17,6 +17,7 @@ MonoBehaviour:
   icon: {fileID: 803085355, guid: 49df2e0fb77954f0aa56465bfe992c16, type: 3}
   maxStack: 1
   equipSlot: 4
+  overrideController: {fileID: 22100000, guid: a341558ad9d09454392cd92c288beaab, type: 2}
   maxDurability: 100
   toolType: 1
   damage: 0

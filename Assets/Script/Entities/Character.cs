@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Script.Interfaces;
 using Script.Items;
 using UnityEngine;
 
 namespace Script.Entities
 {
-    public abstract class Character : MonoBehaviour
+    public abstract class Character : MonoBehaviour, IDamageable, IInventoryHolder
     {
         private static readonly int IsMoving = Animator.StringToHash("isMoving"); 
 
@@ -22,23 +23,71 @@ namespace Script.Entities
         [Header("Components")]
         [SerializeField] protected Animator animator; 
         [SerializeField] protected Rigidbody2D rb;
+        [SerializeField] protected EquipmentManager equipmentManager;
+        [SerializeField] private RuntimeAnimatorController baseAnimator;
+
+        public virtual IInventory Inventory => GetComponentInChildren<IInventory>();
+
+        protected virtual void HandleEquip(Equipment equipment)
+        {
+            if (!animator) return;
+
+            if (equipment && equipment.overrideController)
+            {
+                animator.runtimeAnimatorController = equipment.overrideController;
+            }
+            else
+            {
+                animator.runtimeAnimatorController = baseAnimator;
+            }
+        }
+
+        private void HandleUnequip(EquipSlot slot)
+        {
+            if (slot == EquipSlot.MainHand && animator)
+                animator.runtimeAnimatorController = baseAnimator;
+        }
         
         public string CharacterName => characterName;
-        public float HealthPercentage => maxHealth > 0 ? CurrentHealth / maxHealth : 0;
+        public float HealthPercentage
+        {
+            get
+            {
+                var max = GetMaxHealth();
+                return max > 0 ? CurrentHealth / max : 0;
+            }
+        }
 
-        private float CurrentHealth { get; set; }
-        protected bool IsDead { get; private set; }
+        public float MaxHealth => GetMaxHealth();
+        public float CurrentHealth { get; private set; }
+        public bool IsDead { get; private set; }
         protected float AttackTimer;
         
-        private readonly Dictionary<EquipSlot, Equipment> _equippedItems = new Dictionary<EquipSlot, Equipment>();
-        
         public event Action<float> OnHealthChanged;
+        public event Action OnDamaged;
         public event Action OnDie;
 
         protected virtual void Awake()
         {
             CurrentHealth = maxHealth;
             IsDead = false;
+
+            if (equipmentManager == null)
+                equipmentManager = GetComponent<EquipmentManager>();
+
+            if (equipmentManager == null) 
+                return;
+            equipmentManager.Initialize(this);
+            equipmentManager.OnItemEquipped += (slot, item) =>
+            {
+                if (slot == EquipSlot.MainHand && item is Equipment equipment)
+                    HandleEquip(equipment);
+            };
+            equipmentManager.OnItemUnequipped += (slot, item) =>
+            {
+                if (slot == EquipSlot.MainHand)
+                    HandleUnequip(slot);
+            };
         }
         protected virtual void Update()
         {
@@ -64,25 +113,30 @@ namespace Script.Entities
             if (direction.x != 0)
                 transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
         }
-
+        protected void ExecuteAnimation(string animationTrigger)
+        {
+            if (animator && !string.IsNullOrEmpty(animationTrigger))
+                animator.SetTrigger(animationTrigger);
+        }
+        
         #region Combat & Health Logic
-        public virtual void TakeDamage(float amount)
+        public virtual void TakeDamage(float amount, Character source = null)
         {
             if (IsDead) return;
             
             var finalDamage = Mathf.Max(0, amount - GetTotalDefense());
-            CurrentHealth = Mathf.Clamp(CurrentHealth - finalDamage, 0, maxHealth);
+            CurrentHealth = Mathf.Clamp(CurrentHealth - finalDamage, 0, GetMaxHealth());
 
+            OnDamaged?.Invoke();
             OnHealthChanged?.Invoke(CurrentHealth);
-            Debug.Log($"[Combat] {name} nhận {finalDamage} sát thương. Máu còn: {CurrentHealth}/{maxHealth}");
-
-            if (CurrentHealth <= 0) Die();
+            if (CurrentHealth <= 0)
+                Die();
         }
 
         protected virtual void Heal(float amount)
         {
             if (IsDead) return;
-            CurrentHealth = Mathf.Min(CurrentHealth + amount, maxHealth);
+            CurrentHealth = Mathf.Min(CurrentHealth + amount, GetMaxHealth());
             OnHealthChanged?.Invoke(CurrentHealth);
         }
 
@@ -99,49 +153,49 @@ namespace Script.Entities
         #endregion
 
         #region Stats & Equipment
-        protected virtual float GetTotalDamage()
+        public virtual float GetTotalDamage()
         {
             var total = baseDamage;
-            if (_equippedItems.TryGetValue(EquipSlot.MainHand, out var equipment) && equipment is Tool weapon)
-                total += weapon.damage;
+            if (equipmentManager)
+                total += equipmentManager.GetTotalDamageModifier();
+            return total;
+        }
+
+        protected virtual float GetMaxHealth()
+        {
+            var total = maxHealth;
+            if (equipmentManager)
+                total += equipmentManager.GetTotalHealthModifier();
             return total;
         }
 
         protected virtual float GetTotalDefense()
         {
             var total = baseDefense;
-            foreach (var item in _equippedItems.Values)
-                if (item is Armor armor) total += armor.defense;
+            if (equipmentManager)
+                total += equipmentManager.GetTotalDefenseModifier();
             return total;
         }
-        
+
         protected virtual float GetMoveSpeed()
         {
-            float totalPenalty = 0;
-            foreach (var item in _equippedItems.Values)
-                if (item is Armor armor) totalPenalty += armor.movementSpeedPenalty;
-            return Mathf.Max(1f, baseMoveSpeed - totalPenalty);
+            var speed = baseMoveSpeed;
+            if (equipmentManager)
+                speed += equipmentManager.GetTotalSpeedModifier();
+            return Mathf.Max(1f, speed);
         }
 
-        protected virtual void HandleEquip(Equipment equipment)
+        public virtual void Equip(IEquippable item)
         {
-            if (equipment == null) return;
-            
-            if (_equippedItems.ContainsKey(equipment.equipSlot))
-            {
-                HandleUnequip(equipment.equipSlot); 
-            }
-
-            _equippedItems[equipment.equipSlot] = equipment;
-            Debug.Log($"[Inventory] {characterName} đã trang bị: {equipment.ItemName}");
+            Debug.Log("2");
+            if (equipmentManager)
+                equipmentManager.Equip(item);
         }
 
-        protected virtual void HandleUnequip(EquipSlot slot)
+        public virtual void Unequip(EquipSlot slot)
         {
-            if (_equippedItems.Remove(slot, out var removedItem))
-            {
-                Debug.Log($"[Inventory] {characterName} đã tháo: {removedItem.ItemName}");
-            }
+            if (equipmentManager != null)
+                equipmentManager.Unequip(slot);
         }
         #endregion
     }
