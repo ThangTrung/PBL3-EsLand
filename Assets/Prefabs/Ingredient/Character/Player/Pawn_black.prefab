@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 4089081390627146615}
   - component: {fileID: 8297118841823875862}
   - component: {fileID: 4118308086695941553}
-  - component: {fileID: 8299313018065251984}
+  - component: {fileID: 6183355516757807694}
+  - component: {fileID: 3578430395386776941}
+  - component: {fileID: 622837791190666159}
   m_Layer: 0
   m_Name: Pawn_black
   m_TagString: Player
@@ -203,7 +205,6 @@ MonoBehaviour:
   baseAttackCooldown: 0.2
   animator: {fileID: 8529414099510129035}
   rb: {fileID: 4089081390627146615}
-  equipmentManager: {fileID: 8299313018065251984}
   baseAnimator: {fileID: 9100000, guid: 937790c58fb4444bbaa0c141d3e05a5a, type: 2}
   testPickaxe: {fileID: 11400000, guid: 88d44179360d37d44bcb549902ffd3c2, type: 2}
   interactionRange: 1.5
@@ -213,8 +214,7 @@ MonoBehaviour:
   maxHunger: 100
   maxThirst: 100
   maxStamina: 100
-  inventory: {fileID: 2262220339235665670, guid: ea9dffbdfbbb0544cae5e46d98618ba7, type: 3}
---- !u!114 &8299313018065251984
+--- !u!114 &6183355516757807694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,7 +223,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1673750509214528949}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a74db6e05ea14d6c9e558fbeae0f42fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 4957e748f7b642cb88044e1ccb4b1eeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3578430395386776941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552abee14e5e41a5a3aa5d8b05c6a8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 64
+--- !u!114 &622837791190666159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de20d951879865c49be2fd8ab2f54503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6692547207116666800
