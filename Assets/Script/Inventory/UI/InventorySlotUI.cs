@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using Script.Inventory.Controller;
-using Script.Interfaces;
+using Script.Inventory.Interfaces;
+using Script.Equipment.Interfaces;
+using Script.Shared.Interfaces;
+using Script.Shared.UI;
 
 namespace Script.Inventory.UI
 {
@@ -16,58 +18,54 @@ namespace Script.Inventory.UI
         [SerializeField] public TextMeshProUGUI amountText;
         [SerializeField] public Image durabilityBar;
         [SerializeField] public Image highlightImage;
-        [SerializeField] public Image equippedOverlay; // Added this
+        [SerializeField] public Image equippedOverlay;
         [SerializeField] public GameObject tooltipRoot;
         [SerializeField] public TextMeshProUGUI tooltipName;
         [SerializeField] public TextMeshProUGUI tooltipDesc;
 
         [Header("Actions")]
         [SerializeField] public MonoBehaviour actionMenuProvider;
-        
+
         private IInventorySlot _slotData;
+        private IItemActionHandler _actionHandler;
         public int SlotIndex { get; private set; }
 
-        public event Action<IInventorySlot, Vector3> OnRightClicked;
+        public event Action<IActionableItem, Vector3> OnRightClicked;
         public event Action<int> OnHovered;
-
-        public void Init(int index)
+        
+        public void Init(int index, IItemActionHandler actionHandler = null)
         {
             SlotIndex = index;
+            _actionHandler = actionHandler;
         }
 
         public void Refresh(IInventorySlot slotData)
         {
             _slotData = slotData;
 
+            if (GetComponent<Image>() != null) 
+                GetComponent<Image>().enabled = true;
+            
             if (_slotData == null || _slotData.IsEmpty)
             {
                 ClearVisuals();
                 return;
             }
-            
+
             icon.sprite = _slotData.Item.Icon;
             icon.enabled = true;
-            
+
             amountText.enabled = _slotData.Amount > 1;
             if (_slotData.Amount > 1)
-            {
                 amountText.text = _slotData.Amount.ToString();
-            }
-            
+
             var hasDurability = _slotData.Item is IDurable;
-            if(durabilityBar) durabilityBar.gameObject.SetActive(hasDurability);
+            if (durabilityBar) durabilityBar.gameObject.SetActive(hasDurability);
             if (hasDurability && durabilityBar)
                 durabilityBar.fillAmount = _slotData.DurabilityPercent;
 
-            // Check if equipped to show overlay
             if (!equippedOverlay) return;
-            var isEquipped = false;
-            // This is a bit of a shortcut, ideally we'd pass this info or have a cleaner way
-            // to access the handler from here, but for UI refresh it's practical.
-            if (InventoryController.Instance && InventoryController.Instance.ActionHandler != null)
-            {
-                isEquipped = InventoryController.Instance.ActionHandler.IsEquipped(_slotData);
-            }
+            var isEquipped = _actionHandler?.IsEquipped(_slotData) ?? false;
             equippedOverlay.enabled = isEquipped;
         }
 
@@ -81,7 +79,7 @@ namespace Script.Inventory.UI
             HideTooltip();
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)  
         {
             switch (eventData.button)
             {
@@ -91,8 +89,8 @@ namespace Script.Inventory.UI
                 {
                     HideTooltip();
                     if (_slotData == null || _slotData.IsEmpty) return;
-                    var worldPos = eventData.position;
-                    OnRightClicked?.Invoke(_slotData, worldPos);
+                    var context = new InventorySlotActionContext(_slotData, _actionHandler);
+                    OnRightClicked?.Invoke(context, eventData.position);
                     break;
                 }
                 case PointerEventData.InputButton.Middle:
@@ -109,6 +107,7 @@ namespace Script.Inventory.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            Debug.Log($"<color=green>[InventorySlotUI]</color> OnPointerEnter → Slot {SlotIndex}");
             OnHovered?.Invoke(SlotIndex);
             if (_slotData is { IsEmpty: false }) ShowTooltip();
         }
@@ -130,6 +129,7 @@ namespace Script.Inventory.UI
         {
             if (tooltipRoot) tooltipRoot.SetActive(false);
         }
+
         public void ResetState()
         {
             if (highlightImage != null) highlightImage.enabled = false;

@@ -1,4 +1,4 @@
-using Script.Interfaces;
+using Script.Inventory.Interfaces;
 using UnityEngine;
 
 namespace Script.Items

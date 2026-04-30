@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Script.Interfaces;
 using Script.Items;
+using Script.Shared.Interfaces;
 using UnityEngine;
 
 namespace Script.Entities
@@ -9,8 +9,10 @@ namespace Script.Entities
     /// Enemy kế thừa Character: dùng stat/combat/cooldown từ Character,
     /// AI chỉ quyết định hành vi (patrol/chase/attack).
     /// </summary>
-    public class Enemy : Character, IInteractable
+    public class Enemy : Character, IInteractable, IInventoryHolder
     {
+        public override Script.Inventory.Interfaces.IInventory Inventory => GetComponentInChildren<Script.Inventory.Interfaces.IInventory>();
+
         private enum AIState
         {
             Patrol,

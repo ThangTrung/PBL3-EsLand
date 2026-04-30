@@ -1,17 +1,18 @@
-using Script.Entities;
-using Script.Interfaces;
+﻿using Script.Entities;
+using Script.Equipment.Interfaces;
+using Script.Shared.Interfaces;
 using UnityEngine;
 
 namespace Script.Items
 {
-    public enum EquipSlot { AttackStone, HealthStone, SpeedStone, DefenseStone, MainHand}
-    
+    public enum EquipSlot { AttackStone, HealthStone, SpeedStone, DefenseStone, MainHand }
+
     public abstract class Equipment : Item, IEquippable, IStatModifierProvider
     {
         [Header("Equipment Settings")]
         public EquipSlot equipSlot;
         public AnimatorOverrideController overrideController;
-        
+
         public EquipSlot Slot => equipSlot;
 
         public virtual void OnEquip(Character character) { }

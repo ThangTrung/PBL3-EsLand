@@ -1,5 +1,5 @@
 using UnityEngine;
-using Script.Interfaces;
+using Script.Shared.Interfaces;
 
 namespace Script.Items
 {
@@ -28,7 +28,6 @@ namespace Script.Items
         {
             if (!_isFlying || !_playerTransform) 
                 return;
-
             _currentSpeed += acceleration * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, _playerTransform.position, _currentSpeed * Time.deltaTime);
             
