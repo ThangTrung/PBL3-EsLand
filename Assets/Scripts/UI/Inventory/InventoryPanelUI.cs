@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
@@ -9,9 +10,10 @@ namespace UI.Inventory
 {
     public class InventoryPanelUI : MonoBehaviour
     {
-        private IInventory _inventory;
+        public event Action<IActionableItem, Vector3> OnActionMenuRequested;
+        public event Action OnInventoryClosed;
 
-        [SerializeField] private ItemActionMenu actionMenu;
+        private IInventory _inventory;
 
         [Header("UI References")]
         [SerializeField] private GameObject canvasRoot;
@@ -37,8 +39,6 @@ namespace UI.Inventory
 
             if (_inventory == null) return;
 
-            if (actionMenu == null) actionMenu = GetComponentInChildren<ItemActionMenu>(true);
-
             _inventory.OnInventoryChanged += RefreshUI;
 
             BuildSlots();
@@ -47,7 +47,6 @@ namespace UI.Inventory
 
         private void Awake()
         {
-            if (actionMenu == null) actionMenu = GetComponentInChildren<ItemActionMenu>(true);
             if (canvasRoot == null) canvasRoot = transform.Find("CanvasRoot")?.gameObject;
         }
 
@@ -73,7 +72,8 @@ namespace UI.Inventory
                 player.SetUIState(visible, player.IsEquipmentOpenInternal);
 
             if (visible) return;
-            if (actionMenu) actionMenu.HideMenu();
+            OnInventoryClosed?.Invoke(); 
+
             ClearAllHighlights();
             if (UnityEngine.EventSystems.EventSystem.current)
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
@@ -89,18 +89,19 @@ namespace UI.Inventory
         {
             if (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.E) && !Input.GetKeyDown(KeyCode.Return))
                 return;
+                
             if (_selectedSlotIndex < 0 || _selectedSlotIndex >= _slotUIs.Count) return;
             var slotUI = _slotUIs[_selectedSlotIndex];
             var slots = _inventory?.Slots;
             if (slots == null || _selectedSlotIndex >= slots.Count || slots[_selectedSlotIndex].IsEmpty) return;
-            if (!actionMenu) return;
+            
+            // 3. THAY VÌ GỌI MENU TRỰC TIẾP, PHÁT EVENT BÁO CÁO NGỮ CẢNH (CONTEXT)
             var context = new InventorySlotActionContext(slots[_selectedSlotIndex], _inventory.ActionHandler);
-            actionMenu.ShowMenu(context, slotUI.transform.position);
+            OnActionMenuRequested?.Invoke(context, slotUI.transform.position); 
         }
 
         public void SelectSlot(int index)
         {
-            Debug.Log($"<color=cyan>[InventoryPanelUI]</color> SelectSlot ? {index}");
             if (_slotUIs == null || _slotUIs.Count == 0) return;
             index = Mathf.Clamp(index, 0, _slotUIs.Count - 1);
             ClearAllHighlights();
@@ -129,17 +130,19 @@ namespace UI.Inventory
                 var slotUI = go.GetComponent<InventorySlotUI>();
                 if (!slotUI) continue;
                 slotUI.Init(i, _inventory.ActionHandler);
+                
+                // Gắn listener vào cục slot
                 slotUI.OnRightClicked += HandleSlotRightClicked;
                 _slotUIs.Add(slotUI);
             }
         }
-
+        
         private void HandleSlotRightClicked(IActionableItem context, Vector3 pos)
         {
-            if (actionMenu) actionMenu.ShowMenu(context, pos);
+            OnActionMenuRequested?.Invoke(context, pos);
         }
 
-        public void RefreshUI()
+        private void RefreshUI()
         {
             if (_inventory == null) return;
             var slots = _inventory.Slots;
@@ -157,5 +160,3 @@ namespace UI.Inventory
         }
     }
 }
-
-
