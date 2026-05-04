@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\u0110\xE1 Ph\xF2ng Th\u1EE7"
   description: 
-  icon: {fileID: 21300000, guid: 71dbd5a05e5768d41ad862df150a2ef7, type: 3}
+  icon: {fileID: 752084943, guid: 399312f17b7b974468fa1e27b7ed8129, type: 3}
   maxStack: 1
   equipSlot: 3
   overrideController: {fileID: 0}

@@ -683,6 +683,7 @@ GameObject:
   - component: {fileID: 475240600503910708}
   - component: {fileID: 3698629796515952496}
   - component: {fileID: 7852475145984597120}
+  - component: {fileID: 2839497554553468959}
   m_Layer: 0
   m_Name: Tooltip
   m_TagString: Untagged
@@ -789,6 +790,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!223 &2839497554553468959
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650509836734136025}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 100
+  m_TargetDisplay: 0
 --- !u!1 &8586479702937310879
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,7 +985,8 @@ MonoBehaviour:
   amountText: {fileID: 7455589506137181598}
   durabilityBar: {fileID: 6584753525043540130}
   highlightImage: {fileID: 8457769171674082554}
+  equippedOverlay: {fileID: 0}
   tooltipRoot: {fileID: 6650509836734136025}
   tooltipName: {fileID: 9142357476766474951}
   tooltipDesc: {fileID: 1668961175515148797}
-  actionMenu: {fileID: 6574767082038747165, guid: fd7e14c55925334478d7167311019e11, type: 3}
+  actionMenuProvider: {fileID: 0}
