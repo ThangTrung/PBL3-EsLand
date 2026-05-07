@@ -1,23 +1,16 @@
 using System.Collections.Generic;
+using Script.Entities.AI;
 using Script.Interfaces;
-using Script.Items;
 using UnityEngine;
 
 namespace Script.Entities
 {
     /// <summary>
     /// Enemy kế thừa Character: dùng stat/combat/cooldown từ Character,
-    /// AI chỉ quyết định hành vi (patrol/chase/attack).
+    /// AI chỉ quyết định hành vi (patrol/chase/attack) thông qua State Pattern.
     /// </summary>
     public class Enemy : Character, IInteractable
     {
-        private enum AIState
-        {
-            Patrol,
-            Chase,
-            Attack
-        }
-
         [Header("Target")]
         [SerializeField] private Transform target;
         [SerializeField] private string targetTag = "Player";
@@ -25,32 +18,34 @@ namespace Script.Entities
         [Header("AI Settings")]
         [SerializeField] private float detectionRange = 10f;
         [SerializeField] private float attackRange = 2f;
-        [SerializeField] private AIState state = AIState.Patrol;
 
         [Header("Patrol Settings")]
         [SerializeField] private float patrolRadius = 4f;
         [SerializeField] private float patrolReachDistance = 0.3f;
 
-        [Header("Loot Settings (temporary)")]
-        [SerializeField] private List<Item> lootTable = new List<Item>();
-        [Range(0, 1)][SerializeField] private float dropChance = 0.5f;
+        private IEnemyState _currentState;
 
-        private Vector3 _patrolPoint;
-        
         // Implementation of the new interface property
         public string InteractionAnimationTrigger => "attack";
+
+        // Public getters for AI properties
+        public Transform Target => target;
+        public float DetectionRange => detectionRange;
+        public float AttackRange => attackRange;
+        public float PatrolRadius => patrolRadius;
+        public float PatrolReachDistance => patrolReachDistance;
 
         protected override void Awake()
         {
             base.Awake();
-            
+
             if (target == null && !string.IsNullOrWhiteSpace(targetTag))
             {
                 var go = GameObject.FindGameObjectWithTag(targetTag);
                 if (go != null) target = go.transform;
             }
 
-            PickNewPatrolPoint();
+            ChangeState(new EnemyPatrolState());
         }
 
         protected override void Update()
@@ -58,96 +53,48 @@ namespace Script.Entities
             base.Update();
             if (IsDead) return;
 
-            UpdateState();
-            TickState();
+            _currentState?.Execute(this);
         }
 
-        private void UpdateState()
+        public void ChangeState(IEnemyState newState)
         {
-            if (!target)
+            _currentState?.Exit(this);
+            _currentState = newState;
+            _currentState?.Enter(this);
+        }
+
+        public void MoveTowardsPosition(Vector3 pos)
+        {
+            var dir = pos - transform.position;
+            dir.z = 0f;
+
+            if (dir.sqrMagnitude < 0.0001f)
             {
-                state = AIState.Patrol;
+                Move(Vector3.zero);
                 return;
             }
 
-            var distance = Vector3.Distance(transform.position, target.position);
-
-            if (distance <= attackRange) state = AIState.Attack;
-            else if (distance <= detectionRange) state = AIState.Chase;
-            else state = AIState.Patrol;
-        }
-
-        private void TickState()
-        {
-            switch (state)
-            {
-                case AIState.Patrol:
-                    Patrol();
-                    break;
-
-                case AIState.Chase:
-                    ChaseTarget();
-                    break;
-
-                case AIState.Attack:
-                    Attack(); // dùng Attack() chuẩn của Character (cooldown)
-                    break;
-            }
-        }
-
-        private void Patrol()
-        {
-            MoveTowards(_patrolPoint);
-
-            if (Vector3.Distance(transform.position, _patrolPoint) <= patrolReachDistance)
-                PickNewPatrolPoint();
-        }
-
-        private void PickNewPatrolPoint()
-        {
-            var rand = Random.insideUnitSphere * patrolRadius;
-            rand.y = 0f;
-            _patrolPoint = transform.position + rand;
-        }
-
-        private void ChaseTarget()
-        {
-            if (!target) return;
-            MoveTowards(target.position);
-        }
-
-        private void MoveTowards(Vector3 pos)
-        {
-            var dir = pos - transform.position;
-            dir.y = 0f;
-
-            if (dir.sqrMagnitude < 0.0001f) return;
-
             dir.Normalize();
-
-            // Sẽ dùng phương thức Move kế thừa từ Character thay vì tự tính transform.position
             Move(dir);
-
-            FaceDirection(dir);
         }
 
-        private static void FaceDirection(Vector3 direction)
+        public void StopMovement()
         {
-            if (direction.sqrMagnitude < 0.0001f) return;
-            // Character.Move đã xử lý lật hình qua localScale dựa trên direction.x
-            // Nếu game là Top-down thật sự cần transform.forward thì giữ lại
-            // Ở Character.cs: transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
+            Move(Vector3.zero);
         }
 
         public override void Attack()
         {
             if (!CanAttack()) return;
-            if (!target) return;
-            
-            var distance = Vector3.Distance(transform.position, target.position);
+            if (!Target) return;
+
+            var distance = Vector3.Distance(transform.position, Target.position);
             if (distance > attackRange) return;
 
-            if (target.TryGetComponent<IDamageable>(out var victim))
+            // Trigger animation from Character base class
+            ExecuteAnimation(InteractionAnimationTrigger);
+
+            if (Target.TryGetComponent<IDamageable>(out var victim))
                 victim.TakeDamage(GetTotalDamage(), this);
 
             AttackTimer = baseAttackCooldown;
@@ -159,37 +106,20 @@ namespace Script.Entities
 
             Debug.Log($"[Enemy] {characterName} đã bị tiêu diệt.");
 
-            DropLoot();
+            var lootDropper = GetComponent<LootDropper>();
+            if (lootDropper != null)
+                lootDropper.Drop(characterName);
 
             // tuỳ game: có thể disable thay vì destroy (để object pool)
             Destroy(gameObject, 2f);
         }
 
-        private void DropLoot()
-        {
-            if (lootTable == null || lootTable.Count == 0) return;
-
-            if (Random.value > dropChance) return;
-
-            int idx = Random.Range(0, lootTable.Count);
-            var dropped = lootTable[idx];
-            if (dropped == null) return;
-
-            Debug.Log($"[Loot] {characterName} rơi ra vật phẩm: {dropped.ItemName}");
-
-            // TODO: Instantiate pickup prefab (vật phẩm rơi ra ngoài world)
-        }
-
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, detectionRange);
-
+            Gizmos.DrawWireSphere(transform.position, DetectionRange);
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, attackRange);
-
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawWireSphere(transform.position, patrolRadius);
+            Gizmos.DrawWireSphere(transform.position, AttackRange);
         }
 
         public void Interact(Character interactor)
