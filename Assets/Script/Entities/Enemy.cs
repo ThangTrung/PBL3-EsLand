@@ -9,7 +9,7 @@ namespace Script.Entities
     /// Enemy kế thừa Character: dùng stat/combat/cooldown từ Character,
     /// AI chỉ quyết định hành vi (patrol/chase/attack) thông qua State Pattern.
     /// </summary>
-    public class Enemy : Character, IInteractable
+    public class Enemy : Character, IInteractable, IInventoryHolder
     {
         [Header("Target")]
         [SerializeField] private Transform target;

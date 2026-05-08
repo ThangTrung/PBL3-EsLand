@@ -1,7 +1,10 @@
 using System;
-using Script.Interfaces;
+using Script.Equipment.Core;
+using Script.Equipment.Interfaces;
 using Script.Items;
+using Script.Shared.Interfaces;
 using UnityEngine;
+using ToolType = Script.Equipment.Interfaces.ToolType;
 
 namespace Script.World
 {
@@ -40,10 +43,10 @@ namespace Script.World
             if (IsDead) return;
 
             var finalDamage = 0f;
-            var equipmentManager = interactor.GetComponent<Entities.EquipmentManager>();
+            var equipmentManager = interactor.GetComponent<EquipmentManager>();
             var mainItem = equipmentManager?.GetEquippedItem(EquipSlot.MainHand);
             
-            if (requiredTool != Interfaces.ToolType.None)
+            if (requiredTool != Script.Equipment.Interfaces.ToolType.None)
             {
                 if (mainItem is IGatheringTool tool && tool.Type == requiredTool)
                 {
