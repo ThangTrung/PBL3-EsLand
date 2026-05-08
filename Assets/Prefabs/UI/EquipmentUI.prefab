@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 5967558358829807217}
   - component: {fileID: 2640546313456957908}
   - component: {fileID: 6747399171190531366}
-  - component: {fileID: 767695627221390926}
+  - component: {fileID: 3625526470707929098}
   m_Layer: 5
   m_Name: EquipmentUI
   m_TagString: Untagged
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &767695627221390926
+--- !u!114 &3625526470707929098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -207,16 +207,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2417394054830363330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cde4b7283d744dabb54237be8f30a514, type: 3}
+  m_Script: {fileID: 11500000, guid: ee16faa0d3b5b0246b78ddbc89188b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   equipmentPanel: {fileID: 2417394054830363330}
   slots:
-  - {fileID: 5258684796503702029}
-  - {fileID: 2359308216852846378}
-  - {fileID: 5984153094641107418}
-  - {fileID: 218837673897971192}
-  - {fileID: 7174919932110007691}
+  - {fileID: 6858738859631664675}
+  - {fileID: 7370757973624840096}
+  - {fileID: 1249038562094632891}
+  - {fileID: 7754404487973096256}
+  - {fileID: 3203337687556497157}
 --- !u!1 &2853347667059025252
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 4468180186945182185}
   - component: {fileID: 990036131002896715}
   - component: {fileID: 3478497526872972770}
-  - component: {fileID: 5984153094641107418}
+  - component: {fileID: 1249038562094632891}
   m_Layer: 5
   m_Name: HealthStone
   m_TagString: Untagged
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5984153094641107418
+--- !u!114 &1249038562094632891
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2853347667059025252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60266b2422e4b2ea7ba599b9931c638, type: 3}
+  m_Script: {fileID: 11500000, guid: eff5126aed1beb54696b6ac0f560c254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 1
@@ -320,8 +320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8801988926280630397}
   - component: {fileID: 1768740120706769885}
-  - component: {fileID: 1102367517500079638}
-  - component: {fileID: 2359308216852846378}
+  - component: {fileID: 7370757973624840096}
   m_Layer: 5
   m_Name: SpeedStone
   m_TagString: Untagged
@@ -358,7 +357,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2856300600081952607}
   m_CullTransparentMesh: 1
---- !u!114 &1102367517500079638
+--- !u!114 &7370757973624840096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -367,37 +366,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2856300600081952607}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9483951be6fb8453f9d2f75614e33c86, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &2359308216852846378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2856300600081952607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60266b2422e4b2ea7ba599b9931c638, type: 3}
+  m_Script: {fileID: 11500000, guid: eff5126aed1beb54696b6ac0f560c254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 2
@@ -414,7 +383,7 @@ GameObject:
   - component: {fileID: 1634306206982259020}
   - component: {fileID: 5719438561021413302}
   - component: {fileID: 7446059748136608996}
-  - component: {fileID: 7174919932110007691}
+  - component: {fileID: 3203337687556497157}
   m_Layer: 5
   m_Name: AttackStone
   m_TagString: Untagged
@@ -481,7 +450,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7174919932110007691
+--- !u!114 &3203337687556497157
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -490,7 +459,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2985851752102787919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60266b2422e4b2ea7ba599b9931c638, type: 3}
+  m_Script: {fileID: 11500000, guid: eff5126aed1beb54696b6ac0f560c254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 0
@@ -1107,7 +1076,7 @@ GameObject:
   - component: {fileID: 5979268148373769128}
   - component: {fileID: 8805525834590241433}
   - component: {fileID: 4629170430091060062}
-  - component: {fileID: 218837673897971192}
+  - component: {fileID: 7754404487973096256}
   m_Layer: 5
   m_Name: DefenseStone
   m_TagString: Untagged
@@ -1174,7 +1143,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &218837673897971192
+--- !u!114 &7754404487973096256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1183,10 +1152,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7305369695857342030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60266b2422e4b2ea7ba599b9931c638, type: 3}
+  m_Script: {fileID: 11500000, guid: eff5126aed1beb54696b6ac0f560c254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotType: 1
+  slotType: 3
   icon: {fileID: 4878482880730113528}
   highlightImage: {fileID: 2766229739130003190}
 --- !u!1 &7768735720694713025
@@ -1275,7 +1244,7 @@ GameObject:
   - component: {fileID: 3792276991261511615}
   - component: {fileID: 4730442066541556513}
   - component: {fileID: 3218403931254561039}
-  - component: {fileID: 5258684796503702029}
+  - component: {fileID: 6858738859631664675}
   m_Layer: 5
   m_Name: MainHand
   m_TagString: Untagged
@@ -1342,7 +1311,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5258684796503702029
+--- !u!114 &6858738859631664675
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1351,7 +1320,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8317894353216905370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60266b2422e4b2ea7ba599b9931c638, type: 3}
+  m_Script: {fileID: 11500000, guid: eff5126aed1beb54696b6ac0f560c254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slotType: 4

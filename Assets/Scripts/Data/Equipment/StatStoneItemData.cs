@@ -1,0 +1,19 @@
+using UnityEngine;
+
+namespace Data.Equipment
+{
+    [CreateAssetMenu(fileName = "New Power Stone", menuName = "Inventory/Item/Power Stone")]
+    public class StatStone : Equipment
+    {
+        [Header("Stone Buffs")]
+        [SerializeField] private float damageBuff;
+        [SerializeField] private float defenseBuff;
+        [SerializeField] private float healthBuff;
+        [SerializeField] private float speedBuff;
+
+        public override float GetDamageModifier() => damageBuff;
+        public override float GetDefenseModifier() => defenseBuff;
+        public override float GetHealthModifier() => healthBuff;
+        public override float GetSpeedModifier() => speedBuff;
+    }
+}
