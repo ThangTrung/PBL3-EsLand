@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 987851203516571883}
   - component: {fileID: 4906162078148658383}
-  - component: {fileID: 7992801699663476120}
-  - component: {fileID: 4551103226446449918}
+  - component: {fileID: 6950054238957052097}
+  - component: {fileID: 7573126370369403477}
   m_Layer: 0
   m_Name: Pickaxe
   m_TagString: Loot
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7992801699663476120
+--- !u!114 &6950054238957052097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,8 +102,8 @@ MonoBehaviour:
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
---- !u!61 &4551103226446449918
-BoxCollider2D:
+--- !u!60 &7573126370369403477
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -144,6 +144,15 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.359375, y: 0.390625}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.0078125, y: -0.1953125}
+      - {x: 0.1796875, y: -0.1953125}
+      - {x: 0.1796875, y: 0.1953125}
+      - {x: -0.1796875, y: 0.1953125}
+      - {x: -0.1796875, y: -0.1953125}
+      - {x: -0.0234375, y: -0.1953125}
+      - {x: -0.0078125, y: -0.1796875}
+      - {x: -0.0078125, y: -0.1328125}
+      - {x: -0.0078125, y: -0.1640625}
+  m_UseDelaunayMesh: 0
