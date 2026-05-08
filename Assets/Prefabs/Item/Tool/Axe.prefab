@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3022717444164301386}
   - component: {fileID: 924693470190339904}
-  - component: {fileID: 9089073328954691086}
-  - component: {fileID: -6336772666783621915}
+  - component: {fileID: 2925698578049651324}
+  - component: {fileID: 7863044881441402794}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Loot
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9089073328954691086
+--- !u!114 &2925698578049651324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,8 +102,8 @@ MonoBehaviour:
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
---- !u!61 &-6336772666783621915
-BoxCollider2D:
+--- !u!60 &7863044881441402794
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -144,6 +144,12 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.421875, y: 0.359375}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.1015625, y: 0.1796875}
+      - {x: -0.2109375, y: 0.0234375}
+      - {x: -0.2109375, y: -0.1796875}
+      - {x: 0.1171875, y: -0.1796875}
+      - {x: 0.2109375, y: -0.1171875}
+      - {x: 0.2109375, y: 0.1796875}
+  m_UseDelaunayMesh: 0

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7585321966308197020}
   - component: {fileID: 3439109857608926519}
-  - component: {fileID: -1899174807210993262}
-  - component: {fileID: -6161997749086208658}
+  - component: {fileID: 4108430689433439548}
+  - component: {fileID: 3660824167389994229}
   m_Layer: 0
   m_Name: Harmer
   m_TagString: Loot
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1899174807210993262
+--- !u!114 &4108430689433439548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,8 +102,8 @@ MonoBehaviour:
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
---- !u!61 &-6161997749086208658
-BoxCollider2D:
+--- !u!60 &3660824167389994229
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -144,6 +144,13 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.4375, y: 0.4375}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.1875, y: 0.21875}
+      - {x: -0.21875, y: 0.15625}
+      - {x: -0.21875, y: -0.21875}
+      - {x: 0.03125, y: -0.21875}
+      - {x: 0.109375, y: -0.203125}
+      - {x: 0.21875, y: -0.109375}
+      - {x: 0.21875, y: 0.21875}
+  m_UseDelaunayMesh: 0

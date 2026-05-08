@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2814710351810728773}
   - component: {fileID: 8281972900571485954}
-  - component: {fileID: 1964527497302625338}
-  - component: {fileID: -1304976686391694105}
+  - component: {fileID: 2947792461401391633}
+  - component: {fileID: 8898617606502628310}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Loot
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1964527497302625338
+--- !u!114 &2947792461401391633
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,8 +102,8 @@ MonoBehaviour:
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
---- !u!61 &-1304976686391694105
-BoxCollider2D:
+--- !u!60 &8898617606502628310
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -144,6 +144,10 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.296875, y: 0.3125}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.1484375, y: 0.15625}
+      - {x: -0.1484375, y: -0.15625}
+      - {x: 0.1484375, y: -0.15625}
+      - {x: 0.1484375, y: 0.15625}
+  m_UseDelaunayMesh: 0
