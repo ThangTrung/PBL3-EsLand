@@ -1,10 +1,11 @@
-﻿using Core.Contracts.Inventory;
+using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
 using Core.Events;
 using Gameplay.Characters;
 using UI.Equipment;
 using UI.Inventory;
 using UI.ItemActions;
+using UI.Status;
 using UnityEngine;
 
 namespace UI
@@ -12,8 +13,9 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         public InventoryPanelUI inventoryUI;
-        public EquipmentPanelUI equipmentUI; // Tương tự làm y chang cho Equipment
+        public EquipmentPanelUI equipmentUI;
         public ItemActionMenu actionMenu;
+        public StatusPanelUI statusUI;
 
         private void OnEnable()
         {
@@ -56,6 +58,13 @@ namespace UI
 
             // b. Đăng ký lắng nghe các sự kiện bật/tắt từ Player
             if (inventoryHolder is not Player player) return;
+
+            if (statusUI != null)
+            {
+                statusUI.Initialize(player);
+                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Status UI.");
+            }
+
             if (inventoryUI != null)
             {
                 player.OnToggleInventory -= inventoryUI.ToggleUI;

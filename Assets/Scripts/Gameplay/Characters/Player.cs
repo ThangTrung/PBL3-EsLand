@@ -48,12 +48,29 @@ namespace Gameplay.Characters
         public void SetInventoryState(bool isOpen)
         {
             IsInventoryOpenInternal = isOpen;
+            UpdateUIState();
         }
 
         public void SetEquipmentState(bool isOpen)
         {
             IsEquipmentOpenInternal = isOpen;
+            UpdateUIState();
         }
+
+        private void UpdateUIState()
+        {
+            OnUIStateChanged?.Invoke(IsAnyUIOpen);
+            
+            if (IsAnyUIOpen)
+            {
+                var movement = GetComponent<PlayerMovementController>();
+                if (movement != null)
+                {
+                    movement.StopMovement();
+                }
+            }
+        }
+
         public void EquipTestItem()
         {
             if (EquipmentManager != null && TestPickaxe != null)
