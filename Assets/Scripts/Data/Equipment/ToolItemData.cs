@@ -1,11 +1,12 @@
 using Core.Contracts.Equipment;
 using Core.Types;
+using Data.Items;
 using UnityEngine;
 
 namespace Data.Equipment
 {
     [CreateAssetMenu(fileName = "New Tool", menuName = "Inventory/Item/Tool")]
-    public class Tool : ScriptableObject, IWeapon, IGatheringTool
+    public class Tool : Item, IWeapon, IGatheringTool
     {
         [Header("Tool Stats")]
         public ToolType toolType; 
