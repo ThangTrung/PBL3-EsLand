@@ -50,18 +50,19 @@ namespace UI.Equipment
 
         public void ToggleUI()
         {
-            var isCurrentlyVisible = equipmentPanel && equipmentPanel.activeSelf;
-            SetVisible(!isCurrentlyVisible);
+            var currentState = equipmentPanel && equipmentPanel.activeSelf;
+            SetVisible(!currentState);
         }
 
         private void SetVisible(bool visible)
         {
             if (equipmentPanel) equipmentPanel.SetActive(visible);
-
+            
             if (_provider is Player player)
-                player.SetUIState(player.IsInventoryOpenInternal, visible);
+                player.SetEquipmentState(visible);
 
             if (visible) return;
+    
             foreach (var slot in slots.Where(slot => slot))
                 slot.SetHighlight(false);
         }

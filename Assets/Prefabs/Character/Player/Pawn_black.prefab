@@ -12,9 +12,15 @@ GameObject:
   - component: {fileID: 1430614438622838355}
   - component: {fileID: 8529414099510129035}
   - component: {fileID: 4089081390627146615}
-  - component: {fileID: 4118308086695941553}
-  - component: {fileID: 8299313018065251984}
   - component: {fileID: 4089970383537584940}
+  - component: {fileID: 2626322512466777583}
+  - component: {fileID: 2538879719425757417}
+  - component: {fileID: 793174633759546946}
+  - component: {fileID: 9087183736049957316}
+  - component: {fileID: 5157322470952279880}
+  - component: {fileID: 7928832951855625043}
+  - component: {fileID: 5650210692215765098}
+  - component: {fileID: 1692839673029450657}
   m_Layer: 0
   m_Name: Pawn_black
   m_TagString: Player
@@ -138,49 +144,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4118308086695941553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673750509214528949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e79ac5a8fe0f32140a8ce553ec725af1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: Pawn
-  maxHealth: 100
-  baseDamage: 10
-  baseDefense: 5
-  baseMoveSpeed: 5
-  baseAttackCooldown: 0.2
-  animator: {fileID: 8529414099510129035}
-  rb: {fileID: 4089081390627146615}
-  equipmentManager: {fileID: 8299313018065251984}
-  baseAnimator: {fileID: 9100000, guid: 937790c58fb4444bbaa0c141d3e05a5a, type: 2}
-  testPickaxe: {fileID: 11400000, guid: 88d44179360d37d44bcb549902ffd3c2, type: 2}
-  interactionRange: 1.5
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  maxHunger: 100
-  maxThirst: 100
-  maxStamina: 100
-  inventory: {fileID: 2262220339235665670, guid: ea9dffbdfbbb0544cae5e46d98618ba7, type: 3}
---- !u!114 &8299313018065251984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673750509214528949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a74db6e05ea14d6c9e558fbeae0f42fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!60 &4089970383537584940
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -244,6 +207,119 @@ PolygonCollider2D:
       - {x: 0.18223023, y: 0.12347692}
       - {x: 0.13232565, y: 0.1649769}
   m_UseDelaunayMesh: 0
+--- !u!114 &2626322512466777583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8d5331680974043bfd503da1ff0c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMoveSpeed: 5
+--- !u!114 &2538879719425757417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f337538a10b88624fbc2c866047a5e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &793174633759546946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5515d7d3715b60c4b8544eea80ca846e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionRange: 1.5
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  baseDamage: 10
+  baseAttackCooldown: 1
+--- !u!114 &9087183736049957316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e65127aa14ef342842097e98264fca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8529414099510129035}
+  baseAnimator: {fileID: 0}
+--- !u!114 &5157322470952279880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594a465c4f87f5e4f9b3892b1fa204d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  baseDefense: 5
+--- !u!114 &7928832951855625043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aae94cd8de08bc4c9fdb21eea533053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Pawn
+  TestPickaxe: {fileID: 0}
+  maxHunger: 100
+  maxThirst: 100
+  maxStamina: 100
+--- !u!114 &5650210692215765098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ca4a78ce8864e4abdb533e927b80ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 64
+--- !u!114 &1692839673029450657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e4bcd5b8c30d74dbe2d30d1bf8c443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6692547207116666800
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4018944965380097134}
   - component: {fileID: 4632930788262887567}
-  - component: {fileID: 7631581934532663858}
+  - component: {fileID: 3338599534448626206}
   m_Layer: 0
   m_Name: PickupZone
   m_TagString: Untagged
@@ -312,7 +388,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &7631581934532663858
+--- !u!114 &3338599534448626206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -321,6 +397,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6692547207116666800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de20d951879865c49be2fd8ab2f54503, type: 3}
+  m_Script: {fileID: 11500000, guid: 14dcc722761d40a46a59e4fbffc7b9b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

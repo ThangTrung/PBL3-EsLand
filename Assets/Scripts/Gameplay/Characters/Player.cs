@@ -1,6 +1,7 @@
 using System;
 using Data.Equipment;
 using UnityEngine;
+using Core.Events;
 
 namespace Gameplay.Characters
 {
@@ -27,6 +28,11 @@ namespace Gameplay.Characters
 
         public bool IsAnyUIOpen => IsInventoryOpenInternal || IsEquipmentOpenInternal;
 
+        private void Start()
+        {
+            GameEvents.OnPlayerReady?.Invoke(this);
+        }
+
         public void ToggleInventory()
         {
             Debug.Log("Toggling Inventory UI");
@@ -39,23 +45,15 @@ namespace Gameplay.Characters
             OnToggleEquipment?.Invoke();
         }
 
-        public void SetUIState(bool inventoryOpen, bool equipmentOpen)
+        public void SetInventoryState(bool isOpen)
         {
-            IsInventoryOpenInternal = inventoryOpen;
-            IsEquipmentOpenInternal = equipmentOpen;
-
-            OnUIStateChanged?.Invoke(IsAnyUIOpen);
-            
-            if (IsAnyUIOpen)
-            {
-                var movement = GetComponent<PlayerMovementController>();
-                if (movement != null)
-                {
-                    movement.StopMovement();
-                }
-            }
+            IsInventoryOpenInternal = isOpen;
         }
 
+        public void SetEquipmentState(bool isOpen)
+        {
+            IsEquipmentOpenInternal = isOpen;
+        }
         public void EquipTestItem()
         {
             if (EquipmentManager != null && TestPickaxe != null)

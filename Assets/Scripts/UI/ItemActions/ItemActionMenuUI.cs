@@ -42,7 +42,7 @@ namespace UI.ItemActions
             dropButton.gameObject.SetActive(true);
             equipButton.gameObject.SetActive(showEquip);
             unequipButton.gameObject.SetActive(showUnequip);
-
+        
             var menuRect = menuPanel.GetComponent<RectTransform>();
             var parentRect = menuRect.parent.GetComponent<RectTransform>();
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -55,7 +55,8 @@ namespace UI.ItemActions
             menuPanel.SetActive(true);
             blockerPanel.SetActive(true);
         }
-
+        
+        
         public void Hide()
         {
             menuPanel.SetActive(false);

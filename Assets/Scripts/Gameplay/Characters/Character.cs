@@ -11,8 +11,14 @@ namespace Gameplay.Characters
         [SerializeField] protected string characterName = "New Character";
 
         public string CharacterName => characterName;
-
-        public virtual IInventory Inventory => GetComponentInChildren<IInventory>();
-        public virtual IEquipmentController EquipmentManager => GetComponent<IEquipmentController>();
+        
+        public virtual IInventory Inventory { get; protected set; }
+        public virtual IEquipmentController EquipmentManager { get; protected set; }
+        
+        protected virtual void Awake()
+        {
+            Inventory = GetComponentInChildren<IInventory>();
+            EquipmentManager = GetComponent<IEquipmentController>();
+        }
     }
 }
