@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91a93a803b104049a092111427c4694a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b54fc8eb44b9e54391778cce2610373, type: 3}
   m_Name: gold_ore
   m_EditorClassIdentifier: 
-  itemName: "Ph\xF4i v\xE0ng"
-  description: 
+  itemName: "V\xE0ng d\u1ECB gi\u1EDBi"
+  description: "Nh\xECn n\xF3 th\u1EADt k\u1EF3 l\u1EA1, s\xE1ng nh\u01B0 v\xE0ng
+    nh\u01B0ng l\u1EA1i c\u1EE9ng h\u01A1n....."
   icon: {fileID: 21300000, guid: 5e0ccfdbb4c6cf14a9aba7e0096753bb, type: 3}
-  maxStack: 64
-  canBeSmelted: 1
-  resultItem: {fileID: 0}
+  maxStack: 1
+  canBeSmelted: 0
+  resultItem: {fileID: 11400000}
   smeltTime: 5

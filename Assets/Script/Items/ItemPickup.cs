@@ -38,9 +38,13 @@ namespace Script.Items
 
         private void PickUp()
         {
-            if (!itemData || !_playerTransform) return;
-            if (!_playerTransform.TryGetComponent<IInventoryHolder>(out var holder) || holder.Inventory == null)
+            if (!itemData || !_playerTransform)
                 return;
+            if (!_playerTransform.TryGetComponent<IInventoryHolder>(out var holder) || holder.Inventory == null)
+            {
+                Debug.Log("Loi o day");
+                return;
+            }
             var success = holder.Inventory.AddItem(itemData, 1);
             if (success)
             {

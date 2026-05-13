@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9e4bd8982d43dcb3868e71d0698c4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 85c3db9a2bff53d4f8d15cf6040e637f, type: 3}
   m_Name: Health
   m_EditorClassIdentifier: 
-  itemName: "\u0110\xE1 Sinh L\u1EF1c"
-  description: 
+  itemName: "\u0110\xE1 sinh l\u1EF1c"
+  description: "B\u1EC1n b\u1EC9 d\u1EBDo dai nh\u01B0 d\xF2ng n\u01B0\u1EDBc."
   icon: {fileID: -722892414, guid: fe6d0bcf9f6f7034d92062752518e2ed, type: 3}
   maxStack: 1
   equipSlot: 1
