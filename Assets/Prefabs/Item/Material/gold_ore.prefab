@@ -10,8 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6850165108108162679}
   - component: {fileID: 3562258723964680627}
+<<<<<<< Updated upstream
   - component: {fileID: -1765206059329703472}
   - component: {fileID: -7498824212218464987}
+=======
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: gold_ore
   m_TagString: Loot
@@ -86,6 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< Updated upstream
 --- !u!114 &-1765206059329703472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,3 +151,5 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+=======
+>>>>>>> Stashed changes

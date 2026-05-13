@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Prefabs/Inventory/InventoryUI.prefab.meta
 guid: 0ade2e31ae095f64b8fb1297fbc7b796
 PrefabImporter:
+========
+guid: c28c347cf7e493a49ae5792359fe5acf
+NativeFormatImporter:
+>>>>>>>> Stashed changes:Assets/Data/Items/Tool/Harmer.asset.meta
   externalObjects: {}
+  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

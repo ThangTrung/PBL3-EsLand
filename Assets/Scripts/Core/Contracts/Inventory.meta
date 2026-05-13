@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Scripts/Core/Contracts/Inventory.meta
 guid: dda6a49bfadcc644db52aec63c2d204f
 folderAsset: yes
 DefaultImporter:
+========
+guid: 7c3801a317c8ebf479833d1dd01c4929
+NativeFormatImporter:
+>>>>>>>> Stashed changes:Assets/Data/Items/MaterialItem/silver_ore.asset.meta
   externalObjects: {}
+  mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
