@@ -6,7 +6,7 @@ namespace Gameplay.Characters
 {
     public class PlayerInteractionController : MonoBehaviour
     {
-        private static readonly int InteractHash = Animator.StringToHash("interact");
+                private static readonly int InteractHash = Animator.StringToHash("interact");
 
         [Header("Interaction Settings")]
         [SerializeField] private float interactionRange = 1.5f;
