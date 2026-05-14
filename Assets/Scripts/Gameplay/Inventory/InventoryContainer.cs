@@ -53,6 +53,27 @@ namespace Gameplay.Inventory
             NotifyChanged();
         }
 
+        public void Collapse()
+        {
+            if (_slots == null) return;
+            
+            int nextFree = 0;
+            for (int i = 0; i < _slots.Length; i++)
+            {
+                if (!_slots[i].IsEmpty)
+                {
+                    if (i != nextFree)
+                    {
+                        _slots[nextFree].SetData(_slots[i].Item, _slots[i].Amount, _slots[i].CurrentDurability);
+                        _slots[i].Clear();
+                    }
+                    nextFree++;
+                }
+            }
+            NotifyChanged();
+        }
+
+
         public void NotifyChanged() => OnInventoryChanged?.Invoke();
     }
 }

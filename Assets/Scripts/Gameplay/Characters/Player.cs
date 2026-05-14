@@ -26,7 +26,63 @@ namespace Gameplay.Characters
         public bool IsInventoryOpenInternal { get; private set; }
         public bool IsEquipmentOpenInternal { get; private set; }
 
-        public bool IsAnyUIOpen => IsInventoryOpenInternal || IsEquipmentOpenInternal;
+                public bool IsAnyUIOpen => IsInventoryOpenInternal || IsEquipmentOpenInternal;
+
+        [Header("Runtime Stats")]
+        [SerializeField] private float currentHunger;
+        [SerializeField] private float currentThirst;
+        [SerializeField] private float currentStamina;
+
+        public float MaxHunger => maxHunger;
+        public float MaxThirst => maxThirst;
+        public float MaxStamina => maxStamina;
+
+        public float CurrentHunger => currentHunger;
+        public float CurrentThirst => currentThirst;
+        public float CurrentStamina => currentStamina;
+
+        public event Action<float> OnHungerChanged;
+        public event Action<float> OnThirstChanged;
+        public event Action<float> OnStaminaChanged;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            currentHunger = maxHunger;
+            currentThirst = maxThirst;
+            currentStamina = maxStamina;
+        }
+
+        private void Update()
+        {
+            // Increased drain for clear testing: 5 units per second
+            ConsumeHunger(5.0f * Time.deltaTime);
+            ConsumeThirst(7.0f * Time.deltaTime);
+        }
+
+        public void ConsumeHunger(float amount)
+        {
+            currentHunger = Mathf.Clamp(currentHunger - amount, 0, maxHunger);
+            OnHungerChanged?.Invoke(currentHunger);
+        }
+
+        public void ConsumeThirst(float amount)
+        {
+            currentThirst = Mathf.Clamp(currentThirst - amount, 0, maxThirst);
+            OnThirstChanged?.Invoke(currentThirst);
+        }
+
+        public void AddHunger(float amount)
+        {
+            currentHunger = Mathf.Clamp(currentHunger + amount, 0, maxHunger);
+            OnHungerChanged?.Invoke(currentHunger);
+        }
+
+        public void AddThirst(float amount)
+        {
+            currentThirst = Mathf.Clamp(currentThirst + amount, 0, maxThirst);
+            OnThirstChanged?.Invoke(currentThirst);
+        }
 
         private void Start()
         {

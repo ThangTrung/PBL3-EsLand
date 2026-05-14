@@ -23,7 +23,8 @@ namespace UI.Equipment
         public event Action<IActionableItem, Vector3> OnRightClicked;
 
         private IEquippable _currentItem;
-        private IEquipmentController _equipmentManager;
+                private IEquipmentController _equipmentManager;
+        private IItemActionHandler _actionHandler;
         private Sprite _defaultSprite;
         private Color _defaultColor;
 
@@ -43,18 +44,22 @@ namespace UI.Equipment
 
         public void SetEquipmentManager(IEquipmentController manager) => _equipmentManager = manager;
 
+        public void SetActionHandler(IItemActionHandler handler) => _actionHandler = handler;
+
+
         public void SetItem(IEquippable item, Sprite itemSprite)
         {
             _currentItem = item;
             if (icon == null) return;
-            
             if (item != null && itemSprite != null)
             {
-                icon.sprite = itemSprite;
+                if (item is Tool)
+                    icon.sprite = itemSprite;
                 icon.color = new Color(1, 1, 1, 1f);
             }
             else ClearVisuals();
         }
+        
 
         public void ClearItem()
         {
@@ -78,7 +83,7 @@ namespace UI.Equipment
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Right || _currentItem == null) return;
-            var context = new EquipmentSlotActionContext(_equipmentManager, slotType, _currentItem);
+            var context = new EquipmentSlotActionContext(_actionHandler, slotType, _currentItem);
             OnRightClicked?.Invoke(context, eventData.position);
         }
 

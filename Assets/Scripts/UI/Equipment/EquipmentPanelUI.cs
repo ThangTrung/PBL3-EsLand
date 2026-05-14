@@ -9,8 +9,10 @@ using UnityEngine;
 
 namespace UI.Equipment
 {
-    public class EquipmentPanelUI : MonoBehaviour
+        public class EquipmentPanelUI : MonoBehaviour
     {
+        public event System.Action<IActionableItem, Vector3> OnActionMenuRequested;
+        public event System.Action OnEquipmentClosed;
         [Header("UI")]
         public GameObject equipmentPanel;
 
@@ -38,6 +40,7 @@ namespace UI.Equipment
             foreach (var slot in slots.Where(slot => slot != null))
             {
                 slot.SetEquipmentManager(_equipmentManager);
+                slot.SetActionHandler(provider.Inventory?.ActionHandler);
                 slot.OnRightClicked += HandleSlotRightClicked;
             }
         }
@@ -63,13 +66,14 @@ namespace UI.Equipment
 
             if (visible) return;
     
+            OnEquipmentClosed?.Invoke();
             foreach (var slot in slots.Where(slot => slot))
                 slot.SetHighlight(false);
         }
 
-        private static void HandleSlotRightClicked(IActionableItem context, Vector3 screenPos)
+        private void HandleSlotRightClicked(IActionableItem context, Vector3 screenPos)
         {
-            context?.Unequip();
+            OnActionMenuRequested?.Invoke(context, screenPos);
         }
 
         private void HandleItemEquipped(EquipSlot slot, IEquippable equippableItem)
@@ -79,7 +83,6 @@ namespace UI.Equipment
 
             Sprite icon = null;
             if (equippableItem is Data.Equipment.Equipment item) icon = item.Icon;
-
             slotUI.SetItem(equippableItem, icon);
         }
 

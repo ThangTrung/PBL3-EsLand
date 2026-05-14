@@ -26,9 +26,17 @@ namespace UI
         {
             GameEvents.OnPlayerReady -= HandlePlayerReady;
             
-            if (inventoryUI == null) return;
-            inventoryUI.OnActionMenuRequested -= OpenActionMenu;
-            inventoryUI.OnInventoryClosed -= actionMenu.HideMenu;
+            if (inventoryUI != null)
+            {
+                inventoryUI.OnActionMenuRequested -= OpenActionMenu;
+                inventoryUI.OnInventoryClosed -= actionMenu.HideMenu;
+            }
+
+            if (equipmentUI != null)
+            {
+                equipmentUI.OnActionMenuRequested -= OpenActionMenu;
+                equipmentUI.OnEquipmentClosed -= actionMenu.HideMenu;
+            }
         }
 
         private void HandlePlayerReady(IInventoryHolder inventoryHolder)
@@ -44,9 +52,8 @@ namespace UI
             if (equipmentUI != null)
             {
                 equipmentUI.Initialize(inventoryHolder);
-                // Tương tự cho EquipmentUI
-                // equipmentUI.OnActionMenuRequested += OpenActionMenu;
-                // equipmentUI.OnEquipmentClosed += actionMenu.HideMenu;
+                equipmentUI.OnActionMenuRequested += OpenActionMenu;
+                equipmentUI.OnEquipmentClosed += actionMenu.HideMenu;
                 Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Equipment UI.");
             }
 

@@ -8,7 +8,8 @@ namespace Core.Contracts.Shared
         void UseItem(IInventorySlot slot);
         void DropItem(IInventorySlot slot);
         void EquipItem(IInventorySlot slot);
-        void UnequipItem(EquipSlot slot);
+                void UnequipItem(EquipSlot slot);
+        void DropEquippedItem(EquipSlot slot);
         bool IsEquipped(IInventorySlot slot);
     }
 }
