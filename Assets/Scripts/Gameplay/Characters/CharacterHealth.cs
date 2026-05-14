@@ -59,6 +59,17 @@ namespace Gameplay.Characters
             OnDie?.Invoke();
         }
 
+        public void SetMaxHealth(float value, bool resetCurrent = true)
+        {
+            maxHealth = value;
+            if (resetCurrent)
+            {
+                CurrentHealth = maxHealth;
+                IsDead = false;
+                OnHealthChanged?.Invoke(CurrentHealth);
+            }
+        }
+
         private float GetMaxHealth()
         {
             var total = maxHealth;

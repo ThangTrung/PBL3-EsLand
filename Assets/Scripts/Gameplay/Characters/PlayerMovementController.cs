@@ -17,6 +17,7 @@ namespace Gameplay.Characters
         private CharacterHealth _health;
 
         private bool _canMove = true;
+        private float _speedMultiplier = 1f;
 
         private void Awake()
         {
@@ -86,11 +87,22 @@ namespace Gameplay.Characters
             if (_animator != null) _animator.SetBool(IsMovingHash, false);
         }
 
+        public void SetBaseMoveSpeed(float speed)
+        {
+            baseMoveSpeed = speed;
+        }
+
+        public void SetSpeedMultiplier(float multiplier)
+        {
+            _speedMultiplier = Mathf.Max(0.1f, multiplier);
+        }
+
         private float GetMoveSpeed()
         {
             var speed = baseMoveSpeed;
             if (_equipmentController != null)
                 speed += _equipmentController.GetTotalSpeedModifier();
+            speed *= _speedMultiplier;
             return Mathf.Max(1f, speed);
         }
     }
