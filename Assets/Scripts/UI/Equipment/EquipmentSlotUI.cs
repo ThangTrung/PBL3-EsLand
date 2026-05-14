@@ -35,6 +35,10 @@ namespace UI.Equipment
                 _defaultColor = icon.color;
             }
             SetHighlight(false); 
+            if (_currentItem == null)
+            {
+                ClearVisuals();
+            }
         }
 
         public void SetEquipmentManager(IEquipmentController manager) => _equipmentManager = manager;
@@ -62,6 +66,7 @@ namespace UI.Equipment
         {
             if (icon == null) return;
             icon.sprite = _defaultSprite;
+            _defaultColor.a = slotType == EquipSlot.MainHand ? 0f : 0.2f;
             icon.color = _defaultColor;
         }
 
@@ -81,5 +86,3 @@ namespace UI.Equipment
         public void OnPointerExit(PointerEventData eventData) => SetHighlight(false);
     }
 }
-
-

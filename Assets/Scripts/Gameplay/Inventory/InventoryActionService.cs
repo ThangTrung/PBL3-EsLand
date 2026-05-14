@@ -36,16 +36,16 @@ namespace Gameplay.Inventory
 
         public void EquipItem(IInventorySlot slot)
         {
+            Debug.Log($"[InventoryActionService] EquipItem() called for slot with item: {slot?.Item?.ItemName ?? "Empty"}");
             if (slot == null || slot.IsEmpty || _ownerFacade == null) return;
             if (slot.Item is not IEquippable equippable) return;
-            if (slot.Item is IDurable durable && slot.CurrentDurability <= 0)
+            if (slot.Item is IDurable && slot.CurrentDurability <= 0)
             {
                 Debug.LogWarning("Item is broken, cannot equip!");
                 return;
             }
-            if (_ownerFacade.EquipmentManager != null)
-                _ownerFacade.EquipmentManager.Equip(equippable);
-                
+            _ownerFacade.EquipmentManager?.Equip(equippable);
+
             _inventory.NotifyChanged();
         }
 

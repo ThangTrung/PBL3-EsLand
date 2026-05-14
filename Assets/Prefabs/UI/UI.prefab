@@ -117,6 +117,7 @@ MonoBehaviour:
   inventoryUI: {fileID: 6527332615492299713}
   equipmentUI: {fileID: 3161900768522463793}
   actionMenu: {fileID: 2668030221173354595}
+  statusUI: {fileID: 0}
 --- !u!1 &2454280376761316391
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,12 +196,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1976,11 +1977,37 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6254674984993114084, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5902385503942940225, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8727105694595837941}
   m_SourcePrefab: {fileID: 100100000, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
+--- !u!1 &1350327940925297085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5902385503942940225, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
+  m_PrefabInstance: {fileID: 4851547006957258748}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8727105694595837941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350327940925297085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!224 &4648601114973596106 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 276705681425329718, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
@@ -1991,7 +2018,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1855929596070947901, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
   m_PrefabInstance: {fileID: 4851547006957258748}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1350327940925297085}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa1c39b0096e56442b0bb2b3ff51f7f7, type: 3}

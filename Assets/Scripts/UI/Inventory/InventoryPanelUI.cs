@@ -129,7 +129,6 @@ namespace UI.Inventory
                 if (!slotUI) continue;
                 slotUI.Init(i, _inventory.ActionHandler);
                 
-                // Gắn listener vào cục slot
                 slotUI.OnRightClicked += HandleSlotRightClicked;
                 _slotUIs.Add(slotUI);
             }
