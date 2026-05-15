@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a9e4bd8982d43dcb3868e71d0698c4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 85c3db9a2bff53d4f8d15cf6040e637f, type: 3}
   m_Name: Defense
   m_EditorClassIdentifier: 
-  itemName: "\u0110\xE1 Ph\xF2ng Th\u1EE7"
+  itemName: 
   description: 
-  icon: {fileID: 752084943, guid: 399312f17b7b974468fa1e27b7ed8129, type: 3}
+  icon: {fileID: 0}
   maxStack: 1
-  equipSlot: 3
+  equipSlot: 0
   overrideController: {fileID: 0}
   damageBuff: 0
-  defenseBuff: 100
+  defenseBuff: 0
   healthBuff: 0
   speedBuff: 0

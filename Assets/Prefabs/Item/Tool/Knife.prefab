@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2814710351810728773}
   - component: {fileID: 8281972900571485954}
-  - component: {fileID: 2947792461401391633}
   - component: {fileID: 8898617606502628310}
+  - component: {fileID: 4183703083693032368}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Loot
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2947792461401391633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324405590968892952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91102227483325e489e4c56f5954e844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 88d44179360d37d44bcb549902ffd3c2, type: 2}
-  flySpeed: 5
-  acceleration: 20
-  pickupDistance: 0.5
 --- !u!60 &8898617606502628310
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -151,3 +135,19 @@ PolygonCollider2D:
       - {x: 0.1484375, y: -0.15625}
       - {x: 0.1484375, y: 0.15625}
   m_UseDelaunayMesh: 0
+--- !u!114 &4183703083693032368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324405590968892952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a770e395a92ed40b12ec5d9862029f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 88d44179360d37d44bcb549902ffd3c2, type: 2}
+  flySpeed: 5
+  acceleration: 20
+  pickupDistance: 0.5

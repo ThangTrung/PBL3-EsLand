@@ -71,14 +71,14 @@ namespace Gameplay.Inventory
             if (slot is not InventorySlot concreteSlot) return;
             concreteSlot.AddAmount(-amount);
             if (concreteSlot.Amount <= 0) concreteSlot.Clear();
-            _container.NotifyChanged();
+            _container.Collapse();
         }
 
         public bool RemoveSlot(IInventorySlot slot)
         {
             if (slot is not InventorySlot concreteSlot) return false;
             concreteSlot.Clear();
-            _container.NotifyChanged();
+            _container.Collapse();
             return true;
         }
 
@@ -97,7 +97,7 @@ namespace Gameplay.Inventory
                 remaining -= take;
             }
             
-            _container.NotifyChanged();
+            _container.Collapse();
             return true;
         }
 

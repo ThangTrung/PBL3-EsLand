@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3022717444164301386}
   - component: {fileID: 924693470190339904}
-  - component: {fileID: 2925698578049651324}
   - component: {fileID: 7863044881441402794}
+  - component: {fileID: 1181382388802793854}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Loot
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2925698578049651324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5232024357101841912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91102227483325e489e4c56f5954e844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: e5f6598e1ec98674090f0380290015aa, type: 2}
-  flySpeed: 5
-  acceleration: 20
-  pickupDistance: 0.5
 --- !u!60 &7863044881441402794
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -153,3 +137,19 @@ PolygonCollider2D:
       - {x: 0.2109375, y: -0.1171875}
       - {x: 0.2109375, y: 0.1796875}
   m_UseDelaunayMesh: 0
+--- !u!114 &1181382388802793854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232024357101841912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a770e395a92ed40b12ec5d9862029f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: e5f6598e1ec98674090f0380290015aa, type: 2}
+  flySpeed: 5
+  acceleration: 20
+  pickupDistance: 0.5

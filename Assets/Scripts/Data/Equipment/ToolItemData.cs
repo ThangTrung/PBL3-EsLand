@@ -1,11 +1,12 @@
 using Core.Contracts.Equipment;
 using Core.Types;
+using Data.Items;
 using UnityEngine;
 
 namespace Data.Equipment
 {
     [CreateAssetMenu(fileName = "New Tool", menuName = "Inventory/Item/Tool")]
-    public class Tool : ScriptableObject, IWeapon, IGatheringTool
+    public class Tool : Equipment, IWeapon, IGatheringTool
     {
         [Header("Tool Stats")]
         public ToolType toolType; 
@@ -17,8 +18,7 @@ namespace Data.Equipment
         public ToolType Type => toolType;
         public float GatherSpeedMultiplier => gatherSpeedMultiplier;
         public int Tier => tier;
-
-        public float GetDamageModifier() => damage;
+        public override float GetDamageModifier() => damage;
     }
 }
 

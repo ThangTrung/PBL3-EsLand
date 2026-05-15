@@ -17,15 +17,15 @@ namespace Gameplay.Characters
 
         private void Update()
         {
-            // If UI is open, stop processing gameplay input
-            if (_playerFacade != null && _playerFacade.IsAnyUIOpen)
+            if (_playerFacade == null) return;
+            HandleUIInput();
+            
+            if (_playerFacade.IsAnyUIOpen)
             {
-                HandleUIInput();
+                _movement?.Move(Vector3.zero);
                 return;
             }
-
             HandleMovementInput();
-            HandleUIInput();
             HandleActionInput();
         }
 
