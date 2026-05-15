@@ -49,14 +49,14 @@ namespace UI.Inventory
                 return;
             }
 
-            icon.sprite = _slotData.Item.Icon;
+            icon.sprite = _slotData.ItemData.Icon;
             icon.enabled = true;
 
             amountText.enabled = _slotData.Amount > 1;
             if (_slotData.Amount > 1)
                 amountText.text = _slotData.Amount.ToString();
 
-            var hasDurability = _slotData.Item is IDurable;
+            var hasDurability = _slotData.ItemData is IDurable;
             if (durabilityBar) durabilityBar.gameObject.SetActive(hasDurability);
             if (hasDurability && durabilityBar)
                 durabilityBar.fillAmount = _slotData.DurabilityPercent;
@@ -118,8 +118,8 @@ namespace UI.Inventory
         {
             if (tooltipRoot == null || _slotData == null) return;
             tooltipRoot.SetActive(true);
-            if (tooltipName != null) tooltipName.text = _slotData.Item.ItemName;
-            if (tooltipDesc != null) tooltipDesc.text = _slotData.Item.Description;
+            if (tooltipName != null) tooltipName.text = _slotData.ItemData.ItemName;
+            if (tooltipDesc != null) tooltipDesc.text = _slotData.ItemData.Description;
         }
 
         private void HideTooltip()

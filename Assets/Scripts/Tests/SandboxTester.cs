@@ -11,7 +11,7 @@ namespace Tests
         public GameObject inventoryPrefab;
 
         [Header("Data")]
-        public Item itemToTest;
+        public ItemData itemToTest;
         public int amountToAdd = 1;
 
         private InventoryController _spawnedManager;

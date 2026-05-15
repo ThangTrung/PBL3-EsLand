@@ -3,7 +3,7 @@ namespace Core.Contracts.Inventory
 {
     public interface IInventorySlot
     {
-        Item Item { get; }
+        ItemData ItemData { get; }
         int Amount { get; }
         int CurrentDurability { get; }
         bool IsEmpty { get; }

@@ -14,7 +14,7 @@ namespace Gameplay.World
         [System.Serializable]
         public class LootItem
         {
-            public Item item;
+            public ItemData item;
             public int minAmount = 1;
             public int maxAmount = 3;
             [Range(0, 1)] public float chance = 1f;
@@ -36,7 +36,7 @@ namespace Gameplay.World
             }
         }
 
-        private void DropItem(Item item)
+        private void DropItem(ItemData item)
         {
             if (!item) return;
 

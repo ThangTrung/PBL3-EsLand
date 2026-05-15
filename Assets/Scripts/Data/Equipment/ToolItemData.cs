@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Data.Equipment
 {
-    [CreateAssetMenu(fileName = "New Tool", menuName = "Inventory/Item/Tool")]
-    public class Tool : Item, IWeapon, IGatheringTool
+    [CreateAssetMenu(fileName = "New Tool", menuName = "Inventory/ItemData/Tool")]
+    public class Tool : ItemData, IWeapon, IGatheringTool
     {
         [Header("Tool Stats")]
         public ToolType toolType; 

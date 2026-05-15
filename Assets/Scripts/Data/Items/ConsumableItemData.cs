@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Data.Items
 {
-    [CreateAssetMenu(fileName = "New Consumable", menuName = "Inventory/Item/Consumable")]
-    public class ConsumableItem : Item
+    [CreateAssetMenu(fileName = "New Consumable", menuName = "Inventory/ItemData/Consumable")]
+    public class ConsumableItem : ItemData
     {
         [Header("Consumable Stats")]
         public int healthRestore;

@@ -8,7 +8,7 @@ namespace Data.Equipment
 {
     public enum EquipSlot { AttackStone, HealthStone, SpeedStone, DefenseStone, MainHand }
 
-    public abstract class Equipment : Item, IEquippable, IStatModifierProvider
+    public abstract class Equipment : ItemData, IEquippable, IStatModifierProvider
     {
         [Header("Equipment Settings")]
         public EquipSlot equipSlot;

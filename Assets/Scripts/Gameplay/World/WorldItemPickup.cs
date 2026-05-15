@@ -7,7 +7,7 @@ namespace Gameplay.World
     public class ItemPickup : MonoBehaviour
     {
         [Header("Data Items")]
-        public Item itemData;
+        public ItemData itemData;
 
         [Header("Settings")]
         [SerializeField] private float flySpeed = 5f; 

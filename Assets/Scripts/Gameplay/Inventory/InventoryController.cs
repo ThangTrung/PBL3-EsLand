@@ -29,7 +29,7 @@ namespace Gameplay.Inventory
             _container = GetComponent<InventoryContainer>();
         }
 
-        public bool AddItem(Item item, int amount = 1)
+        public bool AddItem(ItemData item, int amount = 1)
         {
             if (!item || amount <= 0) return false;
             var remaining = amount;
@@ -38,7 +38,7 @@ namespace Gameplay.Inventory
 
             if (item.MaxStack > 1)
             {
-                foreach (var slot in allSlots.Where(s => !s.IsEmpty && s.Item == item))
+                foreach (var slot in allSlots.Where(s => !s.IsEmpty && s.ItemData == item))
                 {
                     var canAdd = item.MaxStack - slot.Amount;
                     if (canAdd <= 0) continue;
@@ -82,7 +82,7 @@ namespace Gameplay.Inventory
             return true;
         }
 
-        public bool RemoveItem(Item item, int amount = 1)
+        public bool RemoveItem(ItemData item, int amount = 1)
         {
             if (CountItem(item) < amount) return false;
             var remaining = amount;
@@ -90,7 +90,7 @@ namespace Gameplay.Inventory
 
             for (var i = allSlots.Length - 1; i >= 0 && remaining > 0; i--)
             {
-                if (allSlots[i].IsEmpty || allSlots[i].Item != item) continue;
+                if (allSlots[i].IsEmpty || allSlots[i].ItemData != item) continue;
                 var take = Mathf.Min(allSlots[i].Amount, remaining);
                 allSlots[i].AddAmount(-take);
                 if (allSlots[i].Amount <= 0) allSlots[i].Clear();
@@ -101,8 +101,8 @@ namespace Gameplay.Inventory
             return true;
         }
 
-        public int CountItem(Item item) =>
-            _container.GetAllSlots().Where(s => !s.IsEmpty && s.Item == item).Sum(s => s.Amount);
+        public int CountItem(ItemData item) =>
+            _container.GetAllSlots().Where(s => !s.IsEmpty && s.ItemData == item).Sum(s => s.Amount);
 
         public IInventorySlot GetSlotAt(int index) => _container.GetSlotAt(index);
 

@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Data.Items
 {
-    [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-    public partial class Item : ScriptableObject, IItemUsable
+    [CreateAssetMenu(fileName = "New ItemData", menuName = "Inventory/ItemData")]
+    public partial class ItemData : ScriptableObject, IItemUsable
     {
-        [Header("Item Basic Info")]
+        [Header("ItemData Basic Info")]
         [SerializeField] protected string itemName = "";
         [SerializeField] [TextArea] private string description = "";
         [SerializeField] private Sprite icon; 
