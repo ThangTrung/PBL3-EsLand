@@ -6,20 +6,23 @@ namespace Gameplay.Characters
 {
     public class PlayerInteractionController : MonoBehaviour
     {
-                private static readonly int InteractHash = Animator.StringToHash("interact");
+        private static readonly int InteractHash = Animator.StringToHash("interact");
 
         [Header("Interaction Settings")]
         [SerializeField] private float interactionRange = 1.5f;
+        [SerializeField] private float interactionDelay = 0.4f; // Delay for animation swing to hit
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float baseAttackCooldown = 1f;
 
         private float _attackTimer;
         private Character _facade;
+        private PlayerMovementController _movement;
 
         private void Awake()
         {
             _facade = GetComponent<Character>();
+            _movement = GetComponent<PlayerMovementController>();
         }
 
         private void Update()
@@ -47,11 +50,56 @@ namespace Gameplay.Characters
         public void AttemptAttack()
         {
             if (!CanAttack()) return;
+            StartCoroutine(ExecuteAttackSequence(null));
+        }
+
+        public void InteractWithTarget(IInteractable target, Transform targetTransform)
+        {
+            if (target == null || targetTransform == null || _movement == null) return;
+
+            Debug.Log($"[Interaction] Starting move to {targetTransform.name}");
+            // Auto-move to target and perform action on arrival
+            _movement.SetFollowTarget(targetTransform, 0f, () => 
+            {
+                FaceTarget(targetTransform.position);
+                StartCoroutine(ExecuteAttackSequence(target));
+            });
+        }
+
+        private System.Collections.IEnumerator ExecuteAttackSequence(IInteractable specificTarget)
+        {
+            // Wait for cooldown if necessary
+            if (_attackTimer > 0)
+            {
+                Debug.Log($"[Interaction] Waiting for cooldown: {_attackTimer:F2}s");
+                while (_attackTimer > 0) yield return null;
+            }
+
+            if (!CanAttack()) 
+            {
+                Debug.LogWarning("[Interaction] Cannot attack even after waiting (Dead?)");
+                yield break;
+            }
 
             _attackTimer = baseAttackCooldown;
             TriggerInteractAnimation();
-            
-            // Precision logic: Check for target directly in front based on facing direction
+
+            Debug.Log($"[Interaction] Animation started. Waiting {interactionDelay}s for hit.");
+            yield return new WaitForSeconds(interactionDelay);
+
+            if (specificTarget != null)
+            {
+                Debug.Log($"[Interaction] Executing Interact on {specificTarget}");
+                specificTarget.Interact(_facade);
+            }
+            else
+            {
+                PerformPrecisionRaycast();
+            }
+        }
+
+        private void PerformPrecisionRaycast()
+        {
             Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
             Vector2 origin = (Vector2)transform.position + new Vector2(0, 0.5f);
             
@@ -62,28 +110,6 @@ namespace Gameplay.Characters
                 target.Interact(_facade);
                 Debug.Log($"Precision attack hit: {hit.collider.name}");
             }
-        }
-
-        public void InteractWithTarget(IInteractable target, Transform targetTransform)
-        {
-            if (target == null || targetTransform == null) return;
-
-            var movement = GetComponent<PlayerMovementController>();
-            if (movement == null) return;
-
-            // Auto-move to target and perform action on arrival
-            movement.SetFollowTarget(targetTransform, 0f, () => 
-            {
-                FaceTarget(targetTransform.position);
-                
-                if (CanAttack())
-                {
-                    _attackTimer = baseAttackCooldown;
-                    TriggerInteractAnimation();
-                    target.Interact(_facade);
-                    Debug.Log($"Target {targetTransform.name} interacted after auto-move.");
-                }
-            });
         }
 
         private void FaceTarget(Vector3 targetPos)

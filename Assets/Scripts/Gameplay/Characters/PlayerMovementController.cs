@@ -41,44 +41,54 @@ namespace Gameplay.Characters
         {
             if (_followTarget == null || !_canMove) return;
 
-            // Check if we are touching the target's collider
-            bool reached = false;
+            if (CheckReachedTarget())
+            {
+                OnTargetReached();
+            }
+            else
+            {
+                MoveTowardsTarget();
+            }
+        }
+
+        private bool CheckReachedTarget()
+        {
             var targetCollider = _followTarget.GetComponent<Collider2D>();
             var myCollider = GetComponent<Collider2D>();
 
             if (targetCollider != null && myCollider != null)
             {
-                reached = myCollider.IsTouching(targetCollider) || Vector2.Distance(myCollider.bounds.ClosestPoint(transform.position), targetCollider.bounds.ClosestPoint(transform.position)) < 0.1f;
-            }
-            else
-            {
-                float distance = Vector2.Distance(transform.position, _followTarget.position);
-                reached = (distance <= _stopDistance);
+                return myCollider.IsTouching(targetCollider) || 
+                       Vector2.Distance(myCollider.bounds.ClosestPoint(transform.position), 
+                                      targetCollider.bounds.ClosestPoint(transform.position)) < 0.1f;
             }
 
-            if (reached)
-            {
-                var callback = _onTargetReached;
-                _followTarget = null;
-                _onTargetReached = null;
-                StopMovement();
-                callback?.Invoke();
-            }
-            else
-            {
-                Vector3 direction = (_followTarget.position - transform.position).normalized;
-                var movement = direction * GetMoveSpeed();
-                _rb.velocity = new Vector2(movement.x, movement.y);
+            return Vector2.Distance(transform.position, _followTarget.position) <= _stopDistance;
+        }
 
-                if (direction.x != 0)
-                {
-                    transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
-                }
-                
-                if (_facade.Animator != null)
-                {
-                    _facade.Animator.SetBool(IsMovingHash, true);
-                }
+        private void OnTargetReached()
+        {
+            var callback = _onTargetReached;
+            _followTarget = null;
+            _onTargetReached = null;
+            StopMovement();
+            callback?.Invoke();
+        }
+
+        private void MoveTowardsTarget()
+        {
+            Vector3 direction = (_followTarget.position - transform.position).normalized;
+            var movement = direction * GetMoveSpeed();
+            _rb.velocity = new Vector2(movement.x, movement.y);
+
+            if (direction.x != 0)
+            {
+                transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
+            }
+            
+            if (_facade.Animator != null)
+            {
+                _facade.Animator.SetBool(IsMovingHash, true);
             }
         }
 

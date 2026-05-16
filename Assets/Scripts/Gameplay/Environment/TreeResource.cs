@@ -10,11 +10,10 @@ namespace Gameplay.Environment
     public class TreeResource : ResourceNode
     {
         [Header("Tree Specific Settings")]
-        [SerializeField] private GameObject stumpPrefab; // Prefab gốc cây sẽ xuất hiện khi cây đổ
+        [SerializeField] private GameObject stumpPrefab;
 
-                private void OnEnable()
+        private void OnEnable()
         {
-            // Đăng ký sự kiện chết từ base class
             OnDie += HandleTreeFalling;
         }
 
@@ -23,16 +22,12 @@ namespace Gameplay.Environment
             OnDie -= HandleTreeFalling;
         }
 
-        /// <summary>
-        /// Xử lý logic khi cây bị chặt hạ.
-        /// </summary>
         private void HandleTreeFalling()
         {
             if (stumpPrefab != null)
             {
-                // Sinh ra gốc cây tại vị trí hiện tại của cây
                 Instantiate(stumpPrefab, transform.position, transform.rotation, transform.parent);
             }
-        }   // Tôi sẽ cần refactor ResourceNode một chút hoặc sử dụng Event OnDie để thực hiện việc sinh Stump.
+        }
     }
 }

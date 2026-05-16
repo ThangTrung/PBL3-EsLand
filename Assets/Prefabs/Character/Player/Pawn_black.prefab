@@ -39,7 +39,7 @@ Transform:
   m_GameObject: {fileID: 1673750509214528949}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.31, y: 3.38, z: 0}
+  m_LocalPosition: {x: -2.7017174, y: -1.2026488, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionRange: 1.5
+  interactionDelay: 0.4
   interactableLayer:
     serializedVersion: 2
     m_Bits: 4160
@@ -235,12 +236,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Pawn
   TestPickaxe: {fileID: 0}
-  maxHunger: 100
-  maxThirst: 100
-  maxStamina: 100
-  currentHunger: 0
-  currentThirst: 0
-  currentStamina: 0
 --- !u!114 &5650210692215765098
 MonoBehaviour:
   m_ObjectHideFlags: 0

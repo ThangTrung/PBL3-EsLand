@@ -60,26 +60,15 @@ namespace Editor.Utilities
             Undo.RecordObject(go, "Change Layer");
             go.layer = INTERACTABLE_LAYER;
 
-            // 2. Cleanup duplicated ResourceVisualEffects
-            var vfxComponents = go.GetComponents<ResourceVisualEffects>();
-            if (vfxComponents.Length > 1)
-            {
-                for (int i = 1; i < vfxComponents.Length; i++)
-                {
-                    Undo.DestroyObjectImmediate(vfxComponents[i]);
-                }
-            }
-
-            // 3. Ensure core components
+            // 2. Ensure core components
             var node = EnsureComponent<ResourceNode>(go);
-            EnsureComponent<ResourceVisualEffects>(go);
             
             if (isTree)
             {
                 EnsureComponent<TreeResource>(go);
             }
 
-            // 4. Configure Health via SerializedObject
+            // 3. Configure Health via SerializedObject
             if (node != null)
             {
                 SerializedObject so = new SerializedObject(node);

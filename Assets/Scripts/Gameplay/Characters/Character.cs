@@ -24,12 +24,9 @@ namespace Gameplay.Characters
             Health = GetComponent<CharacterHealth>();
             Animator = GetComponentInChildren<Animator>();
             
-            if (EquipmentManager != null)
-            {
-                EquipmentManager.Initialize(this);
-            }
+            EquipmentManager?.Initialize(this);
             
-            Debug.Log($"Character '{name}' initialized. Inventory: {Inventory != null}, EquipmentManager: {EquipmentManager != null}, Health: {Health != null}");
+            Debug.Log($"Character '{name}' initialized. Inv: {Inventory != null}, Equip: {EquipmentManager != null}, HP: {Health != null}");
         }
     }
 }
