@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 1692839673029450657}
   - component: {fileID: 2349092572627528300}
   - component: {fileID: 5883678090441761009}
+  - component: {fileID: 8838808973828092782}
+  - component: {fileID: 1601924781624018120}
   m_Layer: 8
   m_Name: Pawn_black
   m_TagString: Player
@@ -71,7 +73,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!60 &4089970383537584940
 PolygonCollider2D:
@@ -117,8 +119,35 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.15, y: 0.3}
-      - {x: 0.15, y: 0.3}
+    - - {x: -0.2075924, y: 0.25348306}
+      - {x: -0.26287317, y: 0.19533038}
+      - {x: -0.2996831, y: 0.19308943}
+      - {x: -0.36635113, y: 0.24464965}
+      - {x: -0.35877037, y: 0.32295847}
+      - {x: -0.28731298, y: 0.39718932}
+      - {x: -0.37646127, y: 0.41131043}
+      - {x: -0.42508316, y: 0.44926667}
+      - {x: -0.4296565, y: 0.51826006}
+      - {x: -0.37551355, y: 0.5677551}
+      - {x: -0.39135027, y: 0.6149171}
+      - {x: -0.39175773, y: 0.7171754}
+      - {x: -0.32802606, y: 0.76975703}
+      - {x: -0.34335303, y: 0.845225}
+      - {x: -0.39906716, y: 0.89347917}
+      - {x: -0.40740275, y: 1.0198927}
+      - {x: -0.34697175, y: 1.068679}
+      - {x: -0.16238284, y: 1.0949748}
+      - {x: -0.050778627, y: 1.1010852}
+      - {x: 0.061240196, y: 1.0032623}
+      - {x: 0.20217514, y: 0.97421247}
+      - {x: 0.37545085, y: 0.707307}
+      - {x: 0.37843418, y: 0.6062623}
+      - {x: 0.34512472, y: 0.57688385}
+      - {x: 0.34892392, y: 0.3995276}
+      - {x: 0.39058995, y: 0.36010802}
+      - {x: 0.3862803, y: 0.2910195}
+      - {x: 0.3414662, y: 0.24731964}
+      - {x: 0.24967948, y: 0.24905276}
       - {x: 0.15, y: 0.2}
       - {x: -0.15, y: 0.2}
   m_UseDelaunayMesh: 0
@@ -177,8 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e65127aa14ef342842097e98264fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5300238987086759260}
-  baseAnimator: {fileID: 0}
+  baseAnimator: {fileID: 9100000, guid: 937790c58fb4444bbaa0c141d3e05a5a, type: 2}
 --- !u!114 &5157322470952279880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +294,38 @@ MonoBehaviour:
   landSortingOrder: 5
   mountainSortingOrder: 5
   _spriteRenderer: {fileID: 4206428813446386912}
+--- !u!114 &8838808973828092782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46a8029b292d126459aeb51f4cf771b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1601924781624018120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0937d729bc33384ea19403ec0b45dd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHunger: 100
+  maxThirst: 100
+  maxStamina: 100
+  hungerDrainRate: 5
+  thirstDrainRate: 7
+  currentHunger: 0
+  currentThirst: 0
+  currentStamina: 0
 --- !u!1 &3649675544761145189
 GameObject:
   m_ObjectHideFlags: 0

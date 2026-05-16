@@ -56,19 +56,9 @@ namespace Gameplay.Characters
 
             if (Input.GetMouseButtonDown(0))
             {
-                // Raycast to find target under mouse
+                // Delegate world position conversion and interaction logic to the specialist controller
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f);
-                
-                if (hit.collider != null && hit.collider.TryGetComponent<IInteractable>(out var target))
-                {
-                    Debug.Log($"Targeting {hit.collider.name} for interaction.");
-                    _interaction.InteractWithTarget(target, hit.collider.transform);
-                }
-                else
-                {
-                    _interaction.AttemptAttack();
-                }
+                _interaction.HandleInteractionClick(mousePos);
             }
         }
 

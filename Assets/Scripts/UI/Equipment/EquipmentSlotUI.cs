@@ -51,13 +51,22 @@ namespace UI.Equipment
         {
             _currentItem = item;
             if (icon == null) return;
-            if (item != null && itemSprite != null)
+            
+            if (item != null)
             {
-                if (item is Tool)
+                // Nếu là Tool (MainHand), ta cập nhật icon
+                if (item is Tool && itemSprite != null)
+                {
                     icon.sprite = itemSprite;
+                }
+                
+                // Luôn set alpha lên 1 khi có đồ (đối với StatStone, ta giữ icon mặc định đã fill sẵn)
                 icon.color = new Color(1, 1, 1, 1f);
             }
-            else ClearVisuals();
+            else 
+            {
+                ClearVisuals();
+            }
         }
         
 

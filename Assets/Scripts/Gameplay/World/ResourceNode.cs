@@ -88,13 +88,16 @@ namespace Gameplay.World
         {
             if (IsDead || amount <= 0) return;
 
-            CurrentHealth -= amount;
+            CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
             OnDamaged?.Invoke();
             OnHealthChanged?.Invoke(CurrentHealth);
             
-            if (_animator != null)
+            // Visual feedback: Scaling pop
+            transform.localScale = Vector3.one * 1.2f;
+
+            // Visual feedback: Animator trigger
+            if (_animator != null && _animator.runtimeAnimatorController != null)
             {
-                // Check if parameter exists before setting to avoid console errors
                 foreach (var param in _animator.parameters)
                 {
                     if (param.nameHash == HitHash)
@@ -104,8 +107,6 @@ namespace Gameplay.World
                     }
                 }
             }
-            
-            transform.localScale = Vector3.one * 1.2f;
 
             if (CurrentHealth <= 0)
             {

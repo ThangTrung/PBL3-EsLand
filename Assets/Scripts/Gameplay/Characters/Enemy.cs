@@ -43,8 +43,9 @@ namespace Gameplay.Characters
 
         public string InteractionAnimationTrigger => "attack";
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _health = GetComponent<CharacterHealth>();
             _movement = GetComponent<PlayerMovementController>();
 

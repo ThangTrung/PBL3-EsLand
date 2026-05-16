@@ -1,6 +1,5 @@
 using Core.Contracts.Shared;
 using Gameplay.Characters;
-using Gameplay.Characters;
 using UnityEngine;
 
 namespace Data.Items

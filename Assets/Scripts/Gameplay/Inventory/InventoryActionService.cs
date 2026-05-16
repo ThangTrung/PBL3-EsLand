@@ -40,6 +40,12 @@ namespace Gameplay.Inventory
             if (slot == null || slot.IsEmpty || _ownerFacade == null) return;
             if (slot.Item is not IEquippable equippable) return;
             
+            if (_ownerFacade.EquipmentManager == null)
+            {
+                Debug.LogWarning($"Cannot equip item: {_ownerFacade.name} has no EquipmentManager component!");
+                return;
+            }
+
             if (slot.Item is IDurable && slot.CurrentDurability <= 0)
             {
                 Debug.LogWarning("Item is broken, cannot equip!");
@@ -47,14 +53,16 @@ namespace Gameplay.Inventory
             }
 
             // Save reference and unequip what was there first
-            var oldItem = _ownerFacade.EquipmentManager?.GetEquippedItem(equippable.Slot);
+            var oldItem = _ownerFacade.EquipmentManager.GetEquippedItem(equippable.Slot);
+            
+            // Store item to equip before removing from inventory
+            var itemToEquip = slot.Item;
             
             // Remove the new item from inventory first to avoid duplication
-            var itemToEquip = slot.Item;
             _inventory.RemoveSlot(slot);
 
             // Equip the new item
-            _ownerFacade.EquipmentManager?.Equip(equippable);
+            _ownerFacade.EquipmentManager.Equip(equippable);
 
             // If there was an old item, add it back to inventory
             if (oldItem is Item oldItemData)

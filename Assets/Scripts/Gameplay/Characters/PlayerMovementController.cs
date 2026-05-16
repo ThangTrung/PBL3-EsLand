@@ -12,9 +12,7 @@ namespace Gameplay.Characters
         [SerializeField] private float baseMoveSpeed = 5f;
 
         private Rigidbody2D _rb;
-        private Animator _animator;
-        private IEquipmentController _equipmentController;
-        private CharacterHealth _health;
+        private Character _facade;
 
         private bool _canMove = true;
         private Transform _followTarget;
@@ -50,7 +48,7 @@ namespace Gameplay.Characters
 
             if (targetCollider != null && myCollider != null)
             {
-                reached = myCollider.IsTouching(targetCollider);
+                reached = myCollider.IsTouching(targetCollider) || Vector2.Distance(myCollider.bounds.ClosestPoint(transform.position), targetCollider.bounds.ClosestPoint(transform.position)) < 0.1f;
             }
             else
             {
@@ -77,9 +75,9 @@ namespace Gameplay.Characters
                     transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
                 }
                 
-                if (_animator != null)
+                if (_facade.Animator != null)
                 {
-                    _animator.SetBool(IsMovingHash, true);
+                    _facade.Animator.SetBool(IsMovingHash, true);
                 }
             }
         }
@@ -88,24 +86,22 @@ namespace Gameplay.Characters
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _animator = GetComponentInChildren<Animator>();
-            _equipmentController = GetComponent<IEquipmentController>();
-            _health = GetComponent<CharacterHealth>();
+            _facade = GetComponent<Character>();
         }
 
         private void Start()
         {
-            if (_health != null)
+            if (_facade.Health != null)
             {
-                _health.OnDie += HandleDie;
+                _facade.Health.OnDie += HandleDie;
             }
         }
 
         private void OnDestroy()
         {
-            if (_health != null)
+            if (_facade.Health != null)
             {
-                _health.OnDie -= HandleDie;
+                _facade.Health.OnDie -= HandleDie;
             }
         }
 
@@ -142,9 +138,9 @@ namespace Gameplay.Characters
             _rb.velocity = new Vector2(movement.x, movement.y);
 
             var isMoving = direction.sqrMagnitude > 0.01f;
-            if (_animator != null)
+            if (_facade.Animator != null)
             {
-                _animator.SetBool(IsMovingHash, isMoving);
+                _facade.Animator.SetBool(IsMovingHash, isMoving);
             }
 
             if (direction.x != 0)
@@ -156,14 +152,14 @@ namespace Gameplay.Characters
         public void StopMovement()
         {
             if (_rb != null) _rb.velocity = Vector2.zero;
-            if (_animator != null) _animator.SetBool(IsMovingHash, false);
+            if (_facade.Animator != null) _facade.Animator.SetBool(IsMovingHash, false);
         }
 
         private float GetMoveSpeed()
         {
             var speed = baseMoveSpeed;
-            if (_equipmentController != null)
-                speed += _equipmentController.GetTotalSpeedModifier();
+            if (_facade.EquipmentManager != null)
+                speed += _facade.EquipmentManager.GetTotalSpeedModifier();
             return Mathf.Max(1f, speed);
         }
     }

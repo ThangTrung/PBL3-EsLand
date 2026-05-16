@@ -14,13 +14,22 @@ namespace Gameplay.Characters
         
         public virtual IInventory Inventory { get; protected set; }
         public virtual IEquipmentController EquipmentManager { get; protected set; }
+        public CharacterHealth Health { get; private set; }
+        public Animator Animator { get; private set; }
         
         protected virtual void Awake()
         {
             Inventory = GetComponent<IInventory>() ?? GetComponentInChildren<IInventory>();
             EquipmentManager = GetComponent<IEquipmentController>() ?? GetComponentInChildren<IEquipmentController>();
+            Health = GetComponent<CharacterHealth>();
+            Animator = GetComponentInChildren<Animator>();
             
-            Debug.Log($"Character '{name}' initialized. Inventory: {Inventory != null}, EquipmentManager: {EquipmentManager != null}");
+            if (EquipmentManager != null)
+            {
+                EquipmentManager.Initialize(this);
+            }
+            
+            Debug.Log($"Character '{name}' initialized. Inventory: {Inventory != null}, EquipmentManager: {EquipmentManager != null}, Health: {Health != null}");
         }
     }
 }

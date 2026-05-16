@@ -15,22 +15,11 @@ namespace Gameplay.Characters
         [SerializeField] private float baseAttackCooldown = 1f;
 
         private float _attackTimer;
-        private Animator _animator;
-        private CharacterHealth _health;
-        private IEquipmentController _equipmentController;
-
-        private readonly Collider2D[] _hitResults = new Collider2D[10];
-        
-        // We temporarily pass 'this.gameObject' or 'Player.cs' facade as the source to IDamageable.
-        // For now, exposing a getter to allow passing the Character facade if needed.
-        private Character Facade { get; set; }
+        private Character _facade;
 
         private void Awake()
         {
-            _animator = GetComponentInChildren<Animator>();
-            _health = GetComponent<CharacterHealth>();
-            _equipmentController = GetComponent<IEquipmentController>();
-            Facade = GetComponent<Character>();
+            _facade = GetComponent<Character>();
         }
 
         private void Update()
@@ -39,83 +28,87 @@ namespace Gameplay.Characters
                 _attackTimer -= Time.deltaTime;
         }
 
+        public void HandleInteractionClick(Vector2 mouseWorldPos)
+        {
+            // Direct targeted interaction via mouse click
+            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 0f, interactableLayer);
+            
+            if (hit.collider != null && hit.collider.TryGetComponent<IInteractable>(out var target))
+            {
+                Debug.Log($"Targeting {hit.collider.name} for interaction.");
+                InteractWithTarget(target, hit.collider.transform);
+            }
+            else
+            {
+                AttemptAttack();
+            }
+        }
+
         public void AttemptAttack()
         {
             if (!CanAttack()) return;
 
-            // Manual attack without target (swinging in air)
             _attackTimer = baseAttackCooldown;
-            if (_animator != null)
-            {
-                _animator.SetTrigger(InteractHash);
-            }
+            TriggerInteractAnimation();
             
-            // We can still try to find a target in front if needed, 
-            // but the priority is now on explicit targeted interaction.
-            var target = FindInteractableTarget();
-            target?.Interact(Facade);
+            // Precision logic: Check for target directly in front based on facing direction
+            Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+            Vector2 origin = (Vector2)transform.position + new Vector2(0, 0.5f);
+            
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, interactionRange, interactableLayer);
+            
+            if (hit.collider != null && hit.collider.TryGetComponent<IInteractable>(out var target))
+            {
+                target.Interact(_facade);
+                Debug.Log($"Precision attack hit: {hit.collider.name}");
+            }
         }
+
         public void InteractWithTarget(IInteractable target, Transform targetTransform)
         {
             if (target == null || targetTransform == null) return;
 
             var movement = GetComponent<PlayerMovementController>();
-            if (movement != null)
+            if (movement == null) return;
+
+            // Auto-move to target and perform action on arrival
+            movement.SetFollowTarget(targetTransform, 0f, () => 
             {
-                // We stop only when touching the box collider of the target
-                movement.SetFollowTarget(targetTransform, 0f, () => 
+                FaceTarget(targetTransform.position);
+                
+                if (CanAttack())
                 {
-                    // Rotate to face target
-                    Vector3 dir = (targetTransform.position - transform.position).normalized;
-                    if (dir.x != 0) transform.localScale = new Vector3(Mathf.Sign(dir.x), 1, 1);
-                    
-                    // Attack
-                    if (CanAttack())
-                    {
-                        _attackTimer = baseAttackCooldown;
-                        if (_animator != null) _animator.SetTrigger(InteractHash);
-                        
-                        // Apply damage specifically to this target
-                        target.Interact(Facade);
-                        Debug.Log($"Target {targetTransform.name} hit by targeted interaction.");
-                    }
-                });
-            }
+                    _attackTimer = baseAttackCooldown;
+                    TriggerInteractAnimation();
+                    target.Interact(_facade);
+                    Debug.Log($"Target {targetTransform.name} interacted after auto-move.");
+                }
+            });
         }
 
+        private void FaceTarget(Vector3 targetPos)
+        {
+            float lookDir = targetPos.x > transform.position.x ? 1 : -1;
+            transform.localScale = new Vector3(lookDir, 1, 1);
+        }
+
+        private void TriggerInteractAnimation()
+        {
+            if (_facade.Animator != null)
+                _facade.Animator.SetTrigger(InteractHash);
+        }
 
         private bool CanAttack()
         {
-            var isDead = _health != null && _health.IsDead;
-            return !isDead && _attackTimer <= 0;
+            return (_facade.Health == null || !_facade.Health.IsDead) && _attackTimer <= 0;
         }
 
         public float GetTotalDamage()
         {
-            var total = baseDamage;
-            if (_equipmentController != null)
-                total += _equipmentController.GetTotalDamageModifier();
+            float total = baseDamage;
+            if (_facade.EquipmentManager != null)
+                total += _facade.EquipmentManager.GetTotalDamageModifier();
             return total;
-        }
-
-        private IInteractable FindInteractableTarget()
-        {
-            // Center the interaction circle slightly above the feet (e.g., at waist level)
-            Vector3 interactionOrigin = transform.position + new Vector3(0, 0.5f, 0);
-            var hitCount = Physics2D.OverlapCircleNonAlloc(interactionOrigin, interactionRange, _hitResults, interactableLayer);
-            
-            if (hitCount <= 0) return null;
-
-            for (var i = 0; i < hitCount; i++)
-            {
-                if (!_hitResults[i]) continue;
-                if (_hitResults[i].TryGetComponent<IInteractable>(out var interactable))
-                {
-                    return interactable;
-                }
-            }
-
-            return null;
         }
     }
 }
