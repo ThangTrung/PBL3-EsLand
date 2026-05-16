@@ -44,27 +44,35 @@ namespace Gameplay.World
         {
             if (IsDead) return;
 
-            var finalDamage = 0f;
-            var equipmentManager = interactor.GetComponent<EquipmentManager>();
+            var finalDamage = 1f; // Default base damage if no weapon logic applies
+            var interactionController = interactor.GetComponent<PlayerInteractionController>();
+            
+            if (interactionController != null)
+            {
+                finalDamage = interactionController.GetTotalDamage();
+            }
+
+            var equipmentManager = interactor.GetComponent<EquipmentManager>() ?? interactor.GetComponentInChildren<EquipmentManager>();
             var mainItem = equipmentManager?.GetEquippedItem(EquipSlot.MainHand);
             
+            Debug.Log($"Interacting with {resourceName}. Required tool: {requiredTool}. Main item: {mainItem?.GetType().Name ?? "None"}");
+
             if (requiredTool != ToolType.None)
             {
                 if (mainItem is IGatheringTool tool && tool.Type == requiredTool)
                 {
-                    finalDamage = (mainItem is IWeapon weapon) ? weapon.Damage : 1f;
-                    finalDamage *= tool.GatherSpeedMultiplier;
+                    // For resources, we prioritize the tool's specialized gathering logic
+                    float toolDamage = (mainItem is IWeapon weapon) ? weapon.Damage : 1f;
+                    finalDamage = toolDamage * tool.GatherSpeedMultiplier;
                 }
                 else
                 {
+                    Debug.Log($"Wrong tool or no tool equipped! Need: {requiredTool}");
                     return; 
                 }
             }
-            else
-            {
-                finalDamage = (mainItem is IWeapon w) ? w.Damage : 1f;
-            }
             
+            Debug.Log($"Applying {finalDamage} damage to {gameObject.name} (Calculated from: {(mainItem != null ? "Tool" : "Base Interaction")})");
             TakeDamage(finalDamage, interactor);
         }
 
@@ -86,7 +94,15 @@ namespace Gameplay.World
             
             if (_animator != null)
             {
-                _animator.SetTrigger(HitHash);
+                // Check if parameter exists before setting to avoid console errors
+                foreach (var param in _animator.parameters)
+                {
+                    if (param.nameHash == HitHash)
+                    {
+                        _animator.SetTrigger(HitHash);
+                        break;
+                    }
+                }
             }
             
             transform.localScale = Vector3.one * 1.2f;
@@ -97,7 +113,7 @@ namespace Gameplay.World
             }
         }
 
-        private void Die()
+        protected virtual void Die()
         {
             IsDead = true;
             OnDie?.Invoke();

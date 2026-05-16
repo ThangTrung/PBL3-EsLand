@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1208630912960040871}
   - component: {fileID: 3066688186105434861}
   - component: {fileID: 101883505740617685}
-  - component: {fileID: 8392487417512010388}
+  - component: {fileID: 735278304430916062}
+  - component: {fileID: 1103104480833391153}
   m_Layer: 0
   m_Name: House1
   m_TagString: Untagged
@@ -55,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: a3af7b5cc3e4b6748b8543aad6d3aecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -207,7 +208,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.657331, y: 0.8297614}
   m_EdgeRadius: 0
---- !u!114 &8392487417512010388
+--- !u!114 &735278304430916062
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,8 +217,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 567004747014905352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3bd040ccf835143bbb2a178921735d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ab96e5e7066a0e488225b6f50eb198e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeAlpha: 0.4
-  fadeSpeed: 0.2
+--- !u!114 &1103104480833391153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567004747014905352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

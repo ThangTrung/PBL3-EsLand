@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 4685777936507481481}
   - component: {fileID: 1787623860271565589}
   - component: {fileID: -849672234924583347}
-  - component: {fileID: 3874982812675520916}
-  m_Layer: 0
+  - component: {fileID: 5679964366902844571}
+  - component: {fileID: 7912649948996542809}
+  - component: {fileID: 4488183747898190762}
+  m_Layer: 12
   m_Name: Bush 1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: a3af7b5cc3e4b6748b8543aad6d3aecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -153,7 +155,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0391922, y: 0.5208267}
   m_EdgeRadius: 0
---- !u!114 &3874982812675520916
+--- !u!114 &5679964366902844571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,8 +164,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 5497660781421759705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3bd040ccf835143bbb2a178921735d, type: 3}
+  m_Script: {fileID: 11500000, guid: 088906f95db1381428b2796e9999c42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeAlpha: 0.4
-  fadeSpeed: 0.2
+  resourceName: Bush
+  maxHealth: 1
+  requiredTool: 0
+  staminaCostPerHit: 2
+--- !u!114 &7912649948996542809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497660781421759705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 0}
+  lootTable: []
+  dropForce: 5
+--- !u!114 &4488183747898190762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5497660781421759705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

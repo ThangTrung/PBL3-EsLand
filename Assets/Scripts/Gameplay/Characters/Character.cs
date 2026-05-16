@@ -17,8 +17,10 @@ namespace Gameplay.Characters
         
         protected virtual void Awake()
         {
-            Inventory = GetComponentInChildren<IInventory>();
-            EquipmentManager = GetComponent<IEquipmentController>();
+            Inventory = GetComponent<IInventory>() ?? GetComponentInChildren<IInventory>();
+            EquipmentManager = GetComponent<IEquipmentController>() ?? GetComponentInChildren<IEquipmentController>();
+            
+            Debug.Log($"Character '{name}' initialized. Inventory: {Inventory != null}, EquipmentManager: {EquipmentManager != null}");
         }
     }
 }

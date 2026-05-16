@@ -1,4 +1,6 @@
 using UnityEngine;
+using Core.Contracts.Shared;
+
 
 namespace Gameplay.Characters
 {
@@ -20,12 +22,15 @@ namespace Gameplay.Characters
             if (_playerFacade == null) return;
             HandleUIInput();
             
+            // Allow movement input even if follow target is active (it will cancel follow)
+            HandleMovementInput();
+            
             if (_playerFacade.IsAnyUIOpen)
             {
                 _movement?.Move(Vector3.zero);
                 return;
             }
-            HandleMovementInput();
+            
             HandleActionInput();
         }
 
@@ -37,7 +42,12 @@ namespace Gameplay.Characters
             var moveY = Input.GetAxisRaw("Vertical");
             var inputDirection = new Vector3(moveX, moveY, 0f);
             
-            _movement.Move(inputDirection);
+            // Only call Move if we are actually pressing keys 
+            // OR if we are NOT auto-moving (to allow stopping)
+            if (inputDirection.sqrMagnitude > 0.01f || !_movement.IsFollowingTarget)
+            {
+                _movement.Move(inputDirection);
+            }
         }
 
         private void HandleActionInput()
@@ -46,7 +56,19 @@ namespace Gameplay.Characters
 
             if (Input.GetMouseButtonDown(0))
             {
-                _interaction.AttemptAttack();
+                // Raycast to find target under mouse
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f);
+                
+                if (hit.collider != null && hit.collider.TryGetComponent<IInteractable>(out var target))
+                {
+                    Debug.Log($"Targeting {hit.collider.name} for interaction.");
+                    _interaction.InteractWithTarget(target, hit.collider.transform);
+                }
+                else
+                {
+                    _interaction.AttemptAttack();
+                }
             }
         }
 

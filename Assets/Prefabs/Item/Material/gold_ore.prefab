@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6850165108108162679}
   - component: {fileID: 3562258723964680627}
-  - component: {fileID: -1765206059329703472}
   - component: {fileID: -7498824212218464987}
+  - component: {fileID: 6211802003944725747}
   m_Layer: 0
   m_Name: gold_ore
   m_TagString: Loot
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1765206059329703472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2889905134382807699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91102227483325e489e4c56f5954e844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 521497fc8a7734b4aba07ba42ee82610, type: 2}
-  flySpeed: 5
-  acceleration: 20
-  pickupDistance: 0.5
 --- !u!61 &-7498824212218464987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,3 +131,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6211802003944725747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2889905134382807699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a770e395a92ed40b12ec5d9862029f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
+  flySpeed: 5
+  acceleration: 20
+  pickupDistance: 0.5

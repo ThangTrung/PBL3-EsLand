@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1643438949388853237}
   - component: {fileID: 453012266467173058}
   - component: {fileID: 2868879199841147492}
-  - component: {fileID: 2207421232455205190}
   - component: {fileID: 6472431409722048090}
+  - component: {fileID: 286105243810281857}
   m_Layer: 0
   m_Name: Tiny_tree1
   m_TagString: Untagged
@@ -154,20 +154,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.72001624, y: 0.35459602}
   m_EdgeRadius: 0
---- !u!114 &2207421232455205190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2890112345585659775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3bd040ccf835143bbb2a178921735d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeAlpha: 0.4
-  fadeSpeed: 0.2
 --- !u!61 &6472431409722048090
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -213,3 +199,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8679667, y: 2.4709516}
   m_EdgeRadius: 0
+--- !u!114 &286105243810281857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890112345585659775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac95dc175ffd11f438a3d460515eb44d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceName: 
+  maxHealth: 3
+  requiredTool: 2
+  staminaCostPerHit: 5
+  stumpPrefab: {fileID: 7105231942027636971, guid: adbcc6ef515d3ee438acf61026f108cb, type: 3}

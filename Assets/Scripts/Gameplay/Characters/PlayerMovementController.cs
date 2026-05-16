@@ -17,11 +17,78 @@ namespace Gameplay.Characters
         private CharacterHealth _health;
 
         private bool _canMove = true;
+        private Transform _followTarget;
+        private float _stopDistance;
+        private System.Action _onTargetReached;
+
+        public bool IsFollowingTarget => _followTarget != null;
+
+
+        public void SetFollowTarget(Transform target, float stopDistance, System.Action onReached)
+        {
+            _followTarget = target;
+            _stopDistance = stopDistance;
+            _onTargetReached = onReached;
+            _canMove = true;
+        }
+
+        public void CancelFollow()
+        {
+            _followTarget = null;
+            _onTargetReached = null;
+            // Removed StopMovement() to prevent overriding manual movement velocity
+        }
+
+        private void FixedUpdate()
+        {
+            if (_followTarget == null || !_canMove) return;
+
+            // Check if we are touching the target's collider
+            bool reached = false;
+            var targetCollider = _followTarget.GetComponent<Collider2D>();
+            var myCollider = GetComponent<Collider2D>();
+
+            if (targetCollider != null && myCollider != null)
+            {
+                reached = myCollider.IsTouching(targetCollider);
+            }
+            else
+            {
+                float distance = Vector2.Distance(transform.position, _followTarget.position);
+                reached = (distance <= _stopDistance);
+            }
+
+            if (reached)
+            {
+                var callback = _onTargetReached;
+                _followTarget = null;
+                _onTargetReached = null;
+                StopMovement();
+                callback?.Invoke();
+            }
+            else
+            {
+                Vector3 direction = (_followTarget.position - transform.position).normalized;
+                var movement = direction * GetMoveSpeed();
+                _rb.velocity = new Vector2(movement.x, movement.y);
+
+                if (direction.x != 0)
+                {
+                    transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
+                }
+                
+                if (_animator != null)
+                {
+                    _animator.SetBool(IsMovingHash, true);
+                }
+            }
+        }
+
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
+            _animator = GetComponentInChildren<Animator>();
             _equipmentController = GetComponent<IEquipmentController>();
             _health = GetComponent<CharacterHealth>();
         }
@@ -65,10 +132,16 @@ namespace Gameplay.Characters
                 return;
             }
 
+            // If we are manually moving, cancel any automatic follow target
+            if (direction.sqrMagnitude > 0.01f && _followTarget != null)
+            {
+                CancelFollow();
+            }
+
             var movement = direction.normalized * GetMoveSpeed();
             _rb.velocity = new Vector2(movement.x, movement.y);
 
-            var isMoving = direction.sqrMagnitude > 0;
+            var isMoving = direction.sqrMagnitude > 0.01f;
             if (_animator != null)
             {
                 _animator.SetBool(IsMovingHash, isMoving);

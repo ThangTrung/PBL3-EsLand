@@ -15,7 +15,7 @@ namespace Gameplay.Characters
         {
             if (animator == null)
             {
-                animator = GetComponent<Animator>();
+                animator = GetComponentInChildren<Animator>();
             }
 
             if (animator != null && baseAnimator == null)

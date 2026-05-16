@@ -27,7 +27,7 @@ namespace Gameplay.Characters
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
+            _animator = GetComponentInChildren<Animator>();
             _health = GetComponent<CharacterHealth>();
             _equipmentController = GetComponent<IEquipmentController>();
             Facade = GetComponent<Character>();
@@ -41,19 +41,48 @@ namespace Gameplay.Characters
 
         public void AttemptAttack()
         {
-            if (!CanAttack())
-                return;
+            if (!CanAttack()) return;
 
+            // Manual attack without target (swinging in air)
             _attackTimer = baseAttackCooldown;
             if (_animator != null)
             {
                 _animator.SetTrigger(InteractHash);
             }
-
+            
+            // We can still try to find a target in front if needed, 
+            // but the priority is now on explicit targeted interaction.
             var target = FindInteractableTarget();
-            // In the new architecture, we pass the Facade (Player.cs) as the interaction source.
             target?.Interact(Facade);
         }
+        public void InteractWithTarget(IInteractable target, Transform targetTransform)
+        {
+            if (target == null || targetTransform == null) return;
+
+            var movement = GetComponent<PlayerMovementController>();
+            if (movement != null)
+            {
+                // We stop only when touching the box collider of the target
+                movement.SetFollowTarget(targetTransform, 0f, () => 
+                {
+                    // Rotate to face target
+                    Vector3 dir = (targetTransform.position - transform.position).normalized;
+                    if (dir.x != 0) transform.localScale = new Vector3(Mathf.Sign(dir.x), 1, 1);
+                    
+                    // Attack
+                    if (CanAttack())
+                    {
+                        _attackTimer = baseAttackCooldown;
+                        if (_animator != null) _animator.SetTrigger(InteractHash);
+                        
+                        // Apply damage specifically to this target
+                        target.Interact(Facade);
+                        Debug.Log($"Target {targetTransform.name} hit by targeted interaction.");
+                    }
+                });
+            }
+        }
+
 
         private bool CanAttack()
         {
@@ -71,15 +100,19 @@ namespace Gameplay.Characters
 
         private IInteractable FindInteractableTarget()
         {
-            var hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, interactionRange, _hitResults, interactableLayer);
-            if (hitCount <= 0)
-                return null;
+            // Center the interaction circle slightly above the feet (e.g., at waist level)
+            Vector3 interactionOrigin = transform.position + new Vector3(0, 0.5f, 0);
+            var hitCount = Physics2D.OverlapCircleNonAlloc(interactionOrigin, interactionRange, _hitResults, interactableLayer);
+            
+            if (hitCount <= 0) return null;
 
             for (var i = 0; i < hitCount; i++)
             {
                 if (!_hitResults[i]) continue;
                 if (_hitResults[i].TryGetComponent<IInteractable>(out var interactable))
+                {
                     return interactable;
+                }
             }
 
             return null;
