@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 4274803100288372469}
   - component: {fileID: 2706144383288301225}
   - component: {fileID: 3897355269888529705}
-  m_Layer: 12
+  m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 4018944965380097134}
   - component: {fileID: 4632930788262887567}
   - component: {fileID: 3338599534448626206}
-  m_Layer: 12
+  m_Layer: 2
   m_Name: PickupZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -562,7 +562,7 @@ GameObject:
   - component: {fileID: 4954642858533413441}
   - component: {fileID: 4206428813446386912}
   - component: {fileID: 5300238987086759260}
-  m_Layer: 12
+  m_Layer: 2
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
