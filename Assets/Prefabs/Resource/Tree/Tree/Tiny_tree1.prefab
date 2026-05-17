@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 2868879199841147492}
   - component: {fileID: 286105243810281857}
   - component: {fileID: 2996921864420334103}
-  - component: {fileID: 8198268059337550706}
   - component: {fileID: 728914635054484489}
+  - component: {fileID: 8990294095302507680}
   m_Layer: 12
   m_Name: Tiny_tree1
   m_TagString: Untagged
@@ -143,7 +143,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021599531, y: 0.087628186}
+  m_Offset: {x: 0.026046753, y: 0.10161665}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.1}
@@ -154,7 +154,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.72001624, y: 0.35459602}
+  m_Size: {x: 0.64117956, y: 0.38257295}
   m_EdgeRadius: 0
 --- !u!114 &286105243810281857
 MonoBehaviour:
@@ -187,21 +187,6 @@ MonoBehaviour:
   maxHealth: 50
   requiredTool: 2
   staminaCostPerHit: 5
---- !u!114 &8198268059337550706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2890112345585659775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 0}
-  lootTable: []
-  dropForce: 5
 --- !u!114 &728914635054484489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,3 +199,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8990294095302507680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890112345585659775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 729092896824613032, guid: 8cc4d34fee45055498632f98491ccc74, type: 3}
+  lootTable:
+  - item: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    chance: 1
+  minDropForce: 6
+  maxDropForce: 10

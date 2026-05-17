@@ -13,13 +13,22 @@ namespace Gameplay.World
         [SerializeField] private float flySpeed = 5f; 
         [SerializeField] private float acceleration = 20f;
         [SerializeField] private float pickupDistance = 0.5f; 
+        [SerializeField] private float pickupDelay = 0.5f;
 
         private Transform _playerTransform;
         private bool _isFlying;
         private float _currentSpeed;
+        private float _spawnTime;
         
+        private void Awake()
+        {
+            _spawnTime = Time.time;
+        }
+
         public void StartFlyingTowards(Transform target)
         {
+            if (Time.time < _spawnTime + pickupDelay) return;
+            
             _playerTransform = target;
             _isFlying = true;
             _currentSpeed = flySpeed;

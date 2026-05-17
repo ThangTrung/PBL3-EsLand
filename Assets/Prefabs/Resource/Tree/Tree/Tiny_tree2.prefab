@@ -13,6 +13,10 @@ GameObject:
   - component: {fileID: 927615720857726256}
   - component: {fileID: 7824180493891472982}
   - component: {fileID: 9068418433492522344}
+  - component: {fileID: 8567249991553620955}
+  - component: {fileID: 4927653298856597183}
+  - component: {fileID: 8576325585379328853}
+  - component: {fileID: 7694171892623460251}
   m_Layer: 12
   m_Name: Tiny_tree2
   m_TagString: Untagged
@@ -55,7 +59,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: a3af7b5cc3e4b6748b8543aad6d3aecc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,7 +123,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00790751, y: 2.110401}
+  m_Offset: {x: -0.00005698204, y: 0.3424245}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.05}
@@ -130,7 +134,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7090352, y: 3.3791976}
+  m_Size: {x: 0.53029585, y: 0.56288874}
   m_EdgeRadius: 0
 --- !u!95 &7824180493891472982
 Animator:
@@ -142,7 +146,7 @@ Animator:
   m_GameObject: {fileID: 2017968451425224053}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c41da7d3e3e604ac6808d0fbf0b857e7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9aaedcab5ecd5ff46a4eb98295e3dc6b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -169,3 +173,66 @@ MonoBehaviour:
   requiredTool: 2
   staminaCostPerHit: 5
   stumpPrefab: {fileID: 4950463895472929120, guid: 8384d055b7c5e77419f3e4bcb4513fd7, type: 3}
+--- !u!114 &8567249991553620955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017968451425224053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 729092896824613032, guid: 8cc4d34fee45055498632f98491ccc74, type: 3}
+  lootTable:
+  - item: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
+    minAmount: 1
+    maxAmount: 3
+    chance: 1
+  minDropForce: 6
+  maxDropForce: 10
+--- !u!114 &4927653298856597183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017968451425224053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088906f95db1381428b2796e9999c42b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50
+  requiredTool: 2
+  staminaCostPerHit: 5
+--- !u!114 &8576325585379328853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017968451425224053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 0}
+  lootTable: []
+  minDropForce: 4
+  maxDropForce: 8
+--- !u!114 &7694171892623460251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017968451425224053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

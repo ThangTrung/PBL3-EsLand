@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 5883678090441761009}
   - component: {fileID: 8838808973828092782}
   - component: {fileID: 1601924781624018120}
+  - component: {fileID: 393791555035742165}
   m_Layer: 8
   m_Name: Pawn_black
   m_TagString: Player
@@ -321,6 +322,18 @@ MonoBehaviour:
   currentHunger: 0
   currentThirst: 0
   currentStamina: 0
+--- !u!114 &393791555035742165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14dcc722761d40a46a59e4fbffc7b9b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3649675544761145189
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +538,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!114 &3338599534448626206
 MonoBehaviour:
   m_ObjectHideFlags: 0

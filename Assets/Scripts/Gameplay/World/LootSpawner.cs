@@ -9,7 +9,8 @@ namespace Gameplay.World
         [Header("Loot Settings")]
         [SerializeField] private GameObject pickupPrefab;
         [SerializeField] private List<LootItem> lootTable;
-        [SerializeField] private float dropForce = 5f;
+        [SerializeField] private float minDropForce = 4f;
+        [SerializeField] private float maxDropForce = 8f;
 
         [System.Serializable]
         public class LootItem
@@ -50,7 +51,8 @@ namespace Gameplay.World
             if (!droppedObj.TryGetComponent<Rigidbody2D>(out var rb)) 
                 return;
             var randomDir = Random.insideUnitCircle.normalized;
-            rb.AddForce(randomDir * dropForce, ForceMode2D.Impulse);
+            var force = Random.Range(minDropForce, maxDropForce);
+            rb.AddForce(randomDir * force, ForceMode2D.Impulse);
         }
     }
 }
