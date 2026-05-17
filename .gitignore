@@ -204,3 +204,6 @@ Desktop.ini
 *.sublime_session.lock.bak
 *.sublime_session.lock.bak~
 UpgradeLog.htm
+# Exclude Node.js backend dependencies
+node_modules/
+BackendServer/node_modules/
