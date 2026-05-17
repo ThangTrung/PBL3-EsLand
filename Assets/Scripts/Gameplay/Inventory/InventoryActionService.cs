@@ -1,7 +1,8 @@
 using Core.Contracts.Equipment;
 using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
-using Data.Equipment;
+using Data.Equipment;using Data.Items;
+
 using Gameplay.Characters;
 using UnityEngine;
 
@@ -38,24 +39,63 @@ namespace Gameplay.Inventory
         {
             if (slot == null || slot.IsEmpty || _ownerFacade == null) return;
             if (slot.Item is not IEquippable equippable) return;
-            if (slot.Item is IDurable durable && slot.CurrentDurability <= 0)
+            
+            if (slot.Item is IDurable && slot.CurrentDurability <= 0)
             {
                 Debug.LogWarning("Item is broken, cannot equip!");
                 return;
             }
-            if (_ownerFacade.EquipmentManager != null)
-                _ownerFacade.EquipmentManager.Equip(equippable);
-                
+
+            // Save reference and unequip what was there first
+            var oldItem = _ownerFacade.EquipmentManager?.GetEquippedItem(equippable.Slot);
+            
+            // Remove the new item from inventory first to avoid duplication
+            var itemToEquip = slot.Item;
+            _inventory.RemoveSlot(slot);
+
+            // Equip the new item
+            _ownerFacade.EquipmentManager?.Equip(equippable);
+
+            // If there was an old item, add it back to inventory
+            if (oldItem is Item oldItemData)
+            {
+                _inventory.AddItem(oldItemData);
+            }
+
             _inventory.NotifyChanged();
         }
 
         public void UnequipItem(EquipSlot slot)
+        {
+            if (_ownerFacade == null || _ownerFacade.EquipmentManager == null) return;
+            
+            var item = _ownerFacade.EquipmentManager.GetEquippedItem(slot);
+            if (item == null) return;
+
+            if (item is Item itemData)
+            {
+                // Try to add to inventory first
+                if (_inventory.AddItem(itemData))
+                {
+                    _ownerFacade.EquipmentManager.Unequip(slot);
+                }
+                else
+                {
+                    Debug.LogWarning("Inventory full, cannot unequip!");
+                }
+            }
+                
+            _inventory.NotifyChanged();
+        }
+
+        public void DropEquippedItem(EquipSlot slot)
         {
             if (_ownerFacade != null && _ownerFacade.EquipmentManager != null)
                 _ownerFacade.EquipmentManager.Unequip(slot);
                 
             _inventory.NotifyChanged();
         }
+
 
         public bool IsEquipped(IInventorySlot slot)
         {

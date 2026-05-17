@@ -1,11 +1,12 @@
 using Core.Contracts.Shared;
 using Gameplay.Characters;
+using Gameplay.Characters;
 using UnityEngine;
 
 namespace Data.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-    public partial class Item : ScriptableObject, IItemUsable
+    public class Item : ScriptableObject
     {
         [Header("Item Basic Info")]
         [SerializeField] protected string itemName = "";
@@ -24,10 +25,12 @@ namespace Data.Items
         {
             return false;
         }
-
         public virtual void Drop()
         {
         }
     }
 }
+
+
+
 

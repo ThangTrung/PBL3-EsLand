@@ -28,7 +28,6 @@ namespace Gameplay.Equipment
             if (item == null) return;
             if (_equippedItems.ContainsKey(item.Slot))
                 Unequip(item.Slot);
-
             _equippedItems[item.Slot] = item;
             item.OnEquip(_character);
             OnItemEquipped?.Invoke(item.Slot, item);

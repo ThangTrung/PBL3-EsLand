@@ -68,6 +68,14 @@ namespace Gameplay.World
             TakeDamage(finalDamage, interactor);
         }
 
+        private Animator _animator;
+        private static readonly int HitHash = Animator.StringToHash("Hit");
+
+        private void Start()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
         public void TakeDamage(float amount, Character source = null)
         {
             if (IsDead || amount <= 0) return;
@@ -75,6 +83,11 @@ namespace Gameplay.World
             CurrentHealth -= amount;
             OnDamaged?.Invoke();
             OnHealthChanged?.Invoke(CurrentHealth);
+            
+            if (_animator != null)
+            {
+                _animator.SetTrigger(HitHash);
+            }
             
             transform.localScale = Vector3.one * 1.2f;
 
