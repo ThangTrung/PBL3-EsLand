@@ -1,27 +1,21 @@
 using System;
-using Data.Equipment;
 using UnityEngine;
 using Core.Events;
 
 namespace Gameplay.Characters
 {
     /// <summary>
-    /// High-level facade for the Player character.
-    /// Handles UI state coordination and global player events.
+    /// Specific implementation of Character for the Player.
+    /// Handles player-specific logic like input coordination and UI state.
     /// </summary>
     [RequireComponent(typeof(PlayerMovementController))]
     [RequireComponent(typeof(PlayerInputController))]
-    [RequireComponent(typeof(PlayerInteractionController))]
-    [RequireComponent(typeof(PlayerEquipmentAnimator))]
     [RequireComponent(typeof(PlayerSurvivalController))]
     public class Player : Character
     {
         public event Action OnToggleInventory;
         public event Action OnToggleEquipment;
         public event Action<bool> OnUIStateChanged;
-
-        [Header("Debug Test")]
-        public Data.Equipment.Equipment TestPickaxe;
 
         private bool _isInventoryOpen;
         private bool _isEquipmentOpen;
@@ -54,25 +48,11 @@ namespace Gameplay.Characters
             targetField = newState;
             OnUIStateChanged?.Invoke(IsAnyUIOpen);
             
+            // Prevent movement when UI is open
             if (IsAnyUIOpen && _movement != null)
             {
                 _movement.StopMovement();
             }
-        }
-
-        [ContextMenu("Debug/Equip Test Pickaxe")]
-        public void EquipTestItem()
-        {
-            if (EquipmentManager != null && TestPickaxe != null)
-            {
-                EquipmentManager.Equip(TestPickaxe);
-            }
-        }
-
-        public void Unequip(Data.Equipment.EquipSlot slot)
-        {
-            if (EquipmentManager != null)
-                EquipmentManager.Unequip(slot);
         }
     }
 }

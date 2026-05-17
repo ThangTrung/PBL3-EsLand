@@ -12,9 +12,9 @@ namespace Gameplay.Characters
 
         private void Awake()
         {
-            _facade = GetComponent<Character>();
+            _facade = GetComponentInParent<Character>();
 
-            if (_facade.Animator != null && baseAnimator == null)
+            if (_facade != null && _facade.Animator != null && baseAnimator == null)
             {
                 baseAnimator = _facade.Animator.runtimeAnimatorController;
             }
@@ -22,7 +22,7 @@ namespace Gameplay.Characters
 
         private void Start()
         {
-            if (_facade.EquipmentManager != null)
+            if (_facade != null && _facade.EquipmentManager != null)
             {
                 _facade.EquipmentManager.OnItemEquipped += HandleItemEquipped;
                 _facade.EquipmentManager.OnItemUnequipped += HandleItemUnequipped;
@@ -38,7 +38,7 @@ namespace Gameplay.Characters
 
         private void HandleItemEquipped(EquipSlot slot, IEquippable item)
         {
-            if (slot != EquipSlot.MainHand || item is not Data.Equipment.Equipment equipment || _facade.Animator == null)
+            if (slot != EquipSlot.MainHand || item is not Data.Equipment.Equipment equipment || _facade == null || _facade.Animator == null)
                 return;
 
             if (equipment.overrideController)
@@ -49,13 +49,13 @@ namespace Gameplay.Characters
 
         private void HandleItemUnequipped(EquipSlot slot, IEquippable item)
         {
-            if (slot == EquipSlot.MainHand && _facade.Animator != null)
+            if (slot == EquipSlot.MainHand && _facade != null && _facade.Animator != null)
                 ResetAnimator();
         }
 
         private void ResetAnimator()
         {
-            if (_facade.Animator != null && baseAnimator != null)
+            if (_facade != null && _facade.Animator != null && baseAnimator != null)
                 _facade.Animator.runtimeAnimatorController = baseAnimator;
         }
     }

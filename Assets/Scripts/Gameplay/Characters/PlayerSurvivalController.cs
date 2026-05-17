@@ -33,7 +33,6 @@ namespace Gameplay.Characters
 
         public event Action<float> OnHungerChanged;
         public event Action<float> OnThirstChanged;
-        // public event Action<float> OnStaminaChanged; // Placeholder for future stamina use
 
         private void Awake()
         {
@@ -44,32 +43,25 @@ namespace Gameplay.Characters
 
         private void Update()
         {
-            ConsumeHunger(hungerDrainRate * Time.deltaTime);
-            ConsumeThirst(thirstDrainRate * Time.deltaTime);
+            ModifyHunger(-hungerDrainRate * Time.deltaTime);
+            ModifyThirst(-thirstDrainRate * Time.deltaTime);
         }
 
-        public void ConsumeHunger(float amount)
+        public void ModifyHunger(float delta)
         {
-            currentHunger = Mathf.Clamp(currentHunger - amount, 0, maxHunger);
+            currentHunger = Mathf.Clamp(currentHunger + delta, 0, maxHunger);
             OnHungerChanged?.Invoke(currentHunger);
         }
 
-        public void ConsumeThirst(float amount)
+        public void ModifyThirst(float delta)
         {
-            currentThirst = Mathf.Clamp(currentThirst - amount, 0, maxThirst);
+            currentThirst = Mathf.Clamp(currentThirst + delta, 0, maxThirst);
             OnThirstChanged?.Invoke(currentThirst);
         }
 
-        public void AddHunger(float amount)
-        {
-            currentHunger = Mathf.Clamp(currentHunger + amount, 0, maxHunger);
-            OnHungerChanged?.Invoke(currentHunger);
-        }
-
-        public void AddThirst(float amount)
-        {
-            currentThirst = Mathf.Clamp(currentThirst + amount, 0, maxThirst);
-            OnThirstChanged?.Invoke(currentThirst);
-        }
+        public void ConsumeHunger(float amount) => ModifyHunger(-amount);
+        public void ConsumeThirst(float amount) => ModifyThirst(-amount);
+        public void AddHunger(float amount) => ModifyHunger(amount);
+        public void AddThirst(float amount) => ModifyThirst(amount);
     }
 }
