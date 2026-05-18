@@ -28,12 +28,13 @@ namespace Infrastructure.SaveSystem.Data
         public string uniqueID;    // ID duy nhất để phân biệt các item rơi
     }
 
+    // 🔥 ĐÃ ĐỒNG BỘ: Khớp hoàn toàn với logic của script ResourceNode.cs
     [System.Serializable]
     public class ResourceNodeSaveData
     {
-        public string resourceID;  // ID duy nhất của node tài nguyên
-        public bool isDestroyed;
-        public float currentHealth;
+        public string nodeID;      // GUID định danh duy nhất của Cây/Đá
+        public float currentHP;    // Máu hiện tại lúc đang bị chặt dở
+        public bool isStump;       // true = đã thành gốc cây, false = cây nguyên vẹn
     }
 
     [System.Serializable]
@@ -43,24 +44,22 @@ namespace Infrastructure.SaveSystem.Data
         public List<InventorySaveData> inventories = new List<InventorySaveData>();
 
         [Header("World State")]
-        public List<ResourceNodeSaveData> resources = new List<ResourceNodeSaveData>();
+        // 🔥 ĐÃ ĐỔI TÊN: Thành resourceNodes cho giống logic trong code gọi data
+        public List<ResourceNodeSaveData> resourceNodes = new List<ResourceNodeSaveData>();
+        
         public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
         
-        // lưu mấy món nhặt rồi
+        // Sổ đen: Lưu danh sách ID các viên đá/cành cây nhặt dưới đất đã bị xóa sổ
         public List<string> destroyedEntityIDs = new List<string>(); 
 
         [Header("Player Stats")]
         public float playerHealth;
         public Vector3 playerPosition;
 
+        // Constructor: Trong C# hiện đại, vì ông đã khởi tạo = new List<>() ở trên rồi, 
+        // nên trong này chỉ cần khởi tạo các thông số value type là đủ, tránh bị chạy 2 lần.
         public GameData()
         {
-            inventories = new List<InventorySaveData>();
-            resources = new List<ResourceNodeSaveData>();
-            droppedItems = new List<DroppedItemSaveData>();
-            
-            destroyedEntityIDs = new List<string>(); 
-            
             playerHealth = 100f;
             playerPosition = Vector3.zero;
         }

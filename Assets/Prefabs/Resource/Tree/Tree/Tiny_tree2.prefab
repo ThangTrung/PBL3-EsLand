@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8576325585379328853}
   - component: {fileID: 7694171892623460251}
   - component: {fileID: 5107073953048530942}
+  - component: {fileID: 2249995964759399526}
   m_Layer: 12
   m_Name: Tiny_tree2
   m_TagString: Untagged
@@ -172,6 +173,8 @@ MonoBehaviour:
   maxHealth: 3
   requiredTool: 2
   staminaCostPerHit: 5
+  stumpSprite: {fileID: -3478827683584638975, guid: e69d4329a5c024684ba584f285d76c98, type: 3}
+  nodeCollider: {fileID: 5107073953048530942}
   stumpPrefab: {fileID: 4950463895472929120, guid: 8384d055b7c5e77419f3e4bcb4513fd7, type: 3}
 --- !u!114 &8567249991553620955
 MonoBehaviour:
@@ -319,3 +322,16 @@ PolygonCollider2D:
       - {x: 0.3125, y: 0.26874995}
       - {x: 0.34375, y: 0.34687495}
   m_UseDelaunayMesh: 0
+--- !u!114 &2249995964759399526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017968451425224053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 

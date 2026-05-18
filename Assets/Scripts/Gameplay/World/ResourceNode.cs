@@ -17,6 +17,10 @@ namespace Gameplay.World
         [SerializeField] private ToolType requiredTool = ToolType.None;
         [SerializeField] private float staminaCostPerHit = 5f;
 
+        [Header("Visual Settings (New Stump System)")]
+        [SerializeField] private Sprite stumpSprite;      // Kéo trực tiếp hình cái GỐC CÂY vào đây
+        [SerializeField] private Collider2D nodeCollider; // Kéo BoxCollider2D hoặc PolygonCollider2D của cây vào đây
+
         public float MaxHealth => maxHealth;
         public float CurrentHealth { get; private set; }
         public bool IsDead { get; private set; }
@@ -26,20 +30,30 @@ namespace Gameplay.World
         public event Action OnDie;
 
         private Animator _animator;
+        private SpriteRenderer _spriteRenderer; // Thêm để quản lý hình ảnh
+        private Sprite _defaultTreeSprite;      // Thêm để lưu lại hình cái cây ban đầu
         private static readonly int HitHash = Animator.StringToHash("Hit");
         
-        // Cần ID từ SaveableEntity để lưu trữ
         private string _entityId;
 
         private void Awake()
         {
             CurrentHealth = maxHealth;
             _animator = GetComponent<Animator>();
+            _spriteRenderer = GetComponent<SpriteRenderer>(); // Lấy SpriteRenderer gốc của thằng cha
+
+            // Lưu lại hình ảnh cái cây ban đầu để lúc load game còn biết đường vẽ lại
+            if (_spriteRenderer != null)
+            {
+                _defaultTreeSprite = _spriteRenderer.sprite;
+            }
             
             if (TryGetComponent<Infrastructure.SaveSystem.Core.SaveableEntity>(out var entity))
             {
                 _entityId = entity.Id;
             }
+
+            UpdateVisuals();
         }
 
         // --- ISaveable Implementation ---
@@ -47,31 +61,38 @@ namespace Gameplay.World
         {
             if (string.IsNullOrEmpty(_entityId)) return;
 
-            var nodeData = data.resources.Find(r => r.resourceID == _entityId);
+            var nodeData = data.resourceNodes.Find(r => r.nodeID == _entityId);
+            
             if (nodeData != null)
             {
-                if (nodeData.isDestroyed)
-                {
-                    gameObject.SetActive(false); // Hoặc Destroy ngay
-                    return;
-                }
-                CurrentHealth = nodeData.currentHealth;
+                CurrentHealth = nodeData.currentHP;
+                IsDead = nodeData.isStump;
             }
+            else
+            {
+                CurrentHealth = maxHealth;
+                IsDead = false;
+            }
+
+            UpdateVisuals();
         }
 
         public void SaveData(Infrastructure.SaveSystem.Data.GameData data)
         {
             if (string.IsNullOrEmpty(_entityId)) return;
 
-            data.resources.RemoveAll(r => r.resourceID == _entityId);
-            data.resources.Add(new Infrastructure.SaveSystem.Data.ResourceNodeSaveData
+            data.resourceNodes.RemoveAll(r => r.nodeID == _entityId);
+
+            if (CurrentHealth < maxHealth || IsDead)
             {
-                resourceID = _entityId,
-                isDestroyed = IsDead,
-                currentHealth = CurrentHealth
-            });
+                data.resourceNodes.Add(new Infrastructure.SaveSystem.Data.ResourceNodeSaveData
+                {
+                    nodeID = _entityId,
+                    isStump = IsDead,
+                    currentHP = CurrentHealth
+                });
+            }
         }
-        // ...
 
         public void Interact(Character interactor)
         {
@@ -123,8 +144,7 @@ namespace Gameplay.World
             OnDamaged?.Invoke();
             OnHealthChanged?.Invoke(CurrentHealth);
             
-            // Visual feedback: Animator Hit only
-            if (_animator != null && _animator.runtimeAnimatorController != null)
+            if (_animator != null && _animator.runtimeAnimatorController != null && _animator.enabled)
             {
                 if (HasParameter(HitHash)) _animator.SetTrigger(HitHash);
             }
@@ -141,16 +161,39 @@ namespace Gameplay.World
 
         protected virtual void Die()
         {
+            if (IsDead) return;
+
             IsDead = true;
             OnDie?.Invoke();
             
             if (TryGetComponent<LootSpawner>(out var spawner))
                 spawner.SpawnLoot();
             
-            Destroy(gameObject);
+            UpdateVisuals();
+        }
+
+        // 🔥 THAY ĐỔI CỐT LÕI: Đổi hình ảnh trực tiếp, né lỗi RequireComponent
+        private void UpdateVisuals()
+        {
+            if (_spriteRenderer != null)
+            {
+                // Nếu chết thì đổi sang hình gốc cây, nếu sống thì trả lại hình cây ban đầu
+                _spriteRenderer.sprite = IsDead ? stumpSprite : _defaultTreeSprite;
+            }
+            
+            // Tắt Animator khi thành gốc cây (Vì nếu bật, animator sẽ ép hiển thị hình cái cây)
+            if (_animator != null) 
+            {
+                _animator.enabled = !IsDead;
+            }
+
+            // Tắt collider để người chơi đi xuyên qua cái gốc cây cho mượt
+            if (nodeCollider != null) 
+            {
+                nodeCollider.enabled = !IsDead;
+            }
         }
 
         public float GetStaminaCost() => staminaCostPerHit;
     }
 }
-

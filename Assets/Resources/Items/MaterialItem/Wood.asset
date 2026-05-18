@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b54fc8eb44b9e54391778cce2610373, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
-  id: wood1
+  id: Wood
   itemName: "G\u1ED7"
   description: "V\u1EADt li\u1EC7u x\xE2y d\u1EF1ng c\u01A1 b\u1EA3n t\u1EEB th\xE2n
     c\xE2y."

@@ -57,7 +57,7 @@ namespace Infrastructure.SaveSystem.Core
         private void Update()
         {
             // Luồng 1: Nhận lệnh thao tác thủ công từ lập trình viên/người chơi
-            if (Input.GetKeyDown(KeyCode.S)) { SaveGame(); }
+            if (Input.GetKeyDown(KeyCode.K)) { SaveGame(); }
             if (Input.GetKeyDown(KeyCode.L)) { LoadGame(); }
 
             // Luồng 2: Hệ thống Auto-Save chạy ngầm (Đảm bảo SRP)
@@ -157,6 +157,13 @@ namespace Infrastructure.SaveSystem.Core
             {
                 gameData.destroyedEntityIDs.Add(id);
             }
+        }
+        
+        // Hàm của Unity TỰ ĐỘNG chạy khi người chơi thoát game hoặc Dev bấm nút Stop
+        private void OnApplicationQuit()
+        {
+            Debug.Log("<color=orange>[SaveLoadManager] Phát hiện tắt game! Đang lưu khẩn cấp dữ liệu...</color>");
+            SaveGame();
         }
     }
 }
