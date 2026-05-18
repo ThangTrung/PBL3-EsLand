@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using System;
+using System.Text;
 using Infrastructure.SaveSystem.Data;
 
 namespace Infrastructure.SaveSystem.Core
@@ -10,7 +11,7 @@ namespace Infrastructure.SaveSystem.Core
         private string dataDirPath = "";
         private string dataFileName = "";
 
-        private readonly string encryptionCodeWord = "Esland_CodeWord";
+        private string encryptionCodeWord = "esland";
 
         public FileDataHandler(string dataDirPath, string dataFileName)
         {
@@ -60,6 +61,13 @@ namespace Infrastructure.SaveSystem.Core
                 // Chuyển sang JSON (có format đẹp để debug)
                 string dataToStore = JsonUtility.ToJson(data, true);
                 
+                Debug.Log($"[FileDataHandler] Chuỗi JSON sinh ra (Độ dài: {dataToStore.Length}):\n{dataToStore}");
+
+                if (string.IsNullOrEmpty(dataToStore) || dataToStore == "{}")
+                {
+                    Debug.LogWarning("[FileDataHandler] Cảnh báo: Chuỗi JSON rỗng hoặc không có dữ liệu!");
+                }
+
                 // MÃ HÓA XOR trước khi ghi
                 dataToStore = EncryptDecrypt(dataToStore);
 
@@ -70,6 +78,7 @@ namespace Infrastructure.SaveSystem.Core
                         writer.Write(dataToStore);
                     }
                 }
+                Debug.Log($"[FileDataHandler] Đã ghi file save thành công vào: {fullPath}");
             }
             catch (Exception e)
             {
@@ -79,12 +88,13 @@ namespace Infrastructure.SaveSystem.Core
 
         private string EncryptDecrypt(string data)
         {
-            string modifiedData = "";
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < data.Length; i++)
             {
-                modifiedData += (char)(data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]);
+                sb.Append((char)(data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]));
             }
-            return modifiedData;
+            return sb.ToString();
         }
     }
 }
+

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3db9a2bff53d4f8d15cf6040e637f, type: 3}
   m_Name: Health
   m_EditorClassIdentifier: 
+  id: statstone3
   itemName: "\u0110\xE1 Sinh L\u1EF1c"
   description: 
   icon: {fileID: -722892414, guid: fe6d0bcf9f6f7034d92062752518e2ed, type: 3}

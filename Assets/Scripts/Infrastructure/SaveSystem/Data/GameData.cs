@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Infrastructure.SaveSystem.Data
@@ -45,6 +45,9 @@ namespace Infrastructure.SaveSystem.Data
         [Header("World State")]
         public List<ResourceNodeSaveData> resources = new List<ResourceNodeSaveData>();
         public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
+        
+        // lưu mấy món nhặt rồi
+        public List<string> destroyedEntityIDs = new List<string>(); 
 
         [Header("Player Stats")]
         public float playerHealth;
@@ -55,6 +58,9 @@ namespace Infrastructure.SaveSystem.Data
             inventories = new List<InventorySaveData>();
             resources = new List<ResourceNodeSaveData>();
             droppedItems = new List<DroppedItemSaveData>();
+            
+            destroyedEntityIDs = new List<string>(); 
+            
             playerHealth = 100f;
             playerPosition = Vector3.zero;
         }

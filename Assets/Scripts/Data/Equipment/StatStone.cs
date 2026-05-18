@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Data.Equipment
 {
     [CreateAssetMenu(fileName = "New Power Stone", menuName = "Inventory/ItemData/Power Stone")]
-    public class StatStoneItemData : Equipment
+    public class StatStone : Equipment
     {
         [Header("Stone Buffs")]
         [SerializeField] private float damageBuff;

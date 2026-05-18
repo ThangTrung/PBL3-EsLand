@@ -13,7 +13,7 @@ namespace Infrastructure.SaveSystem.Core
         public string Id => id;
 
         [ContextMenu("Generate Guid for ID")]
-        private void GenerateGuid()
+        public void GenerateGuid() // Đổi thành public để Tool bên ngoài gọi được
         {
             id = System.Guid.NewGuid().ToString();
             #if UNITY_EDITOR
@@ -23,14 +23,23 @@ namespace Infrastructure.SaveSystem.Core
 
         private void OnValidate()
         {
-            // Tự động sinh ID nếu trống khi đặt vào Scene hoặc tạo Prefab
+            #if UNITY_EDITOR
+            // Nếu là file Prefab gốc trong thư mục -> Ép ID trống để không lây nhiễm ID lỗi
+            if (UnityEditor.PrefabUtility.IsPartOfPrefabAsset(gameObject))
+            {
+                id = "";
+                return;
+            }
+
+            // Chỉ sinh mã khi ô này trống hoàn toàn (Né được việc quét toàn Scene gây lag)
             if (string.IsNullOrEmpty(id))
             {
                 GenerateGuid();
             }
+            #endif
         }
         
-        // Helper để các class khác lấy ID nhanh
+        // Helper để các class khác lấy ID nhanh (Giữ nguyên của Tiến)
         public static string GetEntityId(GameObject obj)
         {
             if (obj.TryGetComponent<SaveableEntity>(out var entity))

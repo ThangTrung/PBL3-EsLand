@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Infrastructure.SaveSystem.Data;
@@ -14,6 +14,11 @@ namespace Infrastructure.SaveSystem.Core
         [Header("Cấu hình Lưu Trữ")]
         [SerializeField] private string fileName = "pbl3_esland_save.json";
         [SerializeField] private bool useCloudSave = false;
+
+        [Header("Cấu hình Auto-Save (SOLID)")]
+        [SerializeField] private bool useAutoSave = true; // Bật/tắt tính năng lưu tự động
+        [SerializeField] private float autoSaveInterval = 60f; // Thời gian giãn cách giữa các lần lưu (giây)
+        private float _autoSaveTimer = 0f;
 
         private GameData gameData;
         private List<ISaveable> saveableObjects;
@@ -32,32 +37,39 @@ namespace Infrastructure.SaveSystem.Core
 
         private void Start()
         {
-            // Inject Handler
             if (useCloudSave)
             {
                 dataHandler = new CloudDataHandler();
             }
             else
             {
-                // Lưu ở thư mục gốc của Project để bạn dễ kiểm tra file JSON
                 string projectRootPath = Application.dataPath + "/..";
                 dataHandler = new FileDataHandler(projectRootPath, fileName);
             }
 
             saveableObjects = FindAllSaveableObjects();
             LoadGame();
+            
+            // Khởi tạo lại bộ đếm khi game bắt đầu
+            _autoSaveTimer = 0f;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                SaveGame();
-            }
+            // Luồng 1: Nhận lệnh thao tác thủ công từ lập trình viên/người chơi
+            if (Input.GetKeyDown(KeyCode.S)) { SaveGame(); }
+            if (Input.GetKeyDown(KeyCode.L)) { LoadGame(); }
 
-            if (Input.GetKeyDown(KeyCode.L))
+            // Luồng 2: Hệ thống Auto-Save chạy ngầm (Đảm bảo SRP)
+            if (useAutoSave && !IsLoading)
             {
-                LoadGame();
+                _autoSaveTimer += Time.deltaTime;
+                if (_autoSaveTimer >= autoSaveInterval)
+                {
+                    SaveGame();
+                    _autoSaveTimer = 0f; // Reset lại đồng hồ sau khi lưu thành công
+                    Debug.Log("<color=yellow>[SaveLoadManager] HỆ THỐNG: Đã kích hoạt Auto-Save định kỳ!</color>");
+                }
             }
         }
 
@@ -70,7 +82,6 @@ namespace Infrastructure.SaveSystem.Core
         {
             IsLoading = true;
             
-            // Logic Cloud Save (Coroutine) hoặc Local Save (Synchronous)
             if (useCloudSave && dataHandler is CloudDataHandler cloudHandler)
             {
                 StartCoroutine(cloudHandler.LoadRoutine((loadedData) => {
@@ -93,22 +104,28 @@ namespace Infrastructure.SaveSystem.Core
                 NewGame();
             }
 
-            foreach (ISaveable saveableObj in saveableObjects)
+            try 
             {
-                saveableObj.LoadData(gameData);
+                foreach (ISaveable saveableObj in saveableObjects)
+                {
+                    saveableObj.LoadData(gameData);
+                }
             }
-            StartCoroutine(UnlockSaveRoutine());
-        }
-
-        private System.Collections.IEnumerator UnlockSaveRoutine()
-        {
-            yield return new WaitForSeconds(0.2f);
-            IsLoading = false;
+            catch (System.Exception e)
+            {
+                Debug.LogError("<color=red>[SaveLoadManager] Có lỗi khi LoadData ở một object:</color> " + e.Message);
+            }
+            finally 
+            {
+                IsLoading = false; 
+            }
         }
 
         public void SaveGame()
         {
             if (IsLoading) return;
+
+            saveableObjects.RemoveAll(s => s is Object obj && obj == null);
 
             foreach (ISaveable saveableObj in saveableObjects)
             {
@@ -130,9 +147,16 @@ namespace Infrastructure.SaveSystem.Core
 
         private List<ISaveable> FindAllSaveableObjects()
         {
-            // Tìm tất cả các component implement ISaveable trong Scene
             IEnumerable<ISaveable> saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>();
             return new List<ISaveable>(saveables);
+        }
+        
+        public void RegisterDestroyedEntity(string id)
+        {
+            if (gameData != null && !gameData.destroyedEntityIDs.Contains(id))
+            {
+                gameData.destroyedEntityIDs.Add(id);
+            }
         }
     }
 }
