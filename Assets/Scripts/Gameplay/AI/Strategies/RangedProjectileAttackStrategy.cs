@@ -3,6 +3,7 @@ using Data.Combat;
 using Gameplay.AI.Animation;
 using Gameplay.Combat.Projectiles;
 using UnityEngine;
+using Infrastructure.Pooling;
 
 namespace Gameplay.AI.Strategies
 {
@@ -84,7 +85,7 @@ namespace Gameplay.AI.Strategies
             Projectile2D projectileInstance;
             if (_projectilePrefab != null)
             {
-                projectileInstance = Object.Instantiate(_projectilePrefab, spawnPos, Quaternion.identity);
+                projectileInstance = ObjectPoolManager.Instance.Get(_projectilePrefab.gameObject, spawnPos, Quaternion.identity).GetComponent<Projectile2D>();
             }
             else
             {

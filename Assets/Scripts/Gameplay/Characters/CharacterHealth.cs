@@ -1,6 +1,7 @@
 using System;
 using Core.Contracts.Equipment;
 using Core.Contracts.Combat;
+using System.Linq;
 using UnityEngine;
 
 namespace Gameplay.Characters
@@ -11,7 +12,7 @@ namespace Gameplay.Characters
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private float baseDefense = 5f;
 
-        public float MaxHealth => GetMaxHealth();
+        public float MaxHealth => CalculateMaxHealth();
         public float CurrentHealth { get; private set; }
         public bool IsDead { get; private set; }
 
@@ -32,12 +33,20 @@ namespace Gameplay.Characters
             _equipmentController = GetComponent<IEquipmentController>();
         }
 
-        public void TakeDamage(float amount, Character source = null)
+public void TakeDamage(float amount, Character source = null)
         {
             if (IsDead) return;
 
-            var finalDamage = Mathf.Max(0, amount - GetTotalDefense());
-            CurrentHealth = Mathf.Clamp(CurrentHealth - finalDamage, 0, GetMaxHealth());
+            // Apply Damage Modifiers
+            var modifiers = GetComponents<IDamageModifier>().OrderBy(m => m.Priority);
+            foreach (var modifier in modifiers)
+            {
+                amount = modifier.ModifyDamage(amount, source);
+                if (amount <= 0) break;
+            }
+
+            var finalDamage = Mathf.Max(0, amount - CalculateTotalDefense());
+            CurrentHealth = Mathf.Clamp(CurrentHealth - finalDamage, 0, CalculateMaxHealth());
 
             OnDamaged?.Invoke();
             OnHealthChanged?.Invoke(CurrentHealth);
@@ -48,7 +57,7 @@ namespace Gameplay.Characters
         public void Heal(float amount)
         {
             if (IsDead) return;
-            CurrentHealth = Mathf.Min(CurrentHealth + amount, GetMaxHealth());
+            CurrentHealth = Mathf.Min(CurrentHealth + amount, CalculateMaxHealth());
             OnHealthChanged?.Invoke(CurrentHealth);
         }
 
@@ -70,7 +79,7 @@ namespace Gameplay.Characters
             }
         }
 
-        private float GetMaxHealth()
+        private float CalculateMaxHealth()
         {
             var total = maxHealth;
             if (_equipmentController != null)
@@ -78,7 +87,7 @@ namespace Gameplay.Characters
             return total;
         }
 
-        private float GetTotalDefense()
+        private float CalculateTotalDefense()
         {
             var total = baseDefense;
             if (_equipmentController != null)

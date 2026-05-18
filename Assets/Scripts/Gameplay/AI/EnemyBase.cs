@@ -3,6 +3,8 @@ using Gameplay.AI.Animation;
 using Gameplay.AI.Movement;
 using Gameplay.AI.States;
 using Gameplay.Characters;
+using Infrastructure.Pooling;
+using Core.Contracts.Shared;
 using UnityEngine;
 
 namespace Gameplay.AI
@@ -10,7 +12,7 @@ namespace Gameplay.AI
     [RequireComponent(typeof(CharacterHealth))]
     [RequireComponent(typeof(PlayerMovementController))]
     [RequireComponent(typeof(CharacterAnimationController))]
-    public abstract class EnemyBase : Character
+    public abstract class EnemyBase : Character, IPoolable, IResettable
     {
         private const float DefaultPatrolReachDistance = 0.3f;
         private const float DeathFallbackDelay = 2f;
@@ -22,8 +24,9 @@ namespace Gameplay.AI
         private IMovementStrategy _movementStrategy;
         private IAIState _currentState;
         private Transform _target;
-        private bool _isDead;
+        protected bool IsDeadInternal;
         private float _deathStartTime;
+        private bool _isSwappingEntities;
 
         protected IEnemyConfig ConfigInternal;
         protected IAttackStrategy AttackStrategyInternal;
@@ -35,6 +38,7 @@ namespace Gameplay.AI
         public IEnemyConfig Config => ConfigInternal;
         public float AttackRange => AttackRangeInternal;
         public float PatrolReachDistance => DefaultPatrolReachDistance;
+        public bool IsDead => IsDeadInternal;
 
         public virtual IAIState CreateChaseState()
         {
@@ -75,17 +79,17 @@ namespace Gameplay.AI
 
         protected virtual void Update()
         {
-            if (_isDead)
+            if (IsDeadInternal)
             {
                 if (_animationController != null && _animationController.IsCurrentAnimationFinished())
                 {
-                    Destroy(gameObject);
+                    ObjectPoolManager.Instance.Return(gameObject);
                     return;
                 }
 
                 if (Time.time - _deathStartTime >= DeathFallbackDelay)
                 {
-                    Destroy(gameObject);
+                    ObjectPoolManager.Instance.Return(gameObject);
                 }
 
                 return;
@@ -94,7 +98,7 @@ namespace Gameplay.AI
             _currentState?.Execute(this);
         }
 
-        protected void InitializeEnemy(IEnemyConfig config, AnimationConfig animationConfig, IAttackStrategy attackStrategy, float attackRange)
+        public virtual void InitializeEnemy(IEnemyConfig config, AnimationConfig animationConfig, IAttackStrategy attackStrategy, float attackRange)
         {
             ConfigInternal = config;
             AttackStrategyInternal = attackStrategy;
@@ -105,12 +109,53 @@ namespace Gameplay.AI
                 _animationController.SetConfig(animationConfig);
             }
 
+            if (_health != null)
+            {
+                _health.SetMaxHealth(config.MaxHealth, true);
+            }
+
             _movementStrategy = new SimpleMovementStrategy(_movementController, _animationController, _statusEffectController);
             ChangeState(new PatrolState());
         }
 
+        public virtual void OnSpawn()
+        {
+            IsDeadInternal = false;
+        }
+
+        public virtual void ResetStats()
+        {
+            IsDeadInternal = false;
+            _deathStartTime = 0f;
+            _isSwappingEntities = false;
+            
+            if (_health != null)
+            {
+                // Reset health to max based on current config
+                _health.SetMaxHealth(ConfigInternal?.MaxHealth ?? 100f, true);
+            }
+
+            if (_animationController != null)
+            {
+                _animationController.PlayIdle();
+            }
+
+            if (_statusEffectController != null)
+            {
+                _statusEffectController.ClearAllEffects();
+            }
+        }
+
+        public virtual void OnReturn()
+        {
+            IsDeadInternal = true;
+            StopMovement();
+        }
+
         public void ChangeState(IAIState newState)
         {
+            if (IsDeadInternal && newState != null) return;
+            
             _currentState?.Exit(this);
             _currentState = newState;
             _currentState?.Enter(this);
@@ -145,10 +190,15 @@ namespace Gameplay.AI
             _animationController.SetFacingByMove(dir);
         }
 
+        public void PrepareForEntitySwap()
+        {
+            _isSwappingEntities = true;
+        }
+
         private void HandleDie()
         {
-            if (_isDead) return;
-            _isDead = true;
+            if (IsDeadInternal || _isSwappingEntities) return;
+            IsDeadInternal = true;
             _deathStartTime = Time.time;
             _movementStrategy?.StopMovement();
             _animationController?.PlayDeath();

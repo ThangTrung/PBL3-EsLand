@@ -97,6 +97,8 @@ namespace Gameplay.Characters
             _speedMultiplier = Mathf.Max(0.1f, multiplier);
         }
 
+        public float GetCurrentMoveSpeed() => GetMoveSpeed();
+
         private float GetMoveSpeed()
         {
             var speed = baseMoveSpeed;

@@ -3,10 +3,12 @@ using Data.Combat;
 using Gameplay.Combat.StatusEffects;
 using Gameplay.Characters;
 using UnityEngine;
+using Core.Contracts.Shared;
+using Infrastructure.Pooling;
 
 namespace Gameplay.Combat.Projectiles
 {
-    public class Projectile2D : MonoBehaviour, IProjectile
+    public class Projectile2D : MonoBehaviour, IProjectile, IPoolable
     {
         private ProjectileSpec _spec;
         private Transform _owner;
@@ -21,7 +23,7 @@ namespace Gameplay.Combat.Projectiles
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        public void Initialize(ProjectileSpec spec, Transform owner, Transform target)
+public void Initialize(ProjectileSpec spec, Transform owner, Transform target)
         {
             _spec = spec;
             _owner = owner;
@@ -41,6 +43,18 @@ namespace Gameplay.Combat.Projectiles
 
             _direction = _target != null ? (_target.position - transform.position).normalized : transform.right;
         }
+
+public void OnSpawn()
+        {
+            _lifeTimer = 0f;
+            _initialized = false;
+        }
+
+        public void OnReturn()
+        {
+            _initialized = false;
+        }
+
 
         private void Update()
         {
@@ -93,7 +107,7 @@ namespace Gameplay.Combat.Projectiles
 
                 if (!_spec.CanPierce)
                 {
-                    Destroy(gameObject);
+                    ObjectPoolManager.Instance.Return(gameObject);
                     return;
                 }
             }

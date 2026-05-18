@@ -8,6 +8,21 @@ namespace Gameplay.Combat.StatusEffects
     {
         private readonly List<IStatusEffect> _effects = new List<IStatusEffect>();
 
+        public bool CanAttack
+        {
+            get
+            {
+                foreach (var effect in _effects)
+                {
+                    if (effect is IPigTransformStatus pig && !pig.CanAttack)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
         public float SpeedMultiplier
         {
             get
@@ -23,6 +38,15 @@ namespace Gameplay.Combat.StatusEffects
 
                 return multiplier;
             }
+        }
+
+        public void ClearAllEffects()
+        {
+            for (int i = _effects.Count - 1; i >= 0; i--)
+            {
+                _effects[i].OnRemove();
+            }
+            _effects.Clear();
         }
 
         public void ApplyEffect(IStatusEffect effect)
