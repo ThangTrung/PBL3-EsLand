@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+using Infrastructure.SaveSystem.Data;
 
-public interface IDataHandler
+namespace Infrastructure.SaveSystem.Core
 {
-    GameData Load();
-    void Save(GameData data);
+    public interface IDataHandler
+    {
+        GameData Load();
+        void Save(GameData data);
+    }
 }

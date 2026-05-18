@@ -1,5 +1,10 @@
-﻿public interface ISaveable
+using Infrastructure.SaveSystem.Data;
+
+namespace Infrastructure.SaveSystem.Core
 {
-    void LoadData(GameData data);
-    void SaveData(GameData data);
+    public interface ISaveable
+    {
+        void SaveData(GameData data);
+        void LoadData(GameData data);
+    }
 }
