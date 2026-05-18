@@ -46,30 +46,45 @@ namespace UI.Inventory
                 return;
             }
 
-            icon.sprite = _slotData.ItemData.Icon;
-            icon.enabled = true;
+            if (icon != null)
+            {
+                icon.sprite = _slotData.ItemData.Icon;
+                icon.enabled = _slotData.ItemData.Icon != null;
+            }
 
-            amountText.enabled = _slotData.Amount > 1;
-            if (_slotData.Amount > 1)
-                amountText.text = _slotData.Amount.ToString();
+            if (amountText != null)
+            {
+                amountText.enabled = _slotData.Amount > 1;
+                if (_slotData.Amount > 1)
+                    amountText.text = _slotData.Amount.ToString();
+            }
 
             var hasDurability = _slotData.ItemData is IDurable;
-            if (durabilityBar) durabilityBar.gameObject.SetActive(hasDurability);
-            if (hasDurability && durabilityBar)
-                durabilityBar.fillAmount = _slotData.DurabilityPercent;
+            if (durabilityBar) 
+            {
+                durabilityBar.gameObject.SetActive(hasDurability);
+                if (hasDurability)
+                    durabilityBar.fillAmount = _slotData.DurabilityPercent;
+            }
 
-            if (!equippedOverlay) return;
-            var isEquipped = _actionHandler?.IsEquipped(_slotData) ?? false;
-            equippedOverlay.enabled = isEquipped;
+            if (equippedOverlay != null)
+            {
+                var isEquipped = _actionHandler?.IsEquipped(_slotData) ?? false;
+                equippedOverlay.enabled = isEquipped;
+            }
         }
 
         private void ClearVisuals()
         {
-            icon.sprite = null;
-            icon.enabled = false;
-            amountText.enabled = false;
-            if (durabilityBar) durabilityBar.gameObject.SetActive(false);
-            if (equippedOverlay) equippedOverlay.enabled = false;
+            if (icon != null)
+            {
+                icon.sprite = null;
+                icon.enabled = false;
+            }
+            
+            if (amountText != null) amountText.enabled = false;
+            if (durabilityBar != null) durabilityBar.gameObject.SetActive(false);
+            if (equippedOverlay != null) equippedOverlay.enabled = false;
             HideTooltip();
         }
 

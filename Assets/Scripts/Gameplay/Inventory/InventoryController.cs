@@ -95,6 +95,7 @@ namespace Gameplay.Inventory
             
             concreteSlot.Clear();
             Collapse();
+            NotifyChanged(); // Explicitly notify after collapse
             return true;
         }
 

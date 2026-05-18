@@ -55,12 +55,22 @@ namespace Gameplay.Characters
 
         private void HandleActionInput()
         {
+            if (_mainCamera == null)
+            {
+                _mainCamera = Camera.main;
+                if (_mainCamera == null) _mainCamera = GetComponentInChildren<Camera>();
+            }
+
             if (_interaction == null || _mainCamera == null) return;
 
             if (Input.GetMouseButtonDown(0))
             {
-                Vector2 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                _interaction.HandleInteractionClick(mousePos);
+                // Account for camera depth to get accurate world position in 2D
+                Vector3 screenPos = Input.mousePosition;
+                screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
+                Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
+                
+                _interaction.HandleInteractionClick(mouseWorldPos);
             }
         }
 

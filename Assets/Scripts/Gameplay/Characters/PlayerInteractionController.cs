@@ -13,7 +13,7 @@ namespace Gameplay.Characters
         private static readonly int InteractHash = Animator.StringToHash("interact");
 
         [Header("Interaction Settings")]
-        [SerializeField] private float interactionDelay = 0.4f; // Delay for animation swing to hit
+        [SerializeField] private float interactionDelay = 0.4f; 
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float baseAttackCooldown = 1f;
@@ -21,47 +21,87 @@ namespace Gameplay.Characters
         private float _attackTimer;
         private Character _facade;
         private PlayerMovementController _movement;
+        private Camera _mainCamera;
+        private Gameplay.Environment.EnvironmentHighlight _currentHover;
 
         private void Awake()
         {
-            _facade = GetComponentInParent<Character>();
-            _movement = GetComponentInParent<PlayerMovementController>();
+            InitializeReferences();
+        }
+
+        private void Start()
+        {
+            InitializeReferences();
+            _mainCamera = Camera.main;
+            if (_mainCamera == null) _mainCamera = GetComponentInChildren<Camera>();
+        }
+
+        private void InitializeReferences()
+        {
+            if (_facade == null) _facade = GetComponentInParent<Character>();
+            if (_movement == null) _movement = GetComponentInParent<PlayerMovementController>();
+            
+            // Fallback for detached prefabs
+            if (_facade == null && transform.parent != null) _facade = transform.parent.GetComponent<Character>();
+            if (_movement == null && transform.parent != null) _movement = transform.parent.GetComponent<PlayerMovementController>();
         }
 
         private void Update()
         {
             if (_attackTimer > 0)
                 _attackTimer -= Time.deltaTime;
+
+            HandleHover();
         }
 
-        /// <summary>
-        /// Handles a direct interaction attempt via click.
-        /// </summary>
+        private void HandleHover()
+        {
+            if (_mainCamera == null) _mainCamera = Camera.main;
+            if (_mainCamera == null) return;
+
+            Vector3 screenPos = Input.mousePosition;
+            screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
+            Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
+
+            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
+            Gameplay.Environment.EnvironmentHighlight newHover = null;
+
+            foreach (var col in colliders)
+            {
+                if (col != null && col.TryGetComponent<Gameplay.Environment.EnvironmentHighlight>(out var highlight))
+                {
+                    newHover = highlight;
+                    break;
+                }
+            }
+
+            if (newHover != _currentHover)
+            {
+                if (_currentHover != null) _currentHover.SetHighlight(false);
+                _currentHover = newHover;
+                if (_currentHover != null) _currentHover.SetHighlight(true);
+            }
+        }
+
         public void HandleInteractionClick(Vector2 mouseWorldPos)
         {
-            // Use RaycastAll to hit multiple objects at the point, ensuring we don't get blocked
-            // by non-interactable colliders (like the player's own body) that might be overlapping.
-            RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPos, Vector2.zero, 0f, interactableLayer);
+            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
             
-            foreach (var hit in hits)
+            foreach (var col in colliders)
             {
-                if (hit.collider != null && hit.collider.TryGetComponent<IInteractable>(out var target))
+                if (col != null && col.TryGetComponent<IInteractable>(out var target))
                 {
-                    Debug.Log($"[Interaction] Targeting {hit.collider.name} for interaction.");
-                    InteractWithTarget(target, hit.collider.transform);
-                    return; // Only interact with the first valid target found
+                    InteractWithTarget(target, col.transform);
+                    return; 
                 }
             }
         }
 
-        /// <summary>
-        /// Initiates an interaction with a specific target, moving to it first if needed.
-        /// </summary>
         public void InteractWithTarget(IInteractable target, Transform targetTransform)
         {
+            InitializeReferences();
             if (target == null || targetTransform == null || _movement == null) return;
 
-            // Auto-move to target and perform action on arrival
             _movement.SetFollowTarget(targetTransform, 0f, () => 
             {
                 FaceTarget(targetTransform.position);
@@ -73,7 +113,6 @@ namespace Gameplay.Characters
         {
             if (specificTarget == null) yield break;
 
-            // Wait for cooldown if necessary
             while (_attackTimer > 0) yield return null;
 
             if (!CanAttack()) yield break;
@@ -81,10 +120,8 @@ namespace Gameplay.Characters
             _attackTimer = baseAttackCooldown;
             TriggerInteractAnimation();
 
-            // Wait for the "hit" frame in animation
             yield return new WaitForSeconds(interactionDelay);
 
-            // Re-verify target is still valid before executing
             if (specificTarget != null)
             {
                 specificTarget.Interact(_facade);
@@ -93,12 +130,9 @@ namespace Gameplay.Characters
 
         private void FaceTarget(Vector3 targetPos)
         {
+            if (_facade == null) return;
             float lookDir = targetPos.x > transform.position.x ? 1 : -1;
-            // Always flip the root facade to ensure consistent visuals
-            if (_facade != null)
-                _facade.transform.localScale = new Vector3(lookDir, 1, 1);
-            else
-                transform.localScale = new Vector3(lookDir, 1, 1);
+            _facade.transform.localScale = new Vector3(lookDir, 1, 1);
         }
 
         private void TriggerInteractAnimation()

@@ -12,11 +12,15 @@ namespace Gameplay.World
     {
         [Header("Settings")]
         [SerializeField] private ElevationLevel currentLevel = ElevationLevel.Land;
-        [SerializeField] private int landSortingOrder = 5;
-        [SerializeField] private int mountainSortingOrder = 15;
+        [SerializeField] private int landSortingOrder = 10;
+        [SerializeField] private int mountainSortingOrder = 10;
 
         [SerializeField] private SpriteRenderer _spriteRenderer;
         
+        // Sorting Layers
+        private const string LandSortingLayer = "Entities";
+        private const string MountainSortingLayer = "Elevated_Entities";
+
         // Physics Layers (Indices from project settings)
         private const int LandLayer = 8;
         private const int MountainLayer = 9;
@@ -42,14 +46,14 @@ namespace Gameplay.World
             // Update Physics Layer
             gameObject.layer = (currentLevel == ElevationLevel.Mountain) ? MountainLayer : LandLayer;
 
-            // Update Sorting Order
+            // Update Sorting Order and Layer
             if (_spriteRenderer != null)
             {
+                _spriteRenderer.sortingLayerName = (currentLevel == ElevationLevel.Mountain) ? MountainSortingLayer : LandSortingLayer;
                 _spriteRenderer.sortingOrder = (currentLevel == ElevationLevel.Mountain) ? mountainSortingOrder : landSortingOrder;
-                _spriteRenderer.sortingLayerName = "Default";
             }
 
-            Debug.Log($"Player elevation updated to: {currentLevel} (Physics Layer: {LayerMask.LayerToName(gameObject.layer)}, Order: {_spriteRenderer?.sortingOrder})");
+            Debug.Log($"Player elevation updated to: {currentLevel} (Physics Layer: {LayerMask.LayerToName(gameObject.layer)}, Sorting: {_spriteRenderer?.sortingLayerName}/{_spriteRenderer?.sortingOrder})");
         }
     }
 }

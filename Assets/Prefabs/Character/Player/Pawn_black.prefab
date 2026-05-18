@@ -13,11 +13,8 @@ GameObject:
   - component: {fileID: 4089970383537584940}
   - component: {fileID: 2626322512466777583}
   - component: {fileID: 2538879719425757417}
-  - component: {fileID: 793174633759546946}
-  - component: {fileID: 9087183736049957316}
   - component: {fileID: 5157322470952279880}
   - component: {fileID: 7928832951855625043}
-  - component: {fileID: 1692839673029450657}
   - component: {fileID: 5883678090441761009}
   - component: {fileID: 1601924781624018120}
   m_Layer: 8
@@ -174,37 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f337538a10b88624fbc2c866047a5e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &793174633759546946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673750509214528949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5515d7d3715b60c4b8544eea80ca846e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionDelay: 0.2
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 4160
-  baseDamage: 10
-  baseAttackCooldown: 1
---- !u!114 &9087183736049957316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673750509214528949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1e65127aa14ef342842097e98264fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseAnimator: {fileID: 9100000, guid: 937790c58fb4444bbaa0c141d3e05a5a, type: 2}
 --- !u!114 &5157322470952279880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,19 +198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Pawn
---- !u!114 &1692839673029450657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673750509214528949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e4bcd5b8c30d74dbe2d30d1bf8c443, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 64
 --- !u!114 &5883678090441761009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,8 +211,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 0
-  landSortingOrder: 5
-  mountainSortingOrder: 5
+  landSortingOrder: 10
+  mountainSortingOrder: 10
   _spriteRenderer: {fileID: 4206428813446386912}
 --- !u!114 &1601924781624018120
 MonoBehaviour:
