@@ -1,79 +1,78 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System;
+using Infrastructure.SaveSystem.Data;
 
-/// <summary>
-/// CloudDataHandler - Implement IDataHandler for Cloud Save.
-/// Chú ý: Vì IDataHandler hiện tại đang dùng thiết kế đồng bộ (Load/Save), 
-/// nhưng WebRequest là bất đồng bộ, trong bản demo này tôi sẽ dùng chuỗi JSON 
-/// và giả lập luồng để phù hợp interface, hoặc đề xuất refactor interface sang Async.
-/// Tuy nhiên, để tuân thủ SRP và DIP yêu cầu, tôi sẽ implement logic WebRequest ở đây.
-/// </summary>
-public class CloudDataHandler : IDataHandler
+namespace Infrastructure.SaveSystem.Core
 {
-    private string saveUrl = "http://localhost:3000/api/savegame";
-    private string loadUrl = "http://localhost:3000/api/loadgame/";
-    private string userId = "1"; // Giả định UserID = 1 cho demo
-
-    public GameData Load()
+    /// <summary>
+    /// CloudDataHandler - Implement IDataHandler for Cloud Save.
+    /// Chú ý: Vì IDataHandler hiện tại đang dùng thiết kế đồng bộ (Load/Save), 
+    /// nhưng WebRequest là bất đồng bộ, trong bản demo này tôi sẽ dùng chuỗi JSON 
+    /// và giả lập luồng để phù hợp interface.
+    /// </summary>
+    public class CloudDataHandler : IDataHandler
     {
-        // Trong thực tế Production, Load nên là Async/Task. 
-        // Ở đây tôi cung cấp phương thức dùng UnityWebRequest (cần chạy trong Coroutine của SaveLoadManager).
-        Debug.Log("CloudDataHandler: Đang tải dữ liệu từ Cloud...");
-        return null; // Trả về null để SaveLoadManager xử lý Coroutine riêng nếu cần
-    }
+        private string saveUrl = "http://localhost:3000/api/savegame";
+        private string loadUrl = "http://localhost:3000/api/loadgame/";
+        private string userId = "1"; // Giả định UserID = 1 cho demo
 
-    public void Save(GameData data)
-    {
-        string json = JsonUtility.ToJson(data);
-        // Logic gửi Request sẽ được gọi từ MonoBehaviour (SaveLoadManager)
-        Debug.Log("CloudDataHandler: Chuẩn bị gửi dữ liệu lên Cloud...");
-    }
-
-    // Helper cho SaveLoadManager gọi
-    public IEnumerator SaveRoutine(GameData data, Action<bool> callback)
-    {
-        string json = JsonUtility.ToJson(data);
-        WWWForm form = new WWWForm();
-        form.AddField("userID", userId);
-        form.AddField("inventoryJSON", json);
-
-        using (UnityWebRequest www = UnityWebRequest.Post(saveUrl, form))
+        public GameData Load()
         {
-            yield return www.SendWebRequest();
+            // Đồng bộ: Cloud Load cần được gọi qua LoadRoutine (Async)
+            Debug.Log("[CloudDataHandler] Đang tải dữ liệu từ Cloud (Sync call - returning null)...");
+            return null; 
+        }
 
-            if (www.result != UnityWebRequest.Result.Success)
+        public void Save(GameData data)
+        {
+            // Đồng bộ: Cloud Save cần được gọi qua SaveRoutine (Async)
+            Debug.Log("[CloudDataHandler] Chuẩn bị gửi dữ liệu lên Cloud (Sync call)...");
+        }
+
+        // Helper cho SaveLoadManager gọi (Bất đồng bộ)
+        public IEnumerator SaveRoutine(GameData data, Action<bool> callback)
+        {
+            string json = JsonUtility.ToJson(data);
+            WWWForm form = new WWWForm();
+            form.AddField("userID", userId);
+            form.AddField("inventoryJSON", json);
+
+            using (UnityWebRequest www = UnityWebRequest.Post(saveUrl, form))
             {
-                Debug.LogError("Cloud Save Error: " + www.error);
-                callback?.Invoke(false);
-            }
-            else
-            {
-                Debug.Log("Cloud Save Success!");
-                callback?.Invoke(true);
+                yield return www.SendWebRequest();
+
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogError("Cloud Save Error: " + www.error);
+                    callback?.Invoke(false);
+                }
+                else
+                {
+                    Debug.Log("Cloud Save Success!");
+                    callback?.Invoke(true);
+                }
             }
         }
-    }
 
-    public IEnumerator LoadRoutine(Action<GameData> callback)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Get(loadUrl + userId))
+        public IEnumerator LoadRoutine(Action<GameData> callback)
         {
-            yield return www.SendWebRequest();
+            using (UnityWebRequest www = UnityWebRequest.Get(loadUrl + userId))
+            {
+                yield return www.SendWebRequest();
 
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogError("Cloud Load Error: " + www.error);
-                callback?.Invoke(null);
-            }
-            else
-            {
-                string json = www.downloadHandler.text;
-                // Giả định Backend trả về JSON object có field inventoryJSON
-                // Bạn có thể cần một wrapper class tùy theo format API
-                GameData data = JsonUtility.FromJson<GameData>(json);
-                callback?.Invoke(data);
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogError("Cloud Load Error: " + www.error);
+                    callback?.Invoke(null);
+                }
+                else
+                {
+                    string json = www.downloadHandler.text;
+                    GameData data = JsonUtility.FromJson<GameData>(json);
+                    callback?.Invoke(data);
+                }
             }
         }
     }

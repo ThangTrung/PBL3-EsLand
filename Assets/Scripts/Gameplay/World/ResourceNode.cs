@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Gameplay.World
 {
-    public class ResourceNode : MonoBehaviour, IInteractable, IDamageable
+    public class ResourceNode : MonoBehaviour, IInteractable, IDamageable, Infrastructure.SaveSystem.Core.ISaveable
     {
         [Header("Resource Settings")]
         [SerializeField] private float maxHealth = 3f;
@@ -27,12 +27,51 @@ namespace Gameplay.World
 
         private Animator _animator;
         private static readonly int HitHash = Animator.StringToHash("Hit");
+        
+        // Cần ID từ SaveableEntity để lưu trữ
+        private string _entityId;
 
         private void Awake()
         {
             CurrentHealth = maxHealth;
             _animator = GetComponent<Animator>();
+            
+            if (TryGetComponent<Infrastructure.SaveSystem.Core.SaveableEntity>(out var entity))
+            {
+                _entityId = entity.Id;
+            }
         }
+
+        // --- ISaveable Implementation ---
+        public void LoadData(Infrastructure.SaveSystem.Data.GameData data)
+        {
+            if (string.IsNullOrEmpty(_entityId)) return;
+
+            var nodeData = data.resources.Find(r => r.resourceID == _entityId);
+            if (nodeData != null)
+            {
+                if (nodeData.isDestroyed)
+                {
+                    gameObject.SetActive(false); // Hoặc Destroy ngay
+                    return;
+                }
+                CurrentHealth = nodeData.currentHealth;
+            }
+        }
+
+        public void SaveData(Infrastructure.SaveSystem.Data.GameData data)
+        {
+            if (string.IsNullOrEmpty(_entityId)) return;
+
+            data.resources.RemoveAll(r => r.resourceID == _entityId);
+            data.resources.Add(new Infrastructure.SaveSystem.Data.ResourceNodeSaveData
+            {
+                resourceID = _entityId,
+                isDestroyed = IsDead,
+                currentHealth = CurrentHealth
+            });
+        }
+        // ...
 
         public void Interact(Character interactor)
         {
