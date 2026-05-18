@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c12e02f6a04564daeab3a6cd55c833, type: 3}
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  toolType: 0
-  damage: 0
+  itemName: 
+  description: 
+  icon: {fileID: 2045266528, guid: c3ff625e78b1145eaa2ebed586379354, type: 3}
+  maxStack: 1
+  equipSlot: 4
+  overrideController: {fileID: 22100000, guid: 793ef32a04b48834383e27952dc1bd81, type: 2}
+  toolType: 1
+  damage: 1
   gatherSpeedMultiplier: 1.5
   tier: 1

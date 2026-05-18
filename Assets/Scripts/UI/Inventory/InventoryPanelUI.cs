@@ -20,9 +20,6 @@ namespace UI.Inventory
         [SerializeField] private Transform slotsContainer;
         [SerializeField] private GameObject slotPrefab;
 
-        [Header("Settings")]
-        [SerializeField] private int columns = 8;
-
         private readonly List<InventorySlotUI> _slotUIs = new List<InventorySlotUI>();
         private int _selectedSlotIndex = -1;
 
@@ -129,7 +126,6 @@ namespace UI.Inventory
                 if (!slotUI) continue;
                 slotUI.Init(i, _inventory.ActionHandler);
                 
-                // Gắn listener vào cục slot
                 slotUI.OnRightClicked += HandleSlotRightClicked;
                 _slotUIs.Add(slotUI);
             }

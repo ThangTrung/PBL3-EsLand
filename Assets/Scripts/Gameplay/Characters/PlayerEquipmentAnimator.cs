@@ -6,63 +6,57 @@ namespace Gameplay.Characters
 {
     public class PlayerEquipmentAnimator : MonoBehaviour
     {
-        [SerializeField] private Animator animator;
         [SerializeField] private RuntimeAnimatorController baseAnimator;
 
-        private IEquipmentController _equipmentController;
+        private Character _facade;
 
         private void Awake()
         {
-            if (animator == null)
-            {
-                animator = GetComponent<Animator>();
-            }
+            _facade = GetComponentInParent<Character>();
 
-            if (animator != null && baseAnimator == null)
+            if (_facade != null && _facade.Animator != null && baseAnimator == null)
             {
-                baseAnimator = animator.runtimeAnimatorController;
+                baseAnimator = _facade.Animator.runtimeAnimatorController;
             }
-
-            _equipmentController = GetComponent<IEquipmentController>();
         }
 
         private void Start()
         {
-            if (_equipmentController != null)
+            if (_facade != null && _facade.EquipmentManager != null)
             {
-                _equipmentController.OnItemEquipped += HandleItemEquipped;
-                _equipmentController.OnItemUnequipped += HandleItemUnequipped;
+                _facade.EquipmentManager.OnItemEquipped += HandleItemEquipped;
+                _facade.EquipmentManager.OnItemUnequipped += HandleItemUnequipped;
             }
         }
 
         private void OnDestroy()
         {
-            if (_equipmentController == null) return;
-            _equipmentController.OnItemEquipped -= HandleItemEquipped;
-            _equipmentController.OnItemUnequipped -= HandleItemUnequipped;
+            if (_facade == null || _facade.EquipmentManager == null) return;
+            _facade.EquipmentManager.OnItemEquipped -= HandleItemEquipped;
+            _facade.EquipmentManager.OnItemUnequipped -= HandleItemUnequipped;
         }
 
         private void HandleItemEquipped(EquipSlot slot, IEquippable item)
         {
-            if (slot != EquipSlot.MainHand || item is not Data.Equipment.Equipment equipment || animator == null)
+            if (slot != EquipSlot.MainHand || item is not Data.Equipment.Equipment equipment || _facade == null || _facade.Animator == null)
                 return;
 
             if (equipment.overrideController)
-                animator.runtimeAnimatorController = equipment.overrideController;
+                _facade.Animator.runtimeAnimatorController = equipment.overrideController;
             else
                 ResetAnimator();
         }
 
         private void HandleItemUnequipped(EquipSlot slot, IEquippable item)
         {
-            if (slot == EquipSlot.MainHand && animator != null)
+            if (slot == EquipSlot.MainHand && _facade != null && _facade.Animator != null)
                 ResetAnimator();
         }
 
         private void ResetAnimator()
         {
-            if (animator != null && baseAnimator != null)
-                animator.runtimeAnimatorController = baseAnimator;
+            if (_facade != null && _facade.Animator != null && baseAnimator != null)
+                _facade.Animator.runtimeAnimatorController = baseAnimator;
         }
     }
 }

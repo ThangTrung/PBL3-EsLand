@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 987851203516571883}
   - component: {fileID: 4906162078148658383}
-  - component: {fileID: 6950054238957052097}
   - component: {fileID: 7573126370369403477}
+  - component: {fileID: 3949340787679808843}
   m_Layer: 0
   m_Name: Pickaxe
   m_TagString: Loot
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6950054238957052097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722910495224709956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91102227483325e489e4c56f5954e844, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 411ed042f6900dd4aa72b4abe2791947, type: 2}
-  flySpeed: 5
-  acceleration: 20
-  pickupDistance: 0.5
 --- !u!60 &7573126370369403477
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -156,3 +140,19 @@ PolygonCollider2D:
       - {x: -0.0078125, y: -0.1328125}
       - {x: -0.0078125, y: -0.1640625}
   m_UseDelaunayMesh: 0
+--- !u!114 &3949340787679808843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722910495224709956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a770e395a92ed40b12ec5d9862029f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 411ed042f6900dd4aa72b4abe2791947, type: 2}
+  flySpeed: 5
+  acceleration: 20
+  pickupDistance: 0.5

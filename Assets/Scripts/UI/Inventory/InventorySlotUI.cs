@@ -22,12 +22,9 @@ namespace UI.Inventory
         [SerializeField] public TextMeshProUGUI tooltipName;
         [SerializeField] public TextMeshProUGUI tooltipDesc;
 
-        [Header("Actions")]
-        [SerializeField] public MonoBehaviour actionMenuProvider;
-
         private IInventorySlot _slotData;
         private IItemActionHandler _actionHandler;
-        public int SlotIndex { get; private set; }
+        private int SlotIndex { get; set; }
 
         public event Action<IActionableItem, Vector3> OnRightClicked;
         public void Init(int index, IItemActionHandler actionHandler = null)
@@ -85,6 +82,7 @@ namespace UI.Inventory
                 case PointerEventData.InputButton.Right:
                 {
                     HideTooltip();
+                    Debug.Log($"[InventorySlotUI] Right-clicked on slot {SlotIndex} with item: {(_slotData?.Item?.ItemName ?? "Empty")}");
                     if (_slotData == null || _slotData.IsEmpty) return;
                     var context = new InventorySlotActionContext(_slotData, _actionHandler);
                     OnRightClicked?.Invoke(context, eventData.position);
@@ -134,5 +132,7 @@ namespace UI.Inventory
         }
     }
 }
+
+
 
 

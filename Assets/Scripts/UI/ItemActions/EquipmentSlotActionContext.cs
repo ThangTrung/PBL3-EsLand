@@ -11,27 +11,27 @@ namespace UI.ItemActions
     /// </summary>
     public class EquipmentSlotActionContext : IActionableItem
     {
-        private readonly IEquipmentController _manager;
+                private readonly IItemActionHandler _handler;
         private readonly EquipSlot _slot;
         private readonly IEquippable _item;
 
-        public EquipmentSlotActionContext(IEquipmentController manager, EquipSlot slot, IEquippable item)
+                public EquipmentSlotActionContext(IItemActionHandler handler, EquipSlot slot, IEquippable item)
         {
-            _manager = manager;
+                        _handler = handler;
             _slot = slot;
             _item = item;
         }
 
         public string DisplayName => (_item as ItemData)?.ItemName ?? "Unknown";
         public bool CanUse     => false;
-        public bool CanDrop    => false;
+                public bool CanDrop    => _item != null;
         public bool CanEquip   => false;
         public bool CanUnequip => _item != null;
 
         public void Use()     { }
-        public void Drop()    { }
+public void Drop()    => _handler?.DropEquippedItem(_slot);
         public void Equip()   { }
-        public void Unequip() => _manager?.Unequip(_slot);
+public void Unequip() => _handler?.UnequipItem(_slot);
     }
 }
 

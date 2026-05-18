@@ -4,7 +4,7 @@ using UnityEngine;
 namespace UI.ItemActions
 {
     /// <summary>
-    /// Shared action menu � decoupled from Inventory and Equipment.
+    /// Shared action menu - decoupled from Inventory and Equipment.
     /// Accepts any IActionableItem context (InventorySlotActionContext or EquipmentSlotActionContext).
     /// </summary>
     public class ItemActionMenu : MonoBehaviour
@@ -41,20 +41,43 @@ namespace UI.ItemActions
         {
             _current = item;
             if (_current == null) return;
+            Debug.Log($"[ItemActionMenu] Showing menu for item: {_current}. CanUse: {_current.CanUse}, CanEquip: {_current.CanEquip}, CanUnequip: {_current.CanUnequip}");
             menuUI.Show(screenPos, _current.CanUse, _current.CanEquip, _current.CanUnequip);
         }
 
         public void HideMenu()
         {
+            Debug.Log("[ItemActionMenu] Hiding menu.");
             _current = null;
             if (menuUI) menuUI.Hide();
         }
 
-        private void HandleUse()     { _current?.Use();     HideMenu(); }
-        private void HandleDrop()    { _current?.Drop();    HideMenu(); }
-        private void HandleEquip()   { _current?.Equip();   HideMenu(); }
-        private void HandleUnequip() { _current?.Unequip(); HideMenu(); }
+        private void HandleUse()
+        {
+            Debug.Log($"[ItemActionMenu] HandleUse called for item: {_current}");
+            _current?.Use();
+            HideMenu();
+        }
+
+        private void HandleDrop()
+        {
+            Debug.Log($"[ItemActionMenu] HandleDrop called for item: {_current}");
+            _current?.Drop();
+            HideMenu();
+        }
+
+        private void HandleEquip()
+        {
+            Debug.Log($"[ItemActionMenu] HandleEquip called for item: {_current}");
+            _current?.Equip();
+            HideMenu();
+        }
+
+        private void HandleUnequip()
+        {
+            Debug.Log($"[ItemActionMenu] HandleUnequip called for item: {_current}");
+            _current?.Unequip();
+            HideMenu();
+        }
     }
 }
-
-

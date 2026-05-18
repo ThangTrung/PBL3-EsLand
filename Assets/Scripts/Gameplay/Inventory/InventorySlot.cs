@@ -53,6 +53,14 @@ namespace Gameplay.Inventory
             CurrentDurability = item is IDurable durable ? durable.MaxDurability : 0;
         }
 
+        public void SetData(Item item, int amount, int durability)
+        {
+            Item = item;
+            Amount = amount;
+            CurrentDurability = durability;
+        }
+
+
         public void Clear()
         {
             ItemData = null;

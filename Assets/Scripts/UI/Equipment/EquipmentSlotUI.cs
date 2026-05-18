@@ -23,7 +23,8 @@ namespace UI.Equipment
         public event Action<IActionableItem, Vector3> OnRightClicked;
 
         private IEquippable _currentItem;
-        private IEquipmentController _equipmentManager;
+                private IEquipmentController _equipmentManager;
+        private IItemActionHandler _actionHandler;
         private Sprite _defaultSprite;
         private Color _defaultColor;
 
@@ -35,22 +36,39 @@ namespace UI.Equipment
                 _defaultColor = icon.color;
             }
             SetHighlight(false); 
+            if (_currentItem == null)
+            {
+                ClearVisuals();
+            }
         }
 
         public void SetEquipmentManager(IEquipmentController manager) => _equipmentManager = manager;
+
+        public void SetActionHandler(IItemActionHandler handler) => _actionHandler = handler;
+
 
         public void SetItem(IEquippable item, Sprite itemSprite)
         {
             _currentItem = item;
             if (icon == null) return;
             
-            if (item != null && itemSprite != null)
+            if (item != null)
             {
-                icon.sprite = itemSprite;
+                // Nếu là Tool (MainHand), ta cập nhật icon
+                if (item is Tool && itemSprite != null)
+                {
+                    icon.sprite = itemSprite;
+                }
+                
+                // Luôn set alpha lên 1 khi có đồ (đối với StatStone, ta giữ icon mặc định đã fill sẵn)
                 icon.color = new Color(1, 1, 1, 1f);
             }
-            else ClearVisuals();
+            else 
+            {
+                ClearVisuals();
+            }
         }
+        
 
         public void ClearItem()
         {
@@ -62,6 +80,7 @@ namespace UI.Equipment
         {
             if (icon == null) return;
             icon.sprite = _defaultSprite;
+            _defaultColor.a = slotType == EquipSlot.MainHand ? 0f : 0.2f;
             icon.color = _defaultColor;
         }
 
@@ -73,7 +92,7 @@ namespace UI.Equipment
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Right || _currentItem == null) return;
-            var context = new EquipmentSlotActionContext(_equipmentManager, slotType, _currentItem);
+            var context = new EquipmentSlotActionContext(_actionHandler, slotType, _currentItem);
             OnRightClicked?.Invoke(context, eventData.position);
         }
 
@@ -81,5 +100,3 @@ namespace UI.Equipment
         public void OnPointerExit(PointerEventData eventData) => SetHighlight(false);
     }
 }
-
-

@@ -4,33 +4,28 @@ using UnityEngine;
 
 namespace Gameplay.Characters
 {
+    /// <summary>
+    /// Handles player interactions with the world and combat targets.
+    /// Manages interaction timing, animations, and damage calculation.
+    /// </summary>
     public class PlayerInteractionController : MonoBehaviour
     {
         private static readonly int InteractHash = Animator.StringToHash("interact");
 
         [Header("Interaction Settings")]
-        [SerializeField] private float interactionRange = 1.5f;
+        [SerializeField] private float interactionDelay = 0.4f; // Delay for animation swing to hit
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float baseAttackCooldown = 1f;
 
         private float _attackTimer;
-        private Animator _animator;
-        private CharacterHealth _health;
-        private IEquipmentController _equipmentController;
-
-        private readonly Collider2D[] _hitResults = new Collider2D[10];
-        
-        // We temporarily pass 'this.gameObject' or 'Player.cs' facade as the source to IDamageable.
-        // For now, exposing a getter to allow passing the Character facade if needed.
-        private Character Facade { get; set; }
+        private Character _facade;
+        private PlayerMovementController _movement;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
-            _health = GetComponent<CharacterHealth>();
-            _equipmentController = GetComponent<IEquipmentController>();
-            Facade = GetComponent<Character>();
+            _facade = GetComponentInParent<Character>();
+            _movement = GetComponentInParent<PlayerMovementController>();
         }
 
         private void Update()
@@ -39,50 +34,90 @@ namespace Gameplay.Characters
                 _attackTimer -= Time.deltaTime;
         }
 
-        public void AttemptAttack()
+        /// <summary>
+        /// Handles a direct interaction attempt via click.
+        /// </summary>
+        public void HandleInteractionClick(Vector2 mouseWorldPos)
         {
-            if (!CanAttack())
-                return;
+            // Use RaycastAll to hit multiple objects at the point, ensuring we don't get blocked
+            // by non-interactable colliders (like the player's own body) that might be overlapping.
+            RaycastHit2D[] hits = Physics2D.RaycastAll(mouseWorldPos, Vector2.zero, 0f, interactableLayer);
+            
+            foreach (var hit in hits)
+            {
+                if (hit.collider != null && hit.collider.TryGetComponent<IInteractable>(out var target))
+                {
+                    Debug.Log($"[Interaction] Targeting {hit.collider.name} for interaction.");
+                    InteractWithTarget(target, hit.collider.transform);
+                    return; // Only interact with the first valid target found
+                }
+            }
+        }
+
+        /// <summary>
+        /// Initiates an interaction with a specific target, moving to it first if needed.
+        /// </summary>
+        public void InteractWithTarget(IInteractable target, Transform targetTransform)
+        {
+            if (target == null || targetTransform == null || _movement == null) return;
+
+            // Auto-move to target and perform action on arrival
+            _movement.SetFollowTarget(targetTransform, 0f, () => 
+            {
+                FaceTarget(targetTransform.position);
+                StartCoroutine(ExecuteAttackSequence(target));
+            });
+        }
+
+        private System.Collections.IEnumerator ExecuteAttackSequence(IInteractable specificTarget)
+        {
+            if (specificTarget == null) yield break;
+
+            // Wait for cooldown if necessary
+            while (_attackTimer > 0) yield return null;
+
+            if (!CanAttack()) yield break;
 
             _attackTimer = baseAttackCooldown;
-            if (_animator != null)
-            {
-                _animator.SetTrigger(InteractHash);
-            }
+            TriggerInteractAnimation();
 
-            var target = FindInteractableTarget();
-            // In the new architecture, we pass the Facade (Player.cs) as the interaction source.
-            target?.Interact(Facade);
+            // Wait for the "hit" frame in animation
+            yield return new WaitForSeconds(interactionDelay);
+
+            // Re-verify target is still valid before executing
+            if (specificTarget != null)
+            {
+                specificTarget.Interact(_facade);
+            }
+        }
+
+        private void FaceTarget(Vector3 targetPos)
+        {
+            float lookDir = targetPos.x > transform.position.x ? 1 : -1;
+            // Always flip the root facade to ensure consistent visuals
+            if (_facade != null)
+                _facade.transform.localScale = new Vector3(lookDir, 1, 1);
+            else
+                transform.localScale = new Vector3(lookDir, 1, 1);
+        }
+
+        private void TriggerInteractAnimation()
+        {
+            if (_facade != null && _facade.Animator != null)
+                _facade.Animator.SetTrigger(InteractHash);
         }
 
         private bool CanAttack()
         {
-            var isDead = _health != null && _health.IsDead;
-            return !isDead && _attackTimer <= 0;
+            return (_facade != null && (_facade.Health == null || !_facade.Health.IsDead)) && _attackTimer <= 0;
         }
 
         public float GetTotalDamage()
         {
-            var total = baseDamage;
-            if (_equipmentController != null)
-                total += _equipmentController.GetTotalDamageModifier();
+            float total = baseDamage;
+            if (_facade != null && _facade.EquipmentManager != null)
+                total += _facade.EquipmentManager.GetTotalDamageModifier();
             return total;
-        }
-
-        private IInteractable FindInteractableTarget()
-        {
-            var hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, interactionRange, _hitResults, interactableLayer);
-            if (hitCount <= 0)
-                return null;
-
-            for (var i = 0; i < hitCount; i++)
-            {
-                if (!_hitResults[i]) continue;
-                if (_hitResults[i].TryGetComponent<IInteractable>(out var interactable))
-                    return interactable;
-            }
-
-            return null;
         }
     }
 }

@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c12e02f6a04564daeab3a6cd55c833, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  toolType: 0
-  damage: 0
+  itemName: 
+  description: 
+  icon: {fileID: 803085355, guid: 49df2e0fb77954f0aa56465bfe992c16, type: 3}
+  maxStack: 1
+  equipSlot: 4
+  overrideController: {fileID: 22100000, guid: a341558ad9d09454392cd92c288beaab, type: 2}
+  toolType: 2
+  damage: 1
   gatherSpeedMultiplier: 1.5
   tier: 1
