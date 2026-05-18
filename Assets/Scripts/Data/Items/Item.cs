@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Data.Items
 {
     [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-    public class Item : ScriptableObject
+    public class ItemData : ScriptableObject
     {
         [Header("Item Basic Info")]
         [SerializeField] protected string itemName = "";

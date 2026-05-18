@@ -41,14 +41,14 @@ namespace Gameplay.Inventory
                 _slots[i] = new InventorySlot(null, 0);
         }
 
-        public bool AddItem(Item item, int amount = 1)
+        public bool AddItem(ItemData item, int amount = 1)
         {
             if (!item || amount <= 0) return false;
             var remaining = amount;
 
             if (item.MaxStack > 1)
             {
-                foreach (var slot in _slots.Where(s => !s.IsEmpty && s.Item == item))
+                foreach (var slot in _slots.Where(s => !s.IsEmpty && s.ItemData == item))
                 {
                     var canAdd = item.MaxStack - slot.Amount;
                     if (canAdd <= 0) continue;
@@ -98,14 +98,14 @@ namespace Gameplay.Inventory
             return true;
         }
 
-        public bool RemoveItem(Item item, int amount = 1)
+        public bool RemoveItem(ItemData item, int amount = 1)
         {
             if (CountItem(item) < amount) return false;
             
             var remaining = amount;
             for (var i = _slots.Length - 1; i >= 0 && remaining > 0; i--)
             {
-                if (_slots[i].IsEmpty || _slots[i].Item != item) continue;
+                if (_slots[i].IsEmpty || _slots[i].ItemData != item) continue;
                 
                 var take = Mathf.Min(_slots[i].Amount, remaining);
                 _slots[i].AddAmount(-take);
@@ -128,7 +128,7 @@ namespace Gameplay.Inventory
                 {
                     if (i != nextFree)
                     {
-                        _slots[nextFree].SetData(_slots[i].Item, _slots[i].Amount, _slots[i].CurrentDurability);
+                        _slots[nextFree].SetData(_slots[i].ItemData, _slots[i].Amount, _slots[i].CurrentDurability);
                         _slots[i].Clear();
                     }
                     nextFree++;
@@ -137,8 +137,8 @@ namespace Gameplay.Inventory
             NotifyChanged();
         }
 
-        public int CountItem(Item item) =>
-            _slots.Where(s => !s.IsEmpty && s.Item == item).Sum(s => s.Amount);
+        public int CountItem(ItemData item) =>
+            _slots.Where(s => !s.IsEmpty && s.ItemData == item).Sum(s => s.Amount);
 
         public IInventorySlot GetSlotAt(int index) => 
             (index >= 0 && index < _slots.Length) ? _slots[index] : null;

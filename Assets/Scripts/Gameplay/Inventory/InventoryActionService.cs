@@ -23,7 +23,7 @@ namespace Gameplay.Inventory
         public void UseItem(IInventorySlot slot)
         {
             if (slot == null || slot.IsEmpty || _ownerFacade == null) return;
-            if (slot.Item is IItemUsable usable && usable.Use(_ownerFacade))
+            if (slot.ItemData is IItemUsable usable && usable.Use(_ownerFacade))
                 _inventory.ConsumeSlot(slot, 1);
         }
 
@@ -36,7 +36,7 @@ namespace Gameplay.Inventory
         public void EquipItem(IInventorySlot slot)
         {
             if (slot == null || slot.IsEmpty || _ownerFacade == null) return;
-            if (slot.Item is not IEquippable equippable) return;
+            if (slot.ItemData is not IEquippable equippable) return;
             
             if (_ownerFacade.EquipmentManager == null)
             {
@@ -44,18 +44,18 @@ namespace Gameplay.Inventory
                 return;
             }
 
-            if (slot.Item is IDurable && slot.CurrentDurability <= 0)
+            if (slot.ItemData is IDurable && slot.CurrentDurability <= 0)
             {
                 Debug.LogWarning("Item is broken, cannot equip!");
                 return;
             }
 
             var oldItem = _ownerFacade.EquipmentManager.GetEquippedItem(equippable.Slot);
-            var itemToEquip = slot.Item;
+            var itemToEquip = slot.ItemData;
             _inventory.RemoveSlot(slot);
             _ownerFacade.EquipmentManager.Equip(equippable);
 
-            if (oldItem is Item oldItemData)
+            if (oldItem is ItemData oldItemData)
             {
                 _inventory.AddItem(oldItemData);
             }
@@ -70,7 +70,7 @@ namespace Gameplay.Inventory
             var item = _ownerFacade.EquipmentManager.GetEquippedItem(slot);
             if (item == null) return;
 
-            if (item is Item itemData)
+            if (item is ItemData itemData)
             {
                 if (_inventory.AddItem(itemData))
                 {
@@ -97,10 +97,10 @@ namespace Gameplay.Inventory
         public bool IsEquipped(IInventorySlot slot)
         {
             if (slot == null || slot.IsEmpty || _ownerFacade == null) return false;
-            if (slot.Item is not IEquippable equippable) return false;
+            if (slot.ItemData is not IEquippable equippable) return false;
             
             var equipped = _ownerFacade.EquipmentManager?.GetEquippedItem(equippable.Slot);
-            return equipped != null && ReferenceEquals(equipped, slot.Item);
+            return equipped != null && ReferenceEquals(equipped, slot.ItemData);
         }
     }
 }
