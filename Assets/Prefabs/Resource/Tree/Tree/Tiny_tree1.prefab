@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 453012266467173058}
   - component: {fileID: 2868879199841147492}
   - component: {fileID: 286105243810281857}
-  - component: {fileID: 2996921864420334103}
   - component: {fileID: 728914635054484489}
   - component: {fileID: 8990294095302507680}
   - component: {fileID: 133028340164293406}
@@ -59,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a3af7b5cc3e4b6748b8543aad6d3aecc, type: 2}
+  - {fileID: 2100000, guid: 4b7424088d90ed549a2aee70140e59cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -173,21 +172,6 @@ MonoBehaviour:
   requiredTool: 2
   staminaCostPerHit: 5
   stumpPrefab: {fileID: 7105231942027636971, guid: adbcc6ef515d3ee438acf61026f108cb, type: 3}
---- !u!114 &2996921864420334103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2890112345585659775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 088906f95db1381428b2796e9999c42b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 50
-  requiredTool: 2
-  staminaCostPerHit: 5
 --- !u!114 &728914635054484489
 MonoBehaviour:
   m_ObjectHideFlags: 0

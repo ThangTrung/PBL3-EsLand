@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TreeHighlight
+  m_Name: ResourceHighlight
   m_Shader: {fileID: 4800000, guid: 9855813c219ceb64fb1a64830fe39062, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

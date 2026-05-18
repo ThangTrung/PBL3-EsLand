@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a3af7b5cc3e4b6748b8543aad6d3aecc, type: 2}
+  - {fileID: 2100000, guid: 4b7424088d90ed549a2aee70140e59cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088906f95db1381428b2796e9999c42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceName: Gold Ore
   maxHealth: 5
   requiredTool: 1
   staminaCostPerHit: 10
@@ -185,7 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 0}
   lootTable: []
-  dropForce: 5
+  minDropForce: 4
+  maxDropForce: 8
 --- !u!114 &2320099108348936952
 MonoBehaviour:
   m_ObjectHideFlags: 0
