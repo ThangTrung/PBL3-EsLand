@@ -20,9 +20,6 @@ namespace UI.Inventory
         [SerializeField] private Transform slotsContainer;
         [SerializeField] private GameObject slotPrefab;
 
-        [Header("Settings")]
-        [SerializeField] private int columns = 8;
-
         private readonly List<InventorySlotUI> _slotUIs = new List<InventorySlotUI>();
         private int _selectedSlotIndex = -1;
 
@@ -57,7 +54,8 @@ namespace UI.Inventory
 
         public void ToggleUI()
         {
-            SetVisible(!IsVisible);
+            var currentState = canvasRoot && canvasRoot.activeSelf;
+            SetVisible(!currentState);
         }
 
         public void SetVisible(bool visible)
@@ -67,14 +65,15 @@ namespace UI.Inventory
             {
                 canvasRoot.SetActive(visible);
             }
-
+                
             if (_provider is Player player)
-                player.SetUIState(visible, player.IsEquipmentOpenInternal);
+                player.SetInventoryState(visible);
 
             if (visible) return;
+    
             OnInventoryClosed?.Invoke(); 
-
             ClearAllHighlights();
+    
             if (UnityEngine.EventSystems.EventSystem.current)
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
         }
@@ -87,15 +86,11 @@ namespace UI.Inventory
 
         private void HandleNavigation()
         {
-            if (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.E) && !Input.GetKeyDown(KeyCode.Return))
-                return;
-                
             if (_selectedSlotIndex < 0 || _selectedSlotIndex >= _slotUIs.Count) return;
             var slotUI = _slotUIs[_selectedSlotIndex];
             var slots = _inventory?.Slots;
             if (slots == null || _selectedSlotIndex >= slots.Count || slots[_selectedSlotIndex].IsEmpty) return;
             
-            // 3. THAY VÌ GỌI MENU TRỰC TIẾP, PHÁT EVENT BÁO CÁO NGỮ CẢNH (CONTEXT)
             var context = new InventorySlotActionContext(slots[_selectedSlotIndex], _inventory.ActionHandler);
             OnActionMenuRequested?.Invoke(context, slotUI.transform.position); 
         }
@@ -131,7 +126,6 @@ namespace UI.Inventory
                 if (!slotUI) continue;
                 slotUI.Init(i, _inventory.ActionHandler);
                 
-                // Gắn listener vào cục slot
                 slotUI.OnRightClicked += HandleSlotRightClicked;
                 _slotUIs.Add(slotUI);
             }

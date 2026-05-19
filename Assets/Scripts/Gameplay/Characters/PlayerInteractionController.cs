@@ -4,85 +4,154 @@ using UnityEngine;
 
 namespace Gameplay.Characters
 {
+    /// <summary>
+    /// Handles player interactions with the world and combat targets.
+    /// Manages interaction timing, animations, and damage calculation.
+    /// </summary>
     public class PlayerInteractionController : MonoBehaviour
     {
         private static readonly int InteractHash = Animator.StringToHash("interact");
 
         [Header("Interaction Settings")]
-        [SerializeField] private float interactionRange = 1.5f;
+        [SerializeField] private float interactionDelay = 0.4f; 
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float baseAttackCooldown = 1f;
 
         private float _attackTimer;
-        private Animator _animator;
-        private CharacterHealth _health;
-        private IEquipmentController _equipmentController;
-
-        private readonly Collider2D[] _hitResults = new Collider2D[10];
-        
-        // We temporarily pass 'this.gameObject' or 'Player.cs' facade as the source to IDamageable.
-        // For now, exposing a getter to allow passing the Character facade if needed.
-        private Character Facade { get; set; }
+        private Character _facade;
+        private PlayerMovementController _movement;
+        private Camera _mainCamera;
+        private Gameplay.Environment.EnvironmentHighlight _currentHover;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
-            _health = GetComponent<CharacterHealth>();
-            _equipmentController = GetComponent<IEquipmentController>();
-            Facade = GetComponent<Character>();
+            InitializeReferences();
+        }
+
+        private void Start()
+        {
+            InitializeReferences();
+            _mainCamera = Camera.main;
+            if (_mainCamera == null) _mainCamera = GetComponentInChildren<Camera>();
+        }
+
+        private void InitializeReferences()
+        {
+            if (_facade == null) _facade = GetComponentInParent<Character>();
+            if (_movement == null) _movement = GetComponentInParent<PlayerMovementController>();
+            
+            // Fallback for detached prefabs
+            if (_facade == null && transform.parent != null) _facade = transform.parent.GetComponent<Character>();
+            if (_movement == null && transform.parent != null) _movement = transform.parent.GetComponent<PlayerMovementController>();
         }
 
         private void Update()
         {
             if (_attackTimer > 0)
                 _attackTimer -= Time.deltaTime;
+
+            HandleHover();
         }
 
-        public void AttemptAttack()
+        private void HandleHover()
         {
-            if (!CanAttack())
-                return;
+            if (_mainCamera == null) _mainCamera = Camera.main;
+            if (_mainCamera == null) return;
 
-            _attackTimer = baseAttackCooldown;
-            if (_animator != null)
+            Vector3 screenPos = Input.mousePosition;
+            screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
+            Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
+
+            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
+            Gameplay.Environment.EnvironmentHighlight newHover = null;
+
+            foreach (var col in colliders)
             {
-                _animator.SetTrigger(InteractHash);
+                if (col != null && col.TryGetComponent<Gameplay.Environment.EnvironmentHighlight>(out var highlight))
+                {
+                    newHover = highlight;
+                    break;
+                }
             }
 
-            var target = FindInteractableTarget();
-            // In the new architecture, we pass the Facade (Player.cs) as the interaction source.
-            target?.Interact(Facade);
+            if (newHover != _currentHover)
+            {
+                if (_currentHover != null) _currentHover.SetHighlight(false);
+                _currentHover = newHover;
+                if (_currentHover != null) _currentHover.SetHighlight(true);
+            }
+        }
+
+        public void HandleInteractionClick(Vector2 mouseWorldPos)
+        {
+            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
+            
+            foreach (var col in colliders)
+            {
+                if (col != null && col.TryGetComponent<IInteractable>(out var target))
+                {
+                    InteractWithTarget(target, col.transform);
+                    return; 
+                }
+            }
+        }
+
+        public void InteractWithTarget(IInteractable target, Transform targetTransform)
+        {
+            InitializeReferences();
+            if (target == null || targetTransform == null || _movement == null) return;
+
+            _movement.SetFollowTarget(targetTransform, 0f, () => 
+            {
+                FaceTarget(targetTransform.position);
+                StartCoroutine(ExecuteAttackSequence(target));
+            });
+        }
+
+        private System.Collections.IEnumerator ExecuteAttackSequence(IInteractable specificTarget)
+        {
+            if (specificTarget == null) yield break;
+
+            while (_attackTimer > 0) yield return null;
+
+            if (!CanAttack()) yield break;
+
+            _attackTimer = baseAttackCooldown;
+            TriggerInteractAnimation();
+
+            yield return new WaitForSeconds(interactionDelay);
+
+            if (specificTarget != null)
+            {
+                specificTarget.Interact(_facade);
+            }
+        }
+
+        private void FaceTarget(Vector3 targetPos)
+        {
+            if (_facade == null) return;
+            float lookDir = targetPos.x > transform.position.x ? 1 : -1;
+            _facade.transform.localScale = new Vector3(lookDir, 1, 1);
+        }
+
+        private void TriggerInteractAnimation()
+        {
+            if (_facade != null && _facade.Animator != null)
+                _facade.Animator.SetTrigger(InteractHash);
         }
 
         private bool CanAttack()
         {
-            var isDead = _health != null && _health.IsDead;
-            return !isDead && _attackTimer <= 0;
+            return (_facade != null && (_facade.Health == null || !_facade.Health.IsDead)) && _attackTimer <= 0;
         }
 
         public float GetTotalDamage()
         {
-            var total = baseDamage;
-            if (_equipmentController != null)
-                total += _equipmentController.GetTotalDamageModifier();
+            float total = baseDamage;
+            if (_facade != null && _facade.EquipmentManager != null)
+                total += _facade.EquipmentManager.GetTotalDamageModifier();
             return total;
-        }
-
-        private IInteractable FindInteractableTarget()
-        {
-            var hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, interactionRange, _hitResults, interactableLayer);
-            if (hitCount <= 0)
-                return null;
-
-            for (var i = 0; i < hitCount; i++)
-            {
-                if (!_hitResults[i]) continue;
-                if (_hitResults[i].TryGetComponent<IInteractable>(out var interactable))
-                    return interactable;
-            }
-
-            return null;
         }
     }
 }

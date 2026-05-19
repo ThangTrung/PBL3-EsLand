@@ -23,7 +23,8 @@ namespace UI.Equipment
         public event Action<IActionableItem, Vector3> OnRightClicked;
 
         private IEquippable _currentItem;
-        private IEquipmentController _equipmentManager;
+                private IEquipmentController _equipmentManager;
+        private IItemActionHandler _actionHandler;
         private Sprite _defaultSprite;
         private Color _defaultColor;
 
@@ -35,22 +36,40 @@ namespace UI.Equipment
                 _defaultColor = icon.color;
             }
             SetHighlight(false); 
+            if (_currentItem == null)
+            {
+                ClearVisuals();
+            }
         }
 
         public void SetEquipmentManager(IEquipmentController manager) => _equipmentManager = manager;
+
+        public void SetActionHandler(IItemActionHandler handler) => _actionHandler = handler;
+
 
         public void SetItem(IEquippable item, Sprite itemSprite)
         {
             _currentItem = item;
             if (icon == null) return;
             
-            if (item != null && itemSprite != null)
+            if (item != null)
             {
-                icon.sprite = itemSprite;
-                icon.color = new Color(1, 1, 1, 1f);
+                // Cập nhật icon cho mọi loại trang bị nếu có sprite
+                if (itemSprite != null)
+                {
+                    icon.sprite = itemSprite;
+                    icon.enabled = true;
+                }
+                
+                // Luôn set alpha lên 1 khi có đồ
+                icon.color = Color.white;
             }
-            else ClearVisuals();
+            else 
+            {
+                ClearVisuals();
+            }
         }
+        
 
         public void ClearItem()
         {
@@ -61,8 +80,22 @@ namespace UI.Equipment
         private void ClearVisuals()
         {
             if (icon == null) return;
+            
             icon.sprite = _defaultSprite;
-            icon.color = _defaultColor;
+            
+            // Nếu là MainHand và không có default sprite thì ẩn luôn image
+            if (slotType == EquipSlot.MainHand && _defaultSprite == null)
+            {
+                icon.enabled = false;
+            }
+            else
+            {
+                icon.enabled = _defaultSprite != null;
+                // Sử dụng bản sao để không ghi đè vào field _defaultColor
+                Color c = _defaultColor;
+                c.a = slotType == EquipSlot.MainHand ? 0f : 0.2f;
+                icon.color = c;
+            }
         }
 
         public void SetHighlight(bool isHighlighted)
@@ -73,7 +106,7 @@ namespace UI.Equipment
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Right || _currentItem == null) return;
-            var context = new EquipmentSlotActionContext(_equipmentManager, slotType, _currentItem);
+            var context = new EquipmentSlotActionContext(_actionHandler, slotType, _currentItem);
             OnRightClicked?.Invoke(context, eventData.position);
         }
 
@@ -81,5 +114,3 @@ namespace UI.Equipment
         public void OnPointerExit(PointerEventData eventData) => SetHighlight(false);
     }
 }
-
-

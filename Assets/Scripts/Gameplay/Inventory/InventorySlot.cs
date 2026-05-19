@@ -9,18 +9,18 @@ namespace Gameplay.Inventory
     [Serializable]
     public class InventorySlot : IInventorySlot
     {
-        public Item Item { get; private set; }
+        public ItemData ItemData { get; private set; }
         public int Amount { get; private set; }
         public int CurrentDurability { get; private set; }
-        public bool IsEmpty => Item == null || Amount <= 0;
+        public bool IsEmpty => ItemData == null || Amount <= 0;
 
-        public float DurabilityPercent => Item is IDurable { MaxDurability: > 0 } durable
+        public float DurabilityPercent => ItemData is IDurable { MaxDurability: > 0 } durable
             ? (float)CurrentDurability / durable.MaxDurability
             : 1f;
 
-        public InventorySlot(Item newItem, int startAmount)
+        public InventorySlot(ItemData newItem, int startAmount)
         {
-            Item = newItem;
+            ItemData = newItem;
             Amount = Math.Max(0, startAmount);
             CurrentDurability = newItem is IDurable durable ? durable.MaxDurability : 0;
         }
@@ -33,29 +33,37 @@ namespace Gameplay.Inventory
 
         public void ReduceDurability(int amount)
         {
-            if (Item is not IDurable) return;
+            if (ItemData is not IDurable) return;
             CurrentDurability -= amount;
             if (CurrentDurability < 0) CurrentDurability = 0;
         }
 
         public void RepairDurability(int amount)
         {
-            if (Item is not IDurable durable) return;
+            if (ItemData is not IDurable durable) return;
             CurrentDurability += amount;
             if (CurrentDurability > durable.MaxDurability)
                 CurrentDurability = durable.MaxDurability;
         }
 
-        public void SetItem(Item item, int amount)
+        public void SetItem(ItemData item, int amount)
         {
-            Item = item;
+            ItemData = item;
             Amount = amount;
             CurrentDurability = item is IDurable durable ? durable.MaxDurability : 0;
         }
 
+        public void SetData(ItemData item, int amount, int durability)
+        {
+            ItemData = item;
+            Amount = amount;
+            CurrentDurability = durability;
+        }
+
+
         public void Clear()
         {
-            Item = null;
+            ItemData = null;
             Amount = 0;
             CurrentDurability = 0;
         }

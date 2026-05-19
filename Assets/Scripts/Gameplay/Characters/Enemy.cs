@@ -32,7 +32,7 @@ namespace Gameplay.Characters
         [SerializeField] private float patrolReachDistance = 0.3f;
 
         [Header("Loot Settings")]
-        [SerializeField] private List<Item> lootTable = new List<Item>();
+        [SerializeField] private List<ItemData> lootTable = new List<ItemData>();
         [Range(0, 1)][SerializeField] private float dropChance = 0.5f;
 
         private Vector3 _patrolPoint;
@@ -43,8 +43,9 @@ namespace Gameplay.Characters
 
         public string InteractionAnimationTrigger => "attack";
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _health = GetComponent<CharacterHealth>();
             _movement = GetComponent<PlayerMovementController>();
 

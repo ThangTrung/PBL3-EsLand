@@ -376,6 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1297728064542899693}
   - component: {fileID: 8903250813034822412}
+  - component: {fileID: 8550628403286207419}
   m_Layer: 5
   m_Name: StatusUI
   m_TagString: Untagged
@@ -430,6 +431,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8550628403286207419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3164662272880921097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13bee80fe4e44ec47a42c562302763f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthImage: {fileID: 309564167728583347}
 --- !u!1 &5102171588558800876
 GameObject:
   m_ObjectHideFlags: 0
