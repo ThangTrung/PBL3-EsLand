@@ -1,4 +1,4 @@
-    using Core.Contracts.Equipment;
+using Core.Contracts.Equipment;
 using UnityEngine;
 
 namespace Gameplay.Characters
