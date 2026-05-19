@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 924693470190339904}
   - component: {fileID: 7863044881441402794}
   - component: {fileID: 1181382388802793854}
+  - component: {fileID: 1075209674972927935}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Loot
@@ -153,3 +154,17 @@ MonoBehaviour:
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
+  pickupDelay: 0.5
+--- !u!114 &1075209674972927935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232024357101841912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 

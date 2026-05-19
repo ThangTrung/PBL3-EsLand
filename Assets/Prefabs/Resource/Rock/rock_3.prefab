@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &326849188128417145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +103,8 @@ MonoBehaviour:
   maxHealth: 5
   requiredTool: 1
   staminaCostPerHit: 5
+  stumpSprite: {fileID: 0}
+  nodeCollider: {fileID: 0}
 --- !u!114 &867406094605858864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -179,12 +181,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.12, y: 0.29999998}
-      - {x: -0.26, y: 0.14999999}
-      - {x: -0.26, y: -0.06}
-      - {x: -0.17, y: -0.22}
-      - {x: 0.19, y: -0.22}
-      - {x: 0.25, y: -0.19999999}
-      - {x: 0.25, y: 0.17999999}
-      - {x: 0.089999996, y: 0.29999998}
+    - - {x: -0.1593895, y: 0.22646692}
+      - {x: -0.20881319, y: 0.112283126}
+      - {x: -0.22767162, y: -0.019589003}
+      - {x: -0.11342506, y: -0.1607301}
+      - {x: -0.06265676, y: -0.21210003}
+      - {x: 0.06714928, y: -0.19756413}
+      - {x: 0.14420098, y: -0.13917896}
+      - {x: 0.24461186, y: -0.054520786}
+      - {x: 0.20958936, y: 0.16383617}
+      - {x: 0.1259298, y: 0.21274164}
   m_UseDelaunayMesh: 0

@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278722513737191556}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.4717174, y: -1.8973511, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &7429541535244558999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +103,8 @@ MonoBehaviour:
   maxHealth: 5
   requiredTool: 1
   staminaCostPerHit: 5
+  stumpSprite: {fileID: 0}
+  nodeCollider: {fileID: 0}
 --- !u!114 &740378675666193320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -179,19 +181,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.37, y: 0.14}
-      - {x: 0.28, y: 0.37}
-      - {x: 0.11, y: 0.48999998}
-      - {x: -0.08, y: 0.48999998}
-      - {x: -0.16, y: 0.48}
+    - - {x: 0.28352487, y: 0.17759766}
+      - {x: 0.24992159, y: 0.34744084}
+      - {x: 0.13255869, y: 0.377207}
+      - {x: 0.025273964, y: 0.377207}
+      - {x: -0.15248075, y: 0.37472674}
       - {x: -0.29, y: 0.38}
-      - {x: -0.39, y: 0.06}
-      - {x: -0.39, y: -0.11}
+      - {x: -0.29045796, y: 0.3472643}
+      - {x: -0.33736312, y: 0.10511738}
+      - {x: -0.37872088, y: -0.061122283}
       - {x: -0.26999998, y: -0.21}
       - {x: -0.13, y: -0.28}
       - {x: 0.02, y: -0.28}
       - {x: 0.21, y: -0.25}
-      - {x: 0.31, y: -0.17999999}
-      - {x: 0.35, y: -0.099999994}
-      - {x: 0.37, y: 0.02}
+      - {x: 0.29496104, y: -0.16120116}
+      - {x: 0.32368192, y: -0.081201166}
+      - {x: 0.3549608, y: 0.08767559}
   m_UseDelaunayMesh: 0

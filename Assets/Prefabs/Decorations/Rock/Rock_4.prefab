@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 178121197925248813}
   - component: {fileID: 5857069627116224476}
-  - component: {fileID: 8089480407864043248}
+  - component: {fileID: 3080291618834553879}
   m_Layer: 12
   m_Name: Rock_4
   m_TagString: Untagged
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 7
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 50ba275dcd62e47b0b07e37b43a997fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -84,9 +84,9 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!61 &8089480407864043248
-BoxCollider2D:
+  m_SpriteSortPoint: 1
+--- !u!60 &3080291618834553879
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,6 +127,16 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.28129005, y: 0.21267319}
+      - {x: -0.3865738, y: 0.10871315}
+      - {x: -0.3865738, y: -0.042822838}
+      - {x: -0.19973564, y: -0.30708504}
+      - {x: -0.14744473, y: -0.3308525}
+      - {x: 0.078125, y: -0.31183815}
+      - {x: 0.21593189, y: -0.2010479}
+      - {x: 0.39608097, y: -0.18886375}
+      - {x: 0.39608097, y: -0.004753113}
+      - {x: 0.20448971, y: 0.1841507}
+  m_UseDelaunayMesh: 0

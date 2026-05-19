@@ -163,7 +163,7 @@ public void SetSpeedMultiplier(float multiplier)
             StopMovement();
         }
 
-private float GetMoveSpeed()
+        private float GetMoveSpeed()
         {
             float speed = baseMoveSpeed;
             if (_facade != null && _facade.EquipmentManager != null)
