@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 1082177462837943797}
   - component: {fileID: 1505698612147193422}
   - component: {fileID: 3003519889291221400}
-  - component: {fileID: 3700378661817873818}
-  - component: {fileID: 5993459045805508671}
+  - component: {fileID: 3394396212285501699}
   - component: {fileID: 7650710788756696176}
   - component: {fileID: 1326679762689121880}
+  - component: {fileID: 7203324445260733249}
+  - component: {fileID: 8558946153150275336}
   m_Layer: 12
   m_Name: Gold_Resource_3
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 79eb76530889a4283aab87921fff68cf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b20ff802f85e75a41b7f6fd7bd3d070a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,7 +89,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &3003519889291221400
 Animator:
   serializedVersion: 5
@@ -110,8 +111,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &3700378661817873818
-BoxCollider2D:
+--- !u!60 &3394396212285501699
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -142,7 +143,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00897181, y: 0.21034062}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.4}
@@ -152,24 +153,16 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.4129336, y: 0.35985732}
-  m_EdgeRadius: 0
---- !u!114 &5993459045805508671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7181517856733737800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 088906f95db1381428b2796e9999c42b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  requiredTool: 1
-  staminaCostPerHit: 10
+  m_Points:
+    m_Paths:
+    - - {x: -0.150918, y: 0.36968917}
+      - {x: -0.19064617, y: 0.3408653}
+      - {x: -0.23728085, y: 0.20061225}
+      - {x: -0.1064682, y: 0.039269626}
+      - {x: 0.11433506, y: 0.02231139}
+      - {x: 0.21361923, y: 0.1460104}
+      - {x: 0.17368793, y: 0.37392825}
+  m_UseDelaunayMesh: 0
 --- !u!114 &7650710788756696176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,8 +175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 0}
-  lootTable: []
+  pickupPrefab: {fileID: 7995749434018099684, guid: 5a458576073442444860c8c0f456cd84, type: 3}
+  lootTable:
+  - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
+    minAmount: 1
+    maxAmount: 2
+    chance: 1
   minDropForce: 4
   maxDropForce: 8
 --- !u!114 &1326679762689121880
@@ -198,3 +195,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7203324445260733249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181517856733737800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &8558946153150275336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181517856733737800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e73acf91e7285d4d9915d6b834d4b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  requiredTool: 1
+  staminaCostPerHit: 5
+  stumpSprite: {fileID: 0}
+  nodeCollider: {fileID: 3394396212285501699}

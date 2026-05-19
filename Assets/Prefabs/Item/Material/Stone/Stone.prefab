@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2273322030415773189}
   - component: {fileID: 1243828032286303755}
-  - component: {fileID: 7201282458447357388}
-  - component: {fileID: 2270325785238100597}
-  - component: {fileID: 167767370584681931}
-  m_Layer: 12
-  m_Name: rock_1
-  m_TagString: Untagged
+  - component: {fileID: 5364814990359160495}
+  - component: {fileID: -2648349284388942574}
+  - component: {fileID: -6455648985027329590}
+  - component: {fileID: 1141519726200088606}
+  m_Layer: 0
+  m_Name: Stone
+  m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,18 +77,80 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0a582b5552822b64599800f71c078f18, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b7251ce1af59e3a429e506a04d9bb050, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 0.5, y: 0.453125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 1
---- !u!114 &7201282458447357388
+  m_SpriteSortPoint: 0
+--- !u!50 &5364814990359160495
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736379040642882417}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 3
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &-2648349284388942574
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736379040642882417}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &-6455648985027329590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,15 +159,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7736379040642882417}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e73acf91e7285d4d9915d6b834d4b54, type: 3}
+  m_Script: {fileID: 11500000, guid: 56a770e395a92ed40b12ec5d9862029f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  requiredTool: 1
-  staminaCostPerHit: 5
-  stumpSprite: {fileID: 0}
-  nodeCollider: {fileID: 0}
---- !u!114 &2270325785238100597
+  itemData: {fileID: 11400000, guid: 54e4f4c3d174ae74cb2df49ed02970f2, type: 2}
+  flySpeed: 5
+  acceleration: 20
+  pickupDistance: 0.5
+  pickupDelay: 0.75
+--- !u!114 &1141519726200088606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,26 +176,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7736379040642882417}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &167767370584681931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7736379040642882417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 729092896824613032, guid: 8cc4d34fee45055498632f98491ccc74, type: 3}
-  lootTable:
-  - item: {fileID: 0}
-    minAmount: 1
-    maxAmount: 2
-    chance: 1
-  minDropForce: 4
-  maxDropForce: 8
+  id: 

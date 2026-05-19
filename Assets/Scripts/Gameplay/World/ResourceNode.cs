@@ -193,7 +193,21 @@ namespace Gameplay.World
                 nodeCollider.enabled = !IsDead;
             }
         }
+        // Hàm này để Player check xem có đúng dụng cụ không từ xa
+        public bool HasRequiredTool(Character interactor)
+        {
+            if (requiredTool == ToolType.None) return true; // Không yêu cầu tool thì cho qua
+            
+            if (interactor == null || interactor.EquipmentManager == null) return false;
 
+            var mainItem = interactor.EquipmentManager.GetEquippedItem(EquipSlot.MainHand);
+            if (mainItem is IGatheringTool tool && tool.Type == requiredTool)
+            {
+                return true; // Đúng Tool rồi
+            }
+            
+            return false; // Sai Tool
+        }
         public float GetStaminaCost() => staminaCostPerHit;
     }
 }

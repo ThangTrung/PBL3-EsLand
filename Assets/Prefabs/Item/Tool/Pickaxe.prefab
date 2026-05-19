@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4906162078148658383}
   - component: {fileID: 7573126370369403477}
   - component: {fileID: 3949340787679808843}
+  - component: {fileID: 4129185176935507630}
   m_Layer: 0
   m_Name: Pickaxe
   m_TagString: Loot
@@ -156,3 +157,17 @@ MonoBehaviour:
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
+  pickupDelay: 0.5
+--- !u!114 &4129185176935507630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722910495224709956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
