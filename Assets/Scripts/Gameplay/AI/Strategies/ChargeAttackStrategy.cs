@@ -1,6 +1,7 @@
 using Core.Contracts.AI;
 using Core.Contracts.Combat;
-using Gameplay.AI.Animation;
+using Gameplay.AI.Animation;using Gameplay.AI.Movement;
+
 using Gameplay.Characters;
 using UnityEngine;
 
@@ -49,15 +50,15 @@ namespace Gameplay.AI.Strategies
             if (!_isCharging || _target == null) return;
 
             // Move during charge
-            _selfTransform.position += _chargeDirection * (_source.GetComponent<PlayerMovementController>().GetCurrentMoveSpeed() * _chargeSpeedMultiplier) * Time.deltaTime;
+            var movementController = _source.GetComponent<EnemyMovementController>();
+            float speed = movementController != null ? movementController.GetCurrentMoveSpeed() : 3f;
+            _selfTransform.position += _chargeDirection * (speed * _chargeSpeedMultiplier) * Time.deltaTime;
 
             // Check collision
             if (Vector3.Distance(_selfTransform.position, _target.position) <= 0.5f)
             {
                 ApplyHit();
             }
-            
-            // Limit charge distance or time? For simplicity, we use distance to target
         }
 
         private void ApplyHit()

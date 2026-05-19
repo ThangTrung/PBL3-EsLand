@@ -1,6 +1,7 @@
 using Core.Contracts.AI;
 using Data.Enemies;
-using Gameplay.AI.Animation;
+using Gameplay.AI.Animation;using Gameplay.AI.Movement;
+
 using Gameplay.AI.Strategies;
 using Gameplay.Characters;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Gameplay.AI.Enemies.Goblin
                 health.SetMaxHealth(config.MaxHealth, true);
             }
 
-            var movementController = GetComponent<PlayerMovementController>();
+            var movementController = GetComponent<EnemyMovementController>();
             if (movementController != null)
             {
                 movementController.SetBaseMoveSpeed(config.MoveSpeed);

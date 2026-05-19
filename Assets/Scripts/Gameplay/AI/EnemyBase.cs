@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Gameplay.AI
 {
     [RequireComponent(typeof(CharacterHealth))]
-    [RequireComponent(typeof(PlayerMovementController))]
+    [RequireComponent(typeof(EnemyMovementController))]
     [RequireComponent(typeof(CharacterAnimationController))]
     public abstract class EnemyBase : Character, IPoolable, IResettable
     {
@@ -18,7 +18,7 @@ namespace Gameplay.AI
         private const float DeathFallbackDelay = 2f;
 
         private CharacterHealth _health;
-        private PlayerMovementController _movementController;
+        private EnemyMovementController _movementController;
         private CharacterAnimationController _animationController;
         private Gameplay.Combat.StatusEffects.StatusEffectController _statusEffectController;
         private IMovementStrategy _movementStrategy;
@@ -33,7 +33,8 @@ namespace Gameplay.AI
         protected float AttackRangeInternal;
 
         public Transform Target => _target;
-        public CharacterAnimationController Animator => _animationController;
+        public new CharacterAnimationController Animator => _animationController;
+        
         public IAttackStrategy AttackStrategy => AttackStrategyInternal;
         public IEnemyConfig Config => ConfigInternal;
         public float AttackRange => AttackRangeInternal;
@@ -45,12 +46,13 @@ namespace Gameplay.AI
             return new ChaseState();
         }
 
-        protected virtual void Awake()
+protected virtual new void Awake()
         {
+            base.Awake();
             _health = GetComponent<CharacterHealth>();
-            _movementController = GetComponent<PlayerMovementController>();
+            _movementController = GetComponent<EnemyMovementController>();
             _animationController = GetComponent<CharacterAnimationController>();
-            _statusEffectController = GetComponent<Gameplay.Combat.StatusEffects.StatusEffectController>();
+            _statusEffectController = GetComponent<Gameplay.Combat.StatusEffects.StatusEffectController>();     
 
             if (_health != null)
             {

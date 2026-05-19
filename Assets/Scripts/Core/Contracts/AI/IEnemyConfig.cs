@@ -1,7 +1,5 @@
 using UnityEngine;
 
-using UnityEngine;
-
 namespace Core.Contracts.AI
 {
     public interface IEnemyConfig
