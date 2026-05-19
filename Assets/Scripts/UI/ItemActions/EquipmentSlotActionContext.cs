@@ -22,7 +22,7 @@ namespace UI.ItemActions
             _item = item;
         }
 
-        public string DisplayName => (_item as Item)?.ItemName ?? "Unknown";
+        public string DisplayName => (_item as ItemData)?.ItemName ?? "Unknown";
         public bool CanUse     => false;
                 public bool CanDrop    => _item != null;
         public bool CanEquip   => false;

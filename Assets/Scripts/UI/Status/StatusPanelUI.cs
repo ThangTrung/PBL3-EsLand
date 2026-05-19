@@ -26,17 +26,19 @@ namespace UI.Status
                 _playerHealth.OnHealthChanged += UpdateHealthUI;
             }
 
-            // Hunger
-            UpdateHungerUI(player.CurrentHunger, player.MaxHunger);
-            player.OnHungerChanged += (val) => UpdateHungerUI(val, player.MaxHunger);
+            // Survival Stats
+            var survival = player.GetComponent<PlayerSurvivalController>();
+            if (survival != null)
+            {
+                UpdateHungerUI(survival.CurrentHunger, survival.MaxHunger);
+                survival.OnHungerChanged += (val) => UpdateHungerUI(val, survival.MaxHunger);
 
-            // Thirst
-            UpdateThirstUI(player.CurrentThirst, player.MaxThirst);
-            player.OnThirstChanged += (val) => UpdateThirstUI(val, player.MaxThirst);
+                UpdateThirstUI(survival.CurrentThirst, survival.MaxThirst);
+                survival.OnThirstChanged += (val) => UpdateThirstUI(val, survival.MaxThirst);
 
-            // Stamina
-            UpdateStaminaUI(player.CurrentStamina, player.MaxStamina);
-            player.OnStaminaChanged += (val) => UpdateStaminaUI(val, player.MaxStamina);
+                UpdateStaminaUI(survival.CurrentStamina, survival.MaxStamina);
+                // survival.OnStaminaChanged += (val) => UpdateStaminaUI(val, survival.MaxStamina);
+            }
         }
 
         private void OnDisable()

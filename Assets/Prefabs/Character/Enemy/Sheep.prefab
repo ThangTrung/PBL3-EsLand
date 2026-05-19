@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 3613437577110884613}
   - component: {fileID: 6426102601138425874}
   - component: {fileID: 3104128922420235333}
-  - component: {fileID: 7586902773780368283}
   - component: {fileID: 6950528709995559237}
+  - component: {fileID: 1169752073286033271}
+  - component: {fileID: 8085896796666403685}
+  - component: {fileID: 7019463130076121595}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Untagged
@@ -164,34 +166,6 @@ PolygonCollider2D:
       - {x: 0.375, y: -0.125}
       - {x: 0.375, y: 0.203125}
   m_UseDelaunayMesh: 0
---- !u!114 &7586902773780368283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523037889023085912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00278f57c62e98c4899e8f927325dc30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: Sheep
-  maxHealth: 100
-  baseDamage: 10
-  baseDefense: 5
-  baseMoveSpeed: 1
-  baseAttackCooldown: 1
-  animator: {fileID: 6426102601138425874}
-  rb: {fileID: 6950528709995559237}
-  equipmentManager: {fileID: 0}
-  baseAnimator: {fileID: 9100000, guid: d6f7ff59e769a49fe86d4ea4c7cfc3d5, type: 2}
-  target: {fileID: 0}
-  targetTag: Player
-  detectionRange: 10
-  attackRange: 2
-  patrolRadius: 4
-  patrolReachDistance: 0.3
 --- !u!50 &6950528709995559237
 Rigidbody2D:
   serializedVersion: 4
@@ -219,3 +193,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1169752073286033271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523037889023085912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594a465c4f87f5e4f9b3892b1fa204d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  baseDefense: 5
+--- !u!114 &8085896796666403685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523037889023085912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8d5331680974043bfd503da1ff0c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMoveSpeed: 5
+--- !u!114 &7019463130076121595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523037889023085912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71fafdf1a9732144782dd5b2409470de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: New Character
+  target: {fileID: 0}
+  targetTag: Player
+  detectionRange: 10
+  attackRange: 2
+  state: 0
+  baseAttackCooldown: 1
+  baseDamage: 5
+  patrolRadius: 4
+  patrolReachDistance: 0.3
+  lootTable: []
+  dropChance: 0.5

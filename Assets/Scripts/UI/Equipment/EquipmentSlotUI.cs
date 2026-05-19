@@ -51,13 +51,23 @@ namespace UI.Equipment
         {
             _currentItem = item;
             if (icon == null) return;
-            if (item != null && itemSprite != null)
+            
+            if (item != null)
             {
-                if (item is Tool)
+                // Cập nhật icon cho mọi loại trang bị nếu có sprite
+                if (itemSprite != null)
+                {
                     icon.sprite = itemSprite;
-                icon.color = new Color(1, 1, 1, 1f);
+                    icon.enabled = true;
+                }
+                
+                // Luôn set alpha lên 1 khi có đồ
+                icon.color = Color.white;
             }
-            else ClearVisuals();
+            else 
+            {
+                ClearVisuals();
+            }
         }
         
 
@@ -70,9 +80,22 @@ namespace UI.Equipment
         private void ClearVisuals()
         {
             if (icon == null) return;
+            
             icon.sprite = _defaultSprite;
-            _defaultColor.a = slotType == EquipSlot.MainHand ? 0f : 0.2f;
-            icon.color = _defaultColor;
+            
+            // Nếu là MainHand và không có default sprite thì ẩn luôn image
+            if (slotType == EquipSlot.MainHand && _defaultSprite == null)
+            {
+                icon.enabled = false;
+            }
+            else
+            {
+                icon.enabled = _defaultSprite != null;
+                // Sử dụng bản sao để không ghi đè vào field _defaultColor
+                Color c = _defaultColor;
+                c.a = slotType == EquipSlot.MainHand ? 0f : 0.2f;
+                icon.color = c;
+            }
         }
 
         public void SetHighlight(bool isHighlighted)

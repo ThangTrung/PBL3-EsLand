@@ -11,10 +11,10 @@ namespace Core.Contracts.Inventory
         int UsedSlots { get; }
         event Action OnInventoryChanged;
         void NotifyChanged();
-        bool AddItem(Item item, int amount = 1);
+        bool AddItem(ItemData item, int amount = 1);
         void ConsumeSlot(IInventorySlot slot, int amount = 1);
         bool RemoveSlot(IInventorySlot slot);
-        int CountItem(Item item);
+        int CountItem(ItemData item);
         void Clear();
         IItemActionHandler ActionHandler { get; }
         void SwapSlots(int indexA, int indexB);

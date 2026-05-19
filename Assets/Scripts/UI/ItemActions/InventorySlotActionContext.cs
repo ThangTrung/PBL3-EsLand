@@ -17,11 +17,11 @@ namespace UI.ItemActions
             _handler = handler;
         }
 
-        public string DisplayName => _slot?.Item?.ItemName ?? string.Empty;
-        public bool CanUse => _slot?.Item is ConsumableItem;
+        public string DisplayName => _slot?.ItemData?.ItemName ?? string.Empty;
+        public bool CanUse => _slot?.ItemData is ConsumableItem;
         public bool CanDrop => true;
-        public bool CanEquip => _slot?.Item is IEquippable && !(_handler?.IsEquipped(_slot) ?? false);
-        public bool CanUnequip => _slot?.Item is IEquippable && (_handler?.IsEquipped(_slot) ?? false);
+        public bool CanEquip => _slot?.ItemData is IEquippable && !(_handler?.IsEquipped(_slot) ?? false);
+        public bool CanUnequip => _slot?.ItemData is IEquippable && (_handler?.IsEquipped(_slot) ?? false);
 
         public void Use()
         {
@@ -44,7 +44,7 @@ namespace UI.ItemActions
 
         public void Unequip()
         {
-            if (_slot?.Item is IEquippable equippable)
+            if (_slot?.ItemData is IEquippable equippable)
             {
                 Debug.Log($"[InventorySlotActionContext] Unequip() called. Forwarding to _handler.UnequipItem() for item: {DisplayName} in slot {equippable.Slot}");
                 _handler?.UnequipItem(equippable.Slot);

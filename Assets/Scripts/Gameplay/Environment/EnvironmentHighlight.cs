@@ -19,17 +19,7 @@ namespace Gameplay.Environment
             _propBlock = new MaterialPropertyBlock();
         }
 
-        private void OnMouseEnter()
-        {
-            SetHighlight(true);
-        }
-
-        private void OnMouseExit()
-        {
-            SetHighlight(false);
-        }
-
-        private void SetHighlight(bool enabled)
+        public void SetHighlight(bool enabled)
         {
             if (_renderer == null) return;
             
