@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Data.Equipment; // Bổ sung thư viện này để nhận diện EquipSlot
 
 namespace Infrastructure.SaveSystem.Data
 {
@@ -28,7 +29,6 @@ namespace Infrastructure.SaveSystem.Data
         public string uniqueID;    // ID duy nhất để phân biệt các item rơi
     }
 
-    // 🔥 ĐÃ ĐỒNG BỘ: Khớp hoàn toàn với logic của script ResourceNode.cs
     [System.Serializable]
     public class ResourceNodeSaveData
     {
@@ -37,27 +37,33 @@ namespace Infrastructure.SaveSystem.Data
         public bool isStump;       // true = đã thành gốc cây, false = cây nguyên vẹn
     }
 
+    // 🔥 MỚI THÊM: Cấu trúc để lưu lại món đồ nào đang gắn ở khe (slot) nào
+    [System.Serializable]
+    public class EquippedItemSaveData
+    {
+        public EquipSlot slot;
+        public string itemID; // Lưu tên file của Item (vd: "Axe", "Defense")
+    }
+
     [System.Serializable]
     public class GameData
     {
         [Header("Inventory Systems")]
         public List<InventorySaveData> inventories = new List<InventorySaveData>();
 
+        // 🔥 MỚI THÊM: Sổ ghi chép đồ đang mặc trên người
+        public List<EquippedItemSaveData> equippedItems = new List<EquippedItemSaveData>();
+
         [Header("World State")]
-        // 🔥 ĐÃ ĐỔI TÊN: Thành resourceNodes cho giống logic trong code gọi data
         public List<ResourceNodeSaveData> resourceNodes = new List<ResourceNodeSaveData>();
-        
         public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
         
-        // Sổ đen: Lưu danh sách ID các viên đá/cành cây nhặt dưới đất đã bị xóa sổ
         public List<string> destroyedEntityIDs = new List<string>(); 
 
         [Header("Player Stats")]
         public float playerHealth;
         public Vector3 playerPosition;
 
-        // Constructor: Trong C# hiện đại, vì ông đã khởi tạo = new List<>() ở trên rồi, 
-        // nên trong này chỉ cần khởi tạo các thông số value type là đủ, tránh bị chạy 2 lần.
         public GameData()
         {
             playerHealth = 100f;

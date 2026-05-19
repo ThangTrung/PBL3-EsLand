@@ -61,7 +61,7 @@ namespace Infrastructure.SaveSystem.Core
                 // Chuyển sang JSON (có format đẹp để debug)
                 string dataToStore = JsonUtility.ToJson(data, true);
                 
-                Debug.Log($"[FileDataHandler] Chuỗi JSON sinh ra (Độ dài: {dataToStore.Length}):\n{dataToStore}");
+                // Debug.Log($"[FileDataHandler] Chuỗi JSON sinh ra (Độ dài: {dataToStore.Length}):\n{dataToStore}");
 
                 if (string.IsNullOrEmpty(dataToStore) || dataToStore == "{}")
                 {
