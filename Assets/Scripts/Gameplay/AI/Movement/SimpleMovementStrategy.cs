@@ -7,11 +7,11 @@ namespace Gameplay.AI.Movement
 {
     public class SimpleMovementStrategy : IMovementStrategy
     {
-        private readonly PlayerMovementController _movementController;
+        private readonly EnemyMovementController _movementController;
         private readonly CharacterAnimationController _animationController;
         private readonly Gameplay.Combat.StatusEffects.StatusEffectController _statusEffectController;
 
-        public SimpleMovementStrategy(PlayerMovementController movementController, CharacterAnimationController animationController, Gameplay.Combat.StatusEffects.StatusEffectController statusEffectController)
+        public SimpleMovementStrategy(EnemyMovementController movementController, CharacterAnimationController animationController, Gameplay.Combat.StatusEffects.StatusEffectController statusEffectController)
         {
             _movementController = movementController;
             _animationController = animationController;
