@@ -67,11 +67,9 @@ namespace UI.Inventory
                     durabilityBar.fillAmount = _slotData.DurabilityPercent;
             }
 
-            if (equippedOverlay != null)
-            {
-                var isEquipped = _actionHandler?.IsEquipped(_slotData) ?? false;
-                equippedOverlay.enabled = isEquipped;
-            }
+            if (equippedOverlay == null) return;
+            var isEquipped = _actionHandler?.IsEquipped(_slotData) ?? false;
+            equippedOverlay.enabled = isEquipped;
         }
 
         private void ClearVisuals()
@@ -142,7 +140,7 @@ namespace UI.Inventory
 
         public void ResetState()
         {
-            if (highlightImage != null) highlightImage.enabled = false;
+            SetHighlight(false);
             HideTooltip();
         }
     }
