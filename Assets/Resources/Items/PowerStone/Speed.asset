@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Speed
   m_EditorClassIdentifier: 
   id: Speed
-  itemName: 
+  itemName: "\u0110\xE1 T\u1ED1c \u0110\u1ED9"
   description: 
   icon: {fileID: 1177542737, guid: ac7da059228fdd84ca27604f6dee6c00, type: 3}
   maxStack: 1
-  equipSlot: 0
+  equipSlot: 2
   overrideController: {fileID: 0}
   damageBuff: 0
   defenseBuff: 0
   healthBuff: 0
-  speedBuff: 0
+  speedBuff: 100
