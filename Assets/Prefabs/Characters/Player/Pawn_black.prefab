@@ -661,4 +661,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e65127aa14ef342842097e98264fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAnimator: {fileID: 0}
+  baseAnimator: {fileID: 9100000, guid: 937790c58fb4444bbaa0c141d3e05a5a, type: 2}

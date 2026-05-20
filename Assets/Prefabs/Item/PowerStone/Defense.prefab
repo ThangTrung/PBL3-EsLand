@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7828740961057308274}
   - component: {fileID: 3921952134970331351}
   - component: {fileID: 4918084034657032941}
+  - component: {fileID: 5850389374058137899}
   m_Layer: 0
   m_Name: Defense
   m_TagString: Loot
@@ -233,3 +234,17 @@ MonoBehaviour:
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
+  pickupDelay: 0.5
+--- !u!114 &5850389374058137899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607458218896910784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 

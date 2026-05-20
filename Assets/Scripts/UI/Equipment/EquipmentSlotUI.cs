@@ -57,7 +57,10 @@ namespace UI.Equipment
                 // Cập nhật icon cho mọi loại trang bị nếu có sprite
                 if (itemSprite != null)
                 {
-                    icon.sprite = itemSprite;
+                    if (slotType == EquipSlot.MainHand)
+                    {
+                        icon.sprite = itemSprite;
+                    }
                     icon.enabled = true;
                 }
                 

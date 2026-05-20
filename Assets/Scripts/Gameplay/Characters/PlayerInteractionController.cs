@@ -102,19 +102,16 @@ namespace Gameplay.Characters
             InitializeReferences();
             if (target == null || targetTransform == null || _movement == null) return;
 
-            // --- CHỐT CHẶN: KIỂM TRA TOOL TRƯỚC KHI CHẠY TỚI ---
-            // Ép kiểu sang ResourceNode để xài hàm mình vừa viết
+            // --- CHỐT CHẶN TỪ XA ---
             if (target is Gameplay.World.ResourceNode node)
             {
-                // Gọi sang tảng đá/cái cây hỏi xem có đúng dụng cụ không
+                if (node.IsDead) return; 
+
                 if (!node.HasRequiredTool(_facade))
                 {
-                    Debug.Log("Sai dụng cụ rồi, không chạy tới đâu!");
-                    return; // Lệnh return này sẽ khóa mõm lệnh di chuyển bên dưới
+                    return; 
                 }
             }
-            // ----------------------------------------------------
-
             _movement.SetFollowTarget(targetTransform, 0f, () => 
             {
                 FaceTarget(targetTransform.position);
@@ -129,6 +126,11 @@ namespace Gameplay.Characters
             while (_attackTimer > 0) yield return null;
 
             if (!CanAttack()) yield break;
+            
+            if (specificTarget is Gameplay.World.ResourceNode node && node.IsDead)
+            {
+                yield break; 
+            }
 
             _attackTimer = baseAttackCooldown;
             TriggerInteractAnimation();

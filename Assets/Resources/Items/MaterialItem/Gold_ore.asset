@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Gold_ore
   itemName: "Ph\xF4i V\xE0ng"
   description: "Nguy\xEAn li\u1EC7u v\xE0ng qu\xFD gi\xE1."
-  icon: {fileID: 2142645276, guid: 5e0ccfdbb4c6cf14a9aba7e0096753bb, type: 3}
+  icon: {fileID: 1756097733, guid: 8ea2ea1f28e7447ac943714f1ef7fae9, type: 3}
   maxStack: 64
   canBeSmelted: 0
   resultItem: {fileID: 0}
