@@ -102,6 +102,16 @@ namespace Gameplay.Characters
             InitializeReferences();
             if (target == null || targetTransform == null || _movement == null) return;
 
+            // --- CHỐT CHẶN TỪ XA ---
+            if (target is Gameplay.World.ResourceNode node)
+            {
+                if (node.IsDead) return; 
+
+                if (!node.HasRequiredTool(_facade))
+                {
+                    return; 
+                }
+            }
             _movement.SetFollowTarget(targetTransform, 0f, () => 
             {
                 FaceTarget(targetTransform.position);
@@ -116,6 +126,11 @@ namespace Gameplay.Characters
             while (_attackTimer > 0) yield return null;
 
             if (!CanAttack()) yield break;
+            
+            if (specificTarget is Gameplay.World.ResourceNode node && node.IsDead)
+            {
+                yield break; 
+            }
 
             _attackTimer = baseAttackCooldown;
             TriggerInteractAnimation();

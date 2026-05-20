@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7694171892623460251}
   - component: {fileID: 5107073953048530942}
   - component: {fileID: 2249995964759399526}
+  - component: {fileID: 6662904036102240790}
   m_Layer: 12
   m_Name: Tiny_tree2
   m_TagString: Untagged
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 7
+  m_SortingOrder: 0
   m_Sprite: {fileID: 5354429476588687777, guid: 3b3745d65073b4ba1a9da4c2861fd353, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,10 +122,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00005698204, y: 0.3424245}
+  m_Offset: {x: -0.00005698204, y: 0.22492078}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.05}
@@ -135,7 +136,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.53029585, y: 0.56288874}
+  m_Size: {x: 0.53029585, y: 0.32788128}
   m_EdgeRadius: 0
 --- !u!95 &7824180493891472982
 Animator:
@@ -312,14 +313,14 @@ PolygonCollider2D:
       - {x: -0.859375, y: 1.034375}
       - {x: -0.859375, y: 0.59687495}
       - {x: -0.515625, y: 0.40937495}
-      - {x: -0.46875, y: 0.29999995}
-      - {x: -0.3125, y: 0.26874995}
-      - {x: -0.296875, y: 0.09687495}
-      - {x: -0.25, y: 0.08124995}
-      - {x: -0.015625, y: 0.018749952}
-      - {x: 0.09375, y: 0.034374952}
-      - {x: 0.3125, y: 0.09687495}
-      - {x: 0.3125, y: 0.26874995}
+      - {x: -0.4543618, y: 0.3479607}
+      - {x: -0.30290818, y: 0.36467147}
+      - {x: -0.13380814, y: 0.39423156}
+      - {x: -0.12530208, y: 0.3881986}
+      - {x: -0.006032586, y: 0.45039678}
+      - {x: 0.2040596, y: 0.4036727}
+      - {x: 0.2597432, y: 0.4230082}
+      - {x: 0.3125, y: 0.34548712}
       - {x: 0.34375, y: 0.34687495}
   m_UseDelaunayMesh: 0
 --- !u!114 &2249995964759399526
@@ -335,3 +336,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &6662904036102240790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017968451425224053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09f888d11e1cd742bb1e727a63c4489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeAlpha: 0.4
+  fadeSpeed: 0.2

@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 9019818308908583139}
   - component: {fileID: 8107682457545654269}
   - component: {fileID: 4232350496537025406}
-  - component: {fileID: 1580350105749917211}
-  - component: {fileID: 8548348346891996530}
   - component: {fileID: 2102085391680521274}
   - component: {fileID: 2320099108348936952}
+  - component: {fileID: 6244246766652862840}
+  - component: {fileID: 3130891622987163899}
+  - component: {fileID: 3236258575997536866}
   m_Layer: 12
   m_Name: Gold_Resource_7
   m_TagString: Untagged
@@ -110,8 +111,70 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &1580350105749917211
-BoxCollider2D:
+--- !u!114 &2102085391680521274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 7995749434018099684, guid: 5a458576073442444860c8c0f456cd84, type: 3}
+  lootTable:
+  - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
+    minAmount: 3
+    maxAmount: 3
+    chance: 1
+  minDropForce: 4
+  maxDropForce: 8
+--- !u!114 &2320099108348936952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6244246766652862840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &3130891622987163899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e73acf91e7285d4d9915d6b834d4b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  requiredTool: 1
+  staminaCostPerHit: 5
+  stumpSprite: {fileID: 0}
+  nodeCollider: {fileID: 3236258575997536866}
+--- !u!60 &3236258575997536866
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -142,7 +205,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02709508, y: 0.489318}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.3}
@@ -152,49 +215,22 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.0581794, y: 0.94688153}
-  m_EdgeRadius: 0
---- !u!114 &8548348346891996530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3645800628817198686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 088906f95db1381428b2796e9999c42b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  requiredTool: 1
-  staminaCostPerHit: 10
---- !u!114 &2102085391680521274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3645800628817198686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 0}
-  lootTable: []
-  minDropForce: 4
-  maxDropForce: 8
---- !u!114 &2320099108348936952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3645800628817198686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Points:
+    m_Paths:
+    - - {x: 0.44376945, y: 0.7105049}
+      - {x: 0.34902215, y: 0.9813999}
+      - {x: 0.14238214, y: 0.9984993}
+      - {x: -0.033244133, y: 0.99522245}
+      - {x: -0.2139535, y: 0.9992603}
+      - {x: -0.41052437, y: 1.0003036}
+      - {x: -0.51767325, y: 0.55252457}
+      - {x: -0.5864363, y: 0.51668966}
+      - {x: -0.5634973, y: 0.22157133}
+      - {x: -0.4022131, y: 0.10464513}
+      - {x: -0.16707826, y: 0.011654258}
+      - {x: 0.024695873, y: 0.005100608}
+      - {x: 0.2855246, y: 0.058531165}
+      - {x: 0.43194342, y: 0.15479696}
+      - {x: 0.50755143, y: 0.3125652}
+      - {x: 0.56174016, y: 0.55577505}
+  m_UseDelaunayMesh: 0

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b54fc8eb44b9e54391778cce2610373, type: 3}
+  m_Name: Stone
+  m_EditorClassIdentifier: 
+  id: Stone
+  itemName: "\u0110\xE1"
+  description: "V\u1EADt li\u1EC7u x\xE2y d\u1EF1ng c\u01A1 b\u1EA3n t\u1EEB t\u1EA3ng
+    \u0111\xE1."
+  icon: {fileID: -1401078050, guid: 0a582b5552822b64599800f71c078f18, type: 3}
+  maxStack: 64
+  canBeSmelted: 0
+  resultItem: {fileID: 0}
+  smeltTime: 5

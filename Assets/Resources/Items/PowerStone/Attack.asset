@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3db9a2bff53d4f8d15cf6040e637f, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
-  itemName: "\u0110\xE1 s\u1EE9c m\u1EA1nh"
+  id: Attack
+  itemName: "\u0110\xE1 S\u1EE9c M\u1EA1nh"
   description: "Mang s\u1EE9c m\u1EA1nh nguy\xEAn t\u1ED1 l\u1EEDa thi\xEAu r\u1EE5i
     m\u1ECDi k\u1EBB th\xF9"
   icon: {fileID: 1873737236, guid: e0ebbc0d03fd42c4b9a1ac873d10394e, type: 3}
   maxStack: 1
   equipSlot: 0
   overrideController: {fileID: 0}
-  damageBuff: 10
+  damageBuff: 100
   defenseBuff: 0
   healthBuff: 0
   speedBuff: 0

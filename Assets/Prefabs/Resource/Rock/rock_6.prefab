@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 740378675666193320}
   - component: {fileID: 2718632704865226672}
   - component: {fileID: 3489525831786398255}
+  - component: {fileID: 8972475173541239161}
   m_Layer: 12
   m_Name: rock_6
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278722513737191556}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.4717174, y: -1.8973511, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &7429541535244558999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +104,8 @@ MonoBehaviour:
   maxHealth: 5
   requiredTool: 1
   staminaCostPerHit: 5
+  stumpSprite: {fileID: 0}
+  nodeCollider: {fileID: 3489525831786398255}
 --- !u!114 &740378675666193320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,11 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 729092896824613032, guid: 8cc4d34fee45055498632f98491ccc74, type: 3}
+  pickupPrefab: {fileID: 7736379040642882417, guid: c00b5561ddfd5e543bfa71db9076b4a2, type: 3}
   lootTable:
-  - item: {fileID: 0}
-    minAmount: 1
-    maxAmount: 2
+  - item: {fileID: 11400000, guid: 54e4f4c3d174ae74cb2df49ed02970f2, type: 2}
+    minAmount: 3
+    maxAmount: 3
     chance: 1
   minDropForce: 4
   maxDropForce: 8
@@ -164,14 +167,14 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.08, y: 0.38}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    pivot: {x: 0.46647504, y: 0.31202108}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -179,19 +182,34 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.37, y: 0.14}
-      - {x: 0.28, y: 0.37}
-      - {x: 0.11, y: 0.48999998}
-      - {x: -0.08, y: 0.48999998}
-      - {x: -0.16, y: 0.48}
-      - {x: -0.29, y: 0.38}
-      - {x: -0.39, y: 0.06}
-      - {x: -0.39, y: -0.11}
-      - {x: -0.26999998, y: -0.21}
-      - {x: -0.13, y: -0.28}
-      - {x: 0.02, y: -0.28}
-      - {x: 0.21, y: -0.25}
-      - {x: 0.31, y: -0.17999999}
-      - {x: 0.35, y: -0.099999994}
-      - {x: 0.37, y: 0.02}
+    - - {x: 0.45813406, y: 0.33438933}
+      - {x: 0.39602306, y: 0.54343045}
+      - {x: 0.09692417, y: 0.5803244}
+      - {x: -0.14933546, y: 0.60170484}
+      - {x: -0.3947958, y: 0.6241689}
+      - {x: -0.4931169, y: 0.4049443}
+      - {x: -0.50426507, y: 0.1726551}
+      - {x: -0.59749544, y: 0.05522877}
+      - {x: -0.5034417, y: -0.24998508}
+      - {x: -0.28069067, y: -0.33828443}
+      - {x: -0.09080207, y: -0.39046696}
+      - {x: 0.027127285, y: -0.40115765}
+      - {x: 0.09321189, y: -0.3804083}
+      - {x: 0.16011162, y: -0.34977627}
+      - {x: 0.28783423, y: -0.36431855}
+      - {x: 0.48760065, y: -0.23799285}
+      - {x: 0.5473875, y: 0.15181781}
   m_UseDelaunayMesh: 0
+--- !u!114 &8972475173541239161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278722513737191556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 

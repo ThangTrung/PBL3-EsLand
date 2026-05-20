@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8990294095302507680}
   - component: {fileID: 133028340164293406}
   - component: {fileID: 7456336758574638737}
+  - component: {fileID: 6962546678608921805}
   m_Layer: 12
   m_Name: Tiny_tree1
   m_TagString: Untagged
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 7
+  m_SortingOrder: 0
   m_Sprite: {fileID: 6215267202064938543, guid: c5a6a054a96fc4546851fdd38f73c8bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -251,7 +252,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.578125, y: 0.17812502}
+    - - {x: 0.44743013, y: 0.22594416}
+      - {x: 0.578125, y: 0.17812502}
       - {x: 0.828125, y: 0.41250002}
       - {x: 0.96875, y: 0.56875}
       - {x: 0.96875, y: 0.6625}
@@ -292,17 +294,20 @@ PolygonCollider2D:
       - {x: -0.9375, y: 0.69375}
       - {x: -0.953125, y: 0.646875}
       - {x: -0.953125, y: 0.56875}
-      - {x: -0.875, y: 0.39687502}
+      - {x: -0.82688904, y: 0.39687502}
       - {x: -0.71875, y: 0.30312502}
-      - {x: -0.703125, y: 0.24062502}
-      - {x: -0.453125, y: 0.115625024}
-      - {x: -0.359375, y: 0.13125002}
-      - {x: -0.328125, y: 0.021875024}
-      - {x: -0.125, y: -0.087499976}
-      - {x: 0.140625, y: -0.087499976}
-      - {x: 0.234375, y: -0.056249976}
-      - {x: 0.34375, y: 0.006250024}
-      - {x: 0.390625, y: 0.13125002}
+      - {x: -0.65871525, y: 0.2998382}
+      - {x: -0.47162938, y: 0.17113733}
+      - {x: -0.1948626, y: 0.17760718}
+      - {x: -0.17951179, y: 0.18289328}
+      - {x: -0.042764664, y: 0.26981163}
+      - {x: 0.11382496, y: 0.21063817}
+      - {x: 0.20793843, y: 0.21634191}
+      - {x: 0.27282202, y: 0.22326505}
+      - {x: 0.29967034, y: 0.18618023}
+      - {x: 0.32689548, y: 0.19540596}
+      - {x: 0.33264756, y: 0.28011096}
+      - {x: 0.41653097, y: 0.2311722}
   m_UseDelaunayMesh: 0
 --- !u!114 &7456336758574638737
 MonoBehaviour:
@@ -317,3 +322,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &6962546678608921805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890112345585659775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09f888d11e1cd742bb1e727a63c4489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeAlpha: 0.4
+  fadeSpeed: 0.2

@@ -12,7 +12,7 @@ namespace Gameplay.World
     {
         [Header("Settings")]
         [SerializeField] private ElevationLevel currentLevel = ElevationLevel.Land;
-        [SerializeField] private int landSortingOrder = 10;
+        [SerializeField] private int landSortingOrder = 0;
         [SerializeField] private int mountainSortingOrder = 10;
 
         [SerializeField] private SpriteRenderer _spriteRenderer;

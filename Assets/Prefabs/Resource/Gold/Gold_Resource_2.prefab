@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 8790262483775679986}
   - component: {fileID: 7140322890603647564}
   - component: {fileID: 1703072705935434593}
-  - component: {fileID: 1195677649539580176}
-  - component: {fileID: 648032405493821603}
+  - component: {fileID: 6568871964572381267}
+  - component: {fileID: 5441254242971812331}
   - component: {fileID: 6485442830671485063}
   - component: {fileID: 7729019170749748876}
+  - component: {fileID: 7916282334037001050}
   m_Layer: 12
   m_Name: Gold_Resource_2
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 67d30015e15234b60a2097cd3001c423, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 801cf908a788f3441a8fce7a0f19a2de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,7 +89,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &1703072705935434593
 Animator:
   serializedVersion: 5
@@ -110,8 +111,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &1195677649539580176
-BoxCollider2D:
+--- !u!114 &6568871964572381267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839264656145223238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e73acf91e7285d4d9915d6b834d4b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  requiredTool: 1
+  staminaCostPerHit: 5
+  stumpSprite: {fileID: 0}
+  nodeCollider: {fileID: 5441254242971812331}
+--- !u!60 &5441254242971812331
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -142,7 +160,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014454246, y: 0.19547236}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.4}
@@ -152,24 +170,17 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.41538787, y: 0.3354361}
-  m_EdgeRadius: 0
---- !u!114 &648032405493821603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839264656145223238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 088906f95db1381428b2796e9999c42b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  requiredTool: 1
-  staminaCostPerHit: 10
+  m_Points:
+    m_Paths:
+    - - {x: -0.06740761, y: 0.37271613}
+      - {x: -0.16929436, y: 0.3121521}
+      - {x: -0.20996857, y: 0.23660773}
+      - {x: -0.13933372, y: 0.05382079}
+      - {x: 0.15089226, y: 0.05788821}
+      - {x: 0.2215271, y: 0.11289853}
+      - {x: 0.20525742, y: 0.3386895}
+      - {x: 0.09781647, y: 0.38085145}
+  m_UseDelaunayMesh: 0
 --- !u!114 &6485442830671485063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,8 +193,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 0}
-  lootTable: []
+  pickupPrefab: {fileID: 7995749434018099684, guid: 5a458576073442444860c8c0f456cd84, type: 3}
+  lootTable:
+  - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
+    minAmount: 1
+    maxAmount: 1
+    chance: 1
   minDropForce: 4
   maxDropForce: 8
 --- !u!114 &7729019170749748876
@@ -198,3 +213,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7916282334037001050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839264656145223238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7538134121609456295}
   - component: {fileID: 7317511775492380641}
   - component: {fileID: 1521973026521512536}
+  - component: {fileID: 3227286431509499407}
   m_Layer: 0
   m_Name: Castle
   m_TagString: Untagged
@@ -268,3 +269,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3227286431509499407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538365453117413974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09f888d11e1cd742bb1e727a63c4489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeAlpha: 0.4
+  fadeSpeed: 0.2
