@@ -10,12 +10,15 @@ GameObject:
   m_Component:
   - component: {fileID: 2350193319022365210}
   - component: {fileID: 3371857833908843983}
-  - component: {fileID: 797799109806527154}
   - component: {fileID: 5291375749319562650}
-  - component: {fileID: 2203418800248536411}
-  m_Layer: 0
+  - component: {fileID: 6289432192756656820}
+  - component: {fileID: 3165857397632984080}
+  - component: {fileID: 632000086624642076}
+  - component: {fileID: 2732729951756533664}
+  - component: {fileID: 7320947694941834888}
+  m_Layer: 10
   m_Name: Boat
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,27 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &797799109806527154
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5587228120769764782}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5b261bd83bf9cb1498691f385e7466f1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &5291375749319562650
 Rigidbody2D:
   serializedVersion: 4
@@ -116,14 +98,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5587228120769764782}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -133,10 +115,62 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!70 &2203418800248536411
-CapsuleCollider2D:
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &6289432192756656820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587228120769764782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594a465c4f87f5e4f9b3892b1fa204d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  baseDefense: 5
+--- !u!114 &3165857397632984080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587228120769764782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c39727bd577c04fa670bd9d3c57917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMoveSpeed: 3
+--- !u!114 &632000086624642076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587228120769764782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22275029f58e6a47bd2f01240ce761d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 91a2be28fdad8f84b84cf028b1acae84, type: 2}
+--- !u!114 &2732729951756533664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587228120769764782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714de8186c0a86447b62465bed3ca41e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &7320947694941834888
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -167,6 +201,37 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2}
-  m_Size: {x: 4, y: 4}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 4, y: 4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.953125, y: 1.5625}
+      - {x: 1.171875, y: 2}
+      - {x: 1.171875, y: 2.34375}
+      - {x: 0.859375, y: 2.6875}
+      - {x: 0.703125, y: 2.75}
+      - {x: 0.515625, y: 2.828125}
+      - {x: -0.015625, y: 2.859375}
+      - {x: -0.078125, y: 2.875}
+      - {x: -0.40625, y: 2.875}
+      - {x: -0.59375, y: 2.84375}
+      - {x: -0.84375, y: 2.734375}
+      - {x: -0.953125, y: 2.59375}
+      - {x: -1.1875, y: 2.296875}
+      - {x: -1.1875, y: 1.84375}
+      - {x: -0.984375, y: 1.40625}
+      - {x: -0.828125, y: 1.234375}
+      - {x: -0.484375, y: 1.09375}
+      - {x: 0.203125, y: 1.09375}
+      - {x: 0.546875, y: 1.15625}
+      - {x: 0.8125, y: 1.265625}
+      - {x: 0.890625, y: 1.390625}
+  m_UseDelaunayMesh: 0

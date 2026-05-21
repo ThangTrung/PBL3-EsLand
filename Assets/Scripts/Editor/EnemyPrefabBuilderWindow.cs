@@ -1,14 +1,15 @@
-﻿// VERSION: ULTIMATE BATCH BUILDER v1.3 (AUTO-SLICING & CLEAN BUILD)
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
-using UnityEditor.Animations;
 using UnityEditor.U2D.Sprites;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using Object = UnityEngine.Object;
+using Gameplay.AI.Animation;
+using Data.Enemies;
+using Gameplay.AI.Movement;
+using Gameplay.Characters;
+using Gameplay.Combat.StatusEffects;
 
 public class EnemyPrefabBuilderWindow : EditorWindow
 {
@@ -23,16 +24,16 @@ public class EnemyPrefabBuilderWindow : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("Batch Enemy Prefab Builder (Ultimate Version)", EditorStyles.boldLabel);
+        GUILayout.Label("Batch Enemy Prefab Builder (V2 Refactored)", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
         rootFolderPath = EditorGUILayout.TextField("Root Folder Path", rootFolderPath);
 
         EditorGUILayout.Space();
-        GUI.backgroundColor = Color.green;
-        if (GUILayout.Button("BATCH BUILD ALL ENEMIES", GUILayout.Height(40)))
+        GUI.backgroundColor = Color.cyan;
+        if (GUILayout.Button("BUILD V2 ENEMIES", GUILayout.Height(40)))
         {
-            if (EditorUtility.DisplayDialog("Confirm Batch Build", "Hành động này sẽ quét toàn bộ thư mục con, TỰ ĐỘNG CẮT ẢNH và tạo Prefab hàng loạt.", "Tiến hành", "Hủy"))
+            if (EditorUtility.DisplayDialog("Confirm V2 Build", "Hành động này sẽ tạo/cập nhật Config, Anims trong Resources và tạo Prefab chuẩn v2.", "Tiến hành", "Hủy"))
             {
                 RunBatchBuild();
             }
@@ -71,12 +72,15 @@ public class EnemyPrefabBuilderWindow : EditorWindow
 
         try
         {
+            EnsureFolder("Assets/Resources/Enemies/Animations");
+            EnsureFolder("Assets/Resources/Enemies/Configs");
+
             for (int i = 0; i < total; i++)
             {
                 string folder = enemyFolders[i];
                 string enemyName = Path.GetFileName(folder).Replace(" ", "");
 
-                if (EditorUtility.DisplayCancelableProgressBar("Đang Build Quái vật...", $"Xử lý: {enemyName} ({i + 1}/{total})", (float)i / total))
+                if (EditorUtility.DisplayCancelableProgressBar("Đang Build Quái vật v2...", $"Xử lý: {enemyName} ({i + 1}/{total})", (float)i / total))
                 {
                     Debug.Log("[BatchBuilder] Đã hủy bởi người dùng.");
                     break;
@@ -98,35 +102,20 @@ public class EnemyPrefabBuilderWindow : EditorWindow
             EditorUtility.ClearProgressBar();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            EditorUtility.DisplayDialog("Hoàn tất", $"Đã tạo thành công {successCount}/{total} quái vật.", "OK");
+            EditorUtility.DisplayDialog("Hoàn tất v2", $"Đã tạo thành công {successCount}/{total} quái vật theo chuẩn mới.", "OK");
         }
     }
 
     private void ProcessSingleEnemy(string sourcePath, string enemyName)
     {
-        // --- BƯỚC 1: XÁC ĐỊNH ĐƯỜNG DẪN ---
-        string animFolderPath = $"Assets/Animations/Characters/Enemies/{enemyName}";
         string prefabFolderPath = "Assets/Prefabs/Characters/Enemies";
         string prefabPath = $"{prefabFolderPath}/{enemyName}.prefab";
+        string resourcesAnimPath = $"Assets/Resources/Enemies/Animations/{enemyName}Anims.asset";
+        string resourcesConfigPath = $"Assets/Resources/Enemies/Configs/{enemyName}Config.asset";
 
-        // --- BƯỚC 2: NUKE CLEAN BUILD (Xóa tận gốc) ---
-        if (AssetDatabase.IsValidFolder(animFolderPath))
-        {
-            AssetDatabase.DeleteAsset(animFolderPath);
-        }
-        if (AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath) != null)
-        {
-            AssetDatabase.DeleteAsset(prefabPath);
-        }
-
-        // --- BƯỚC 3: ĐẢM BẢO THƯ MỤC TỒN TẠI ---
-        EnsureFolder(animFolderPath);
         EnsureFolder(prefabFolderPath);
-
-        // --- BƯỚC 4: AUTO-SLICING ---
         AutoSliceSprites(sourcePath);
 
-        // --- TIẾP TỤC LOGIC GHÉP NỐI ---
         Dictionary<string, List<Sprite>> spriteGroups = new Dictionary<string, List<Sprite>>();
         foreach (var keyword in actionKeywords) spriteGroups[keyword] = new List<Sprite>();
 
@@ -134,7 +123,7 @@ public class EnemyPrefabBuilderWindow : EditorWindow
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            Object[] assets = AssetDatabase.LoadAllAssetsAtPath(path);
+            UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath(path);
             foreach (var asset in assets)
             {
                 if (asset is Sprite sprite)
@@ -150,38 +139,53 @@ public class EnemyPrefabBuilderWindow : EditorWindow
         foreach (var keyword in actionKeywords)
             spriteGroups[keyword] = spriteGroups[keyword].OrderBy(s => s.name).ToList();
 
-        if (spriteGroups["Idle"].Count == 0 && spriteGroups.Values.All(v => v.Count == 0))
+        // 1. ScriptableObjects Setup
+        AnimationConfig animConfig = AssetDatabase.LoadAssetAtPath<AnimationConfig>(resourcesAnimPath);
+        if (animConfig == null)
         {
-            throw new Exception("Không tìm thấy Sprite nào sau khi cắt ảnh.");
+            animConfig = ScriptableObject.CreateInstance<AnimationConfig>();
+            AssetDatabase.CreateAsset(animConfig, resourcesAnimPath);
         }
+        var runFrames = spriteGroups["Run"].Count > 0 ? spriteGroups["Run"] : spriteGroups["Walk"];
+        animConfig.Initialize(spriteGroups["Idle"].ToArray(), runFrames.ToArray(), spriteGroups["Attack"].ToArray(), spriteGroups["Die"].ToArray(), 12f, 2);
+        EditorUtility.SetDirty(animConfig);
 
-        Dictionary<string, AnimationClip> clips = new Dictionary<string, AnimationClip>();
-        foreach (var action in actionKeywords)
+        SimpleEnemyConfig enemyConfig = AssetDatabase.LoadAssetAtPath<SimpleEnemyConfig>(resourcesConfigPath);
+        if (enemyConfig == null)
         {
-            if (spriteGroups[action].Count > 0)
-                clips[action] = CreateAnimationClip(spriteGroups[action], action, enemyName, animFolderPath);
+            enemyConfig = ScriptableObject.CreateInstance<SimpleEnemyConfig>();
+            AssetDatabase.CreateAsset(enemyConfig, resourcesConfigPath);
+            enemyConfig.Initialize(enemyName, 25f, 5f, 2.5f, 12f, 5f, 1.2f, 2.8f, Color.white);
         }
+        EditorUtility.SetDirty(enemyConfig);
 
-        AnimatorController controller = CreateAnimatorController(clips, enemyName, animFolderPath);
-
+        // 2. GameObject Setup
         GameObject go = new GameObject(enemyName);
+        go.tag = "Enemy";
+        go.layer = 10;
+
         SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
         if (spriteGroups["Idle"].Count > 0) sr.sprite = spriteGroups["Idle"][0];
 
-        go.AddComponent<Animator>().runtimeAnimatorController = controller;
-        go.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        Rigidbody2D rb = go.AddComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.gravityScale = 0;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        CapsuleCollider2D col = go.AddComponent<CapsuleCollider2D>();
-        if (sr.sprite != null)
-        {
-            col.size = sr.sprite.bounds.size;
-            col.offset = sr.sprite.bounds.center;
-        }
+        go.AddComponent<CharacterHealth>();
+        go.AddComponent<EnemyMovementController>();
+        var animCtrl = go.AddComponent<CharacterAnimationController>();
+        animCtrl.SetConfig(animConfig);
+        go.AddComponent<StatusEffectController>();
+
+        // Collider Setup (Polygon for precision)
+        go.AddComponent<PolygonCollider2D>();
 
         Type scriptType = FindType($"{enemyName}Enemy");
         if (scriptType != null) go.AddComponent(scriptType);
 
-        PrefabUtility.SaveAsPrefabAssetAndConnect(go, prefabPath, InteractionMode.AutomatedAction);
+        PrefabUtility.SaveAsPrefabAsset(go, prefabPath);
         DestroyImmediate(go);
     }
 
@@ -199,41 +203,30 @@ public class EnemyPrefabBuilderWindow : EditorWindow
             TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
             if (importer == null) continue;
 
-            // BƯỚC 1: Cấu hình chuẩn Pixel Art và nới lỏng giới hạn kích thước
             importer.textureType = TextureImporterType.Sprite;
             importer.spriteImportMode = SpriteImportMode.Multiple;
             importer.spritePixelsPerUnit = 64;
             importer.filterMode = FilterMode.Point;
             importer.textureCompression = TextureImporterCompression.Uncompressed;
-
-            // 🔥 MỞ KHÓA GIỚI HẠN CHO QUÁI TO (TROLL, PANDA, TURTLE...)
             importer.npotScale = TextureImporterNPOTScale.None;
             importer.maxTextureSize = 8192;
-
             importer.SaveAndReimport();
 
-            // BƯỚC 2: Lấy kích thước ảnh THỰC TẾ
             Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
             if (texture == null) continue;
 
-            int width = texture.width;
-            int height = texture.height;
-
-            // 🛡️ BẢO VỆ: Bỏ qua ảnh tĩnh hoặc ảnh bị lỗi tỷ lệ
-            if (width % height != 0 || width <= height)
+            if (texture.width % texture.height != 0 || texture.width <= texture.height)
             {
-                Debug.LogWarning($"[AutoSlice] Bỏ qua ảnh: {texture.name} (Kích thước {width}x{height} không phải dải Animation).");
                 importer.spriteImportMode = SpriteImportMode.Single;
                 importer.SaveAndReimport();
                 continue;
             }
 
-            // BƯỚC 3: Cắt lưới vuông
             var dataProvider = factory.GetSpriteEditorDataProviderFromObject(importer);
             dataProvider.InitSpriteEditorDataProvider();
 
-            int cellSize = height;
-            int frameCount = width / height;
+            int cellSize = texture.height;
+            int frameCount = texture.width / texture.height;
             List<SpriteRect> rects = new List<SpriteRect>();
             string fileName = Path.GetFileNameWithoutExtension(path);
 
@@ -243,7 +236,6 @@ public class EnemyPrefabBuilderWindow : EditorWindow
                 {
                     name = $"{fileName}_{i}",
                     rect = new Rect(i * cellSize, 0, cellSize, cellSize),
-                    // Đổi tâm về dưới chân để nhân vật không bị nảy lên khi đánh
                     alignment = SpriteAlignment.BottomCenter,
                     pivot = new Vector2(0.5f, 0f)
                 });
@@ -253,8 +245,6 @@ public class EnemyPrefabBuilderWindow : EditorWindow
             dataProvider.Apply();
             importer.SaveAndReimport();
         }
-
-        AssetDatabase.Refresh();
     }
 
     private void EnsureFolder(string path)
@@ -269,82 +259,13 @@ public class EnemyPrefabBuilderWindow : EditorWindow
         }
     }
 
-    private AnimationClip CreateAnimationClip(List<Sprite> sprites, string actionName, string enemyName, string folderPath)
-    {
-        AnimationClip clip = new AnimationClip { frameRate = 12 };
-        EditorCurveBinding spriteBinding = new EditorCurveBinding { type = typeof(SpriteRenderer), path = "", propertyName = "m_Sprite" };
-        ObjectReferenceKeyframe[] keyframes = new ObjectReferenceKeyframe[sprites.Count];
-        for (int i = 0; i < sprites.Count; i++) keyframes[i] = new ObjectReferenceKeyframe { time = i / 12f, value = sprites[i] };
-
-        AnimationUtility.SetObjectReferenceCurve(clip, spriteBinding, keyframes);
-
-        if (actionName == "Attack")
-        {
-            AnimationEvent ev = new AnimationEvent { functionName = "AnimationEvent_DealDamage", time = (sprites.Count / 2) / 12f };
-            AnimationUtility.SetAnimationEvents(clip, new[] { ev });
-        }
-
-        AnimationClipSettings settings = AnimationUtility.GetAnimationClipSettings(clip);
-        settings.loopTime = (actionName != "Die" && actionName != "Attack");
-        AnimationUtility.SetAnimationClipSettings(clip, settings);
-
-        // --- BƯỚC MỚI: CLEAN BUILD ---
-        string clipPath = $"{folderPath}/{enemyName}_{actionName}.anim";
-        if (AssetDatabase.LoadAssetAtPath(clipPath, typeof(AnimationClip)) != null)
-        {
-            AssetDatabase.DeleteAsset(clipPath);
-        }
-
-        AssetDatabase.CreateAsset(clip, clipPath);
-        return clip;
-    }
-
-    private AnimatorController CreateAnimatorController(Dictionary<string, AnimationClip> clips, string enemyName, string folderPath)
-    {
-        // --- BƯỚC MỚI: CLEAN BUILD ---
-        string controllerPath = $"{folderPath}/{enemyName}_Controller.controller";
-        if (AssetDatabase.LoadAssetAtPath(controllerPath, typeof(AnimatorController)) != null)
-        {
-            AssetDatabase.DeleteAsset(controllerPath);
-        }
-
-        var controller = AnimatorController.CreateAnimatorControllerAtPath(controllerPath);
-        controller.AddParameter("Speed", AnimatorControllerParameterType.Float);
-        controller.AddParameter("Attack", AnimatorControllerParameterType.Trigger);
-        controller.AddParameter("Die", AnimatorControllerParameterType.Trigger);
-
-        var sm = controller.layers[0].stateMachine;
-        Dictionary<string, AnimatorState> states = new Dictionary<string, AnimatorState>();
-
-        foreach (var action in actionKeywords)
-        {
-            if (clips.ContainsKey(action))
-            {
-                var state = sm.AddState(action);
-                state.motion = clips[action];
-                states[action] = state;
-            }
-        }
-
-        if (states.ContainsKey("Idle")) sm.defaultState = states["Idle"];
-        if (states.ContainsKey("Attack"))
-        {
-            sm.AddAnyStateTransition(states["Attack"]).AddCondition(AnimatorConditionMode.If, 0, "Attack");
-            states["Attack"].AddTransition(states.ContainsKey("Idle") ? states["Idle"] : states.Values.First()).hasExitTime = true;
-        }
-        if (states.ContainsKey("Die"))
-            sm.AddAnyStateTransition(states["Die"]).AddCondition(AnimatorConditionMode.If, 0, "Die");
-
-        return controller;
-    }
-
     private Type FindType(string typeName)
     {
         foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
         {
             try
             {
-                Type type = assembly.GetType(typeName) ?? assembly.GetTypes().FirstOrDefault(t => t.Name == typeName);
+                Type type = assembly.GetType(typeName) ?? assembly.GetTypes().FirstOrDefault(t => t.Name == typeName || t.FullName == typeName);
                 if (type != null) return type;
             }
             catch { }

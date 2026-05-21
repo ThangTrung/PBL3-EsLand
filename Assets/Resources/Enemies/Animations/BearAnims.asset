@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: BearAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: 6337399714680752440, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
+  - {fileID: -4826193806258101397, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
+  - {fileID: 3192812346824841207, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
+  - {fileID: -2491311529736965540, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
+  - {fileID: 6058804851987151523, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
+  - {fileID: -3742161062813182624, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
+  - {fileID: -5604200028169735645, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
+  - {fileID: 1971444567067864996, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
+  runFrames:
+  - {fileID: 447460725055404813, guid: 8d1fd69a9f9a51a4cbfa20d0009e6e75, type: 3}
+  - {fileID: 6088292996102413675, guid: 8d1fd69a9f9a51a4cbfa20d0009e6e75, type: 3}
+  - {fileID: 7966972464660773352, guid: 8d1fd69a9f9a51a4cbfa20d0009e6e75, type: 3}
+  - {fileID: 6767145381185255370, guid: 8d1fd69a9f9a51a4cbfa20d0009e6e75, type: 3}
+  - {fileID: 888686281029753222, guid: 8d1fd69a9f9a51a4cbfa20d0009e6e75, type: 3}
+  attackFrames:
+  - {fileID: -8932154214229173346, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  - {fileID: 2073371222263828158, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  - {fileID: 8475008236743639273, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  - {fileID: 895329416020127910, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  - {fileID: 1804751173891814793, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  - {fileID: -7951214152837274951, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  - {fileID: 4459342991175242049, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  - {fileID: -4860180798509038561, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  - {fileID: -267414171, guid: e2875673bf64c514f88459cd191834d7, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: LizardAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -4070170667557269686, guid: d9b0e48f55d9dca4ebd4bc037d273a66, type: 3}
+  - {fileID: -7577688254669970367, guid: d9b0e48f55d9dca4ebd4bc037d273a66, type: 3}
+  - {fileID: 1511913880984586023, guid: d9b0e48f55d9dca4ebd4bc037d273a66, type: 3}
+  - {fileID: -4105779651486177730, guid: d9b0e48f55d9dca4ebd4bc037d273a66, type: 3}
+  - {fileID: 5883771140313784400, guid: d9b0e48f55d9dca4ebd4bc037d273a66, type: 3}
+  - {fileID: -2412201491399406223, guid: d9b0e48f55d9dca4ebd4bc037d273a66, type: 3}
+  - {fileID: -95018485591707510, guid: d9b0e48f55d9dca4ebd4bc037d273a66, type: 3}
+  runFrames:
+  - {fileID: -2949093075023951328, guid: 527b38b9d38ebfb4b9acdba3b263fd88, type: 3}
+  - {fileID: 6155225618276468300, guid: 527b38b9d38ebfb4b9acdba3b263fd88, type: 3}
+  - {fileID: -3306412654273182118, guid: 527b38b9d38ebfb4b9acdba3b263fd88, type: 3}
+  - {fileID: -946765646557962331, guid: 527b38b9d38ebfb4b9acdba3b263fd88, type: 3}
+  - {fileID: -5987072993317950802, guid: 527b38b9d38ebfb4b9acdba3b263fd88, type: 3}
+  - {fileID: 308462971345494500, guid: 527b38b9d38ebfb4b9acdba3b263fd88, type: 3}
+  attackFrames:
+  - {fileID: -9035493635800025798, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  - {fileID: 5933308372908972608, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  - {fileID: 271652990466493134, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  - {fileID: -6068879925243277278, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  - {fileID: 6910780768405012884, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  - {fileID: -2799061960808947749, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  - {fileID: -8547893444141578800, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  - {fileID: -7503625786087096184, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  - {fileID: 6508302801143383884, guid: f66a85ddce5898448bc4e78c9a4927af, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

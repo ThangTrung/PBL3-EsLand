@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: OrgeBossAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -470907871, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 1059537240, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 1421255955, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -514323422, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 1605977404, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -2119875926, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -1177031248, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -1573557097, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 196787016, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 1380449441, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 242028092, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -370913130, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  runFrames:
+  - {fileID: 1221114838, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: -349045202, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 1764681174, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: -439857190, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 917993827, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: -962449931, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 789803818, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 1903156543, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 289938393, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 1578027401, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  attackFrames:
+  - {fileID: -1761279020, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: 32774293, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: -1650742827, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: -310888998, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: -2021636079, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: -891899750, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

@@ -1,5 +1,7 @@
 using System;
 using Core.Contracts.Inventory;
+using Data.Loot;
+
 
 namespace Core.Events
 {
@@ -14,5 +16,22 @@ namespace Core.Events
         /// Payload: IInventoryHolder của Player.
         /// </summary>
         public static Action<IInventoryHolder> OnPlayerReady;
+        /// <summary>\r\n
+        /// Phát ra khi một quái vật chết.
+        /// Payload: instance của quái vật.
+        /// </summary>
+        public static Action<Gameplay.AI.EnemyBase> OnEnemyDied;
+        /// <summary>
+        /// Phát ra khi quái vật rơi vật phẩm.
+        /// Payload: Thông tin vật phẩm và vị trí rơi.
+        /// </summary>
+        public static Action<Data.Loot.LootDropData> OnEnemyDroppedLoot;
+
+        public static void InvokeEnemyDroppedLoot(Data.Loot.LootDropData data)
+        {
+            OnEnemyDroppedLoot?.Invoke(data);
+        }
+
+
     }
 }

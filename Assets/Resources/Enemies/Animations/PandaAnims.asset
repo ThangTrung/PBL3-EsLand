@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: PandaAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -8149974332647491319, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: 9166078203985759977, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: -8122443197904106761, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: -34705639180428308, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: 7911301810518576109, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: -2667692870100120313, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: 8230296584233124166, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: 7104830725028938251, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: -7236936547868256899, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  - {fileID: -132798552, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
+  runFrames:
+  - {fileID: -8814424347361672124, guid: 536cc663fe4ea824c95bdbfccbc0ece9, type: 3}
+  - {fileID: -8836532904105383544, guid: 536cc663fe4ea824c95bdbfccbc0ece9, type: 3}
+  - {fileID: -8850384218036740950, guid: 536cc663fe4ea824c95bdbfccbc0ece9, type: 3}
+  - {fileID: -4422099591060308844, guid: 536cc663fe4ea824c95bdbfccbc0ece9, type: 3}
+  - {fileID: -8315347680731458982, guid: 536cc663fe4ea824c95bdbfccbc0ece9, type: 3}
+  - {fileID: -9062487706820149092, guid: 536cc663fe4ea824c95bdbfccbc0ece9, type: 3}
+  attackFrames:
+  - {fileID: 158003165143877128, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: 1126506391666030408, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: -4922884865592866655, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: -4306013704929678411, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: 779821321, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: -4083268701511690494, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: 3170853755713148873, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: -3497400840786891600, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: 5863409225404250627, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: 5283403763830970972, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: -1752915488331297659, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: -7841034199183668136, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  - {fileID: -7463726512041192925, guid: 8df19a8b5b11a4f47b06088324309e5f, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

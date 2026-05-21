@@ -58,8 +58,18 @@ namespace Gameplay.AI.Strategies
             var currentFrame = _animator.GetCurrentFrameIndex();
             if (_hitApplied || currentFrame < _attackTriggerFrame) return;
 
-            var distance = Vector3.Distance(_selfTransform.position, _target.position);
-            if (distance <= _range)
+            float verticalOffset = 0f;
+            if (_source is Gameplay.AI.EnemyBase enemyBase && enemyBase.Config != null)
+            {
+                verticalOffset = enemyBase.Config.VerticalAlignmentOffset;
+            }
+
+            float distX = Mathf.Abs(_selfTransform.position.x - _target.position.x);
+            float distY = Mathf.Abs(_selfTransform.position.y - (_target.position.y + verticalOffset));
+            bool isYAligned = distY <= 0.25f;
+            bool isXInRange = distX <= _range + 0.1f;
+
+            if (isYAligned && isXInRange)
             {
                 if (_target.TryGetComponent<IDamageable>(out var victim))
                 {
@@ -89,8 +99,18 @@ namespace Gameplay.AI.Strategies
             if (IsAttacking || target == null) return false;
             if (Time.time < _nextAttackTime) return false;
 
-            var distance = Vector3.Distance(_selfTransform.position, target.position);
-            return distance <= _range;
+            float verticalOffset = 0f;
+            if (_source is Gameplay.AI.EnemyBase enemyBase && enemyBase.Config != null)
+            {
+                verticalOffset = enemyBase.Config.VerticalAlignmentOffset;
+            }
+
+            float distX = Mathf.Abs(_selfTransform.position.x - target.position.x);
+            float distY = Mathf.Abs(_selfTransform.position.y - (target.position.y + verticalOffset));
+            bool isYAligned = distY <= 0.25f;
+            bool isXInRange = distX <= _range + 0.1f;
+
+            return isYAligned && isXInRange;
         }
     }
 }

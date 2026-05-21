@@ -5,6 +5,8 @@ using Gameplay.AI.States;
 using Gameplay.Characters;
 using Infrastructure.Pooling;
 using Core.Contracts.Shared;
+using Gameplay.Spawning;
+
 using UnityEngine;
 
 namespace Gameplay.AI
@@ -27,6 +29,8 @@ namespace Gameplay.AI
         protected bool IsDeadInternal;
         private float _deathStartTime;
         private bool _isSwappingEntities;
+        private bool _lootDropped;
+
 
         protected IEnemyConfig ConfigInternal;
         protected IAttackStrategy AttackStrategyInternal;
@@ -39,7 +43,9 @@ namespace Gameplay.AI
         public IEnemyConfig Config => ConfigInternal;
         public float AttackRange => AttackRangeInternal;
         public float PatrolReachDistance => DefaultPatrolReachDistance;
-        public bool IsDead => IsDeadInternal;
+        
+        public Vector3 DebugTargetPosition { get; set; }
+public bool IsDead => IsDeadInternal;
 
         public virtual IAIState CreateChaseState()
         {
@@ -85,13 +91,31 @@ protected virtual new void Awake()
             {
                 if (_animationController != null && _animationController.IsCurrentAnimationFinished())
                 {
-                    ObjectPoolManager.Instance.Return(gameObject);
+                    // PILLAR 2: Kích hoạt hệ thống Loot Event-Driven
+                    TriggerLootDrop();
+
+                    // HOTFIX A: Báo cáo cho Director trước khi thu hồi về Pool
+                    if (EnemySpawnDirector.Instance != null)
+                    {
+                        EnemySpawnDirector.Instance.UnregisterEnemy(this);
+                    }
+                    
+                    ObjectPoolManager.Instance.ReturnToPool(gameObject);
                     return;
                 }
 
                 if (Time.time - _deathStartTime >= DeathFallbackDelay)
                 {
-                    ObjectPoolManager.Instance.Return(gameObject);
+                    // PILLAR 2: Fallback loot drop
+                    TriggerLootDrop();
+
+                    // HOTFIX A: Fallback check
+                    if (EnemySpawnDirector.Instance != null)
+                    {
+                        EnemySpawnDirector.Instance.UnregisterEnemy(this);
+                    }
+
+                    ObjectPoolManager.Instance.ReturnToPool(gameObject);
                 }
 
                 return;
@@ -102,18 +126,18 @@ protected virtual new void Awake()
 
         public virtual void InitializeEnemy(IEnemyConfig config, AnimationConfig animationConfig, IAttackStrategy attackStrategy, float attackRange)
         {
-            ConfigInternal = config;
-            AttackStrategyInternal = attackStrategy;
-            AttackRangeInternal = attackRange;
+            if (config != null) ConfigInternal = config;
+            if (attackStrategy != null) AttackStrategyInternal = attackStrategy;
+            if (attackRange > 0) AttackRangeInternal = attackRange;
 
-            if (_animationController != null)
+            if (animationConfig != null && _animationController != null)
             {
                 _animationController.SetConfig(animationConfig);
             }
 
-            if (_health != null)
+            if (_health != null && ConfigInternal != null)
             {
-                _health.SetMaxHealth(config.MaxHealth, true);
+                _health.SetMaxHealth(ConfigInternal.MaxHealth, true);
             }
 
             _movementStrategy = new SimpleMovementStrategy(_movementController, _animationController, _statusEffectController);
@@ -125,28 +149,43 @@ protected virtual new void Awake()
             IsDeadInternal = false;
         }
 
-        public virtual void ResetStats()
+        public virtual void ResetEnemy()
         {
+            _lootDropped = false;
+
             IsDeadInternal = false;
             _deathStartTime = 0f;
             _isSwappingEntities = false;
             
+            // 1. Hồi 100% máu
             if (_health != null)
             {
-                // Reset health to max based on current config
                 _health.SetMaxHealth(ConfigInternal?.MaxHealth ?? 100f, true);
             }
+
+            // 2. Đưa StateMachine về trạng thái mặc định
+            ChangeState(new PatrolState());
+
+            // 3. Xóa mọi Status Effects
+            if (_statusEffectController != null)
+            {
+                _statusEffectController.ClearAllEffects();
+            }
+
+            // 4. Đảm bảo Collider/SpriteRenderer được bật lại
+            var sr = GetComponent<SpriteRenderer>();
+            if (sr != null) sr.enabled = true;
+            
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = true;
 
             if (_animationController != null)
             {
                 _animationController.PlayIdle();
             }
-
-            if (_statusEffectController != null)
-            {
-                _statusEffectController.ClearAllEffects();
-            }
         }
+
+        public virtual void ResetStats() => ResetEnemy();
 
         public virtual void OnReturn()
         {
@@ -204,6 +243,37 @@ protected virtual new void Awake()
             _deathStartTime = Time.time;
             _movementStrategy?.StopMovement();
             _animationController?.PlayDeath();
+            
+            Core.Events.GameEvents.OnEnemyDied?.Invoke(this);
         }
+
+        private void TriggerLootDrop()
+        {
+            if (_lootDropped) return;
+            _lootDropped = true;
+
+            if (ConfigInternal != null && !string.IsNullOrEmpty(ConfigInternal.LootItemId))
+            {
+                var lootData = new Data.Loot.LootDropData(
+                    ConfigInternal.LootItemId,
+                    ConfigInternal.LootQuantity,
+                    transform.position
+                );
+
+                Core.Events.GameEvents.InvokeEnemyDroppedLoot(lootData);
+            }
+        }
+
+
+        private void OnDrawGizmos()
+        {
+            if (Application.isPlaying && DebugTargetPosition != Vector3.zero)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position, DebugTargetPosition);
+                Gizmos.DrawWireSphere(DebugTargetPosition, 0.2f);
+            }
+        }
+
     }
 }

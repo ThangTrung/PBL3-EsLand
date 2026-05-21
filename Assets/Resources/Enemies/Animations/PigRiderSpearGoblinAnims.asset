@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: PigRiderSpearGoblinAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -5310797132461060845, guid: ca5242e97c5d27a46b89f0d0c6b96c3b, type: 3}
+  - {fileID: -3542915001793401938, guid: ca5242e97c5d27a46b89f0d0c6b96c3b, type: 3}
+  - {fileID: -1687816186345068388, guid: ca5242e97c5d27a46b89f0d0c6b96c3b, type: 3}
+  - {fileID: -3071768560793895548, guid: ca5242e97c5d27a46b89f0d0c6b96c3b, type: 3}
+  - {fileID: 6959200676496693836, guid: ca5242e97c5d27a46b89f0d0c6b96c3b, type: 3}
+  - {fileID: 3136093243343834316, guid: ca5242e97c5d27a46b89f0d0c6b96c3b, type: 3}
+  - {fileID: 4273150303105305129, guid: ca5242e97c5d27a46b89f0d0c6b96c3b, type: 3}
+  - {fileID: -1812964273018267328, guid: ca5242e97c5d27a46b89f0d0c6b96c3b, type: 3}
+  runFrames:
+  - {fileID: 6449551194856212674, guid: 27d8c9901cfb5394582282b3ad31d84c, type: 3}
+  - {fileID: -2991290698215734868, guid: 27d8c9901cfb5394582282b3ad31d84c, type: 3}
+  - {fileID: -3928258527087769143, guid: 27d8c9901cfb5394582282b3ad31d84c, type: 3}
+  - {fileID: 3098453297843270412, guid: 27d8c9901cfb5394582282b3ad31d84c, type: 3}
+  attackFrames:
+  - {fileID: 4139315167357682474, guid: 5ebf19e9416cb2c4180453ba3b4750bb, type: 3}
+  - {fileID: -5865650165967796568, guid: 5ebf19e9416cb2c4180453ba3b4750bb, type: 3}
+  - {fileID: 3845410939634802179, guid: 5ebf19e9416cb2c4180453ba3b4750bb, type: 3}
+  - {fileID: 6148514604422166335, guid: 5ebf19e9416cb2c4180453ba3b4750bb, type: 3}
+  - {fileID: -2372294231873951287, guid: 5ebf19e9416cb2c4180453ba3b4750bb, type: 3}
+  - {fileID: -484863052525853732, guid: 5ebf19e9416cb2c4180453ba3b4750bb, type: 3}
+  - {fileID: 8237347127934248748, guid: 5ebf19e9416cb2c4180453ba3b4750bb, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: PigAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: 7565204381512348054, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: -9206394693627218127, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: 6135128913384164990, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: 9053823932351245017, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: 5680641144773481780, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: -8530927243317687216, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: -2162504934440106017, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: -3784238422690221931, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: -9177592131694104476, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  - {fileID: -5519399946859738337, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
+  runFrames:
+  - {fileID: 499278619413767961, guid: 2ecbf431f1b15404f9d95adb9c3a946a, type: 3}
+  - {fileID: -4180007898761023513, guid: 2ecbf431f1b15404f9d95adb9c3a946a, type: 3}
+  - {fileID: 1011755623452286269, guid: 2ecbf431f1b15404f9d95adb9c3a946a, type: 3}
+  - {fileID: 8361601201272285582, guid: 2ecbf431f1b15404f9d95adb9c3a946a, type: 3}
+  attackFrames: []
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

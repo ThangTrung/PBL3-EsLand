@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: SeahorseBoatAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -7010591647040895799, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
+  - {fileID: 152489495532746151, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
+  - {fileID: -6716851642931428848, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
+  - {fileID: 2659611113231379851, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
+  - {fileID: -3921654563342086831, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
+  - {fileID: -701971094624385683, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
+  - {fileID: 1399389548498346541, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
+  - {fileID: 4311232652278926336, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
+  runFrames: []
+  attackFrames: []
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

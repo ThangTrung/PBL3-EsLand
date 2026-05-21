@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: BombFishAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -6108214160095504353, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
+  - {fileID: 1954500141613343347, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
+  - {fileID: 2908233717336121402, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
+  - {fileID: -5082194705516893579, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
+  - {fileID: 283641272998304253, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
+  - {fileID: 3517785086756222565, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
+  - {fileID: 2590752765415671170, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
+  - {fileID: 6623489332557108220, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
+  runFrames:
+  - {fileID: -3965891853059155140, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
+  - {fileID: -1005144103969732621, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
+  - {fileID: 4947971356035588745, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
+  - {fileID: 6242624759289299517, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
+  - {fileID: -7884875807517210104, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
+  - {fileID: -7406733438661465437, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
+  attackFrames: []
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

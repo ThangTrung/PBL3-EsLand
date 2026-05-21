@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: HarpoonSharkAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -6413962263263825353, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
+  - {fileID: -1319865952818110743, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
+  - {fileID: -2060043399020932218, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
+  - {fileID: 1008401914039051758, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
+  - {fileID: -1451533247747883238, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
+  - {fileID: -4132577773755203609, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
+  - {fileID: -6746316021555047239, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
+  - {fileID: 472087240837110447, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
+  runFrames:
+  - {fileID: 6630433995181446223, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
+  - {fileID: -5885689651742709122, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
+  - {fileID: -2881028487830997393, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
+  - {fileID: 5012480031487345363, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
+  - {fileID: -5713736044023721425, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
+  - {fileID: -9169159741288123458, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
+  attackFrames: []
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2
