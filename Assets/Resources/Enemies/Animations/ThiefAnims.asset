@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: ThiefAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: 6527623753779468337, guid: 458512ab22cc7a84d867283cd57f456c, type: 3}
+  - {fileID: -6081824708350232063, guid: 458512ab22cc7a84d867283cd57f456c, type: 3}
+  - {fileID: -3505473543531593333, guid: 458512ab22cc7a84d867283cd57f456c, type: 3}
+  - {fileID: 4213143834458070676, guid: 458512ab22cc7a84d867283cd57f456c, type: 3}
+  - {fileID: 5920058009558936163, guid: 458512ab22cc7a84d867283cd57f456c, type: 3}
+  - {fileID: -8822830830988727744, guid: 458512ab22cc7a84d867283cd57f456c, type: 3}
+  runFrames:
+  - {fileID: 7370050854565383101, guid: b399e0548d6c94e40be3056a3aa2f862, type: 3}
+  - {fileID: -7432549385434673514, guid: b399e0548d6c94e40be3056a3aa2f862, type: 3}
+  - {fileID: 266841408373042049, guid: b399e0548d6c94e40be3056a3aa2f862, type: 3}
+  - {fileID: -4370755051115519858, guid: b399e0548d6c94e40be3056a3aa2f862, type: 3}
+  - {fileID: -3137741453567158835, guid: b399e0548d6c94e40be3056a3aa2f862, type: 3}
+  - {fileID: 9216760424783274641, guid: b399e0548d6c94e40be3056a3aa2f862, type: 3}
+  attackFrames:
+  - {fileID: -94464555223551429, guid: 8c660e7e3738a7a4d99dc88156f992bc, type: 3}
+  - {fileID: 6044258659717613482, guid: 8c660e7e3738a7a4d99dc88156f992bc, type: 3}
+  - {fileID: 2389943117273273173, guid: 8c660e7e3738a7a4d99dc88156f992bc, type: 3}
+  - {fileID: 7397776856645336373, guid: 8c660e7e3738a7a4d99dc88156f992bc, type: 3}
+  - {fileID: -7788256819249271050, guid: 8c660e7e3738a7a4d99dc88156f992bc, type: 3}
+  - {fileID: -8356095454140562519, guid: 8c660e7e3738a7a4d99dc88156f992bc, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

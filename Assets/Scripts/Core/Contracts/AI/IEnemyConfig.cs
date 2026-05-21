@@ -11,7 +11,14 @@ namespace Core.Contracts.AI
         float DetectionRange { get; }
         float PatrolRadius { get; }
         float AttackCooldown { get; }
-        float MoveSpeed { get; }
+        
+        
+        float VerticalAlignmentOffset { get; }
+float HorizontalAlignmentOffset { get; }
+float MoveSpeed { get; }
         Color TintColor { get; }
+        string LootItemId { get; }
+        int LootQuantity { get; }
+
     }
 }

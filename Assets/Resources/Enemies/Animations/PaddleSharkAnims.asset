@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: PaddleSharkAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: 3743133083512101073, guid: 281461e61dfd4ca4a8d8c63ee10cd7ab, type: 3}
+  - {fileID: 5535866699923261467, guid: 281461e61dfd4ca4a8d8c63ee10cd7ab, type: 3}
+  - {fileID: -5907473743073645988, guid: 281461e61dfd4ca4a8d8c63ee10cd7ab, type: 3}
+  - {fileID: 6658713786574933414, guid: 281461e61dfd4ca4a8d8c63ee10cd7ab, type: 3}
+  - {fileID: -323105365221935163, guid: 281461e61dfd4ca4a8d8c63ee10cd7ab, type: 3}
+  - {fileID: -768324396009366097, guid: 281461e61dfd4ca4a8d8c63ee10cd7ab, type: 3}
+  - {fileID: -5702226038516845756, guid: 281461e61dfd4ca4a8d8c63ee10cd7ab, type: 3}
+  - {fileID: -3055329094353069078, guid: 281461e61dfd4ca4a8d8c63ee10cd7ab, type: 3}
+  runFrames:
+  - {fileID: 6404276901810369310, guid: ba32ace61d7d83d47b687ce0058735de, type: 3}
+  - {fileID: 6578708650940353382, guid: ba32ace61d7d83d47b687ce0058735de, type: 3}
+  - {fileID: -357396378711437667, guid: ba32ace61d7d83d47b687ce0058735de, type: 3}
+  - {fileID: -9209048952901640149, guid: ba32ace61d7d83d47b687ce0058735de, type: 3}
+  - {fileID: 5161753843139852707, guid: ba32ace61d7d83d47b687ce0058735de, type: 3}
+  - {fileID: -8416662630373729501, guid: ba32ace61d7d83d47b687ce0058735de, type: 3}
+  attackFrames:
+  - {fileID: 4976280052443007614, guid: 11da2b9275c40954ea35f55db0427bd7, type: 3}
+  - {fileID: -4627849120638532404, guid: 11da2b9275c40954ea35f55db0427bd7, type: 3}
+  - {fileID: -2860880505899409864, guid: 11da2b9275c40954ea35f55db0427bd7, type: 3}
+  - {fileID: 8620267919948254553, guid: 11da2b9275c40954ea35f55db0427bd7, type: 3}
+  - {fileID: -1118981464946358873, guid: 11da2b9275c40954ea35f55db0427bd7, type: 3}
+  - {fileID: 570118187800706527, guid: 11da2b9275c40954ea35f55db0427bd7, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

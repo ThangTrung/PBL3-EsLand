@@ -67,6 +67,11 @@ namespace Infrastructure.Pooling
             }
         }
 
+        public GameObject Get(GameObject prefab, Vector3 position)
+        {
+            return Get(prefab, position, Quaternion.identity);
+        }
+
         public GameObject Get(GameObject prefab, Vector3 position, Quaternion rotation)
         {
             if (prefab == null) return null;
@@ -82,7 +87,7 @@ namespace Infrastructure.Pooling
             return obj;
         }
 
-        public void Return(GameObject instance)
+        public void ReturnToPool(GameObject instance)
         {
             if (instance == null) return;
 
@@ -99,5 +104,8 @@ namespace Infrastructure.Pooling
             Debug.LogWarning($"Object {instance.name} was returned to pool but no matching pool was found. Destroying instead.");
             Destroy(instance);
         }
+
+        // Keep alias for compatibility
+        public void Return(GameObject instance) => ReturnToPool(instance);
     }
 }

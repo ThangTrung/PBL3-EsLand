@@ -61,9 +61,14 @@ namespace Gameplay.AI.Animation
             SetAnimation(AnimState.Run, config != null ? config.RunFrames : null, true);
         }
 
-        public void PlayAttack()
+public float PlayAttack()
         {
             SetAnimation(AnimState.Attack, config != null ? config.AttackFrames : null, false);
+            if (config != null && config.AttackFrames != null && config.FrameRate > 0f)
+            {
+                return (float)config.AttackFrames.Length / config.FrameRate;
+            }
+            return 0.5f; // Fallback
         }
 
         public void PlayDeath()

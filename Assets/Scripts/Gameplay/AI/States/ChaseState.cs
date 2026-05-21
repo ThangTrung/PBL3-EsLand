@@ -7,8 +7,17 @@ namespace Gameplay.AI.States
     {
         private const float HorizontalTolerance = 0.2f;
 
+        private float _randomYOffset;
+        private float _randomXOffset;
+
         public void Enter(EnemyBase enemy)
         {
+            _randomYOffset = Random.Range(-0.15f, 0.15f);
+            _randomXOffset = Random.Range(0.1f, 0.4f);
+            if (enemy.Animator != null)
+            {
+                enemy.Animator.PlayRun();
+            }
         }
 
         public void Execute(EnemyBase enemy)
@@ -26,17 +35,67 @@ namespace Gameplay.AI.States
                 return;
             }
 
-            var yDifference = Mathf.Abs(enemy.Target.position.y - enemy.transform.position.y);
-            if (distanceToTarget <= enemy.AttackRange * 0.9f && yDifference < HorizontalTolerance)
+            float yWithOffset = enemy.Target.position.y;
+            if (enemy.Config != null)
+            {
+                yWithOffset += enemy.Config.VerticalAlignmentOffset;
+            }
+
+            float distX = Mathf.Abs(enemy.transform.position.x - enemy.Target.position.x);
+            float distY = Mathf.Abs(enemy.transform.position.y - yWithOffset);
+            
+            // Dung sai được nới lỏng nhẹ để nhiều quái có thể cùng tấn công
+            bool isYAligned = distY <= 0.25f; 
+            bool isXInRange = distX <= enemy.AttackRange + 0.2f;
+
+            if (isYAligned && isXInRange)
             {
                 enemy.ChangeState(new AttackState());
                 return;
             }
 
-            float signX = Mathf.Sign(enemy.transform.position.x - enemy.Target.position.x);
-            if (signX == 0) signX = 1;
+            float offsetDirection = (enemy.transform.position.x < enemy.Target.position.x) ? -1f : 1f;
 
-            Vector3 flankTarget = enemy.Target.position + new Vector3(signX * (enemy.AttackRange * 0.8f), 0, 0);
+            // X offset dạt ra xa đủ để né hitbox Player (Cộng thêm randomX để tụi nó không đứng đè lên nhau)
+            float safeXOffset = enemy.AttackRange + _randomXOffset;
+            if (safeXOffset < 0.8f) safeXOffset = 0.8f;
+
+            float targetY = yWithOffset + _randomYOffset;
+            Vector3 flankTarget;
+
+            if (!isYAligned)
+            {
+                // Nếu đang đứng trên đầu/dưới chân mà khoảng cách X quá hẹp (nguy cơ kẹt đầu Player)
+                if (distX < safeXOffset - 0.1f)
+                {
+                    // ƯU TIÊN 1: Chạy dạt ngang ra ngoài trước (Né Collider)
+                    flankTarget = new Vector3(
+                        enemy.Target.position.x + (offsetDirection * safeXOffset),
+                        enemy.transform.position.y,
+                        enemy.transform.position.z
+                    );
+                }
+                else
+                {
+                    // ƯU TIÊN 2: Khi đã ở ngoài rìa an toàn, chạy thẳng xuống để dóng chuẩn trục Y
+                    flankTarget = new Vector3(
+                        enemy.transform.position.x,
+                        targetY,
+                        enemy.transform.position.z
+                    );
+                }
+            }
+            else
+            {
+                // ƯU TIÊN 3: Đã dóng chuẩn trục Y, chạy áp sát vào theo trục X để vụt
+                flankTarget = new Vector3(
+                    enemy.Target.position.x + (offsetDirection * (enemy.AttackRange - 0.1f)),
+                    targetY,
+                    enemy.transform.position.z
+                );
+            }
+            
+            enemy.DebugTargetPosition = flankTarget;
             enemy.MoveTowardsPosition(flankTarget);
         }
 

@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: TorchGoblinAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -3751612115538228638, guid: 2f824ef7613406640bb18ac75f490770, type: 3}
+  - {fileID: -2580994585097894464, guid: 2f824ef7613406640bb18ac75f490770, type: 3}
+  - {fileID: 1644660750512406918, guid: 2f824ef7613406640bb18ac75f490770, type: 3}
+  - {fileID: -8447972793975221040, guid: 2f824ef7613406640bb18ac75f490770, type: 3}
+  - {fileID: -6596050819396741476, guid: 2f824ef7613406640bb18ac75f490770, type: 3}
+  - {fileID: 3164197796747539299, guid: 2f824ef7613406640bb18ac75f490770, type: 3}
+  - {fileID: -4353858484992339591, guid: 2f824ef7613406640bb18ac75f490770, type: 3}
+  - {fileID: 3790640545315614294, guid: 2f824ef7613406640bb18ac75f490770, type: 3}
+  runFrames:
+  - {fileID: 1587686412414083467, guid: 32545a960ccb2be4ab7a160891d53b04, type: 3}
+  - {fileID: -2408097465267134861, guid: 32545a960ccb2be4ab7a160891d53b04, type: 3}
+  - {fileID: -1335405484098318170, guid: 32545a960ccb2be4ab7a160891d53b04, type: 3}
+  - {fileID: 4785369607175645358, guid: 32545a960ccb2be4ab7a160891d53b04, type: 3}
+  - {fileID: 7020250429068618272, guid: 32545a960ccb2be4ab7a160891d53b04, type: 3}
+  - {fileID: -6189670023420884677, guid: 32545a960ccb2be4ab7a160891d53b04, type: 3}
+  attackFrames:
+  - {fileID: -7588530421947464541, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
+  - {fileID: -7842078151690305793, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
+  - {fileID: 2131341465340047022, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
+  - {fileID: -1855414772966135717, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
+  - {fileID: -8281423226931022230, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
+  - {fileID: 4532747277014350665, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
+  - {fileID: 1040833900427024851, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
+  - {fileID: 186658970710459656, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

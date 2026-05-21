@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: GnollAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: -196405934202487797, guid: 1e9531b112690084f80c6ffb7e3e61c7, type: 3}
+  - {fileID: 8599084133644137972, guid: 1e9531b112690084f80c6ffb7e3e61c7, type: 3}
+  - {fileID: -5330749375030159508, guid: 1e9531b112690084f80c6ffb7e3e61c7, type: 3}
+  - {fileID: 188626745779729254, guid: 1e9531b112690084f80c6ffb7e3e61c7, type: 3}
+  - {fileID: -7817700414688277104, guid: 1e9531b112690084f80c6ffb7e3e61c7, type: 3}
+  - {fileID: 3846796584741784795, guid: 1e9531b112690084f80c6ffb7e3e61c7, type: 3}
+  runFrames:
+  - {fileID: 2144306348594205820, guid: 5589748b2c17e314282611b4961a427c, type: 3}
+  - {fileID: 4748085004446025282, guid: 5589748b2c17e314282611b4961a427c, type: 3}
+  - {fileID: 6714633736922919927, guid: 5589748b2c17e314282611b4961a427c, type: 3}
+  - {fileID: -5884609075591523368, guid: 5589748b2c17e314282611b4961a427c, type: 3}
+  - {fileID: -1169297536214247824, guid: 5589748b2c17e314282611b4961a427c, type: 3}
+  - {fileID: 747096802065842712, guid: 5589748b2c17e314282611b4961a427c, type: 3}
+  - {fileID: -1016734687898979182, guid: 5589748b2c17e314282611b4961a427c, type: 3}
+  - {fileID: 7477702687696233401, guid: 5589748b2c17e314282611b4961a427c, type: 3}
+  attackFrames: []
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

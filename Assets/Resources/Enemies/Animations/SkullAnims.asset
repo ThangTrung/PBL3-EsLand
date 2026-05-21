@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: SkullAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: 6471116574714101982, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+  - {fileID: -5517189045170451702, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+  - {fileID: -3851594745550769105, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+  - {fileID: -519783078402261626, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+  - {fileID: -1479804600476029548, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+  - {fileID: 475156675953305093, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+  - {fileID: 4517073765492241108, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+  - {fileID: -5281771008486882139, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+  runFrames:
+  - {fileID: -821572354167042970, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+  - {fileID: 6183830700080795110, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+  - {fileID: -5611761047925831525, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+  - {fileID: -992156223813187085, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+  - {fileID: 3058856078925539220, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+  - {fileID: 6398057966443142182, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+  attackFrames:
+  - {fileID: -3801873587596287892, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+  - {fileID: 8453705797323160443, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+  - {fileID: -2608325685640080977, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+  - {fileID: 5677903959620856961, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+  - {fileID: 7921673209264098965, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+  - {fileID: -8617964307106720966, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+  - {fileID: -2380647909382967109, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

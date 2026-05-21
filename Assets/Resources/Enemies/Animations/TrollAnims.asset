@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
+  m_Name: TrollAnims
+  m_EditorClassIdentifier: 
+  idleFrames:
+  - {fileID: 6950911746183540349, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -7120503069529902813, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -4256768827469389766, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -385227543, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 832755368069413675, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 1992930591366835740, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 2486878655888700704, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 4407211109832310593, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 5939203971004893745, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: 5333468026539246018, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -3465561671267481313, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  - {fileID: -7744271112704259063, guid: e9f92e6126aef4547920593a908686a9, type: 3}
+  runFrames:
+  - {fileID: 5100511903279032260, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 2808101193737464588, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 4217714876114698771, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: -5997890410454854046, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: -3235121162532122644, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 3637264239555153135, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 3823851783207870224, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 3419715262035927088, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: 6601671565499704310, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  - {fileID: -896548597, guid: 642ae7e648627974a80112bf08fbb3f6, type: 3}
+  attackFrames:
+  - {fileID: 6791087918623901461, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: -4302744626742791278, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: -3928183525693875308, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: 1629887685521351817, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: -4327057299393293432, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  - {fileID: -2534325619984617209, guid: f0beaf22f5461fb499869ba847eeb96e, type: 3}
+  deathFrames: []
+  frameRate: 12
+  attackTriggerFrame: 2

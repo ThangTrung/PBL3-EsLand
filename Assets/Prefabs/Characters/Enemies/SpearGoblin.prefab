@@ -10,12 +10,16 @@ GameObject:
   m_Component:
   - component: {fileID: 8365136099163661117}
   - component: {fileID: 148767378427048804}
-  - component: {fileID: 4246124674795025422}
   - component: {fileID: 1693978706555743599}
-  - component: {fileID: 5005230140398462767}
-  m_Layer: 0
+  - component: {fileID: 2374085112491720260}
+  - component: {fileID: -5672878745502399475}
+  - component: {fileID: 4782447923131182356}
+  - component: {fileID: 1048745140614377707}
+  - component: {fileID: 3671813777858420295}
+  - component: {fileID: 2669207030224147842}
+  m_Layer: 10
   m_Name: SpearGoblin
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,27 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4246124674795025422
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1478829586205786322}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 67ef5f7b290932d4fb7f360c9d84c900, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &1693978706555743599
 Rigidbody2D:
   serializedVersion: 4
@@ -116,14 +99,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1478829586205786322}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -133,10 +116,62 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!70 &5005230140398462767
-CapsuleCollider2D:
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!114 &2374085112491720260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478829586205786322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594a465c4f87f5e4f9b3892b1fa204d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  baseDefense: 5
+--- !u!114 &-5672878745502399475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478829586205786322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c39727bd577c04fa670bd9d3c57917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMoveSpeed: 3
+--- !u!114 &4782447923131182356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478829586205786322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22275029f58e6a47bd2f01240ce761d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 1bbf3df6d8ccde847accba4ffee3cdcb, type: 2}
+--- !u!114 &1048745140614377707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478829586205786322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714de8186c0a86447b62465bed3ca41e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &3671813777858420295
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -167,6 +202,64 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2}
-  m_Size: {x: 4, y: 4}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 4, y: 4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.25, y: 1.421875}
+      - {x: 0.3125, y: 1.59375}
+      - {x: 0.453125, y: 1.78125}
+      - {x: 0.5, y: 1.90625}
+      - {x: 0.640625, y: 1.953125}
+      - {x: 0.6875, y: 2.0625}
+      - {x: 0.6875, y: 2.1875}
+      - {x: 0.609375, y: 2.203125}
+      - {x: 0.40625, y: 2.171875}
+      - {x: 0.375, y: 2.265625}
+      - {x: 0.1875, y: 2.40625}
+      - {x: 0.078125, y: 2.484375}
+      - {x: -0.234375, y: 2.40625}
+      - {x: -0.34375, y: 2.34375}
+      - {x: -0.421875, y: 2.75}
+      - {x: -0.5625, y: 3.25}
+      - {x: -0.671875, y: 3.25}
+      - {x: -0.75, y: 3.015625}
+      - {x: -0.75, y: 2.765625}
+      - {x: -0.46875, y: 2.15625}
+      - {x: -0.546875, y: 2.203125}
+      - {x: -0.671875, y: 2.1875}
+      - {x: -0.546875, y: 1.9375}
+      - {x: -0.4375, y: 1.90625}
+      - {x: -0.515625, y: 1.78125}
+      - {x: -0.328125, y: 1.640625}
+      - {x: -0.453125, y: 1.46875}
+      - {x: -0.46875, y: 1.40625}
+      - {x: -0.296875, y: 1.359375}
+      - {x: -0.203125, y: 1.234375}
+      - {x: -0.140625, y: 1.21875}
+      - {x: -0.03125, y: 1.21875}
+      - {x: 0, y: 1.25}
+      - {x: -0.015625, y: 1.375}
+      - {x: 0.21875, y: 1.390625}
+  m_UseDelaunayMesh: 0
+--- !u!114 &2669207030224147842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478829586205786322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2174b5022926bc84c901917016c57d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: New Character

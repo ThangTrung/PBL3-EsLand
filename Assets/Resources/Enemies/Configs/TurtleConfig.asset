@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9f0099373a76a41ba30fff55e4a779, type: 3}
+  m_Name: TurtleConfig
+  m_EditorClassIdentifier: 
+  enemyType: Turtle
+  maxHealth: 25
+  baseDamage: 5
+  baseAttackRange: 2.5
+  detectionRange: 12
+  patrolRadius: 5
+  attackCooldown: 1.2
+  moveSpeed: 2.8
+  tintColor: {r: 1, g: 1, b: 1, a: 1}
