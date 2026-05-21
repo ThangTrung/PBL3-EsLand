@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
 using Gameplay.Characters;
@@ -72,10 +73,18 @@ namespace UI.Inventory
             if (visible) return;
     
             OnInventoryClosed?.Invoke(); 
-            ClearAllHighlights();
+            ResetAllSlots();
     
             if (UnityEngine.EventSystems.EventSystem.current)
                 UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+        }
+        
+        private void ResetAllSlots()
+        {
+            foreach (var slot in _slotUIs.Where(slot => slot))
+            {
+                slot.ResetState();
+            }
         }
 
         private void Update()
@@ -93,15 +102,6 @@ namespace UI.Inventory
             
             var context = new InventorySlotActionContext(slots[_selectedSlotIndex], _inventory.ActionHandler);
             OnActionMenuRequested?.Invoke(context, slotUI.transform.position); 
-        }
-
-        public void SelectSlot(int index)
-        {
-            if (_slotUIs == null || _slotUIs.Count == 0) return;
-            index = Mathf.Clamp(index, 0, _slotUIs.Count - 1);
-            ClearAllHighlights();
-            _selectedSlotIndex = index;
-            _slotUIs[_selectedSlotIndex].SetHighlight(true);
         }
 
         private void ClearAllHighlights()
