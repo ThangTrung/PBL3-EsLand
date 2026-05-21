@@ -6,7 +6,9 @@ using UI.Equipment;
 using UI.Inventory;
 using UI.ItemActions;
 using UI.Status;
+using UI.Building;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace UI
 {
@@ -16,15 +18,18 @@ namespace UI
         public EquipmentPanelUI equipmentUI;
         public ItemActionMenu actionMenu;
         public StatusPanelUI statusUI;
+        public CookingTowerUI cookingUI;
 
         private void OnEnable()
         {
             GameEvents.OnPlayerReady += HandlePlayerReady;
+            Gameplay.Building.CookingTower.OnTowerInteracted += HandleTowerInteracted;
         }
 
         private void OnDisable()
         {
             GameEvents.OnPlayerReady -= HandlePlayerReady;
+            Gameplay.Building.CookingTower.OnTowerInteracted -= HandleTowerInteracted;
             
             if (inventoryUI != null)
             {
@@ -74,6 +79,31 @@ namespace UI
             if (equipmentUI == null) return;
             player.OnToggleEquipment -= equipmentUI.ToggleUI;
             player.OnToggleEquipment += equipmentUI.ToggleUI;
+        }
+
+        private void HandleTowerInteracted(Gameplay.Building.CookingTower tower)
+        {
+            if (inventoryUI != null && !inventoryUI.IsVisible)
+            {
+                inventoryUI.SetVisible(true);
+            }
+            if (cookingUI != null && !cookingUI.IsVisible)
+            {
+                cookingUI.OpenPanel();
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                if (EventSystem.current != null && !EventSystem.current.IsPointerOverGameObject())
+                {
+                    if (inventoryUI != null && inventoryUI.IsVisible) inventoryUI.SetVisible(false);
+                    if (equipmentUI != null && equipmentUI.IsVisible) equipmentUI.SetVisible(false);
+                    if (cookingUI != null && cookingUI.IsVisible) cookingUI.ClosePanel();
+                }
+            }
         }
 
         private void OpenActionMenu(IActionableItem context, Vector3 pos)

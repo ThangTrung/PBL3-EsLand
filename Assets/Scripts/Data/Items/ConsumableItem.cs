@@ -1,21 +1,51 @@
+using Core.Contracts.Shared;
 using Gameplay.Characters;
 using UnityEngine;
 
 namespace Data.Items
 {
     [CreateAssetMenu(fileName = "New Consumable", menuName = "Inventory/ItemData/Consumable")]
-    public class ConsumableItem : ItemData
+    public class ConsumableItem : ItemData, IItemUsable
     {
         [Header("Consumable Stats")]
-        public int healthRestore;
-        public int hungerRestore;
-        public int thirstRestore;
+        public float healthRestore;
+        public float hungerRestore;
+        public float thirstRestore;
 
-        public override bool Use(Character user)
+        public bool Use(Character user)
         {
-            base.Use(user);
-            Debug.Log($"Hồi {healthRestore} Máu và {hungerRestore} Thức ăn cho {user.CharacterName}!");
-            return true;
+            if (user == null) return false;
+            
+            var used = false;
+            
+            if (healthRestore > 0f && user.Health != null)
+            {
+                user.Health.Heal(healthRestore);
+                used = true;
+            }
+            
+            var survival = user.GetComponentInChildren<PlayerSurvivalController>();
+            if (survival != null)
+            {
+                if (hungerRestore > 0f)
+                {
+                    survival.AddHunger(hungerRestore);
+                    used = true;
+                }
+                
+                if (thirstRestore > 0f)
+                {
+                    survival.AddThirst(thirstRestore);
+                    used = true;
+                }
+            }
+
+            if (used)
+            {
+                Debug.Log($"Đã sử dụng {ItemName}. Hồi {healthRestore} Máu, {hungerRestore} Thức ăn, {thirstRestore} Nước uống cho {user.CharacterName}!");
+            }
+            
+            return used;
         }
     }
 }

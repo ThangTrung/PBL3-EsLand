@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2744315282643434683}
   - component: {fileID: 5873528783934106605}
   - component: {fileID: 4634479693279154412}
-  - component: {fileID: 4239286625261723597}
   - component: {fileID: 6910032608303919774}
+  - component: {fileID: 4239286625261723597}
   m_Layer: 12
   m_Name: rock_2
   m_TagString: Untagged
@@ -138,6 +138,19 @@ MonoBehaviour:
     chance: 1
   minDropForce: 4
   maxDropForce: 8
+--- !u!114 &6910032608303919774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566310596956486315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
 --- !u!60 &4239286625261723597
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -192,16 +205,3 @@ PolygonCollider2D:
       - {x: 0.21511269, y: -0.041319847}
       - {x: 0.16670623, y: 0.19642204}
   m_UseDelaunayMesh: 0
---- !u!114 &6910032608303919774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4566310596956486315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 
