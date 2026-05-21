@@ -24,9 +24,11 @@ namespace UI.Inventory
 
         private IInventorySlot _slotData;
         private IItemActionHandler _actionHandler;
-        private int SlotIndex { get; set; }
+        public int SlotIndex { get; private set; }
 
         public event Action<IActionableItem, Vector3> OnRightClicked;
+        public event Action<int, IInventorySlot> OnLeftClicked;
+
         public void Init(int index, IItemActionHandler actionHandler = null)
         {
             SlotIndex = index;
@@ -91,6 +93,10 @@ namespace UI.Inventory
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
+                    if (_slotData != null && !_slotData.IsEmpty)
+                    {
+                        OnLeftClicked?.Invoke(SlotIndex, _slotData);
+                    }
                     break;
                 case PointerEventData.InputButton.Right:
                 {
@@ -145,7 +151,3 @@ namespace UI.Inventory
         }
     }
 }
-
-
-
-

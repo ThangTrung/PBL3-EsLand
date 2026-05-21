@@ -22,7 +22,8 @@ namespace Gameplay.Inventory
 
         public void UseItem(IInventorySlot slot)
         {
-            if (slot == null || slot.IsEmpty || _ownerFacade == null) return;
+            Debug.Log($"Using item: {slot.ItemData?.ItemName ?? "null"}");
+            if (slot.IsEmpty || _ownerFacade == null) return;
             if (slot.ItemData is IItemUsable usable && usable.Use(_ownerFacade))
                 _inventory.ConsumeSlot(slot, 1);
         }
@@ -51,7 +52,6 @@ namespace Gameplay.Inventory
             }
 
             var oldItem = _ownerFacade.EquipmentManager.GetEquippedItem(equippable.Slot);
-            var itemToEquip = slot.ItemData;
             _inventory.RemoveSlot(slot);
             _ownerFacade.EquipmentManager.Equip(equippable);
 

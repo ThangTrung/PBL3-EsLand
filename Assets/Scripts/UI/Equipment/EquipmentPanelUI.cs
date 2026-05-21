@@ -51,13 +51,15 @@ namespace UI.Equipment
             if (equipmentPanel != null) equipmentPanel.SetActive(false);
         }
 
+        public bool IsVisible => equipmentPanel != null && equipmentPanel.activeSelf;
+
         public void ToggleUI()
         {
             var currentState = equipmentPanel && equipmentPanel.activeSelf;
             SetVisible(!currentState);
         }
 
-        private void SetVisible(bool visible)
+        public void SetVisible(bool visible)
         {
             if (equipmentPanel) equipmentPanel.SetActive(visible);
             

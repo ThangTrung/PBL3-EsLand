@@ -122,22 +122,20 @@ namespace Gameplay.Inventory
             return true;
         }
 
-        public void Collapse()
+        private void Collapse()
         {
             if (_slots == null) return;
             
-            int nextFree = 0;
-            for (int i = 0; i < _slots.Length; i++)
+            var nextFree = 0;
+            for (var i = 0; i < _slots.Length; i++)
             {
-                if (!_slots[i].IsEmpty)
+                if (_slots[i].IsEmpty) continue;
+                if (i != nextFree)
                 {
-                    if (i != nextFree)
-                    {
-                        _slots[nextFree].SetData(_slots[i].ItemData, _slots[i].Amount, _slots[i].CurrentDurability);
-                        _slots[i].Clear();
-                    }
-                    nextFree++;
+                    _slots[nextFree].SetData(_slots[i].ItemData, _slots[i].Amount, _slots[i].CurrentDurability);
+                    _slots[i].Clear();
                 }
+                nextFree++;
             }
             NotifyChanged();
         }
