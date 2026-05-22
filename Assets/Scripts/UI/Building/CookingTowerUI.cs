@@ -64,7 +64,7 @@ namespace UI.Building
             OpenPanel();
         }
 
-        public void BindTower(CookingTower tower)
+        private void BindTower(CookingTower tower)
         {
             if (currentTower != null)
             {
