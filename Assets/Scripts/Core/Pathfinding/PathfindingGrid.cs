@@ -19,6 +19,9 @@ namespace Core.Pathfinding
         private float nodeDiameter;
         private int gridSizeX, gridSizeY;
 
+        private ContactFilter2D obstacleFilter;
+        private Collider2D[] overlapResults = new Collider2D[1];
+
         public int MaxSize => gridSizeX * gridSizeY;
 
         private void Awake()
@@ -26,11 +29,28 @@ namespace Core.Pathfinding
             nodeDiameter = nodeRadius * 2;
             gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
             gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+            InitializeFilter();
             CreateGrid();
+        }
+
+        private void InitializeFilter()
+        {
+            obstacleFilter = new ContactFilter2D();
+            obstacleFilter.useTriggers = false;
+            obstacleFilter.layerMask = obstacleMask;
+            obstacleFilter.useLayerMask = true;
+            overlapResults = new Collider2D[1];
+        }
+
+        public bool CheckSolidObstacle(Vector2 position, float radius)
+        {
+            if (overlapResults == null || overlapResults.Length == 0) InitializeFilter();
+            return Physics2D.OverlapCircle(position, radius, obstacleFilter, overlapResults) > 0;
         }
 
         public void CreateGrid()
         {
+            if (overlapResults == null || overlapResults.Length == 0) InitializeFilter();
             grid = new PathNode[gridSizeX, gridSizeY];
             Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
 
@@ -39,7 +59,7 @@ namespace Core.Pathfinding
                 for (int y = 0; y < gridSizeY; y++)
                 {
                     Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
-                    bool isObstacle = Physics2D.OverlapCircle(worldPoint, nodeRadius + collisionBuffer, obstacleMask) != null;
+                    bool isObstacle = CheckSolidObstacle(worldPoint, nodeRadius + collisionBuffer);
                     grid[x, y] = new PathNode(worldPoint, x, y, isObstacle);
                 }
             }
