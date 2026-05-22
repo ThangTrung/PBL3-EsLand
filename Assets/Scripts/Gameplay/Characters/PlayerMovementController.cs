@@ -1,4 +1,6 @@
 using Core.Contracts.Equipment;
+using Core.Contracts.Pathfinding;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Characters
@@ -14,6 +16,9 @@ namespace Gameplay.Characters
 
         [Header("Movement Settings")]
         [SerializeField] private float baseMoveSpeed = 5f;
+        [SerializeField] private float waypointTolerance = 0.1f;
+        [SerializeField] private float repathThreshold = 0.5f;
+        [SerializeField] private float repathCooldown = 0.2f;
 
         private Rigidbody2D _rb;
         private Character _facade;
@@ -25,6 +30,14 @@ namespace Gameplay.Characters
         private Transform _followTarget;
         private float _stopDistance;
         private System.Action _onTargetReached;
+
+        // Pathfinding integration
+        private IPathfinder _pathfinder;
+        private List<Vector3> _currentPath;
+        private int _currentWaypointIndex;
+        private Vector3 _lastTargetPos;
+        private float _lastRepathTime;
+        private float _playerRadius = 0.3f;
 
         public bool IsFollowingTarget => _followTarget != null;
 
@@ -39,6 +52,15 @@ namespace Gameplay.Characters
         {
             if (_facade != null && _facade.Health != null)
                 _facade.Health.OnDie += HandleDie;
+
+            // Tìm Pathfinder trên Scene
+            _pathfinder = Object.FindAnyObjectByType<Core.Pathfinding.AStarPathfinder>();
+            
+            // Tính toán bán kính của Player từ Collider để Pathfinding check vật cản
+            if (_myCollider != null)
+            {
+                _playerRadius = Mathf.Min(_myCollider.bounds.extents.x, _myCollider.bounds.extents.y) * 0.8f;
+            }
         }
 
         private void OnDestroy()
@@ -57,7 +79,7 @@ namespace Gameplay.Characters
             }
             else
             {
-                MoveTowards(_followTarget.position);
+                FollowPath();
             }
         }
 
@@ -81,7 +103,7 @@ namespace Gameplay.Characters
             ApplyVelocity(direction.normalized * GetMoveSpeed());
         }
 
-public void SetSpeedMultiplier(float multiplier)
+        public void SetSpeedMultiplier(float multiplier)
         {
             _speedMultiplier = multiplier;
         }
@@ -93,7 +115,6 @@ public void SetSpeedMultiplier(float multiplier)
             baseMoveSpeed = speed;
         }
 
-
         /// <summary>
         /// Sets a target for the character to follow automatically.
         /// </summary>
@@ -103,12 +124,61 @@ public void SetSpeedMultiplier(float multiplier)
             _stopDistance = stopDistance;
             _onTargetReached = onReached;
             _canMove = true;
+            
+            CalculatePath();
+        }
+
+        private void CalculatePath()
+        {
+            if (_pathfinder == null || _followTarget == null) return;
+            
+            _currentPath = _pathfinder.FindPath(transform.position, _followTarget.position, _playerRadius);
+            _currentWaypointIndex = 0;
+            _lastTargetPos = _followTarget.position;
+            _lastRepathTime = Time.time;
+        }
+
+        private void FollowPath()
+        {
+            // 1. Kiểm tra xem target có di chuyển quá khoảng Threshold không để tính lại đường
+            if (Time.time - _lastRepathTime > repathCooldown)
+            {
+                if (Vector3.Distance(_lastTargetPos, _followTarget.position) > repathThreshold)
+                {
+                    CalculatePath();
+                }
+            }
+
+            // 2. Nếu không có path hoặc đã đi hết path, đi thẳng (fallback)
+            if (_currentPath == null || _currentPath.Count == 0 || _currentWaypointIndex >= _currentPath.Count)
+            {
+                MoveTowards(_followTarget.position);
+                return;
+            }
+
+            // 3. Di chuyển tới waypoint hiện tại
+            Vector3 currentWaypoint = _currentPath[_currentWaypointIndex];
+            
+            // 4. Chuyển waypoint nếu đã tới đủ gần
+            if (Vector2.Distance(transform.position, currentWaypoint) <= waypointTolerance)
+            {
+                _currentWaypointIndex++;
+                if (_currentWaypointIndex >= _currentPath.Count)
+                {
+                    MoveTowards(_followTarget.position);
+                    return;
+                }
+                currentWaypoint = _currentPath[_currentWaypointIndex];
+            }
+
+            MoveTowards(currentWaypoint);
         }
 
         public void CancelFollow()
         {
             _followTarget = null;
             _onTargetReached = null;
+            _currentPath = null;
         }
 
         public void StopMovement() => ApplyVelocity(Vector2.zero);

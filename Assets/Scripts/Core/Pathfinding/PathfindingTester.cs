@@ -8,6 +8,7 @@ namespace Core.Pathfinding
     {
         public Transform seeker;
         public Transform target;
+        public float seekerRadius = 0.3f; // Kích thước giả lập của nhân vật
         
         private IPathfinder pathfinder;
         private List<Vector3> currentPath;
@@ -21,7 +22,7 @@ namespace Core.Pathfinding
         {
             if (seeker != null && target != null && pathfinder != null)
             {
-                currentPath = pathfinder.FindPath(seeker.position, target.position);
+                currentPath = pathfinder.FindPath(seeker.position, target.position, seekerRadius);
             }
         }
 

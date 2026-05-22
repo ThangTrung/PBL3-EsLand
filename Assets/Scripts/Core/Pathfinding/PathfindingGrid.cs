@@ -81,6 +81,13 @@ namespace Core.Pathfinding
             return grid[x, y];
         }
 
+        public PathNode GetNodeAt(int x, int y)
+        {
+            if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY)
+                return grid[x, y];
+            return null;
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));

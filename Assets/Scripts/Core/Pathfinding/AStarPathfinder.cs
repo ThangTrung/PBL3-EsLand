@@ -17,17 +17,20 @@ namespace Core.Pathfinding
             grid = GetComponent<PathfindingGrid>();
         }
 
-        public List<Vector3> FindPath(Vector3 startPosition, Vector3 targetPosition)
+        public List<Vector3> FindPath(Vector3 startPosition, Vector3 targetPosition, float entityRadius = 0f)
         {
             PathNode startNode = grid.NodeFromWorldPoint(startPosition);
             PathNode targetNode = grid.NodeFromWorldPoint(targetPosition);
 
             if (startNode == null || targetNode == null) return new List<Vector3>();
 
-            // Nếu target không thể đến được, tìm node gần nhất có thể đến (tùy chọn)
-            // Hiện tại ta cứ bỏ qua nếu target bị kẹt trong tường.
-            // Nhưng để linh hoạt, có thể cho phép target trong tường và lấy điểm gần nhất bên ngoài.
-            // Đoạn này ta giả định target phải nằm vùng walk-able (hoặc ít nhất mình đi đến sát vùng đó).
+            // Nếu target bị kẹt trong vật cản (do click vào cái tháp, cái cây...), 
+            // thuật toán sẽ đi tìm Node trống gần nhất xung quanh đó để đi tới.
+            if (IsNodeBlockedByRadius(targetNode, entityRadius))
+            {
+                targetNode = FindClosestWalkableNode(targetNode, entityRadius);
+                if (targetNode == null) return new List<Vector3>();
+            }
 
             List<PathNode> openSet = new List<PathNode>();
             HashSet<PathNode> closedSet = new HashSet<PathNode>();
@@ -60,11 +63,40 @@ namespace Core.Pathfinding
                         continue;
                     }
 
-                    // Không cho đi chéo nếu bị cản ở 2 bên góc
-                    if (!allowDiagonal)
+                    // Nếu có chỉ định bán kính thực tế của nhân vật, kiểm tra xem tại điểm này có bị kẹt không
+                    if (entityRadius > 0f)
                     {
-                        if (Mathf.Abs(currentNode.gridX - neighbor.gridX) == 1 && Mathf.Abs(currentNode.gridY - neighbor.gridY) == 1)
+                        // Kiểm tra va chạm với bán kính của nhân vật (thêm một chút xíu sai số 0.05f để tránh cạ viền)
+                        if (Physics2D.OverlapCircle(neighbor.worldPosition, entityRadius + 0.05f, grid.obstacleMask) != null)
+                        {
                             continue;
+                        }
+                    }
+
+                    // Kiểm tra đi chéo: Nếu node lân cận là đi chéo, phải đảm bảo 2 node kề bên nó không phải vật cản
+                    if (Mathf.Abs(currentNode.gridX - neighbor.gridX) == 1 && Mathf.Abs(currentNode.gridY - neighbor.gridY) == 1)
+                    {
+                        // Đây là node đi chéo
+                        if (!allowDiagonal) continue;
+
+                        // Check 2 node kề (ví dụ đi từ 0,0 lên 1,1 thì phải check 1,0 và 0,1)
+                        PathNode sideNode1 = grid.GetNodeAt(neighbor.gridX, currentNode.gridY);
+                        PathNode sideNode2 = grid.GetNodeAt(currentNode.gridX, neighbor.gridY);
+
+                        if (sideNode1 == null || sideNode2 == null || sideNode1.isObstacle || sideNode2.isObstacle)
+                        {
+                            continue; // Ngăn chặn cắt góc tường
+                        }
+                        
+                        // Cẩn thận hơn: Check collider thực tế tại 2 side node nếu nhân vật to
+                        if (entityRadius > 0f)
+                        {
+                            if (Physics2D.OverlapCircle(sideNode1.worldPosition, entityRadius, grid.obstacleMask) != null ||
+                                Physics2D.OverlapCircle(sideNode2.worldPosition, entityRadius, grid.obstacleMask) != null)
+                            {
+                                continue;
+                            }
+                        }
                     }
 
                     int newCostToNeighbor = currentNode.gCost + GetDistance(currentNode, neighbor);
@@ -120,7 +152,6 @@ namespace Core.Pathfinding
             Vector2 directionOld = Vector2.zero;
             
             // Luôn thêm điểm đầu tiên của chuỗi path vào.
-            // path[0] có thể coi là node đầu tiên sau startNode.
             waypoints.Add(path[0].worldPosition);
 
             for (int i = 1; i < path.Count; i++)
@@ -128,9 +159,14 @@ namespace Core.Pathfinding
                 Vector2 directionNew = new Vector2(path[i].gridX - path[i - 1].gridX, path[i].gridY - path[i - 1].gridY);
                 if (directionNew != directionOld)
                 {
-                    // Đổi hướng => ghi lại node TRƯỚC điểm đổi hướng (để quẹo).
-                    // Tuy nhiên, logic chuẩn của A* là nếu directionNew đổi, node hiện tại (path[i]) là node ta phải tới để bắt đầu quẹo.
-                    waypoints.Add(path[i].worldPosition);
+                    // Khi đổi hướng, điểm bẻ góc chính là điểm path[i - 1]
+                    // (Lưu ý: với i=1, directionOld = zero nên nó sẽ luôn add path[0] một lần nữa,
+                    // để tránh trùng lặp ta check nếu i != 1 hoặc cứ add rồi lọc sau cũng được, 
+                    // nhưng tối ưu nhất là chỉ add nếu nó khác điểm cuối đã add).
+                    if (waypoints.Count == 0 || waypoints[waypoints.Count - 1] != path[i - 1].worldPosition)
+                    {
+                        waypoints.Add(path[i - 1].worldPosition);
+                    }
                 }
                 directionOld = directionNew;
             }
@@ -152,6 +188,50 @@ namespace Core.Pathfinding
             if (dstX > dstY)
                 return 14 * dstY + 10 * (dstX - dstY);
             return 14 * dstX + 10 * (dstY - dstX);
+        }
+
+        private bool IsNodeBlockedByRadius(PathNode node, float entityRadius)
+        {
+            if (node.isObstacle) return true;
+            if (entityRadius > 0f)
+            {
+                return Physics2D.OverlapCircle(node.worldPosition, entityRadius + 0.05f, grid.obstacleMask) != null;
+            }
+            return false;
+        }
+
+        private PathNode FindClosestWalkableNode(PathNode startSearchNode, float entityRadius)
+        {
+            Queue<PathNode> queue = new Queue<PathNode>();
+            HashSet<PathNode> visited = new HashSet<PathNode>();
+            
+            queue.Enqueue(startSearchNode);
+            visited.Add(startSearchNode);
+
+            // Giới hạn vòng lặp BFS để không tốn hiệu năng nếu cả vùng lớn bị đóng kín
+            int maxIterations = 150;
+            int currentIteration = 0;
+
+            while (queue.Count > 0 && currentIteration < maxIterations)
+            {
+                currentIteration++;
+                PathNode current = queue.Dequeue();
+                
+                if (!IsNodeBlockedByRadius(current, entityRadius))
+                {
+                    return current;
+                }
+                
+                foreach (PathNode neighbor in grid.GetNeighbors(current))
+                {
+                    if (!visited.Contains(neighbor))
+                    {
+                        visited.Add(neighbor);
+                        queue.Enqueue(neighbor);
+                    }
+                }
+            }
+            return null;
         }
     }
 }

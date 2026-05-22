@@ -8,7 +8,8 @@ namespace Core.Contracts.Pathfinding
         /// <summary>
         /// Tìm đường từ điểm Start đến điểm Target.
         /// Trả về null hoặc list rỗng nếu không tìm được đường.
+        /// Cung cấp entityRadius để kiểm tra kích thước thật của nhân vật, tránh kẹt.
         /// </summary>
-        List<Vector3> FindPath(Vector3 startPosition, Vector3 targetPosition);
+        List<Vector3> FindPath(Vector3 startPosition, Vector3 targetPosition, float entityRadius = 0f);
     }
 }
