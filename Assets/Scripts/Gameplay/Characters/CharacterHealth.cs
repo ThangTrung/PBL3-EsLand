@@ -71,12 +71,10 @@ public void TakeDamage(float amount, Character source = null)
         public void SetMaxHealth(float value, bool resetCurrent = true)
         {
             maxHealth = value;
-            if (resetCurrent)
-            {
-                CurrentHealth = maxHealth;
-                IsDead = false;
-                OnHealthChanged?.Invoke(CurrentHealth);
-            }
+            if (!resetCurrent) return;
+            CurrentHealth = maxHealth;
+            IsDead = false;
+            OnHealthChanged?.Invoke(CurrentHealth);
         }
 
         private float CalculateMaxHealth()
