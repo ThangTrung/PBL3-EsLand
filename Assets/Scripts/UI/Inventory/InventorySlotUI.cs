@@ -24,7 +24,8 @@ namespace UI.Inventory
 
         private IInventorySlot _slotData;
         private IItemActionHandler _actionHandler;
-        public int SlotIndex { get; private set; }
+        private Image _image;
+        private int SlotIndex { get; set; }
 
         public event Action<IActionableItem, Vector3> OnRightClicked;
         public event Action<int, IInventorySlot> OnLeftClicked;
@@ -33,28 +34,28 @@ namespace UI.Inventory
         {
             SlotIndex = index;
             _actionHandler = actionHandler;
+            _image = GetComponent<Image>();
         }
 
         public void Refresh(IInventorySlot slotData)
         {
             _slotData = slotData;
 
-            if (GetComponent<Image>() != null) 
-                GetComponent<Image>().enabled = true;
-            
+            if (_image)
+                _image.enabled = true;
             if (_slotData == null || _slotData.IsEmpty)
             {
                 ClearVisuals();
                 return;
             }
 
-            if (icon != null)
+            if (icon)
             {
                 icon.sprite = _slotData.ItemData.Icon;
-                icon.enabled = _slotData.ItemData.Icon != null;
+                icon.enabled = _slotData.ItemData.Icon;
             }
 
-            if (amountText != null)
+            if (amountText)
             {
                 amountText.enabled = _slotData.Amount > 1;
                 if (_slotData.Amount > 1)
@@ -69,22 +70,22 @@ namespace UI.Inventory
                     durabilityBar.fillAmount = _slotData.DurabilityPercent;
             }
 
-            if (equippedOverlay == null) return;
+            if (!equippedOverlay) return;
             var isEquipped = _actionHandler?.IsEquipped(_slotData) ?? false;
             equippedOverlay.enabled = isEquipped;
         }
 
         private void ClearVisuals()
         {
-            if (icon != null)
+            if (icon)
             {
                 icon.sprite = null;
                 icon.enabled = false;
             }
             
-            if (amountText != null) amountText.enabled = false;
-            if (durabilityBar != null) durabilityBar.gameObject.SetActive(false);
-            if (equippedOverlay != null) equippedOverlay.enabled = false;
+            if (amountText) amountText.enabled = false;
+            if (durabilityBar) durabilityBar.gameObject.SetActive(false);
+            if (equippedOverlay) equippedOverlay.enabled = false;
             HideTooltip();
         }
 
@@ -93,7 +94,7 @@ namespace UI.Inventory
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    if (_slotData != null && !_slotData.IsEmpty)
+                    if (_slotData is { IsEmpty: false })
                     {
                         OnLeftClicked?.Invoke(SlotIndex, _slotData);
                     }
@@ -101,7 +102,6 @@ namespace UI.Inventory
                 case PointerEventData.InputButton.Right:
                 {
                     HideTooltip();
-                    Debug.Log($"[InventorySlotUI] Right-clicked on slot {SlotIndex} with item: {(_slotData?.ItemData?.ItemName ?? "Empty")}");
                     if (_slotData == null || _slotData.IsEmpty) return;
                     var context = new InventorySlotActionContext(_slotData, _actionHandler);
                     OnRightClicked?.Invoke(context, eventData.position);

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f20b9dc6be7a71468ece321a20c052d, type: 3}
   m_Name: Meat
   m_EditorClassIdentifier: 
-  id: 
-  itemName: 
+  id: Meat
+  itemName: "Th\u1ECBt c\u1EEBu s\u1ED1ng"
   description: 
-  icon: {fileID: 0}
-  maxStack: 1
+  icon: {fileID: 21300000, guid: 7ae60e0e3b7fd419aa2a0b999da0fb07, type: 3}
+  maxStack: 64
   fuelTime: 0
   healthRestore: 0
-  hungerRestore: 0
+  hungerRestore: 20
   thirstRestore: 0

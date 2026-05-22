@@ -13,6 +13,9 @@ namespace UI.Inventory
     {
         public event Action<IActionableItem, Vector3> OnActionMenuRequested;
         public event Action OnInventoryClosed;
+        
+        public event Action<int, IInventorySlot> OnSlotLeftClicked;
+        public event Action<int, IInventorySlot> OnSlotRightClickedEvent;
 
         private IInventory _inventory;
 
@@ -22,7 +25,7 @@ namespace UI.Inventory
         [SerializeField] private GameObject slotPrefab;
 
         private readonly List<InventorySlotUI> _slotUIs = new List<InventorySlotUI>();
-        private int _selectedSlotIndex = -1;
+        private const int SelectedSlotIndex = -1;
 
         public bool IsVisible { get; private set; }
 
@@ -95,12 +98,12 @@ namespace UI.Inventory
 
         private void HandleNavigation()
         {
-            if (_selectedSlotIndex < 0 || _selectedSlotIndex >= _slotUIs.Count) return;
-            var slotUI = _slotUIs[_selectedSlotIndex];
+            if (SelectedSlotIndex < 0 || SelectedSlotIndex >= _slotUIs.Count) return;
+            var slotUI = _slotUIs[SelectedSlotIndex];
             var slots = _inventory?.Slots;
-            if (slots == null || _selectedSlotIndex >= slots.Count || slots[_selectedSlotIndex].IsEmpty) return;
+            if (slots == null || SelectedSlotIndex >= slots.Count || slots[SelectedSlotIndex].IsEmpty) return;
             
-            var context = new InventorySlotActionContext(slots[_selectedSlotIndex], _inventory.ActionHandler);
+            var context = new InventorySlotActionContext(slots[SelectedSlotIndex], _inventory.ActionHandler);
             OnActionMenuRequested?.Invoke(context, slotUI.transform.position); 
         }
 
@@ -121,12 +124,15 @@ namespace UI.Inventory
             var cap = _inventory.Capacity;
             for (var i = 0; i < cap; i++)
             {
+                var index = i;
                 var go = Instantiate(slotPrefab, slotsContainer);
                 var slotUI = go.GetComponent<InventorySlotUI>();
                 if (!slotUI) continue;
-                slotUI.Init(i, _inventory.ActionHandler);
+                slotUI.Init(index, _inventory.ActionHandler);
                 
+                slotUI.OnLeftClicked += (idx, data) => OnSlotLeftClicked?.Invoke(idx, data);
                 slotUI.OnRightClicked += HandleSlotRightClicked;
+                slotUI.OnRightClicked += (context, pos) => OnSlotRightClickedEvent?.Invoke(index, _inventory.Slots[index]);
                 _slotUIs.Add(slotUI);
             }
         }
@@ -149,8 +155,8 @@ namespace UI.Inventory
                 var data = (i < slots.Count) ? slots[i] : null;
                 _slotUIs[i].Refresh(data);
             }
-            if (_selectedSlotIndex >= 0 && _selectedSlotIndex < _slotUIs.Count)
-                _slotUIs[_selectedSlotIndex].SetHighlight(true);
+            if (SelectedSlotIndex >= 0 && SelectedSlotIndex < _slotUIs.Count)
+                _slotUIs[SelectedSlotIndex].SetHighlight(true);
         }
     }
 }

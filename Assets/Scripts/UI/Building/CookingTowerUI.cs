@@ -25,6 +25,7 @@ namespace UI.Building
         public event Action<int, IInventorySlot> OnSlotClicked;
 
         public bool IsVisible => panelRoot != null && panelRoot.activeSelf;
+        public CookingTower CurrentTower => currentTower;
 
         private void Start()
         {
