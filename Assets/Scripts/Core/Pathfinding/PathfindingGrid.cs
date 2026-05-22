@@ -9,6 +9,8 @@ namespace Core.Pathfinding
         public LayerMask obstacleMask;
         public Vector2 gridWorldSize = new Vector2(30, 30);
         public float nodeRadius = 0.5f;
+        [Range(0f, 1f)]
+        public float collisionBuffer = 0.1f;
 
         [Header("Debug")]
         public bool displayGridGizmos = true;
@@ -16,6 +18,8 @@ namespace Core.Pathfinding
         private PathNode[,] grid;
         private float nodeDiameter;
         private int gridSizeX, gridSizeY;
+
+        public int MaxSize => gridSizeX * gridSizeY;
 
         private void Awake()
         {
@@ -35,45 +39,47 @@ namespace Core.Pathfinding
                 for (int y = 0; y < gridSizeY; y++)
                 {
                     Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
-                    // Kiểm tra xem vị trí này có va chạm với vật cản không
-                    bool isObstacle = Physics2D.OverlapCircle(worldPoint, nodeRadius * 0.9f, obstacleMask) != null;
-                    
+                    bool isObstacle = Physics2D.OverlapCircle(worldPoint, nodeRadius + collisionBuffer, obstacleMask) != null;
                     grid[x, y] = new PathNode(worldPoint, x, y, isObstacle);
+                }
+            }
+
+            for (int x = 0; x < gridSizeX; x++)
+            {
+                for (int y = 0; y < gridSizeY; y++)
+                {
+                    grid[x, y].neighbors = CalculateNeighbors(grid[x, y]);
                 }
             }
         }
 
-        public List<PathNode> GetNeighbors(PathNode node)
+        private PathNode[] CalculateNeighbors(PathNode node)
         {
-            List<PathNode> neighbors = new List<PathNode>();
+            List<PathNode> neighborsList = new List<PathNode>();
 
             for (int x = -1; x <= 1; x++)
             {
                 for (int y = -1; y <= 1; y++)
                 {
-                    if (x == 0 && y == 0)
-                        continue;
+                    if (x == 0 && y == 0) continue;
 
                     int checkX = node.gridX + x;
                     int checkY = node.gridY + y;
 
                     if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                     {
-                        neighbors.Add(grid[checkX, checkY]);
+                        neighborsList.Add(grid[checkX, checkY]);
                     }
                 }
             }
 
-            return neighbors;
+            return neighborsList.ToArray();
         }
 
         public PathNode NodeFromWorldPoint(Vector3 worldPosition)
         {
-            float percentX = (worldPosition.x - transform.position.x + gridWorldSize.x / 2) / gridWorldSize.x;
-            float percentY = (worldPosition.y - transform.position.y + gridWorldSize.y / 2) / gridWorldSize.y;
-            
-            percentX = Mathf.Clamp01(percentX);
-            percentY = Mathf.Clamp01(percentY);
+            float percentX = Mathf.Clamp01((worldPosition.x - transform.position.x + gridWorldSize.x / 2) / gridWorldSize.x);
+            float percentY = Mathf.Clamp01((worldPosition.y - transform.position.y + gridWorldSize.y / 2) / gridWorldSize.y);
 
             int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
             int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
