@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1133194198868502528}
   - component: {fileID: 920768874385773381}
   - component: {fileID: 6474515811856233766}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000059604645, y: 0.4935012}
+  m_Offset: {x: -0.000000059604645, y: 0.41623402}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.50000006, y: 0.13409965}
@@ -132,7 +132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6395255, y: 0.9739027}
+  m_Size: {x: 1.6395255, y: 0.81936836}
   m_EdgeRadius: 0
 --- !u!61 &748060439318642161
 BoxCollider2D:
@@ -166,7 +166,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.8746004}
+  m_Offset: {x: 0, y: 1.8069916}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.50000006, y: 0.13409965}
@@ -177,7 +177,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.7633896}
+  m_Size: {x: 2, y: 1.8986073}
   m_EdgeRadius: 0
 --- !u!114 &1133194198868502528
 MonoBehaviour:
