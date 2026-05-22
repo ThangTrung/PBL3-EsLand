@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Core.Pathfinding
 {
+    /// <summary>
+    /// A* Pathfinding implementation optimized with Min-Heap for 2D Grid.
+    /// </summary>
     [RequireComponent(typeof(PathfindingGrid))]
     public class AStarPathfinder : MonoBehaviour, IPathfinder
     {
@@ -24,31 +27,20 @@ namespace Core.Pathfinding
 
             if (startNode == null || targetNode == null) return new List<Vector3>();
 
-            // Nếu target bị kẹt trong vật cản (do click vào cái tháp, cái cây...), 
-            // thuật toán sẽ đi tìm Node trống gần nhất xung quanh đó để đi tới.
             if (IsNodeBlockedByRadius(targetNode, entityRadius))
             {
                 targetNode = FindClosestWalkableNode(targetNode, entityRadius);
                 if (targetNode == null) return new List<Vector3>();
             }
 
-            List<PathNode> openSet = new List<PathNode>();
+            Heap<PathNode> openSet = new Heap<PathNode>(grid.MaxSize);
             HashSet<PathNode> closedSet = new HashSet<PathNode>();
 
             openSet.Add(startNode);
 
             while (openSet.Count > 0)
             {
-                PathNode currentNode = openSet[0];
-                for (int i = 1; i < openSet.Count; i++)
-                {
-                    if (openSet[i].fCost < currentNode.fCost || (openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost))
-                    {
-                        currentNode = openSet[i];
-                    }
-                }
-
-                openSet.Remove(currentNode);
+                PathNode currentNode = openSet.RemoveFirst();
                 closedSet.Add(currentNode);
 
                 if (currentNode == targetNode)
@@ -56,47 +48,21 @@ namespace Core.Pathfinding
                     return RetracePath(startNode, targetNode);
                 }
 
-                foreach (PathNode neighbor in grid.GetNeighbors(currentNode))
+                foreach (PathNode neighbor in currentNode.neighbors)
                 {
-                    if (neighbor.isObstacle || closedSet.Contains(neighbor))
-                    {
-                        continue;
-                    }
+                    if (neighbor.isObstacle || closedSet.Contains(neighbor)) continue;
 
-                    // Nếu có chỉ định bán kính thực tế của nhân vật, kiểm tra xem tại điểm này có bị kẹt không
                     if (entityRadius > 0f)
                     {
-                        // Kiểm tra va chạm với bán kính của nhân vật (thêm một chút xíu sai số 0.05f để tránh cạ viền)
                         if (Physics2D.OverlapCircle(neighbor.worldPosition, entityRadius + 0.05f, grid.obstacleMask) != null)
-                        {
                             continue;
-                        }
                     }
 
-                    // Kiểm tra đi chéo: Nếu node lân cận là đi chéo, phải đảm bảo 2 node kề bên nó không phải vật cản
-                    if (Mathf.Abs(currentNode.gridX - neighbor.gridX) == 1 && Mathf.Abs(currentNode.gridY - neighbor.gridY) == 1)
+                    if (!allowDiagonal && IsDiagonalMove(currentNode, neighbor)) continue;
+
+                    if (IsDiagonalMove(currentNode, neighbor) && IsCornerCutting(currentNode, neighbor, entityRadius))
                     {
-                        // Đây là node đi chéo
-                        if (!allowDiagonal) continue;
-
-                        // Check 2 node kề (ví dụ đi từ 0,0 lên 1,1 thì phải check 1,0 và 0,1)
-                        PathNode sideNode1 = grid.GetNodeAt(neighbor.gridX, currentNode.gridY);
-                        PathNode sideNode2 = grid.GetNodeAt(currentNode.gridX, neighbor.gridY);
-
-                        if (sideNode1 == null || sideNode2 == null || sideNode1.isObstacle || sideNode2.isObstacle)
-                        {
-                            continue; // Ngăn chặn cắt góc tường
-                        }
-                        
-                        // Cẩn thận hơn: Check collider thực tế tại 2 side node nếu nhân vật to
-                        if (entityRadius > 0f)
-                        {
-                            if (Physics2D.OverlapCircle(sideNode1.worldPosition, entityRadius, grid.obstacleMask) != null ||
-                                Physics2D.OverlapCircle(sideNode2.worldPosition, entityRadius, grid.obstacleMask) != null)
-                            {
-                                continue;
-                            }
-                        }
+                        continue;
                     }
 
                     int newCostToNeighbor = currentNode.gCost + GetDistance(currentNode, neighbor);
@@ -108,11 +74,37 @@ namespace Core.Pathfinding
 
                         if (!openSet.Contains(neighbor))
                             openSet.Add(neighbor);
+                        else
+                            openSet.UpdateItem(neighbor);
                     }
                 }
             }
 
-            return new List<Vector3>(); // Không tìm thấy đường
+            return new List<Vector3>();
+        }
+
+        private bool IsDiagonalMove(PathNode currentNode, PathNode neighbor)
+        {
+            return Mathf.Abs(currentNode.gridX - neighbor.gridX) == 1 && Mathf.Abs(currentNode.gridY - neighbor.gridY) == 1;
+        }
+
+        private bool IsCornerCutting(PathNode currentNode, PathNode neighbor, float entityRadius)
+        {
+            PathNode sideNode1 = grid.GetNodeAt(neighbor.gridX, currentNode.gridY);
+            PathNode sideNode2 = grid.GetNodeAt(currentNode.gridX, neighbor.gridY);
+
+            if (sideNode1 == null || sideNode2 == null || sideNode1.isObstacle || sideNode2.isObstacle) return true;
+
+            if (entityRadius > 0f)
+            {
+                if (Physics2D.OverlapCircle(sideNode1.worldPosition, entityRadius, grid.obstacleMask) != null ||
+                    Physics2D.OverlapCircle(sideNode2.worldPosition, entityRadius, grid.obstacleMask) != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private List<Vector3> RetracePath(PathNode startNode, PathNode endNode)
@@ -126,22 +118,15 @@ namespace Core.Pathfinding
                 currentNode = currentNode.parent;
             }
 
-            // Path đang từ cuối lên đầu, cần đảo ngược lại
             path.Reverse();
+            return smoothPath ? SimplifyPath(path) : ConvertToWaypoints(path);
+        }
 
-            if (smoothPath)
-            {
-                return SimplifyPath(path);
-            }
-            else
-            {
-                List<Vector3> waypoints = new List<Vector3>();
-                foreach (PathNode p in path)
-                {
-                    waypoints.Add(p.worldPosition);
-                }
-                return waypoints;
-            }
+        private List<Vector3> ConvertToWaypoints(List<PathNode> path)
+        {
+            List<Vector3> waypoints = new List<Vector3>();
+            foreach (PathNode p in path) waypoints.Add(p.worldPosition);
+            return waypoints;
         }
 
         private List<Vector3> SimplifyPath(List<PathNode> path)
@@ -150,8 +135,6 @@ namespace Core.Pathfinding
             if (path.Count == 0) return waypoints;
 
             Vector2 directionOld = Vector2.zero;
-            
-            // Luôn thêm điểm đầu tiên của chuỗi path vào.
             waypoints.Add(path[0].worldPosition);
 
             for (int i = 1; i < path.Count; i++)
@@ -159,10 +142,6 @@ namespace Core.Pathfinding
                 Vector2 directionNew = new Vector2(path[i].gridX - path[i - 1].gridX, path[i].gridY - path[i - 1].gridY);
                 if (directionNew != directionOld)
                 {
-                    // Khi đổi hướng, điểm bẻ góc chính là điểm path[i - 1]
-                    // (Lưu ý: với i=1, directionOld = zero nên nó sẽ luôn add path[0] một lần nữa,
-                    // để tránh trùng lặp ta check nếu i != 1 hoặc cứ add rồi lọc sau cũng được, 
-                    // nhưng tối ưu nhất là chỉ add nếu nó khác điểm cuối đã add).
                     if (waypoints.Count == 0 || waypoints[waypoints.Count - 1] != path[i - 1].worldPosition)
                     {
                         waypoints.Add(path[i - 1].worldPosition);
@@ -171,7 +150,6 @@ namespace Core.Pathfinding
                 directionOld = directionNew;
             }
 
-            // Đảm bảo điểm đích cuối cùng luôn có
             if (waypoints.Count == 0 || waypoints[waypoints.Count - 1] != path[path.Count - 1].worldPosition)
             {
                 waypoints.Add(path[path.Count - 1].worldPosition);
@@ -185,8 +163,7 @@ namespace Core.Pathfinding
             int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
             int dstY = Mathf.Abs(nodeA.gridY - nodeB.gridY);
 
-            if (dstX > dstY)
-                return 14 * dstY + 10 * (dstX - dstY);
+            if (dstX > dstY) return 14 * dstY + 10 * (dstX - dstY);
             return 14 * dstX + 10 * (dstY - dstX);
         }
 
@@ -208,7 +185,6 @@ namespace Core.Pathfinding
             queue.Enqueue(startSearchNode);
             visited.Add(startSearchNode);
 
-            // Giới hạn vòng lặp BFS để không tốn hiệu năng nếu cả vùng lớn bị đóng kín
             int maxIterations = 150;
             int currentIteration = 0;
 
@@ -222,7 +198,7 @@ namespace Core.Pathfinding
                     return current;
                 }
                 
-                foreach (PathNode neighbor in grid.GetNeighbors(current))
+                foreach (PathNode neighbor in current.neighbors)
                 {
                     if (!visited.Contains(neighbor))
                     {
