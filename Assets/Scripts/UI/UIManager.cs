@@ -1,6 +1,7 @@
 using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
 using Core.Events;
+using Data.Items;
 using Gameplay.Characters;
 using UI.Equipment;
 using UI.Inventory;
@@ -20,10 +21,17 @@ namespace UI
         public StatusPanelUI statusUI;
         public CookingTowerUI cookingUI;
 
+        private IInventory _playerInventory;
+
         private void OnEnable()
         {
             GameEvents.OnPlayerReady += HandlePlayerReady;
             Gameplay.Building.CookingTower.OnTowerInteracted += HandleTowerInteracted;
+
+            if (cookingUI != null)
+            {
+                cookingUI.OnSlotClicked += HandleCookingSlotClicked;
+            }
         }
 
         private void OnDisable()
@@ -35,6 +43,7 @@ namespace UI
             {
                 inventoryUI.OnActionMenuRequested -= OpenActionMenu;
                 inventoryUI.OnInventoryClosed -= actionMenu.HideMenu;
+                inventoryUI.OnSlotLeftClicked -= HandleInventorySlotLeftClicked;
             }
 
             if (equipmentUI != null)
@@ -42,15 +51,26 @@ namespace UI
                 equipmentUI.OnActionMenuRequested -= OpenActionMenu;
                 equipmentUI.OnEquipmentClosed -= actionMenu.HideMenu;
             }
+
+            if (cookingUI != null)
+            {
+                cookingUI.OnSlotClicked -= HandleCookingSlotClicked;
+            }
         }
 
         private void HandlePlayerReady(IInventoryHolder inventoryHolder)
         {
+            if (inventoryHolder != null)
+            {
+                _playerInventory = inventoryHolder.Inventory;
+            }
+
             if (inventoryUI != null)
             {
                 inventoryUI.Initialize(inventoryHolder);
                 inventoryUI.OnActionMenuRequested += OpenActionMenu;
                 inventoryUI.OnInventoryClosed += actionMenu.HideMenu;
+                inventoryUI.OnSlotLeftClicked += HandleInventorySlotLeftClicked;
                 Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo và kết nối Inventory UI.");
             }
 
@@ -93,17 +113,51 @@ namespace UI
             }
         }
 
+        private void HandleInventorySlotLeftClicked(int index, IInventorySlot slot)
+        {
+            if (cookingUI == null || !cookingUI.IsVisible || cookingUI.CurrentTower == null) return;
+            if (slot == null || slot.IsEmpty || _playerInventory == null) return;
+            var item = slot.ItemData;
+            var added = false;
+
+            // Kiểm tra nhiên liệu trước tiên, hoặc kiểm tra nấu ăn trước tùy mức ưu tiên.
+            // Để rõ ràng, nếu là MaterialItem và canBeSmelted thì ưu tiên vào Input (0).
+            if (item is MaterialItem { canBeSmelted: true })
+            {
+                added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
+            }
+            if (!added && item.FuelTime > 0)
+            {
+                added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
+            }
+            if (added)
+            {
+                _playerInventory.ConsumeSlot(slot, 1);
+            }
+        }
+
+        private void HandleCookingSlotClicked(int slotIndex, IInventorySlot slot)
+        {
+            if (cookingUI == null || !cookingUI.IsVisible || cookingUI.CurrentTower == null) return;
+            if (slot == null || slot.IsEmpty || _playerInventory == null) return;
+
+            // Rút toàn bộ số lượng trong slot của lò ra (hoặc rút từng cái, ở đây rút toàn bộ cho giống lấy thành phẩm)
+            var item = cookingUI.CurrentTower.WithdrawItem(slotIndex, out int amount);
+            if (item == null || amount <= 0) return;
+            // Cố gắng thêm vào túi đồ
+            var success = _playerInventory.AddItem(item, amount);
+            if (success) return;
+            cookingUI.CurrentTower.TryAddItem(slotIndex, item, amount);
+            Debug.LogWarning("Túi đồ đã đầy, không thể lấy vật phẩm từ lò!");
+        }
+
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-            {
-                if (EventSystem.current != null && !EventSystem.current.IsPointerOverGameObject())
-                {
-                    if (inventoryUI != null && inventoryUI.IsVisible) inventoryUI.SetVisible(false);
-                    if (equipmentUI != null && equipmentUI.IsVisible) equipmentUI.SetVisible(false);
-                    if (cookingUI != null && cookingUI.IsVisible) cookingUI.ClosePanel();
-                }
-            }
+            if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1)) return;
+            if (!EventSystem.current || EventSystem.current.IsPointerOverGameObject()) return;
+            if (inventoryUI && inventoryUI.IsVisible) inventoryUI.SetVisible(false);
+            if (equipmentUI && equipmentUI.IsVisible) equipmentUI.SetVisible(false);
+            if (cookingUI && cookingUI.IsVisible) cookingUI.ClosePanel();
         }
 
         private void OpenActionMenu(IActionableItem context, Vector3 pos)

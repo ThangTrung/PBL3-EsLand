@@ -12,7 +12,7 @@ namespace Gameplay.Building
         [Header("Settings")]
         [SerializeField] private float interactRange = 3f;
 
-        public InventorySlot[] Slots { get; private set; } = new InventorySlot[3];
+        public InventorySlot[] Slots { get; } = new InventorySlot[3];
 
         public float CurrentFuelTime { get; private set; }
         public float MaxFuelTime { get; private set; }
@@ -24,7 +24,7 @@ namespace Gameplay.Building
 
         private void Awake()
         {
-            for (int i = 0; i < Slots.Length; i++)
+            for (var i = 0; i < Slots.Length; i++)
             {
                 Slots[i] = new InventorySlot(null, 0);
             }
@@ -45,10 +45,10 @@ namespace Gameplay.Building
 
         private void Update()
         {
-            bool isDirty = false;
-            bool isCooking = false;
+            var isDirty = false;
+            var isCooking = false;
 
-            bool hasValidInput = false;
+            var hasValidInput = false;
             MaterialItem inputMaterial = null;
 
             // 1. Kiểm tra Slot Input (0)
@@ -116,7 +116,6 @@ namespace Gameplay.Building
                 }
             }
             
-            // Nếu lò đang không nấu (thiếu nguyên liệu) nhưng vẫn còn củi, củi vẫn cháy dần theo thời gian (giống Minecraft).
             if (!isCooking && CurrentFuelTime > 0)
             {
                 CurrentFuelTime -= Time.deltaTime;
@@ -133,12 +132,44 @@ namespace Gameplay.Building
         private bool CanSmelt(MaterialItem inputMaterial)
         {
             if (Slots[2].IsEmpty) return true;
-            if (Slots[2].ItemData.ID != inputMaterial.resultItem.ID) return false; // Khác loại
-            if (Slots[2].Amount >= Slots[2].ItemData.MaxStack) return false; // Full stack
+            if (Slots[2].ItemData.ID != inputMaterial.resultItem.ID) return false; 
+            return Slots[2].Amount < Slots[2].ItemData.MaxStack;
+        }
+
+        public bool TryAddItem(int slotIndex, ItemData item, int amount)
+        {
+            if (slotIndex < 0 || slotIndex >= Slots.Length) return false;
+            
+            var targetSlot = Slots[slotIndex];
+            if (targetSlot.IsEmpty)
+            {
+                targetSlot.SetItem(item, amount);
+                OnStateChanged?.Invoke();
+                return true;
+            }
+
+            if (targetSlot.ItemData.ID != item.ID || targetSlot.Amount + amount > item.MaxStack) return false;
+            targetSlot.AddAmount(amount);
+            OnStateChanged?.Invoke();
             return true;
         }
 
-        // Test Helper: Add item directly
+        public ItemData WithdrawItem(int slotIndex, out int amount)
+        {
+            amount = 0;
+            if (slotIndex < 0 || slotIndex >= Slots.Length) return null;
+
+            var targetSlot = Slots[slotIndex];
+            if (targetSlot.IsEmpty) return null;
+
+            var item = targetSlot.ItemData;
+            amount = targetSlot.Amount;
+            
+            targetSlot.Clear();
+            OnStateChanged?.Invoke();
+            return item;
+        }
+        
         public void SetTestItem(int slotIndex, ItemData item, int amount)
         {
             Slots[slotIndex].SetItem(item, amount);
