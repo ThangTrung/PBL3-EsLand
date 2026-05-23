@@ -1,5 +1,5 @@
 using Core.Contracts.Equipment;
-using Core.Contracts.Pathfinding;
+using Core.Contracts.AI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +8,7 @@ namespace Gameplay.Characters
     /// <summary>
     /// Handles physical movement and path following for the character.
     /// Interface for manual movement (Move) and automatic target following.
+    /// Uses ICharacterNavigator service for pathfinding.
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
@@ -16,9 +17,6 @@ namespace Gameplay.Characters
 
         [Header("Movement Settings")]
         [SerializeField] private float baseMoveSpeed = 5f;
-        [SerializeField] private float waypointTolerance = 0.1f;
-        [SerializeField] private float repathThreshold = 0.5f;
-        [SerializeField] private float repathCooldown = 0.2f;
 
         private Rigidbody2D _rb;
         private Character _facade;
@@ -31,13 +29,8 @@ namespace Gameplay.Characters
         private float _stopDistance;
         private System.Action _onTargetReached;
 
-        // Pathfinding integration
-        private IPathfinder _pathfinder;
-        private List<Vector3> _currentPath;
-        private int _currentWaypointIndex;
-        private Vector3 _lastTargetPos;
-        private float _lastRepathTime;
-        private float _playerRadius = 0.3f;
+        // Navigation Service
+        private ICharacterNavigator _navigator;
 
         public bool IsFollowingTarget => _followTarget != null;
 
@@ -46,21 +39,13 @@ namespace Gameplay.Characters
             _rb = GetComponent<Rigidbody2D>();
             _facade = GetComponent<Character>();
             _myCollider = GetComponent<Collider2D>();
+            _navigator = GetComponent<ICharacterNavigator>();
         }
 
         private void Start()
         {
             if (_facade != null && _facade.Health != null)
                 _facade.Health.OnDie += HandleDie;
-
-            // Tìm Pathfinder trên Scene
-            _pathfinder = Object.FindAnyObjectByType<Core.Pathfinding.AStarPathfinder>();
-            
-            // Tính toán bán kính của Player từ Collider để Pathfinding check vật cản
-            if (_myCollider != null)
-            {
-                _playerRadius = Mathf.Min(_myCollider.bounds.extents.x, _myCollider.bounds.extents.y) * 0.8f;
-            }
         }
 
         private void OnDestroy()
@@ -72,6 +57,9 @@ namespace Gameplay.Characters
         private void FixedUpdate()
         {
             if (_followTarget == null || !_canMove) return;
+
+            // Sync Navigator with current physical position
+            _navigator?.SyncPosition();
 
             if (CheckReachedTarget())
             {
@@ -125,60 +113,34 @@ namespace Gameplay.Characters
             _onTargetReached = onReached;
             _canMove = true;
             
-            CalculatePath();
-        }
-
-        private void CalculatePath()
-        {
-            if (_pathfinder == null || _followTarget == null) return;
-            
-            _currentPath = _pathfinder.FindPath(transform.position, _followTarget.position, _playerRadius);
-            _currentWaypointIndex = 0;
-            _lastTargetPos = _followTarget.position;
-            _lastRepathTime = Time.time;
+            if (_navigator != null)
+            {
+                _navigator.SetDestination(target.position);
+            }
         }
 
         private void FollowPath()
         {
-            // 1. Kiểm tra xem target có di chuyển quá khoảng Threshold không để tính lại đường
-            if (Time.time - _lastRepathTime > repathCooldown)
-            {
-                if (Vector3.Distance(_lastTargetPos, _followTarget.position) > repathThreshold)
-                {
-                    CalculatePath();
-                }
-            }
-
-            // 2. Nếu không có path hoặc đã đi hết path, đi thẳng (fallback)
-            if (_currentPath == null || _currentPath.Count == 0 || _currentWaypointIndex >= _currentPath.Count)
+            if (_navigator == null)
             {
                 MoveTowards(_followTarget.position);
                 return;
             }
 
-            // 3. Di chuyển tới waypoint hiện tại
-            Vector3 currentWaypoint = _currentPath[_currentWaypointIndex];
-            
-            // 4. Chuyển waypoint nếu đã tới đủ gần
-            if (Vector2.Distance(transform.position, currentWaypoint) <= waypointTolerance)
-            {
-                _currentWaypointIndex++;
-                if (_currentWaypointIndex >= _currentPath.Count)
-                {
-                    MoveTowards(_followTarget.position);
-                    return;
-                }
-                currentWaypoint = _currentPath[_currentWaypointIndex];
-            }
+            // Update destination in case target moved
+            _navigator.SetDestination(_followTarget.position);
 
-            MoveTowards(currentWaypoint);
+            // Get next direction from the navigation service
+            Vector2 direction = _navigator.GetNextDirection();
+            
+            ApplyVelocity(direction * GetMoveSpeed());
         }
 
         public void CancelFollow()
         {
             _followTarget = null;
             _onTargetReached = null;
-            _currentPath = null;
+            _navigator?.Stop();
         }
 
         public void StopMovement() => ApplyVelocity(Vector2.zero);
@@ -216,7 +178,7 @@ namespace Gameplay.Characters
                                       targetCollider.bounds.ClosestPoint(transform.position)) < 0.1f;
             }
 
-            return Vector2.Distance(transform.position, _followTarget.position) <= _stopDistance;
+            return _navigator != null ? _navigator.IsAtDestination(_stopDistance) : Vector2.Distance(transform.position, _followTarget.position) <= _stopDistance;
         }
 
         private void CompleteFollow()
