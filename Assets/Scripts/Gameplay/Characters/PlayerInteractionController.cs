@@ -17,6 +17,7 @@ namespace Gameplay.Characters
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float baseAttackCooldown = 1f;
+        [SerializeField] private float interactionRange = 0.5f;
 
         private float _attackTimer;
         private Character _facade;
@@ -109,7 +110,7 @@ namespace Gameplay.Characters
                     return; 
                 }
             }
-            _movement.SetFollowTarget(targetTransform, 0f, () => 
+            _movement.SetFollowTarget(targetTransform, interactionRange, () => 
             {
                 FaceTarget(targetTransform.position);
                 StartCoroutine(ExecuteAttackSequence(target));
