@@ -38,12 +38,12 @@ namespace Gameplay.Characters
 
         private void InitializeReferences()
         {
-            if (_facade == null) _facade = GetComponentInParent<Character>();
-            if (_movement == null) _movement = GetComponentInParent<PlayerMovementController>();
+            if (!_facade) _facade = GetComponentInParent<Character>();
+            if (!_movement) _movement = GetComponentInParent<PlayerMovementController>();
             
             // Fallback for detached prefabs
-            if (_facade == null && transform.parent != null) _facade = transform.parent.GetComponent<Character>();
-            if (_movement == null && transform.parent != null) _movement = transform.parent.GetComponent<PlayerMovementController>();
+            if (!_facade && !transform.parent) _facade = transform.parent.GetComponent<Character>();
+            if (!_movement && !transform.parent) _movement = transform.parent.GetComponent<PlayerMovementController>();
         }
 
         private void Update()
@@ -59,12 +59,12 @@ namespace Gameplay.Characters
             if (_mainCamera == null) _mainCamera = Camera.main;
             if (_mainCamera == null) return;
 
-            Vector3 screenPos = Input.mousePosition;
+            var screenPos = Input.mousePosition;
             screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
             Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
 
             Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
-            Gameplay.Environment.EnvironmentHighlight newHover = null;
+            Environment.EnvironmentHighlight newHover = null;
 
             foreach (var col in colliders)
             {
@@ -83,27 +83,24 @@ namespace Gameplay.Characters
             }
         }
 
-        public void HandleInteractionClick(Vector2 mouseWorldPos)
+        public void HandleInteractionClick(Vector3 mouseWorldPos)
         {
-            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
+            var colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
             
             foreach (var col in colliders)
             {
-                if (col != null && col.TryGetComponent<IInteractable>(out var target))
-                {
-                    InteractWithTarget(target, col.transform);
-                    return; 
-                }
+                if (!col || !col.TryGetComponent<IInteractable>(out var target)) continue;
+                InteractWithTarget(target, col.transform);
+                return;
             }
         }
 
-        public void InteractWithTarget(IInteractable target, Transform targetTransform)
+        private void InteractWithTarget(IInteractable target, Transform targetTransform)
         {
             InitializeReferences();
-            if (target == null || targetTransform == null || _movement == null) return;
-
-            // --- CHỐT CHẶN TỪ XA ---
-            if (target is Gameplay.World.ResourceNode node)
+            if (target == null || !targetTransform  || !_movement) return;
+            
+            if (target is World.ResourceNode node)
             {
                 if (node.IsDead) return; 
 

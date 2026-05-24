@@ -19,8 +19,6 @@ GameObject:
   - component: {fileID: 429650107241706086}
   - component: {fileID: 2813311032241275830}
   - component: {fileID: 8768574144964900732}
-  - component: {fileID: 786141292990498683}
-  - component: {fileID: 2383602383950934794}
   m_Layer: 8
   m_Name: Pawn_black
   m_TagString: Player
@@ -236,42 +234,6 @@ PolygonCollider2D:
       - {x: 0.17298758, y: 0.118065834}
       - {x: 0.13965559, y: 0.16188306}
   m_UseDelaunayMesh: 0
---- !u!195 &786141292990498683
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673750509214528949}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.3
-  m_Speed: 5
-  m_Acceleration: 20
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &2383602383950934794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673750509214528949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f313791f0b0b59240b2b85e2afc2b38f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshSampleDistance: 2
-  repathCooldown: 0.5
 --- !u!1 &1867301193532782682
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +542,7 @@ MonoBehaviour:
     m_Bits: 5184
   baseDamage: 10
   baseAttackCooldown: 1
+  interactionRange: 0.5
 --- !u!1 &6725723634086507295
 GameObject:
   m_ObjectHideFlags: 0

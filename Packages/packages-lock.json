@@ -8,7 +8,14 @@
         "com.unity.nuget.newtonsoft-json": "3.0.2",
         "com.unity.test-framework": "1.1.31"
       },
-      "hash": "b92c05a25820cfc9f59ce4094eb46aaec8632ea2"
+      "hash": "417cf351a152b483c91e6e2deaf7ae355fa8eff3"
+    },
+    "com.h8man.2d.navmeshplus": {
+      "version": "https://github.com/h8man/NavMeshPlus.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "53de7d5c64d880781d5df5162f584eff1888368e"
     },
     "com.unity.2d.animation": {
       "version": "9.2.0",
