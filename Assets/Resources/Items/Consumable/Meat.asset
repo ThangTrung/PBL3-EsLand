@@ -21,3 +21,6 @@ MonoBehaviour:
   healthRestore: 0
   hungerRestore: 20
   thirstRestore: 0
+  canBeCooked: 1
+  cookedResult: {fileID: 0}
+  cookingTime: 10

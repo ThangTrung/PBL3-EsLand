@@ -117,19 +117,27 @@ namespace UI
         {
             if (cookingUI == null || !cookingUI.IsVisible || cookingUI.CurrentTower == null) return;
             if (slot == null || slot.IsEmpty || _playerInventory == null) return;
-            var item = slot.ItemData;
-            var added = false;
 
-            // Kiểm tra nhiên liệu trước tiên, hoặc kiểm tra nấu ăn trước tùy mức ưu tiên.
-            // Để rõ ràng, nếu là MaterialItem và canBeSmelted thì ưu tiên vào Input (0).
-            if (item is MaterialItem { canBeSmelted: true })
+            var item = slot.ItemData;
+            bool added = false;
+
+            // Áp dụng Logic Định Tuyến Nghiêm Ngặt (Strict Routing) dựa trên Type:
+            // - ConsumableItem (nếu nấu được) -> BẮT BUỘC vào ô Input (Slot 0)
+            // - MaterialItem (nếu là nhiên liệu) -> BẮT BUỘC vào ô Fuel (Slot 1)
+            switch (item)
             {
-                added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
+                case ConsumableItem consumable when consumable.IsCookable:
+                    added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
+                    break;
+
+                case MaterialItem material when material.FuelTime > 0:
+                    added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
+                    break;
+
+                // Dễ dàng mở rộng trong tương lai, ví dụ:
+                // case OreItem ore: added = cookingUI.CurrentTower.TryAddItem(0, item, 1); break;
             }
-            if (!added && item.FuelTime > 0)
-            {
-                added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
-            }
+
             if (added)
             {
                 _playerInventory.ConsumeSlot(slot, 1);
