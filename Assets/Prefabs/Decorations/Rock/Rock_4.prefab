@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 178121197925248813}
   - component: {fileID: 5857069627116224476}
   - component: {fileID: 3080291618834553879}
+  - component: {fileID: 4153162489434360471}
   m_Layer: 12
   m_Name: Rock_4
   m_TagString: Untagged
@@ -140,3 +141,19 @@ PolygonCollider2D:
       - {x: 0.39608097, y: -0.004753113}
       - {x: 0.20448971, y: 0.1841507}
   m_UseDelaunayMesh: 0
+--- !u!114 &4153162489434360471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931825544802564342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

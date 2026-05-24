@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1551501484079432575}
   - component: {fileID: 3685988026375405512}
   - component: {fileID: 3906101271091306712}
+  - component: {fileID: 8454102664255528626}
   m_Layer: 12
   m_Name: rock_5
   m_TagString: Untagged
@@ -225,3 +226,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &8454102664255528626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6224501539193874970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
