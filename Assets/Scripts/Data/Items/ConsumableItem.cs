@@ -5,12 +5,22 @@ using UnityEngine;
 namespace Data.Items
 {
     [CreateAssetMenu(fileName = "New Consumable", menuName = "Inventory/ItemData/Consumable")]
-    public class ConsumableItem : ItemData, IItemUsable
+    public class ConsumableItem : ItemData, IItemUsable, ICookable
     {
         [Header("Consumable Stats")]
         public float healthRestore;
         public float hungerRestore;
         public float thirstRestore;
+
+        [Header("Cooking Settings (ICookable)")]
+        [SerializeField] private bool canBeCooked;
+        [SerializeField] private ItemData cookedResult;
+        [SerializeField] private float cookingTime = 10f;
+
+        // Implement ICookable
+        public bool IsCookable => canBeCooked;
+        public ItemData CookingResult => cookedResult;
+        public float CookingTime => cookingTime;
 
         public bool Use(Character user)
         {

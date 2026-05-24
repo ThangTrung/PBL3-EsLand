@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffbc0ac0332ce144a8bdbcc3196135e, type: 3}
+  m_Name: Harmer_Recipe
+  m_EditorClassIdentifier: 
+  id: Harmer_Recipe
+  recipeName: "B\xFAa g\u1ED7"
+  description: "M\xF4 t\u1EA3 c\xF4ng th\u1EE9c ch\u1EBF t\u1EA1o..."
+  ingredients:
+  - item: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
+    amount: 10
+  resultItem: {fileID: 11400000, guid: c28c347cf7e493a49ae5792359fe5acf, type: 2}
+  resultPrefab: {fileID: 6993628845091683493, guid: 622d2a7a8d8813341b1870c1efab32c7, type: 3}
