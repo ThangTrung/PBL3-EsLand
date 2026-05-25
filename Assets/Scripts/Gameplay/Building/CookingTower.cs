@@ -49,16 +49,16 @@ namespace Gameplay.Building
             var isCooking = false;
 
             var hasValidInput = false;
-            MaterialItem inputMaterial = null;
+            ICookable inputCookable = null;
 
             // 1. Kiểm tra Slot Input (0)
-            if (!Slots[0].IsEmpty && Slots[0].ItemData is MaterialItem mat && mat.canBeSmelted)
+            if (!Slots[0].IsEmpty && Slots[0].ItemData is ICookable cookable && cookable.IsCookable)
             {
-                if (CanSmelt(mat))
+                if (CanCook(cookable))
                 {
                     hasValidInput = true;
-                    inputMaterial = mat;
-                    SmeltTime = mat.smeltTime;
+                    inputCookable = cookable;
+                    SmeltTime = cookable.CookingTime;
                 }
             }
 
@@ -95,7 +95,7 @@ namespace Gameplay.Building
                     isCooking = true;
                     isDirty = true; // Update progress bar liên tục
 
-                    if (CookingProgress >= inputMaterial.smeltTime)
+                    if (CookingProgress >= inputCookable.CookingTime)
                     {
                         CookingProgress = 0;
                         
@@ -106,9 +106,9 @@ namespace Gameplay.Building
                         // Thêm Output (Slot 2)
                         if (Slots[2].IsEmpty)
                         {
-                            Slots[2].SetItem(inputMaterial.resultItem, 1);
+                            Slots[2].SetItem(inputCookable.CookingResult, 1);
                         }
-                        else if (Slots[2].ItemData.ID == inputMaterial.resultItem.ID)
+                        else if (Slots[2].ItemData.ID == inputCookable.CookingResult.ID)
                         {
                             Slots[2].AddAmount(1);
                         }
@@ -129,10 +129,11 @@ namespace Gameplay.Building
             }
         }
 
-        private bool CanSmelt(MaterialItem inputMaterial)
+        private bool CanCook(ICookable cookable)
         {
+            if (cookable.CookingResult == null) return false;
             if (Slots[2].IsEmpty) return true;
-            if (Slots[2].ItemData.ID != inputMaterial.resultItem.ID) return false; 
+            if (Slots[2].ItemData.ID != cookable.CookingResult.ID) return false; 
             return Slots[2].Amount < Slots[2].ItemData.MaxStack;
         }
 

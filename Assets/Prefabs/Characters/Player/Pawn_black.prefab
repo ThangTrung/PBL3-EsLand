@@ -542,6 +542,7 @@ MonoBehaviour:
     m_Bits: 5184
   baseDamage: 10
   baseAttackCooldown: 1
+  interactionRange: 0.5
 --- !u!1 &6725723634086507295
 GameObject:
   m_ObjectHideFlags: 0

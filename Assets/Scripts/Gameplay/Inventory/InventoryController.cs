@@ -164,6 +164,32 @@ namespace Gameplay.Inventory
         {
             OnInventoryChanged?.Invoke(); // Giữ nguyên chức năng cũ (cập nhật UI)
         }
+
+        public bool TryCraftRecipe(Data.Crafting.CraftingRecipe recipe)
+        {
+            if (recipe == null) return false;
+
+            // 1. Kiểm tra lại một lần nữa xem Inventory có đủ tất cả nguyên liệu không
+            foreach (var ingredient in recipe.Ingredients)
+            {
+                if (CountItem(ingredient.Item) < ingredient.Amount)
+                {
+                    return false; // Không đủ nguyên liệu, thoát
+                }
+            }
+
+            // 2. Trừ đúng số lượng của từng nguyên liệu yêu cầu
+            foreach (var ingredient in recipe.Ingredients)
+            {
+                RemoveItem(ingredient.Item, ingredient.Amount);
+            }
+
+            // 3. Thêm vật phẩm thành phẩm vào túi đồ
+            AddItem(recipe.ResultItem, 1);
+
+            return true;
+        }
+
         #region ISaveable Implementation
         public void LoadData(Infrastructure.SaveSystem.Data.GameData data)
         {
