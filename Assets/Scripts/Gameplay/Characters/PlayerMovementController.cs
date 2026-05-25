@@ -90,7 +90,7 @@ namespace Gameplay.Characters
         {
             if (!_canMove)
             {
-                StopMovement();
+                // Removed StopMovement() to allow physical forces like Knockback to persist
                 return;
             }
 

@@ -23,6 +23,7 @@ namespace Data.Combat
 
         [Header("Visual")]
         [SerializeField] private Sprite projectileSprite;
+        [SerializeField] private float spriteRotationOffset = -45f;
 
         public float BaseDamage => baseDamage;
         public float Speed => speed;
@@ -36,6 +37,7 @@ namespace Data.Combat
         public float SlowMultiplier => slowMultiplier;
         public float SlowDuration => slowDuration;
         public Sprite ProjectileSprite => projectileSprite;
+        public float SpriteRotationOffset => spriteRotationOffset;
 
         public void Initialize(float damage, float projectileSpeed, float lifetime, float radius)
         {

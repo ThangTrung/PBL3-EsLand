@@ -49,7 +49,7 @@ namespace Gameplay.AI.Movement
         {
             if (!_canMove)
             {
-                StopMovement();
+                // Removed StopMovement() to allow physical forces like Knockback to persist
                 return;
             }
 

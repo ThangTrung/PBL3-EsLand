@@ -12,7 +12,7 @@ namespace Gameplay.AI.Enemies.Aquatic
     {
         private const string ConfigPath = "Enemies/Configs/HarpoonSharkConfig";
         private const string AnimationPath = "Enemies/Animations/HarpoonSharkAnims";
-        private const string ProjectilePath = "Enemies/Projectiles/Harpoon";
+        private const string ProjectilePath = "Enemies/Projectiles/HarpoonShark/Harpoon";
 
         protected override void Awake()
         {

@@ -16,14 +16,16 @@ namespace Gameplay.Combat.Projectiles
         private Vector3 _direction;
         private float _lifeTimer;
         private bool _initialized;
-        private SpriteRenderer _spriteRenderer;
+        
+        private static readonly Collider2D[] _hitBuffer = new Collider2D[10];
+private SpriteRenderer _spriteRenderer;
 
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-public void Initialize(ProjectileSpec spec, Transform owner, Transform target)
+        public void Initialize(ProjectileSpec spec, Transform owner, Transform target)
         {
             _spec = spec;
             _owner = owner;
@@ -42,6 +44,11 @@ public void Initialize(ProjectileSpec spec, Transform owner, Transform target)
             }
 
             _direction = _target != null ? (_target.position - transform.position).normalized : transform.right;
+
+            // Tự động xoay mũi đạn/lao về hướng bay
+            float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+            float rotationOffset = _spec != null ? _spec.SpriteRotationOffset : 0f;
+            transform.rotation = Quaternion.Euler(0, 0, angle + rotationOffset);
         }
 
 public void OnSpawn()
@@ -60,24 +67,26 @@ public void OnSpawn()
         {
             if (!_initialized || _spec == null)
             {
-                Destroy(gameObject);
+                ObjectPoolManager.Instance.Return(gameObject);
                 return;
             }
 
             _lifeTimer += Time.deltaTime;
             if (_lifeTimer >= _spec.MaxLifetime)
             {
-                Destroy(gameObject);
+                ObjectPoolManager.Instance.Return(gameObject);
                 return;
             }
 
             transform.position += _direction * _spec.Speed * Time.deltaTime;
 
-            var hits = Physics2D.OverlapCircleAll(transform.position, _spec.HitRadius);
-            foreach (var hit in hits)
+            int hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, _spec.HitRadius, _hitBuffer);
+            for (int i = 0; i < hitCount; i++)
             {
+                var hit = _hitBuffer[i];
                 if (hit == null) continue;
-                if (_owner != null && hit.transform == _owner) continue;
+                if (hit.isTrigger) continue; // Bỏ qua các trigger vô hình (như vùng nhìn thấy)
+                if (_owner != null && hit.transform.root == _owner.root) continue; // Bỏ qua chính bản thân người ném
 
                 if (hit.TryGetComponent<IDamageable>(out var damageable))
                 {
@@ -105,6 +114,7 @@ public void OnSpawn()
                     }
                 }
 
+                // Nếu không có tính năng xuyên thấu, đụng mục tiêu rắn là biến mất
                 if (!_spec.CanPierce)
                 {
                     ObjectPoolManager.Instance.Return(gameObject);

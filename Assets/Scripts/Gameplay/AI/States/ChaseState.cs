@@ -44,9 +44,9 @@ namespace Gameplay.AI.States
             float distX = Mathf.Abs(enemy.transform.position.x - enemy.Target.position.x);
             float distY = Mathf.Abs(enemy.transform.position.y - yWithOffset);
             
-            // Dung sai được nới lỏng nhẹ để nhiều quái có thể cùng tấn công
-            bool isYAligned = distY <= 0.25f; 
-            bool isXInRange = distX <= enemy.AttackRange + 0.2f;
+            // Nới lỏng dung sai để quái dễ dàng tung đòn trúng hơn
+            bool isYAligned = distY <= 0.5f; 
+            bool isXInRange = distX <= enemy.AttackRange + 0.3f;
 
             if (isYAligned && isXInRange)
             {
@@ -56,9 +56,8 @@ namespace Gameplay.AI.States
 
             float offsetDirection = (enemy.transform.position.x < enemy.Target.position.x) ? -1f : 1f;
 
-            // X offset dạt ra xa đủ để né hitbox Player (Cộng thêm randomX để tụi nó không đứng đè lên nhau)
-            float safeXOffset = enemy.AttackRange + _randomXOffset;
-            if (safeXOffset < 0.8f) safeXOffset = 0.8f;
+            // X offset: Đạt khoảng 90% AttackRange để đảm bảo quái tiến vào vùng có thể tấn công
+            float safeXOffset = enemy.AttackRange * 0.9f + _randomXOffset;
 
             float targetY = yWithOffset + _randomYOffset;
             Vector3 flankTarget;

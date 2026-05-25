@@ -18,6 +18,7 @@ namespace Gameplay.Characters
 
         public event Action<float> OnHealthChanged;
         public event Action OnDamaged;
+        public event Action<float, Character> OnDamageTaken;
         public event Action OnDie;
 
         private IEquipmentController _equipmentController;
@@ -33,7 +34,7 @@ namespace Gameplay.Characters
             _equipmentController = GetComponent<IEquipmentController>();
         }
 
-public void TakeDamage(float amount, Character source = null)
+        public void TakeDamage(float amount, Character source = null)
         {
             if (IsDead) return;
 
@@ -49,7 +50,9 @@ public void TakeDamage(float amount, Character source = null)
             CurrentHealth = Mathf.Clamp(CurrentHealth - finalDamage, 0, CalculateMaxHealth());
 
             OnDamaged?.Invoke();
+            OnDamageTaken?.Invoke(finalDamage, source);
             OnHealthChanged?.Invoke(CurrentHealth);
+            
             if (CurrentHealth <= 0)
                 Die();
         }
