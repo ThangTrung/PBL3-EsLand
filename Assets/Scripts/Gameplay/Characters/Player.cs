@@ -15,14 +15,17 @@ namespace Gameplay.Characters
     {
         public event Action OnToggleInventory;
         public event Action OnToggleEquipment;
+        public event Action OnToggleCrafting;
         public event Action<bool> OnUIStateChanged;
 
         private bool _isInventoryOpen;
         private bool _isEquipmentOpen;
+        private bool _isCraftingOpen;
         
         public bool IsInventoryOpenInternal => _isInventoryOpen;
         public bool IsEquipmentOpenInternal => _isEquipmentOpen;
-        public bool IsAnyUIOpen => _isInventoryOpen || _isEquipmentOpen;
+        public bool IsCraftingOpenInternal => _isCraftingOpen;
+        public bool IsAnyUIOpen => _isInventoryOpen || _isEquipmentOpen || _isCraftingOpen;
 
         private PlayerMovementController _movement;
 
@@ -39,9 +42,11 @@ namespace Gameplay.Characters
 
         public void ToggleInventory() => OnToggleInventory?.Invoke();
         public void ToggleEquipment() => OnToggleEquipment?.Invoke();
+        public void ToggleCrafting() => OnToggleCrafting?.Invoke();
 
         public void SetInventoryState(bool isOpen) => SetUIState(isOpen, ref _isInventoryOpen);
         public void SetEquipmentState(bool isOpen) => SetUIState(isOpen, ref _isEquipmentOpen);
+        public void SetCraftingState(bool isOpen) => SetUIState(isOpen, ref _isCraftingOpen);
 
         private void SetUIState(bool newState, ref bool targetField)
         {

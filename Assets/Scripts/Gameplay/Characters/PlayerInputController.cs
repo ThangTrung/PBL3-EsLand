@@ -69,6 +69,7 @@ namespace Gameplay.Characters
         {
             if (Input.GetKeyDown(KeyCode.Tab)) _playerFacade.ToggleInventory();
             if (Input.GetKeyDown(KeyCode.E)) _playerFacade.ToggleEquipment();
+            if (Input.GetKeyDown(KeyCode.B)) _playerFacade.ToggleCrafting();
         }
     }
 }

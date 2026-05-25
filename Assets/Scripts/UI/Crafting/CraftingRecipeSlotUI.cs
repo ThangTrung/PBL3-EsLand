@@ -11,7 +11,7 @@ namespace UI.Crafting
     /// Hierarchy: Button (RecipeSlot) -> Image (Icon), Image (Highlight)
     /// </summary>
     [RequireComponent(typeof(Button))]
-    public class RecipeSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class CraftingRecipeSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image icon;
         [Tooltip("Hình ảnh viền/background sáng lên khi đưa chuột vào")]
