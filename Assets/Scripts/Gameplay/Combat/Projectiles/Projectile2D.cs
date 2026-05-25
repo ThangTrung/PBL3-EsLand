@@ -19,10 +19,12 @@ namespace Gameplay.Combat.Projectiles
         
         private static readonly Collider2D[] _hitBuffer = new Collider2D[10];
 private SpriteRenderer _spriteRenderer;
+        private Animator _animator;
 
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
         }
 
         public void Initialize(ProjectileSpec spec, Transform owner, Transform target)
@@ -33,22 +35,31 @@ private SpriteRenderer _spriteRenderer;
             _lifeTimer = 0f;
             _initialized = true;
 
-            if (_spec != null && _spec.ProjectileSprite != null)
+            // Nếu Prefab có Animator (như dùng ảnh sprite sheet để xoay), ta KHÔNG ghi đè ảnh Sprite tĩnh
+            if (_animator == null)
             {
-                if (_spriteRenderer == null)
+                if (_spec != null && _spec.ProjectileSprite != null)
                 {
-                    _spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+                    if (_spriteRenderer == null)
+                    {
+                        _spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+                    }
+                    _spriteRenderer.sprite = _spec.ProjectileSprite;
                 }
-
-                _spriteRenderer.sprite = _spec.ProjectileSprite;
             }
 
             _direction = _target != null ? (_target.position - transform.position).normalized : transform.right;
 
-            // Tự động xoay mũi đạn/lao về hướng bay
+            // Tự động xoay hướng mũi đạn (dành cho các đạn cần chĩa mũi về phía trước như Harpoon)
             float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
             float rotationOffset = _spec != null ? _spec.SpriteRotationOffset : 0f;
             transform.rotation = Quaternion.Euler(0, 0, angle + rotationOffset);
+            
+            // Gọi Animator chạy state "Spin" nếu có
+            if (_animator != null)
+            {
+                _animator.Play("Spin", -1, 0f);
+            }
         }
 
 public void OnSpawn()
@@ -78,7 +89,14 @@ public void OnSpawn()
                 return;
             }
 
+            // Bay theo hướng đã định
             transform.position += _direction * _spec.Speed * Time.deltaTime;
+
+            // Xoay tròn liên tục nếu có cài đặt tốc độ xoay (SpinSpeed > 0 hoặc < 0)
+            if (_spec.SpinSpeed != 0f)
+            {
+                transform.Rotate(0f, 0f, _spec.SpinSpeed * Time.deltaTime);
+            }
 
             int hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, _spec.HitRadius, _hitBuffer);
             for (int i = 0; i < hitCount; i++)

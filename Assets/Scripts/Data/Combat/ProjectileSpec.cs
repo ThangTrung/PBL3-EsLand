@@ -24,6 +24,7 @@ namespace Data.Combat
         [Header("Visual")]
         [SerializeField] private Sprite projectileSprite;
         [SerializeField] private float spriteRotationOffset = -45f;
+        [SerializeField] private float spinSpeed = 0f; // Tốc độ xoay (độ/giây) cho các vũ khí xoay tròn như khúc xương, phi tiêu
 
         public float BaseDamage => baseDamage;
         public float Speed => speed;
@@ -38,6 +39,7 @@ namespace Data.Combat
         public float SlowDuration => slowDuration;
         public Sprite ProjectileSprite => projectileSprite;
         public float SpriteRotationOffset => spriteRotationOffset;
+        public float SpinSpeed => spinSpeed;
 
         public void Initialize(float damage, float projectileSpeed, float lifetime, float radius)
         {
