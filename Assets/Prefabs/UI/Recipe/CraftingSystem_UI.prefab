@@ -51,11 +51,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableRecipes:
   - {fileID: 11400000, guid: b03a93d06192c484085ed1b2192937a7, type: 2}
-  toggleKey: 98
   panelRoot: {fileID: 7100561226783773693}
   recipeListContainer: {fileID: 5848740726640634439}
   recipeSlotPrefab: {fileID: 2396196893786869061, guid: 701b6e3c324d85d41b0405f72cfd9e8c, type: 3}
-  detailUI: {fileID: 1436466796961006795}
+  detailUI: {fileID: 2343633118198889989}
 --- !u!1001 &5224921424981312432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -153,9 +152,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd3852103c1f32743a43721363b3dea5, type: 3}
---- !u!114 &1436466796961006795 stripped
+--- !u!224 &2151978093858857234 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6151911554032329378, guid: fd3852103c1f32743a43721363b3dea5, type: 3}
+  m_PrefabInstance: {fileID: 5224921424981312432}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2343633118198889989 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6588199639266609019, guid: fd3852103c1f32743a43721363b3dea5, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7495370479008693685, guid: fd3852103c1f32743a43721363b3dea5, type: 3}
   m_PrefabInstance: {fileID: 5224921424981312432}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -164,11 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc4b1a05f2432c41ac7abd7c2f449c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2151978093858857234 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6151911554032329378, guid: fd3852103c1f32743a43721363b3dea5, type: 3}
-  m_PrefabInstance: {fileID: 5224921424981312432}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5848740726640634439 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1848799019083540983, guid: fd3852103c1f32743a43721363b3dea5, type: 3}

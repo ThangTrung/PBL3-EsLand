@@ -102,29 +102,21 @@ namespace UI.Crafting
                 Debug.LogWarning("currentRecipe bị Null!");
                 return;
             }
-            if (_inventoryHolder == null)
+            if (_inventoryHolder == null || _inventoryHolder.Inventory == null)
             {
-                Debug.LogWarning("inventoryHolder bị Null!");
+                Debug.LogWarning("inventoryHolder hoặc Inventory bị Null!");
                 return;
             }
 
-            // Chúng ta cần ép kiểu về InventoryController hoặc sử dụng một interface hỗ trợ Crafting
-            // Ở đây giả định InventoryController thực hiện logic chế tạo
-            if (_inventoryHolder is InventoryController inventoryController)
+            // Gọi tới dịch vụ trung gian chuyên biệt cho Crafting
+            if (CraftingService.TryCraft(currentRecipe, _inventoryHolder.Inventory))
             {
-                if (inventoryController.TryCraftRecipe(currentRecipe))
-                {
-                    UpdateDetails(currentRecipe);
-                    Debug.Log("Chế tạo thành công!");
-                }
-                else
-                {
-                    Debug.LogWarning("Không đủ nguyên liệu!");
-                }
+                UpdateDetails(currentRecipe);
+                Debug.Log("Chế tạo thành công!");
             }
             else
             {
-                Debug.LogError("InventoryHolder không hỗ trợ chế tạo (không phải InventoryController)!");
+                Debug.LogWarning("Không đủ nguyên liệu hoặc không có chỗ trống trong túi đồ!");
             }
         }
     }

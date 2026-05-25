@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 6527332615492299713}
   equipmentUI: {fileID: 3161900768522463793}
+  craftingUI: {fileID: 4560153986720929217}
   actionMenu: {fileID: 2668030221173354595}
   statusUI: {fileID: 1159841717349190057}
   cookingUI: {fileID: 8690506636910600815}
@@ -2394,6 +2395,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a57b7fb9be439646a46d0c7dcdc52c0, type: 3}
+--- !u!114 &4560153986720929217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6845579755687209101, guid: 6a57b7fb9be439646a46d0c7dcdc52c0, type: 3}
+  m_PrefabInstance: {fileID: 6937946302793809228}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fe5132bf864314b84f848ab9993233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5653773305462591581 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3332300587326598417, guid: 6a57b7fb9be439646a46d0c7dcdc52c0, type: 3}
