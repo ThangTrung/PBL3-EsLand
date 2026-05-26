@@ -22,6 +22,7 @@ namespace Gameplay.Characters
         private float _attackTimer;
         private Character _facade;
         private PlayerMovementController _movement;
+        private PlayerSurvivalController _survival;
         private Camera _mainCamera;
         private Gameplay.Environment.EnvironmentHighlight _currentHover;
 
@@ -41,10 +42,12 @@ namespace Gameplay.Characters
         {
             if (!_facade) _facade = GetComponentInParent<Character>();
             if (!_movement) _movement = GetComponentInParent<PlayerMovementController>();
+            if (!_survival) _survival = GetComponentInParent<PlayerSurvivalController>();
             
             // Fallback for detached prefabs
             if (!_facade && !transform.parent) _facade = transform.parent.GetComponent<Character>();
             if (!_movement && !transform.parent) _movement = transform.parent.GetComponent<PlayerMovementController>();
+            if (!_survival && !transform.parent) _survival = transform.parent.GetComponent<PlayerSurvivalController>();
         }
 
         private void Update()
@@ -128,6 +131,22 @@ namespace Gameplay.Characters
             if (specificTarget is Gameplay.World.ResourceNode node && node.IsDead)
             {
                 yield break; 
+            }
+
+            // Determine stamina cost dynamically based on target or tool, fallback to default 5f
+            float staminaCost = 5f;
+            if (specificTarget is Gameplay.World.ResourceNode resNode)
+            {
+                staminaCost = resNode.StaminaCostPerHit;
+            }
+
+            // Try to consume stamina
+            if (_survival != null)
+            {
+                if (!_survival.TryConsumeStamina(staminaCost))
+                {
+                    yield break;
+                }
             }
 
             _attackTimer = baseAttackCooldown;

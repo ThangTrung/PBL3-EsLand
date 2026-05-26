@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c12e02f6a04564daeab3a6cd55c833, type: 3}
   m_Name: Harmer
   m_EditorClassIdentifier: 
-  itemName: 
-  description: 
+  id: Harmer
+  itemName: Harmer
+  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
+    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
   icon: {fileID: 1937014442, guid: 07c89957128bc4ba0a41c65084c2a7aa, type: 3}
   maxStack: 1
+  fuelTime: 0
   equipSlot: 4
   overrideController: {fileID: 22100000, guid: 39067afcd45ced24eb4867de51a5aa9e, type: 2}
   toolType: 4

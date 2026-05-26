@@ -24,6 +24,7 @@ namespace Gameplay.World
         public float MaxHealth => maxHealth;
         public float CurrentHealth { get; private set; }
         public bool IsDead { get; private set; }
+        public float StaminaCostPerHit => staminaCostPerHit;
 
         public event Action<float> OnHealthChanged;
         public event Action OnDamaged;

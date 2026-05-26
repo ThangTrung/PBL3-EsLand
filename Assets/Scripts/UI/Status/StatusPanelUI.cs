@@ -4,40 +4,91 @@ using UnityEngine.UI;
 
 namespace UI.Status
 {
+    /// <summary>
+    /// Quản lý giao diện các thanh trạng thái (Máu, Đói, Khát, Thể lực).
+    /// Sử dụng kỹ thuật Lerp để cập nhật mượt mà.
+    /// </summary>
     public class StatusPanelUI : MonoBehaviour
     {
         [Header("UI Elements")]
-                public Image healthImage;
-        public Image hungerImage;
-        public Image thirstImage;
-        public Image staminaImage;
+        [SerializeField] private Image healthImage;
+        [SerializeField] private Image hungerImage;
+        [SerializeField] private Image thirstImage;
+        [SerializeField] private Image staminaImage;
 
         private CharacterHealth _playerHealth;
+        private PlayerSurvivalController _playerSurvival;
+
+        [Header("Smooth Settings")]
+        [SerializeField] private float lerpSpeed = 5f;
+
+        private float _targetHealth;
+        private float _targetHunger;
+        private float _targetThirst;
+        private float _targetStamina;
 
         public void Initialize(Player player)
         {
-            if (player == null) return;
+            if (player == null)
+            {
+                Debug.LogError("[StatusUI] Initialize nhận vào Player bị NULL!");
+                return;
+            }
 
             // Health
             _playerHealth = player.GetComponent<CharacterHealth>();
             if (_playerHealth != null)
             {
-                UpdateHealthUI(_playerHealth.CurrentHealth);
-                _playerHealth.OnHealthChanged += UpdateHealthUI;
+                _targetHealth = _playerHealth.CurrentHealth / _playerHealth.MaxHealth;
+                if (healthImage != null) healthImage.fillAmount = _targetHealth;
+                _playerHealth.OnHealthChanged += HandleHealthChanged;
             }
 
             // Survival Stats
-            var survival = player.GetComponent<PlayerSurvivalController>();
-            if (survival != null)
+            _playerSurvival = player.GetComponent<PlayerSurvivalController>();
+            if (_playerSurvival != null)
             {
-                UpdateHungerUI(survival.CurrentHunger, survival.MaxHunger);
-                survival.OnHungerChanged += (val) => UpdateHungerUI(val, survival.MaxHunger);
+                _targetHunger = _playerSurvival.CurrentHunger / _playerSurvival.MaxHunger;
+                if (hungerImage != null) hungerImage.fillAmount = _targetHunger;
+                _playerSurvival.OnHungerChanged += HandleHungerChanged;
 
-                UpdateThirstUI(survival.CurrentThirst, survival.MaxThirst);
-                survival.OnThirstChanged += (val) => UpdateThirstUI(val, survival.MaxThirst);
+                _targetThirst = _playerSurvival.CurrentThirst / _playerSurvival.MaxThirst;
+                if (thirstImage != null) thirstImage.fillAmount = _targetThirst;
+                _playerSurvival.OnThirstChanged += HandleThirstChanged;
 
-                UpdateStaminaUI(survival.CurrentStamina, survival.MaxStamina);
-                // survival.OnStaminaChanged += (val) => UpdateStaminaUI(val, survival.MaxStamina);
+                _targetStamina = _playerSurvival.CurrentStamina / _playerSurvival.MaxStamina;
+                if (staminaImage != null) staminaImage.fillAmount = _targetStamina;
+                _playerSurvival.OnStaminaChanged += HandleStaminaChanged;
+            }
+        }
+
+        private void HandleHealthChanged(float val) => _targetHealth = val / _playerHealth.MaxHealth;
+        private void HandleHungerChanged(float val) => _targetHunger = val / _playerSurvival.MaxHunger;
+        private void HandleThirstChanged(float val) => _targetThirst = val / _playerSurvival.MaxThirst;
+        private void HandleStaminaChanged(float val) 
+        {
+            _targetStamina = val / _playerSurvival.MaxStamina;
+        }
+
+        private void Update()
+        {
+            UpdateBarsSmoothly();
+        }
+
+        private void UpdateBarsSmoothly()
+        {
+            if (healthImage != null)
+                healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, _targetHealth, Time.deltaTime * lerpSpeed);
+            
+            if (hungerImage != null)
+                hungerImage.fillAmount = Mathf.Lerp(hungerImage.fillAmount, _targetHunger, Time.deltaTime * lerpSpeed);
+            
+            if (thirstImage != null)
+                thirstImage.fillAmount = Mathf.Lerp(thirstImage.fillAmount, _targetThirst, Time.deltaTime * lerpSpeed);
+            
+            if (staminaImage != null)
+            {
+                staminaImage.fillAmount = Mathf.Lerp(staminaImage.fillAmount, _targetStamina, Time.deltaTime * lerpSpeed);
             }
         }
 
@@ -45,32 +96,15 @@ namespace UI.Status
         {
             if (_playerHealth != null)
             {
-                _playerHealth.OnHealthChanged -= UpdateHealthUI;
+                _playerHealth.OnHealthChanged -= HandleHealthChanged;
             }
-        }
 
-        private void UpdateHealthUI(float currentHealth)
-        {
-            if (healthImage != null && _playerHealth != null)
+            if (_playerSurvival != null)
             {
-                healthImage.fillAmount = currentHealth / _playerHealth.MaxHealth;
+                _playerSurvival.OnHungerChanged -= HandleHungerChanged;
+                _playerSurvival.OnThirstChanged -= HandleThirstChanged;
+                _playerSurvival.OnStaminaChanged -= HandleStaminaChanged;
             }
         }
-
-        private void UpdateHungerUI(float current, float max)
-        {
-            if (hungerImage != null) hungerImage.fillAmount = current / max;
-        }
-
-        private void UpdateThirstUI(float current, float max)
-        {
-            if (thirstImage != null) thirstImage.fillAmount = current / max;
-        }
-
-        private void UpdateStaminaUI(float current, float max)
-        {
-            if (staminaImage != null) staminaImage.fillAmount = current / max;
-        }
-
     }
 }
