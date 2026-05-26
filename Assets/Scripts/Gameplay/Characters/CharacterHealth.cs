@@ -38,6 +38,8 @@ namespace Gameplay.Characters
         {
             if (IsDead) return;
 
+            float originalDamage = amount;
+
             // Apply Damage Modifiers
             var modifiers = GetComponents<IDamageModifier>().OrderBy(m => m.Priority);
             foreach (var modifier in modifiers)
@@ -46,13 +48,16 @@ namespace Gameplay.Characters
                 if (amount <= 0) break;
             }
 
-            var finalDamage = Mathf.Max(0, amount - CalculateTotalDefense());
+            float totalDefense = CalculateTotalDefense();
+            var finalDamage = Mathf.Max(0, amount - totalDefense);
             CurrentHealth = Mathf.Clamp(CurrentHealth - finalDamage, 0, CalculateMaxHealth());
 
+            Debug.Log($"[Health] {gameObject.name} nhận sát thương từ {(source != null ? source.name : "Unknown")}. " +
+                      $"Gốc: {originalDamage}, Sau Mod: {amount}, Giáp: {totalDefense} => Sát thương thực: {finalDamage}. " +
+                      $"Máu hiện tại: {CurrentHealth}/{MaxHealth}");
+
             OnDamaged?.Invoke();
-            OnDamageTaken?.Invoke(finalDamage, source);
             OnHealthChanged?.Invoke(CurrentHealth);
-            
             if (CurrentHealth <= 0)
                 Die();
         }

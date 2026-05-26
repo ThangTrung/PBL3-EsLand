@@ -44,6 +44,8 @@ namespace Gameplay.Characters
         public void ToggleEquipment() => OnToggleEquipment?.Invoke();
         public void ToggleCrafting() => OnToggleCrafting?.Invoke();
 
+        public void SetCanMove(bool state) => _movement?.SetCanMove(state);
+
         public void SetInventoryState(bool isOpen) => SetUIState(isOpen, ref _isInventoryOpen);
         public void SetEquipmentState(bool isOpen) => SetUIState(isOpen, ref _isEquipmentOpen);
         public void SetCraftingState(bool isOpen) => SetUIState(isOpen, ref _isCraftingOpen);

@@ -123,6 +123,12 @@ namespace Gameplay.Characters
             _agent.SetDestination(target.position);
         }
 
+        public void SetCanMove(bool canMove)
+        {
+            _canMove = canMove;
+            if (!canMove) StopMovement();
+        }
+
         private void CancelFollow()
         {
             _followTarget = null;
