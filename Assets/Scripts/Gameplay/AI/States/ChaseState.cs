@@ -43,12 +43,20 @@ namespace Gameplay.AI.States
 
             float distX = Mathf.Abs(enemy.transform.position.x - enemy.Target.position.x);
             float distY = Mathf.Abs(enemy.transform.position.y - yWithOffset);
-            
+
             // Nới lỏng dung sai để quái dễ dàng tung đòn trúng hơn
             bool isYAligned = distY <= 0.5f; 
             bool isXInRange = distX <= enemy.AttackRange + 0.3f;
 
-            if (isYAligned && isXInRange)
+            if (enemy.AttackStrategy != null)
+            {
+                if (enemy.AttackStrategy.CanStartAttack(enemy.Target))
+                {
+                    enemy.ChangeState(new AttackState());
+                    return;
+                }
+            }
+            else if (isYAligned && isXInRange)
             {
                 enemy.ChangeState(new AttackState());
                 return;
@@ -93,7 +101,7 @@ namespace Gameplay.AI.States
                     enemy.transform.position.z
                 );
             }
-            
+
             enemy.DebugTargetPosition = flankTarget;
             enemy.MoveTowardsPosition(flankTarget);
         }
