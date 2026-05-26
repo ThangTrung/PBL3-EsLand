@@ -28,7 +28,15 @@ MonoBehaviour:
   - {fileID: 5012480031487345363, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
   - {fileID: -5713736044023721425, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
   - {fileID: -9169159741288123458, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
-  attackFrames: []
+  attackFrames:
+  - {fileID: 5588494715284051113, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+  - {fileID: -6957279065739340243, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+  - {fileID: -147271231698429853, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+  - {fileID: 7686597269111172083, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+  - {fileID: -4265247270154572350, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+  - {fileID: -4749676018786956267, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+  - {fileID: 490575443771225979, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+  - {fileID: -7303351033157997517, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
   deathFrames: []
   frameRate: 12
   attackTriggerFrame: 2

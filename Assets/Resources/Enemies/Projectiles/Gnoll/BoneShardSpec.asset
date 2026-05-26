@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ecf870a5c64634c816ac91a9ebd5b2, type: 3}
+  m_Name: BoneShardSpec
+  m_EditorClassIdentifier: 
+  baseDamage: 5
+  speed: 10
+  maxLifetime: 2
+  hitRadius: 0.2
+  canPierce: 0
+  applyPoison: 0
+  poisonDps: 1
+  poisonDuration: 3
+  applySlow: 0
+  slowMultiplier: 0.7
+  slowDuration: 2
+  projectileSprite: {fileID: 7178713093860209260, guid: d34c3bc36719d514e91ffb3381674f3e, type: 3}
+  spriteRotationOffset: 0
+  spinSpeed: 0

@@ -12,7 +12,7 @@ namespace Gameplay.AI.Enemies.Aquatic
     {
         private const string ConfigPath = "Enemies/Configs/BombFishConfig";
         private const string AnimationPath = "Enemies/Animations/BombFishAnims";
-        private const string ProjectilePath = "Enemies/Projectiles/Bomb";
+        private const string ProjectilePath = "Enemies/Projectiles/Bomb/Bomb";
 
         protected override void Awake()
         {
@@ -20,18 +20,21 @@ namespace Gameplay.AI.Enemies.Aquatic
 
             var config = Resources.Load<SimpleEnemyConfig>(ConfigPath);
             var animConfig = Resources.Load<AnimationConfig>(AnimationPath);
-            var projectilePrefab = Resources.Load<Projectile2D>(ProjectilePath);
+            
+            // HOTFIX: Load dưới dạng GameObject thay vì Projectile2D
+            var projectilePrefab = Resources.Load<GameObject>(ProjectilePath);
             var projectileSpec = Resources.Load<ProjectileSpec>(ProjectilePath + "Spec");
 
-            // Strategy: Ranged AOE (Bắn bom nổ lan)
-            var attackStrategy = new RangedAOEStrategy(
+            // Strategy: AOE Bomb (Bắn bom nổ lan - Giới hạn 2 quả)
+            var attackStrategy = new AOEBombAttackStrategy(
                 projectileSpec,
                 projectilePrefab,
                 Animator,
                 animConfig?.AttackTriggerFrame ?? 3,
                 transform,
                 config?.BaseAttackRange ?? 9f,
-                config?.AttackCooldown ?? 2.0f);
+                config?.AttackCooldown ?? 2.0f,
+                2); // Max 2 bombs active
 
             InitializeEnemy(config, animConfig, attackStrategy, config?.BaseAttackRange ?? 9f);
         }
