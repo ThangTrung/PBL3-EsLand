@@ -67,9 +67,17 @@ public bool IsDead => IsDeadInternal;
             if (IsDeadInternal) return;
 
             // When player interacts with an enemy, it counts as an attack
-            if (interactor != null && interactor.TryGetComponent<PlayerInteractionController>(out var pic))
+            if (interactor != null)
             {
-                _health?.TakeDamage(pic.GetTotalDamage(), interactor);
+                var pic = interactor.GetComponentInChildren<PlayerInteractionController>();
+                if (pic != null)
+                {
+                    _health?.TakeDamage(pic.GetTotalDamage(), interactor);
+                }
+                else
+                {
+                    Debug.LogWarning($"[EnemyBase] {interactor.name} does not have a PlayerInteractionController in its children.");
+                }
             }
         }
 
