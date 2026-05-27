@@ -203,6 +203,16 @@ namespace Gameplay.Characters
             Gizmos.DrawWireSphere(transform.position, patrolRadius);
         }
 
+        public bool CanInteract(Character interactor)
+        {
+            return _health == null || !_health.IsDead;
+        }
+
+        public float GetStaminaCost(Character interactor)
+        {
+            return 5f; // Base combat stamina cost
+        }
+
         public void Interact(Character interactor)
         {
             // Player InteractionController might pass in Player Facade. We need player damage.

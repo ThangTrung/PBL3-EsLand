@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4646100230574973973}
   - component: {fileID: 6683467965763822858}
   - component: {fileID: 3901080689426086559}
+  - component: {fileID: 7285675544462802680}
   m_Layer: 10
   m_Name: TorchGoblin
   m_TagString: Enemy
@@ -274,3 +275,17 @@ MonoBehaviour:
   flashDuration: 0.15
   knockbackForce: 5
   knockbackDuration: 0.2
+--- !u!114 &7285675544462802680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8933322250166544142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useMaterialSwap: 1
+  highlightMaterial: {fileID: 2100000, guid: 4b7424088d90ed549a2aee70140e59cb, type: 2}

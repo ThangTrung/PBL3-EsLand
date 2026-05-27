@@ -12,7 +12,28 @@ namespace Gameplay.Characters
         [SerializeField] private float maxHealth = 100f;
         [SerializeField] private float baseDefense = 5f;
 
-        public float MaxHealth => CalculateMaxHealth();
+        public float MaxHealth 
+        {
+            get 
+            {
+                var total = maxHealth;
+                if (_equipmentController != null)
+                    total += _equipmentController.GetTotalHealthModifier();
+                return total;
+            }
+        }
+
+        public float TotalDefense
+        {
+            get
+            {
+                var total = baseDefense;
+                if (_equipmentController != null)
+                    total += _equipmentController.GetTotalDefenseModifier();
+                return total;
+            }
+        }
+
         public float CurrentHealth { get; private set; }
         public bool IsDead { get; private set; }
 
@@ -25,13 +46,15 @@ namespace Gameplay.Characters
 
         private void Awake()
         {
-            CurrentHealth = maxHealth;
+            CurrentHealth = MaxHealth;
             IsDead = false;
         }
 
         private void Start()
         {
             _equipmentController = GetComponent<IEquipmentController>();
+            // Re-initialize to account for equipment modifiers if they are applied before/during Start
+            CurrentHealth = MaxHealth;
         }
 
         public void TakeDamage(float amount, Character source = null)
@@ -48,15 +71,16 @@ namespace Gameplay.Characters
                 if (amount <= 0) break;
             }
 
-            float totalDefense = CalculateTotalDefense();
-            var finalDamage = Mathf.Max(0, amount - totalDefense);
-            CurrentHealth = Mathf.Clamp(CurrentHealth - finalDamage, 0, CalculateMaxHealth());
+            float currentDefense = TotalDefense;
+            var finalDamage = Mathf.Max(0, amount - currentDefense);
+            CurrentHealth = Mathf.Max(0, CurrentHealth - finalDamage);
 
             Debug.Log($"[Health] {gameObject.name} nhận sát thương từ {(source != null ? source.name : "Unknown")}. " +
-                      $"Gốc: {originalDamage}, Sau Mod: {amount}, Giáp: {totalDefense} => Sát thương thực: {finalDamage}. " +
+                      $"Gốc: {originalDamage}, Sau Mod: {amount}, Giáp: {currentDefense} => Sát thương thực: {finalDamage}. " +
                       $"Máu hiện tại: {CurrentHealth}/{MaxHealth}");
 
             OnDamaged?.Invoke();
+            OnDamageTaken?.Invoke(finalDamage, source);
             OnHealthChanged?.Invoke(CurrentHealth);
             if (CurrentHealth <= 0)
                 Die();
@@ -65,7 +89,7 @@ namespace Gameplay.Characters
         public void Heal(float amount)
         {
             if (IsDead) return;
-            CurrentHealth = Mathf.Min(CurrentHealth + amount, CalculateMaxHealth());
+            CurrentHealth = Mathf.Min(CurrentHealth + amount, MaxHealth);
             OnHealthChanged?.Invoke(CurrentHealth);
         }
 
@@ -80,25 +104,9 @@ namespace Gameplay.Characters
         {
             maxHealth = value;
             if (!resetCurrent) return;
-            CurrentHealth = maxHealth;
+            CurrentHealth = MaxHealth;
             IsDead = false;
             OnHealthChanged?.Invoke(CurrentHealth);
-        }
-
-        private float CalculateMaxHealth()
-        {
-            var total = maxHealth;
-            if (_equipmentController != null)
-                total += _equipmentController.GetTotalHealthModifier();
-            return total;
-        }
-
-        private float CalculateTotalDefense()
-        {
-            var total = baseDefense;
-            if (_equipmentController != null)
-                total += _equipmentController.GetTotalDefenseModifier();
-            return total;
         }
     }
 }

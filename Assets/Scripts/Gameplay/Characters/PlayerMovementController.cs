@@ -62,31 +62,41 @@ namespace Gameplay.Characters
         {
             if (!_canMove) return;
 
-            if (!_followTarget || !_agent) return;
-            _agent.nextPosition = transform.position;
+            if (!_followTarget) return;
 
             if (CheckReachedTarget())
             {
                 CompleteFollow();
                 return;
             }
-                
-            // 2. Handle Follow Target (Dynamic)
-            _agent.SetDestination(_followTarget.position);
 
-            // 3. Calculate Direction based on NavMesh steering target
-            Vector2 steeringPos = _agent.steeringTarget;
-            var distToSteering = Vector2.Distance(transform.position, steeringPos);
-                
-            if (distToSteering > 0.1f)
+            if (_agent != null && _agent.isOnNavMesh)
             {
-                var direction = (steeringPos - (Vector2)transform.position).normalized;
-                ApplyVelocity(direction * GetMoveSpeed());
+                _agent.nextPosition = transform.position;
+                
+                // 2. Handle Follow Target (Dynamic)
+                _agent.SetDestination(_followTarget.position);
+
+                // 3. Calculate Direction based on NavMesh steering target
+                Vector2 steeringPos = _agent.steeringTarget;
+                var distToSteering = Vector2.Distance(transform.position, steeringPos);
+                    
+                if (distToSteering > 0.1f)
+                {
+                    var direction = (steeringPos - (Vector2)transform.position).normalized;
+                    ApplyVelocity(direction * GetMoveSpeed());
+                }
+                else
+                {
+                    // Prevent Rigidbody from sliding past the steering target and oscillating.
+                    ApplyVelocity(Vector2.zero);
+                }
             }
             else
             {
-                // Prevent Rigidbody from sliding past the steering target and oscillating.
-                ApplyVelocity(Vector2.zero);
+                // Fallback to straight-line movement if NavMeshAgent is unavailable or broken
+                Vector2 direction = ((Vector2)_followTarget.position - (Vector2)transform.position).normalized;
+                ApplyVelocity(direction * GetMoveSpeed());
             }
         }
 
