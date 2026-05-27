@@ -67,10 +67,19 @@ namespace Gameplay.Characters
             Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
             Environment.EnvironmentHighlight newHover = null;
 
+            // Lấy Layer của Player
+            var playerLayer = GetComponentInParent<ILayerable>();
+
             foreach (var col in colliders)
             {
                 if (col != null && col.TryGetComponent<Gameplay.Environment.EnvironmentHighlight>(out var highlight))
                 {
+                    // Kiểm tra nếu mục tiêu có ILayerable và có cùng tầng với Player
+                    if (playerLayer != null && col.TryGetComponent<ILayerable>(out var targetLayer))
+                    {
+                        if (playerLayer.CurrentLayer != targetLayer.CurrentLayer) continue;
+                    }
+
                     newHover = highlight;
                     break;
                 }
@@ -87,10 +96,18 @@ namespace Gameplay.Characters
         public void HandleInteractionClick(Vector3 mouseWorldPos)
         {
             var colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
+            var playerLayer = GetComponentInParent<ILayerable>();
             
             foreach (var col in colliders)
             {
                 if (!col || !col.TryGetComponent<IInteractable>(out var target)) continue;
+
+                // Kiểm tra tầng trước khi tương tác
+                if (playerLayer != null && col.TryGetComponent<ILayerable>(out var targetLayer))
+                {
+                    if (playerLayer.CurrentLayer != targetLayer.CurrentLayer) continue;
+                }
+
                 InteractWithTarget(target, col.transform);
                 return;
             }
