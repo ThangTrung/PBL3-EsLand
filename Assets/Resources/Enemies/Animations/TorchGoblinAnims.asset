@@ -37,6 +37,20 @@ MonoBehaviour:
   - {fileID: 4532747277014350665, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
   - {fileID: 1040833900427024851, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
   - {fileID: 186658970710459656, guid: c6ccfaa49ded1d544bc653f13c292473, type: 3}
-  deathFrames: []
+  deathFrames:
+  - {fileID: 1004497214, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: -1027812575, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: 1215698429, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: -543832720, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: 537128072, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: -11434581, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: -662086061, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: -463758900, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: 860450973, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: 720615570, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: -1941349757, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: -1371903006, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: -1705124932, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+  - {fileID: 1251029850, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
   frameRate: 12
   attackTriggerFrame: 2
