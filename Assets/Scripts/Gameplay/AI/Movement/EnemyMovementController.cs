@@ -96,9 +96,6 @@ namespace Gameplay.AI.Movement
 
             if (_facade != null && _facade.Animator != null)
                 _facade.Animator.SetBool(IsMovingHash, isMoving);
-
-            if (isMoving && Mathf.Abs(velocity.x) > 0.01f)
-                transform.localScale = new Vector3(Mathf.Sign(velocity.x), 1, 1);
         }
 
         private bool CheckReachedTarget()

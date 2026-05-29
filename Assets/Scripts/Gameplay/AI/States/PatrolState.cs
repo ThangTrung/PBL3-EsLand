@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using UnityEngine;
 
 namespace Gameplay.AI.States
@@ -16,8 +16,9 @@ namespace Gameplay.AI.States
         {
             if (enemy.Target != null)
             {
+                float detectionRange = enemy.Config != null ? enemy.Config.DetectionRange : 10f;
                 var distance = Vector3.Distance(enemy.transform.position, enemy.Target.position);
-                if (distance <= enemy.Config.DetectionRange)
+                if (distance <= detectionRange)
                 {
                     enemy.ChangeState(enemy.CreateChaseState());
                     return;
@@ -38,7 +39,8 @@ namespace Gameplay.AI.States
 
         private void PickNewPatrolPoint(EnemyBase enemy)
         {
-            var rand = Random.insideUnitSphere * enemy.Config.PatrolRadius;
+            float patrolRadius = enemy.Config != null ? enemy.Config.PatrolRadius : 4f;
+            var rand = Random.insideUnitSphere * patrolRadius;
             rand.z = 0f;
             _patrolPoint = enemy.transform.position + rand;
         }

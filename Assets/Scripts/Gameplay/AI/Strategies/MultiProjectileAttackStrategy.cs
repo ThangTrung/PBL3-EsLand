@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Gameplay.AI.Strategies
 {
     /// <summary>
-    /// Chiến thuật tấn công ném nhiều đạn cùng lúc theo hình nan quạt (Shotgun spread).
+    /// Chiáº¿n thuáº­t táº¥n cÃ´ng nÃ©m nhiá»u Ä‘áº¡n cÃ¹ng lÃºc theo hÃ¬nh nan quáº¡t (Shotgun spread).
     /// </summary>
     public class MultiProjectileAttackStrategy : IAttackStrategy
     {
@@ -20,7 +20,7 @@ namespace Gameplay.AI.Strategies
         private readonly float _cooldown;
         private readonly float _range;
         
-        // Cấu hình nan quạt
+        // Cáº¥u hÃ¬nh nan quáº¡t
         private readonly int _projectileCount;
         private readonly float _spreadAngle;
 
@@ -66,8 +66,17 @@ namespace Gameplay.AI.Strategies
 
         public void TryApplyHitIfReady()
         {
+            InternalApplyHit();
+            if (_animator != null && _animator.IsCurrentAnimationFinished())
+            {
+                EndAttack();
+            }
+        }
+
+        private void InternalApplyHit()
+        {
             if (!IsAttacking || _target == null || _animator == null || _spec == null) return;
-            if (_animator.GetCurrentState() != CharacterAnimationController.AnimState.Attack) return;
+            if (_animator.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack) return;
 
             var currentFrame = _animator.GetCurrentFrameIndex();
             if (_projectileSpawned || currentFrame < _attackTriggerFrame) return;
@@ -101,10 +110,10 @@ namespace Gameplay.AI.Strategies
             if (_target == null) return;
 
             Vector2 baseDirection = (_target.position - _selfTransform.position).normalized;
-            Vector3 spawnOffset = new Vector3(0f, 0.5f, 0f); // Nâng lên khớp với tay
+            Vector3 spawnOffset = new Vector3(0f, 0.5f, 0f); // NÃ¢ng lÃªn khá»›p vá»›i tay
             Vector3 spawnPos = _selfTransform.position + spawnOffset + (Vector3)baseDirection * 0.5f;
 
-            // Tính toán góc chia đều
+            // TÃ­nh toÃ¡n gÃ³c chia Ä‘á»u
             float startAngle = -_spreadAngle / 2f;
             float angleStep = _projectileCount > 1 ? _spreadAngle / (_projectileCount - 1) : 0f;
 
@@ -113,10 +122,10 @@ namespace Gameplay.AI.Strategies
                 float currentAngle = startAngle + (angleStep * i);
                 Vector2 spreadDirection = RotateVector(baseDirection, currentAngle);
 
-                // Tạo một Transform ảo (ảo để giả lập vị trí đích cho đạn tự tính góc)
-                // Projectile2D hiện tại yêu cầu Transform target, ta tạm thời truyền _target 
-                // nhưng sẽ phải override hướng bay trong Projectile2D nếu muốn nó bay chéo.
-                // Để tương thích với code Projectile2D hiện tại, ta sẽ tạo một GameObject tạm thời.
+                // Táº¡o má»™t Transform áº£o (áº£o Ä‘á»ƒ giáº£ láº­p vá»‹ trÃ­ Ä‘Ã­ch cho Ä‘áº¡n tá»± tÃ­nh gÃ³c)
+                // Projectile2D hiá»‡n táº¡i yÃªu cáº§u Transform target, ta táº¡m thá»i truyá»n _target 
+                // nhÆ°ng sáº½ pháº£i override hÆ°á»›ng bay trong Projectile2D náº¿u muá»‘n nÃ³ bay chÃ©o.
+                // Äá»ƒ tÆ°Æ¡ng thÃ­ch vá»›i code Projectile2D hiá»‡n táº¡i, ta sáº½ táº¡o má»™t GameObject táº¡m thá»i.
                 
                 GameObject tempTarget = new GameObject("TempTarget");
                 tempTarget.transform.position = spawnPos + (Vector3)spreadDirection * 10f;
@@ -133,10 +142,10 @@ namespace Gameplay.AI.Strategies
                     projectileInstance = go.AddComponent<Projectile2D>();
                 }
 
-                // Truyền điểm đích ảo vào
+                // Truyá»n Ä‘iá»ƒm Ä‘Ã­ch áº£o vÃ o
                 projectileInstance.Initialize(_spec, _selfTransform, tempTarget.transform);
                 
-                // Tự động hủy điểm đích ảo sau 2 giây (khi đạn đã bay xa)
+                // Tá»± Ä‘á»™ng há»§y Ä‘iá»ƒm Ä‘Ã­ch áº£o sau 2 giÃ¢y (khi Ä‘áº¡n Ä‘Ã£ bay xa)
                 Object.Destroy(tempTarget, 2f);
             }
         }

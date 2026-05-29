@@ -18,9 +18,11 @@ namespace Gameplay.AI.Movement
             _statusEffectController = statusEffectController;
         }
 
-        public void Move(Vector3 direction)
+        public void Move(Vector3 destination)
         {
             if (_movementController == null) return;
+
+            Vector3 direction = (destination - _movementController.transform.position).normalized;
 
             if (_statusEffectController != null)
             {
@@ -30,8 +32,8 @@ namespace Gameplay.AI.Movement
             _movementController.Move(direction);
             _animationController?.SetFacingByMove(direction);
 
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Attack &&
-                _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Death)
+            if (_animationController != null && _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack &&
+                _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Death)
             {
                 _animationController.PlayRun();
             }
@@ -41,8 +43,8 @@ namespace Gameplay.AI.Movement
         {
             _movementController?.StopMovement();
 
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Attack &&
-                _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Death)
+            if (_animationController != null && _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack &&
+                _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Death)
             {
                 _animationController.PlayIdle();
             }

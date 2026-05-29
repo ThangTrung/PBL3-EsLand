@@ -12,49 +12,99 @@ namespace Gameplay.AI.Strategies
         private readonly float _aoeRadius;
         private readonly float _cooldown;
         private readonly CharacterAnimationController _animator;
-        private readonly int _attackTriggerFrame;
+                private readonly int[] _attackTriggerFrames;
+        private readonly System.Collections.Generic.HashSet<int> _triggeredFrames = new System.Collections.Generic.HashSet<int>();
         private readonly Transform _selfTransform;
         private readonly Gameplay.Characters.Character _source;
 
         private Transform _target;
-        private bool _hitApplied;
-        private float _nextAttackTime;
 
-        public bool IsAttacking { get; private set; }
+        
+        private enum AttackPhase
+        {
+            None,
+            Windup,
+            Attack,
+            Recovery
+        }
+        
+        private AttackPhase _currentPhase = AttackPhase.None;
+private float _nextAttackTime;
+
+                public bool IsAttacking => _currentPhase != AttackPhase.None;
 
         public HammerSmashAttackStrategy(float damage, float range, float aoeRadius, float cooldown, 
-            CharacterAnimationController animator, int attackTriggerFrame, Transform selfTransform, Gameplay.Characters.Character source)
+            CharacterAnimationController animator, int[] attackTriggerFrames, Transform selfTransform, Gameplay.Characters.Character source)
         {
             _damage = damage;
             _range = range;
             _aoeRadius = aoeRadius;
             _cooldown = cooldown;
             _animator = animator;
-            _attackTriggerFrame = attackTriggerFrame;
+            _attackTriggerFrames = attackTriggerFrames ?? new int[0];
             _selfTransform = selfTransform;
             _source = source;
+        }
+
+        // Overload for backward compatibility with single trigger frame
+        public HammerSmashAttackStrategy(float damage, float range, float aoeRadius, float cooldown, 
+            CharacterAnimationController animator, int attackTriggerFrame, Transform selfTransform, Gameplay.Characters.Character source)
+            : this(damage, range, aoeRadius, cooldown, animator, new int[] { attackTriggerFrame }, selfTransform, source)
+        {
         }
 
         public void BeginAttack(Transform target)
         {
             if (_animator == null) return;
             _target = target;
-            _hitApplied = false;
-            IsAttacking = true;
-            _animator.PlayAttack();
+            _triggeredFrames.Clear();
+            
+            _currentPhase = AttackPhase.Windup;
+            _animator.PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Windup);
         }
 
         public void TryApplyHitIfReady()
         {
             if (!IsAttacking || _animator == null) return;
-            if (_animator.GetCurrentState() != CharacterAnimationController.AnimState.Attack) return;
 
-            var currentFrame = _animator.GetCurrentFrameIndex();
-            if (_hitApplied || currentFrame < _attackTriggerFrame) return;
+            switch (_currentPhase)
+            {
+                case AttackPhase.Windup:
+                    if (_animator.IsCurrentAnimationFinished())
+                    {
+                        _currentPhase = AttackPhase.Attack;
+                        _animator.PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Attack);
+                    }
+                    break;
 
-            ApplyAOEDamage();
-            _hitApplied = true;
-            _nextAttackTime = Time.time + _cooldown;
+                case AttackPhase.Attack:
+                    var currentFrame = _animator.GetCurrentFrameIndex();
+                    
+                    // Check all possible trigger frames
+                    foreach (var frame in _attackTriggerFrames)
+                    {
+                        if (!_triggeredFrames.Contains(frame) && currentFrame == frame)
+                        {
+                            ApplyAOEDamage();
+                            _triggeredFrames.Add(frame);
+                            _nextAttackTime = Time.time + _cooldown;
+                        }
+                    }
+
+                    if (_animator.IsCurrentAnimationFinished())
+                    {
+                        _currentPhase = AttackPhase.Recovery;
+                        _animator.PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Recovery);
+                    }
+                    break;
+
+                case AttackPhase.Recovery:
+                    if (_animator.IsCurrentAnimationFinished())
+                    {
+                        EndAttack();
+                    }
+                    break;
+            }
         }
 
         private void ApplyAOEDamage()
@@ -76,7 +126,7 @@ namespace Gameplay.AI.Strategies
 
         public void EndAttack()
         {
-            IsAttacking = false;
+            _currentPhase = AttackPhase.None;
             _target = null;
         }
 

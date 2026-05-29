@@ -7,48 +7,30 @@ using Infrastructure.Pooling;
 
 namespace Gameplay.AI.Strategies
 {
-    public class RangedProjectileAttackStrategy : IAttackStrategy
+    public class RangedProjectileAttackStrategy : BaseAttackStrategy
     {
         private readonly ProjectileSpec _spec;
         private readonly Projectile2D _projectilePrefab;
-        private readonly CharacterAnimationController _animator;
         private readonly int _attackTriggerFrame;
-        private readonly Transform _selfTransform;
-        private readonly float _cooldown;
-        private readonly float _range;
 
-        private Transform _target;
         private bool _projectileSpawned;
-        private float _nextAttackTime;
-
-        public bool IsAttacking { get; private set; }
 
         public RangedProjectileAttackStrategy(ProjectileSpec spec, Projectile2D projectilePrefab, CharacterAnimationController animator, int attackTriggerFrame, Transform selfTransform, float range, float cooldown)
+            : base(animator, selfTransform, cooldown, range, null)
         {
             _spec = spec;
             _projectilePrefab = projectilePrefab;
-            _animator = animator;
             _attackTriggerFrame = Mathf.Max(0, attackTriggerFrame);
-            _selfTransform = selfTransform;
-            _range = range;
-            _cooldown = cooldown;
         }
 
-        public void BeginAttack(Transform target)
+        protected override void OnBeginAttack()
         {
-            if (_animator == null || _spec == null) return;
-
-            _target = target;
             _projectileSpawned = false;
-            IsAttacking = true;
-
-            _animator.PlayAttack();
         }
 
-        public void TryApplyHitIfReady()
+        protected override void InternalApplyHit()
         {
-            if (!IsAttacking || _target == null || _animator == null || _spec == null) return;
-            if (_animator.GetCurrentState() != CharacterAnimationController.AnimState.Attack) return;
+            if (_animator.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack) return;
 
             var currentFrame = _animator.GetCurrentFrameIndex();
             if (_projectileSpawned || currentFrame < _attackTriggerFrame) return;
@@ -61,20 +43,9 @@ namespace Gameplay.AI.Strategies
             _nextAttackTime = Time.time + _cooldown;
         }
 
-        public void EndAttack()
+        protected override void OnEndAttack()
         {
-            IsAttacking = false;
-            _target = null;
             _projectileSpawned = false;
-        }
-
-        public bool CanStartAttack(Transform target)
-        {
-            if (IsAttacking || target == null) return false;
-            if (Time.time < _nextAttackTime) return false;
-
-            var distance = Vector3.Distance(_selfTransform.position, target.position);
-            return distance <= _range;
         }
 
         private void SpawnProjectile()

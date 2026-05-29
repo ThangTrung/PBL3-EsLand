@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3715214394254571078}
   - component: {fileID: -1805237420763036351}
   - component: {fileID: 1873564773541587139}
+  - component: {fileID: 2909422541994957916}
   m_Layer: 10
   m_Name: Gnoll
   m_TagString: Enemy
@@ -114,7 +115,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -205,7 +206,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3, y: 3}
     newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
@@ -214,37 +215,37 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.796875, y: 1.578125}
-      - {x: 0.796875, y: 1.703125}
-      - {x: 0.71875, y: 1.765625}
-      - {x: 0.53125, y: 1.78125}
-      - {x: 0.46875, y: 1.71875}
-      - {x: 0.484375, y: 1.75}
-      - {x: 0.5, y: 2.015625}
-      - {x: 0.328125, y: 2.09375}
-      - {x: -0.171875, y: 2.09375}
-      - {x: -0.4375, y: 1.875}
-      - {x: -0.6875, y: 1.796875}
-      - {x: -0.75, y: 1.71875}
-      - {x: -0.75, y: 1.53125}
-      - {x: -0.671875, y: 1.375}
-      - {x: -0.421875, y: 1.328125}
-      - {x: -0.421875, y: 1.09375}
-      - {x: -0.296875, y: 0.9375}
-      - {x: 0.265625, y: 0.9375}
-      - {x: 0.296875, y: 0.953125}
-      - {x: 0.5, y: 1.046875}
-      - {x: 0.6875, y: 1.515625}
-    - - {x: 0.515625, y: 1.5625}
-      - {x: 0.484375, y: 1.59375}
-      - {x: 0.390625, y: 1.453125}
-      - {x: 0.40625, y: 1.4375}
-    - - {x: -0.46875, y: 1.59375}
-      - {x: -0.46875, y: 1.609375}
-      - {x: -0.4375, y: 1.671875}
-      - {x: -0.390625, y: 1.625}
-      - {x: -0.421875, y: 1.546875}
-      - {x: -0.421875, y: 1.5625}
+    - - {x: 0.796875, y: 0.078125}
+      - {x: 0.796875, y: 0.203125}
+      - {x: 0.71875, y: 0.265625}
+      - {x: 0.53125, y: 0.28125}
+      - {x: 0.46875, y: 0.21875}
+      - {x: 0.484375, y: 0.25}
+      - {x: 0.5, y: 0.515625}
+      - {x: 0.328125, y: 0.59375}
+      - {x: -0.171875, y: 0.59375}
+      - {x: -0.4375, y: 0.375}
+      - {x: -0.6875, y: 0.296875}
+      - {x: -0.75, y: 0.21875}
+      - {x: -0.75, y: 0.03125}
+      - {x: -0.671875, y: -0.125}
+      - {x: -0.421875, y: -0.171875}
+      - {x: -0.421875, y: -0.40625}
+      - {x: -0.296875, y: -0.5625}
+      - {x: 0.265625, y: -0.5625}
+      - {x: 0.296875, y: -0.546875}
+      - {x: 0.5, y: -0.453125}
+      - {x: 0.6875, y: 0.015625}
+    - - {x: 0.515625, y: 0.0625}
+      - {x: 0.484375, y: 0.09375}
+      - {x: 0.390625, y: -0.046875}
+      - {x: 0.40625, y: -0.0625}
+    - - {x: -0.46875, y: 0.09375}
+      - {x: -0.46875, y: 0.109375}
+      - {x: -0.4375, y: 0.171875}
+      - {x: -0.390625, y: 0.125}
+      - {x: -0.421875, y: 0.046875}
+      - {x: -0.421875, y: 0.0625}
   m_UseDelaunayMesh: 0
 --- !u!114 &1873564773541587139
 MonoBehaviour:
@@ -259,3 +260,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: New Character
+--- !u!114 &2909422541994957916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517149262209526456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6c6407bb380f442b32e9d70141f7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  flashDuration: 0.2
+  knockbackForce: 12
+  knockbackDuration: 0.25

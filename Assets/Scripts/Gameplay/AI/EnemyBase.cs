@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Gameplay.AI.Animation;
 using Gameplay.AI.Movement;
 using Gameplay.AI.States;
@@ -6,6 +6,7 @@ using Gameplay.Characters;
 using Infrastructure.Pooling;
 using Core.Contracts.Shared;
 using Gameplay.Spawning;
+using UnityEngine.AI;
 
 using UnityEngine;
 
@@ -37,6 +38,19 @@ namespace Gameplay.AI
         protected float AttackRangeInternal;
 
         public Transform Target => _target;
+        
+        public bool HasValidTarget 
+        {
+            get 
+            {
+                if (_target == null) return false;
+                if (_target.TryGetComponent<Core.Contracts.Combat.IDamageable>(out var damageable))
+                {
+                    return !damageable.IsDead;
+                }
+                return true;
+            }
+        }
         public new CharacterAnimationController Animator => _animationController;
         
         public IAttackStrategy AttackStrategy => AttackStrategyInternal;
@@ -94,15 +108,83 @@ protected virtual new void Awake()
                 _health.OnDie += HandleDie;
             }
 
-            var player = GameObject.FindGameObjectWithTag("Player");
-            _target = player != null ? player.transform : null;
+            FindTarget();
+
+            // [FIX] Global NavMesh Invisibility Protection
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.updateRotation = false;
+                agent.updatePosition = false;
+                agent.updateUpAxis = false;
+            }
+
+            // [FIX] Fallback for Scene-placed enemies
+            if (ConfigInternal == null)
+            {
+                TryAutoInitialize();
+            }
         }
 
         protected virtual void Start()
         {
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Idle)
+            if (_animationController != null && _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Idle)
             {
                 _animationController.PlayIdle();
+            }
+
+            // [CRITICAL] Fallback initialization for manually placed enemies
+            if (_movementStrategy == null)
+            {
+                InitializeMovementStrategy();
+            }
+
+            // [CRITICAL] Ensure NavMeshAgent is on NavMesh
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null && !agent.isOnNavMesh)
+            {
+                if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 5.0f, NavMesh.AllAreas))
+                {
+                    agent.Warp(hit.position);
+                }
+            }
+
+            if (_currentState == null)
+            {
+                ChangeState(new PatrolState());
+            }
+        }
+
+        private void TryAutoInitialize()
+        {
+            string enemyName = gameObject.name.Replace(" (Clone)", "").Trim();
+            var config = Resources.Load<Data.Enemies.SimpleEnemyConfig>($"Enemies/Configs/{enemyName}Config");
+            var animConfig = Resources.Load<AnimationConfig>($"Enemies/Animations/{enemyName}Anims");
+
+            if (config != null && animConfig != null)
+            {
+                InitializeEnemy(config, animConfig, null, config.BaseAttackRange);
+                Debug.Log($"[EnemyBase] Auto-initialized {gameObject.name} using Resources.");
+            }
+        }
+
+        private void FindTarget()
+        {
+            if (_target != null) return;
+            var player = GameObject.FindGameObjectWithTag("Player");
+            _target = player != null ? player.transform : null;
+        }
+
+        private void InitializeMovementStrategy()
+        {
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                _movementStrategy = new NavMeshMovementStrategy(_movementController, _animationController, agent, _statusEffectController);
+            }
+            else
+            {
+                _movementStrategy = new SimpleMovementStrategy(_movementController, _animationController, _statusEffectController);
             }
         }
 
@@ -150,6 +232,9 @@ protected virtual new void Awake()
                 return;
             }
 
+            // Ensure target is still valid
+            if (_target == null) FindTarget();
+
             _currentState?.Execute(this);
         }
 
@@ -169,7 +254,7 @@ protected virtual new void Awake()
                 _health.SetMaxHealth(ConfigInternal.MaxHealth, true);
             }
 
-            _movementStrategy = new SimpleMovementStrategy(_movementController, _animationController, _statusEffectController);
+            InitializeMovementStrategy();
             ChangeState(new PatrolState());
         }
 
@@ -208,6 +293,15 @@ protected virtual new void Awake()
             var col = GetComponent<Collider2D>();
             if (col != null) col.enabled = true;
 
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.updateRotation = false;
+                agent.updatePosition = false;
+                agent.updateUpAxis = false;
+                if (agent.isOnNavMesh) agent.isStopped = true;
+            }
+
             if (_animationController != null)
             {
                 _animationController.PlayIdle();
@@ -234,18 +328,7 @@ protected virtual new void Awake()
         public void MoveTowardsPosition(Vector3 position)
         {
             if (_movementStrategy == null) return;
-
-            var direction = position - transform.position;
-            direction.z = 0f;
-
-            if (direction.sqrMagnitude < 0.0001f)
-            {
-                _movementStrategy.StopMovement();
-                return;
-            }
-
-            direction.Normalize();
-            _movementStrategy.Move(direction);
+            _movementStrategy.Move(position);
         }
 
         public void StopMovement()
@@ -257,7 +340,9 @@ protected virtual new void Awake()
         {
             if (_target == null || _animationController == null) return;
             var dir = _target.position - transform.position;
-            _animationController.SetFacingByMove(dir);
+            
+            // Decisively face the target regardless of movement deadzone
+            _animationController.SetFacingDecisive(dir.x);
         }
 
         public void PrepareForEntitySwap()

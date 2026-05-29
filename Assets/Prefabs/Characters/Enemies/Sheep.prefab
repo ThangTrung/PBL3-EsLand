@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1169752073286033271}
   - component: {fileID: 8085896796666403685}
   - component: {fileID: 7019463130076121595}
+  - component: {fileID: 8151794673035111820}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Untagged
@@ -189,7 +190,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -244,3 +245,25 @@ MonoBehaviour:
   patrolReachDistance: 0.3
   lootTable: []
   dropChance: 0.5
+--- !u!195 &8151794673035111820
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523037889023085912}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

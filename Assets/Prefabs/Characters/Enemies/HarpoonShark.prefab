@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1457626184916512051}
   - component: {fileID: 8128174859426311239}
   - component: {fileID: 6393301595055564234}
+  - component: {fileID: 735776205102663229}
   m_Layer: 10
   m_Name: HarpoonShark
   m_TagString: Enemy
@@ -114,7 +115,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -205,7 +206,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3, y: 3}
     newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
@@ -214,27 +215,27 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.421875, y: 1.703125}
-      - {x: 0.40625, y: 1.734375}
-      - {x: 0.234375, y: 1.921875}
-      - {x: 0.046875, y: 2.03125}
-      - {x: -0.203125, y: 2.09375}
-      - {x: -0.421875, y: 2.140625}
-      - {x: -0.546875, y: 2.140625}
-      - {x: -0.609375, y: 2.125}
-      - {x: -0.765625, y: 2}
-      - {x: -0.78125, y: 1.953125}
-      - {x: -0.78125, y: 1.796875}
-      - {x: -0.6875, y: 1.546875}
-      - {x: -0.59375, y: 1.171875}
-      - {x: -0.53125, y: 1.015625}
-      - {x: -0.40625, y: 1.046875}
-      - {x: -0.265625, y: 0.96875}
-      - {x: -0.234375, y: 0.953125}
-      - {x: -0.15625, y: 0.953125}
-      - {x: -0.09375, y: 1.03125}
-      - {x: 0.140625, y: 0.96875}
-      - {x: 0.421875, y: 1.265625}
+    - - {x: 0.421875, y: 0.203125}
+      - {x: 0.40625, y: 0.234375}
+      - {x: 0.234375, y: 0.421875}
+      - {x: 0.046875, y: 0.53125}
+      - {x: -0.203125, y: 0.59375}
+      - {x: -0.421875, y: 0.640625}
+      - {x: -0.546875, y: 0.640625}
+      - {x: -0.609375, y: 0.625}
+      - {x: -0.765625, y: 0.5}
+      - {x: -0.78125, y: 0.453125}
+      - {x: -0.78125, y: 0.296875}
+      - {x: -0.6875, y: 0.046875}
+      - {x: -0.59375, y: -0.328125}
+      - {x: -0.53125, y: -0.484375}
+      - {x: -0.40625, y: -0.453125}
+      - {x: -0.265625, y: -0.53125}
+      - {x: -0.234375, y: -0.546875}
+      - {x: -0.15625, y: -0.546875}
+      - {x: -0.09375, y: -0.46875}
+      - {x: 0.140625, y: -0.53125}
+      - {x: 0.421875, y: -0.234375}
   m_UseDelaunayMesh: 0
 --- !u!114 &6393301595055564234
 MonoBehaviour:
@@ -249,3 +250,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: New Character
+--- !u!114 &735776205102663229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083409326931047421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6c6407bb380f442b32e9d70141f7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  flashDuration: 0.2
+  knockbackForce: 12
+  knockbackDuration: 0.25
