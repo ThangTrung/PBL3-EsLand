@@ -1,4 +1,4 @@
-using Core.Contracts.Combat;
+﻿using Core.Contracts.Combat;
 using Gameplay.Characters;
 using UnityEngine;
 
@@ -23,7 +23,6 @@ namespace Gameplay.AI.Strategies.Modifiers
                     {
                         // Pass null as source to prevent infinite recursion
                         victim.TakeDamage(reflectedDamage, null);
-                        Debug.Log($"{gameObject.name} reflected {reflectedDamage} damage to {source.name}");
                     }
                 }
             }

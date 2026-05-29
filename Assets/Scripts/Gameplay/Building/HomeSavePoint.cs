@@ -1,4 +1,4 @@
-using Core.Contracts.Shared;
+﻿using Core.Contracts.Shared;
 using Gameplay.Characters;
 using Infrastructure.SaveSystem.Core;
 using UI.Transition;
@@ -13,7 +13,6 @@ namespace Gameplay.Building
     public class HomeSavePoint : MonoBehaviour, IInteractable
     {
         [Header("Settings")]
-        [SerializeField] private float fadeDuration = 1.0f;
         [SerializeField] private Vector3 respawnOffset = new Vector3(0, -1, 0);
 
         private Player _currentPlayer;
@@ -37,7 +36,6 @@ namespace Gameplay.Building
             if (_currentPlayer == null) yield break;
 
             _isSleeping = true;
-            Debug.Log("[Home] Phát tín hiệu yêu cầu ngủ tới UIManager (Từ Click Chuột).");
 
             // Phát tín hiệu để UIManager xử lý phần 'nhìn' (Mây, Fade)
             Core.Events.GameEvents.OnSleepRequested?.Invoke(this, _currentPlayer);
@@ -75,7 +73,6 @@ namespace Gameplay.Building
                 SaveLoadManager.Instance.SaveGame();
             }
 
-            Debug.Log("<color=cyan>[Home] Đã thực hiện logic hồi phục và Save tại nhà.</color>");
         }
 
         private void OnDrawGizmosSelected()

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using Core.Contracts.Shared;
 using UnityEngine;
 
@@ -13,7 +13,6 @@ namespace Gameplay.Characters
     {
         [Header("Animation Settings")]
         [SerializeField] private string deathStateName = "Death";       // Tên State trong Animator
-        [SerializeField] private string respawnStateName = "Respawn";   // Tên State trong Animator
         [SerializeField] private string deathTriggerName = "Die";       // Tên Trigger Parameter
         [SerializeField] private string respawnTriggerName = "Respawn"; // Tên Trigger Parameter
         
@@ -64,7 +63,6 @@ namespace Gameplay.Characters
         public void SetRespawnPoint(Vector3 position)
         {
             RespawnPoint = position;
-            Debug.Log($"[Respawn] Điểm hồi sinh mới được thiết lập tại: {position}");
         }
 
         public void Respawn()
@@ -75,7 +73,6 @@ namespace Gameplay.Characters
 
         private void HandlePlayerDie()
         {
-            Debug.Log("[Respawn] Player đã chết. Bắt đầu quy trình hồi sinh...");
             Respawn();
         }
 
@@ -125,7 +122,6 @@ namespace Gameplay.Characters
             TogglePlayerControls(true);
 
             _isRespawning = false;
-            Debug.Log("[Respawn] Player đã hồi sinh thành công.");
         }
 
         private void TogglePlayerControls(bool state)

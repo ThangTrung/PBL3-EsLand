@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Core.Contracts.Combat;
 using Gameplay.AI.Animation;
 using UnityEngine;
@@ -66,11 +66,9 @@ namespace Gameplay.AI.Strategies
             if (isYAligned && isXInRange && _target.TryGetComponent<IDamageable>(out var victim))
             {
                 victim.TakeDamage(_damage, _source);
-                Debug.Log($"[Melee] {_source.name} hit {_target.name} for {_damage} damage!");
             }
             else if (isYAligned && isXInRange)
             {
-                Debug.LogWarning($"[Melee] {_source.name} missed {_target.name} - No IDamageable found!");
             }
 
             _hitApplied = true;

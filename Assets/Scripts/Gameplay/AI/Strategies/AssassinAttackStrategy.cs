@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Core.Contracts.Combat;
 using Gameplay.AI.Animation;
 using UnityEngine;
@@ -66,7 +66,6 @@ namespace Gameplay.AI.Strategies
                     if (Mathf.Approximately(thiefFacing, targetFacing))
                     {
                         finalDmg *= _backstabMultiplier;
-                        Debug.Log("Backstab!");
                     }
 
                     victim.TakeDamage(finalDmg, _source);

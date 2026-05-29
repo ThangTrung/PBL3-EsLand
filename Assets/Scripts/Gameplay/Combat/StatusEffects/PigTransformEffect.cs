@@ -1,4 +1,4 @@
-using Core.Contracts.Combat;
+﻿using Core.Contracts.Combat;
 using UnityEngine;
 
 namespace Gameplay.Combat.StatusEffects
@@ -27,7 +27,6 @@ namespace Gameplay.Combat.StatusEffects
         {
             _target = target;
             _elapsedTime = 0f;
-            Debug.Log($"{target.name} turned into a PIG!");
         }
 
         public void Tick(float deltaTime)
@@ -37,7 +36,6 @@ namespace Gameplay.Combat.StatusEffects
 
         public void OnRemove()
         {
-            Debug.Log($"{_target.name} is no longer a pig.");
         }
     }
 }

@@ -1,4 +1,4 @@
-using Core.Contracts.Inventory;
+﻿using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
 using Core.Events;
 using Data.Items;
@@ -85,7 +85,6 @@ namespace UI
                 inventoryUI.OnActionMenuRequested += OpenActionMenu;
                 inventoryUI.OnInventoryClosed += actionMenu.HideMenu;
                 inventoryUI.OnSlotLeftClicked += HandleInventorySlotLeftClicked;
-                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo và kết nối Inventory UI.");
             }
 
             if (equipmentUI != null)
@@ -93,13 +92,11 @@ namespace UI
                 equipmentUI.Initialize(inventoryHolder);
                 equipmentUI.OnActionMenuRequested += OpenActionMenu;
                 equipmentUI.OnEquipmentClosed += actionMenu.HideMenu;
-                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Equipment UI.");
             }
 
             if (craftingUI != null)
             {
                 craftingUI.Initialize(inventoryHolder);
-                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Crafting UI.");
             }
 
             if (inventoryHolder is not Player player) return;
@@ -109,7 +106,6 @@ namespace UI
             if (statusUI != null)
             {
                 statusUI.Initialize(player);
-                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Status UI.");
             }
 
             if (inventoryUI != null)
@@ -152,15 +148,19 @@ namespace UI
             bool added = false;
 
             // Áp dụng Logic Định Tuyến Nghiêm Ngặt (Strict Routing) dựa trên Type:
-            switch (item)
+            // Ưu tiên Fuel vào Slot 1. Các item khác vào Slot 0.
+            if (item is MaterialItem material && material.FuelTime > 0)
             {
-                case ConsumableItem consumable when consumable.IsCookable:
+                added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
+                // Nếu Slot 1 đầy, hoặc item này cũng là nguyên liệu nấu, có thể thử thêm vào slot 0
+                if (!added)
+                {
                     added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
-                    break;
-
-                case MaterialItem material when material.FuelTime > 0:
-                    added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
-                    break;
+                }
+            }
+            else
+            {
+                added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
             }
 
             if (added)
@@ -181,7 +181,6 @@ namespace UI
             if (success) return;
             
             cookingUI.CurrentTower.TryAddItem(slotIndex, item, amount);
-            Debug.LogWarning("Túi đồ đã đầy, không thể lấy vật phẩm từ lò!");
         }
 
         private void Update()

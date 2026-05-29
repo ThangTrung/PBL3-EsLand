@@ -1,4 +1,4 @@
-using Core.Contracts.Combat;
+﻿using Core.Contracts.Combat;
 using Gameplay.Characters;
 using UnityEngine;
 
@@ -14,7 +14,6 @@ namespace Gameplay.AI.Strategies.Modifiers
         {
             if (Random.value <= dodgeChance)
             {
-                Debug.Log($"{gameObject.name} dodged the attack!");
                 // Trigger dodge animation if available
                 return 0f;
             }

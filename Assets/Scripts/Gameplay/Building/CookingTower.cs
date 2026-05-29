@@ -1,4 +1,6 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using Data.Building;
 using Data.Items;
 using Gameplay.Characters;
 using Gameplay.Inventory;
@@ -11,6 +13,7 @@ namespace Gameplay.Building
     {
         [Header("Settings")]
         [SerializeField] private float interactRange = 3f;
+        [SerializeField] private List<CookingRecipe> availableRecipes = new List<CookingRecipe>();
 
         public InventorySlot[] Slots { get; } = new InventorySlot[3];
 
@@ -32,24 +35,22 @@ namespace Gameplay.Building
 
         public bool CanInteract(Character interactor)
         {
-            return true; // Always can interact if in range
+            return true;
         }
 
         public float GetStaminaCost(Character interactor)
         {
-            return 0f; // Interacting with UI costs no stamina
+            return 0f;
         }
 
         public void Interact(Character interactor)
         {
             if (Vector2.Distance(transform.position, interactor.transform.position) <= interactRange)
             {
-                Debug.Log($"[CookingTower] {interactor.CharacterName} tương tác thành công.");
                 OnTowerInteracted?.Invoke(this);
             }
             else
             {
-                Debug.Log($"[CookingTower] {interactor.CharacterName} đứng quá xa để tương tác.");
             }
         }
 
@@ -59,16 +60,16 @@ namespace Gameplay.Building
             var isCooking = false;
 
             var hasValidInput = false;
-            ICookable inputCookable = null;
+            CookingRecipe currentRecipe = null;
 
             // 1. Kiểm tra Slot Input (0)
-            if (!Slots[0].IsEmpty && Slots[0].ItemData is ICookable cookable && cookable.IsCookable)
+            if (!Slots[0].IsEmpty)
             {
-                if (CanCook(cookable))
+                currentRecipe = GetRecipe(Slots[0].ItemData);
+                if (currentRecipe != null && CanCook(currentRecipe))
                 {
                     hasValidInput = true;
-                    inputCookable = cookable;
-                    SmeltTime = cookable.CookingTime;
+                    SmeltTime = currentRecipe.CookingTime;
                 }
             }
 
@@ -105,7 +106,7 @@ namespace Gameplay.Building
                     isCooking = true;
                     isDirty = true; // Update progress bar liên tục
 
-                    if (CookingProgress >= inputCookable.CookingTime)
+                    if (CookingProgress >= currentRecipe.CookingTime)
                     {
                         CookingProgress = 0;
                         
@@ -116,9 +117,9 @@ namespace Gameplay.Building
                         // Thêm Output (Slot 2)
                         if (Slots[2].IsEmpty)
                         {
-                            Slots[2].SetItem(inputCookable.CookingResult, 1);
+                            Slots[2].SetItem(currentRecipe.OutputItem, 1);
                         }
-                        else if (Slots[2].ItemData.ID == inputCookable.CookingResult.ID)
+                        else if (Slots[2].ItemData.ID == currentRecipe.OutputItem.ID)
                         {
                             Slots[2].AddAmount(1);
                         }
@@ -139,11 +140,23 @@ namespace Gameplay.Building
             }
         }
 
-        private bool CanCook(ICookable cookable)
+        private CookingRecipe GetRecipe(ItemData inputItem)
         {
-            if (cookable.CookingResult == null) return false;
+            foreach (var recipe in availableRecipes)
+            {
+                if (recipe != null && recipe.InputItem != null && recipe.InputItem.ID == inputItem.ID)
+                {
+                    return recipe;
+                }
+            }
+            return null;
+        }
+
+        private bool CanCook(CookingRecipe recipe)
+        {
+            if (recipe == null || recipe.OutputItem == null) return false;
             if (Slots[2].IsEmpty) return true;
-            if (Slots[2].ItemData.ID != cookable.CookingResult.ID) return false; 
+            if (Slots[2].ItemData.ID != recipe.OutputItem.ID) return false; 
             return Slots[2].Amount < Slots[2].ItemData.MaxStack;
         }
 

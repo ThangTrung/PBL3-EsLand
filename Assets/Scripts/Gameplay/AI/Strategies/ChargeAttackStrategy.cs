@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Core.Contracts.Combat;
 using Gameplay.AI.Animation;using Gameplay.AI.Movement;
 
@@ -16,7 +16,6 @@ namespace Gameplay.AI.Strategies
         private readonly Transform _selfTransform;
         private readonly Character _source;
         private readonly float _chargeSpeedMultiplier = 2.5f;
-        private readonly float _knockbackForce = 0.8f;
 
         private Transform _target;
         private bool _isCharging;
@@ -42,7 +41,6 @@ namespace Gameplay.AI.Strategies
             _isCharging = true;
             _chargeDirection = (_target.position - _selfTransform.position).normalized;
             _animator?.PlayRun(); // Charge uses run animation or special charge if available
-            Debug.Log($"{_selfTransform.name} is CHARGING!");
         }
 
         public void TryApplyHitIfReady()

@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Gameplay.AI.Enemies;
 using Gameplay.AI.Factories;
 using UnityEngine;
@@ -11,7 +11,6 @@ namespace Gameplay.AI.Bosses.Ogre
 
         public void EnterPhase(OgreBossEnemy boss)
         {
-            Debug.Log("Ogre Phase 1: Heavy Smash");
         }
 
         public void ExecutePhase(OgreBossEnemy boss)
@@ -31,7 +30,6 @@ namespace Gameplay.AI.Bosses.Ogre
 
         public void EnterPhase(OgreBossEnemy boss)
         {
-            Debug.Log("Ogre Phase 2: Double Smash + Summon Goblins");
             SpawnMinions(boss);
             _lastSpawnTime = Time.time;
         }
@@ -63,7 +61,6 @@ namespace Gameplay.AI.Bosses.Ogre
 
         public void EnterPhase(OgreBossEnemy boss)
         {
-            Debug.Log("Ogre Phase 3: BERSERKER MODE!");
             boss.SpawnMinions(3);
             _lastSpawnTime = Time.time;
         }

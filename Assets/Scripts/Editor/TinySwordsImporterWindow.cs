@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
@@ -30,7 +30,6 @@ public class TinySwordsImporterWindow : EditorWindow
         string folderPath = targetPath.TrimEnd('/');
         if (!AssetDatabase.IsValidFolder(folderPath))
         {
-            Debug.LogError($"[TinySwordsImporter] Folder not found: {folderPath}");
             EditorUtility.DisplayDialog("Error", $"Folder not found: {folderPath}\nPlease check the path and try again.", "OK");
             return;
         }
@@ -88,7 +87,6 @@ public class TinySwordsImporterWindow : EditorWindow
             }
         }
 
-        Debug.Log($"[TinySwordsImporter] Processed {count} sprites in {folderPath}");
         EditorUtility.DisplayDialog("Success", $"Processed {count} sprites successfully!", "OK");
         
         AssetDatabase.Refresh();

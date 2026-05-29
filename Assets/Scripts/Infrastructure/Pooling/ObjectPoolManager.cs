@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -101,7 +101,6 @@ namespace Infrastructure.Pooling
             }
             
             // Fallback if not from pool
-            Debug.LogWarning($"Object {instance.name} was returned to pool but no matching pool was found. Destroying instead.");
             Destroy(instance);
         }
 

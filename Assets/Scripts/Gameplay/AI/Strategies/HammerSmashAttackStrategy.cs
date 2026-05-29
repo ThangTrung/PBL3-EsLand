@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Core.Contracts.Combat;
 using Gameplay.AI.Animation;
 using UnityEngine;
@@ -70,7 +70,6 @@ namespace Gameplay.AI.Strategies
                 if (col.TryGetComponent<IDamageable>(out var victim))
                 {
                     victim.TakeDamage(_damage, _source);
-                    Debug.Log($"Hammer Smash hit {col.name}!");
                 }
             }
         }

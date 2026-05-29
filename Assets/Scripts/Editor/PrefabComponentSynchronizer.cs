@@ -92,7 +92,6 @@ namespace PBL3.EditorTools
                     // Bắt buộc phải là Prefab Asset trong Project, không chơi với object trên Scene
                     if (!PrefabUtility.IsPartOfPrefabAsset(target))
                     {
-                        Debug.LogWarning($"[SyncTool] Bỏ qua {target.name} vì nó không phải là Prefab Asset.");
                         continue;
                     }
 
@@ -121,7 +120,6 @@ namespace PBL3.EditorTools
 
                         if (isNewComponent)
                         {
-                            Debug.Log($"[SyncTool] Added '{compType.Name}' to '{target.name}'.");
                         }
                     }
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Core.Contracts.Combat;
 using Core.Contracts.Equipment;
 using Core.Contracts.Shared;
@@ -113,7 +113,6 @@ namespace Gameplay.World
             float finalDamage = CalculateDamage(interactor);
             if (!ValidateTool(interactor, ref finalDamage)) return;
 
-            Debug.Log($"Applying {finalDamage} damage to {gameObject.name}");
             TakeDamage(finalDamage, interactor);
         }
 
@@ -131,7 +130,6 @@ namespace Gameplay.World
             var equipment = interactor.EquipmentManager;
             if (equipment == null)
             {
-                Debug.LogWarning($"[ResourceNode] {interactor.CharacterName} has no EquipmentManager!");
                 return false;
             }
 
@@ -144,7 +142,6 @@ namespace Gameplay.World
                 return true;
             }
 
-            Debug.Log($"[ResourceNode] Wrong tool or no tool equipped! Need: {requiredTool}. Equipped: {mainItem?.GetType().Name ?? "None"}");
             return false;
         }
 

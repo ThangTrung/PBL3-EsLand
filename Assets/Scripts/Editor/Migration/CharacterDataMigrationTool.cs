@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using Gameplay.Characters;
 using UnityEditor;
 using UnityEngine;
@@ -37,7 +37,6 @@ namespace Editor.Migration
                 }
             }
 
-            Debug.Log($"[Migration Tool] Successfully migrated {count} characters.");
         }
 
         private bool MigrateCharacter(Character character)
@@ -54,7 +53,6 @@ namespace Editor.Migration
 
             if (maxHealthProp == null && baseDamageProp == null)
             {
-                Debug.LogWarning($"[Migration Tool] No orphaned data found on {character.gameObject.name}. Has it already been migrated and saved?");
                 return false;
             }
 
@@ -110,7 +108,6 @@ namespace Editor.Migration
             // But we can't delete properties from code, Unity will do it when the prefab is saved.
 
             EditorUtility.SetDirty(character.gameObject);
-            Debug.Log($"[Migration Tool] Migrated data for {character.gameObject.name}.");
             return true;
         }
     }

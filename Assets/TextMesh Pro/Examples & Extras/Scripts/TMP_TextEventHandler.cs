@@ -210,13 +210,13 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            //Debug.Log("OnPointerEnter()");
+            //
         }
 
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            //Debug.Log("OnPointerExit()");
+            //
         }
 
 
@@ -252,3 +252,4 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
     }
 }
+
