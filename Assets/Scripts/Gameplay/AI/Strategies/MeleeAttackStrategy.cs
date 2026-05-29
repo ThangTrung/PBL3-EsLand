@@ -74,9 +74,13 @@ namespace Gameplay.AI.Strategies
 
             float distX = Mathf.Abs(_selfTransform.position.x - target.position.x);
             float distY = Mathf.Abs(_selfTransform.position.y - (target.position.y + verticalOffset));
+            float totalDist = Vector3.Distance(_selfTransform.position, target.position);
             
-            bool isYAligned = distY <= 0.5f;
-            bool isXInRange = distX <= _range + 0.2f;
+            // [FIX] CƯỜNG HÓA TẤN CÔNG: 
+            // 1. Nới lỏng dung sai Y lên 1.2m
+            // 2. Nếu đứng RẤT gần ( < 1m), tấn công bất chấp độ lệch hàng.
+            bool isYAligned = distY <= 1.2f || totalDist < 1.0f;
+            bool isXInRange = distX <= _range + 0.3f;
 
             return isYAligned && isXInRange;
         }
