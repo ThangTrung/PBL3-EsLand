@@ -22,6 +22,7 @@ namespace UI
         [SerializeField] private ItemActionMenu actionMenu;
         [SerializeField] private StatusPanelUI statusUI;
         [SerializeField] private CookingTowerUI cookingUI;
+        [SerializeField] private UI.Transition.CloudTransitionUI cloudTransitionUI;
 
         private IInventory _playerInventory;
         private Player _currentPlayer;
@@ -29,6 +30,7 @@ namespace UI
         private void OnEnable()
         {
             GameEvents.OnPlayerReady += HandlePlayerReady;
+            GameEvents.OnSleepRequested += HandleSleepRequested;
             Gameplay.Building.CookingTower.OnTowerInteracted += HandleTowerInteracted;
 
             if (cookingUI != null)
@@ -40,6 +42,7 @@ namespace UI
         private void OnDisable()
         {
             GameEvents.OnPlayerReady -= HandlePlayerReady;
+            GameEvents.OnSleepRequested -= HandleSleepRequested;
             Gameplay.Building.CookingTower.OnTowerInteracted -= HandleTowerInteracted;
             
             if (inventoryUI != null)
@@ -197,6 +200,48 @@ namespace UI
             {
                 actionMenu.ShowMenu(context, pos);
             }
+        }
+
+        private void HandleSleepRequested(Gameplay.Building.HomeSavePoint house, Player player)
+        {
+            if (cloudTransitionUI == null)
+            {
+                cloudTransitionUI = FindObjectOfType<UI.Transition.CloudTransitionUI>();
+            }
+
+            if (cloudTransitionUI != null)
+            {
+                StartCoroutine(PerformSleepTransition(house, player));
+            }
+            else
+            {
+                house.ExecuteSleepLogic(player);
+            }
+        }
+
+        private System.Collections.IEnumerator PerformSleepTransition(Gameplay.Building.HomeSavePoint house, Player player)
+        {
+            // 1. Khoá người chơi nhưng CHƯA dừng game (để mây bay vào mượt mà)
+            player.SetCanMove(false);
+
+            // 2. Mây bay vào (Fade Out)
+            yield return cloudTransitionUI.FadeOut(1.5f, "Đang nghỉ ngơi...");
+
+            // 3. KHI MÂY ĐÃ CHE KÍN: Bắt đầu tạm dừng game
+            Time.timeScale = 0;
+
+            // 4. Thực hiện logic Gameplay tại nhà
+            house.ExecuteSleepLogic(player);
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            // 5. TRƯỚC KHI MÂY BAY RA: Chạy lại game
+            Time.timeScale = 1;
+
+            // 6. Mây bay ra (Fade In)
+            yield return cloudTransitionUI.FadeIn(1.5f);
+
+            // 7. Hoàn tất: Mở khoá người chơi
+            player.SetCanMove(true);
         }
     }
 }

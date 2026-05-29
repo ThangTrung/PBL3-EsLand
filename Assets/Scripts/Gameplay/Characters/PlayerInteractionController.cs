@@ -67,17 +67,16 @@ namespace Gameplay.Characters
             screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
             Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
 
-            // Use OverlapCircleAll for a more forgiving hover area
             Collider2D[] colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             Environment.Highlight newHover = null;
 
             foreach (var col in colliders)
             {
-                if (col != null && col.TryGetComponent<Gameplay.Environment.Highlight>(out var highlight))
-                {
-                    newHover = highlight;
-                    break;
-                }
+                if (col == null) continue;
+                
+                // Tìm Highlight ở chính nó hoặc object cha (Hỗ trợ cấu hình InteractionZone là con)
+                newHover = col.GetComponent<Gameplay.Environment.Highlight>() ?? col.GetComponentInParent<Gameplay.Environment.Highlight>();
+                if (newHover != null) break;
             }
 
             if (newHover != _currentHover)
@@ -90,12 +89,16 @@ namespace Gameplay.Characters
 
         public void HandleInteractionClick(Vector3 mouseWorldPos)
         {
-            // Use OverlapCircleAll for a more forgiving click area
             var colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             
             foreach (var col in colliders)
             {
-                if (!col || !col.TryGetComponent<IInteractable>(out var target)) continue;
+                if (col == null) continue;
+
+                // Tìm IInteractable ở chính nó hoặc cha
+                var target = col.GetComponent<IInteractable>() ?? col.GetComponentInParent<IInteractable>();
+                if (target == null) continue;
+
                 InteractWithTarget(target, col.transform);
                 return;
             }
