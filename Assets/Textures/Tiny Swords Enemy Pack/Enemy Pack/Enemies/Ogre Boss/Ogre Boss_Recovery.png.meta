@@ -104,15 +104,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b22cf2181d8c9c4b92bf0a84ca1ed82
-      internalID: -941610632
+      spriteID: 8358a4ce5be657a49a2ac043df77eec0
+      internalID: -1041955875
       vertices: []
       indices: 
       edges: []
@@ -125,15 +125,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c28e34be5eb920a42b4d80901953fa2d
-      internalID: 739544538
+      spriteID: ffb8b1d13b7c04749a8bfa69abbdaa7b
+      internalID: -1117327505
       vertices: []
       indices: 
       edges: []
@@ -146,15 +146,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40ee58c3d87e47349bcc847ebae10c44
-      internalID: 567112967
+      spriteID: 4a573c274cd2f3945a9ac08ef2efa521
+      internalID: 1039349214
       vertices: []
       indices: 
       edges: []
@@ -167,15 +167,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3297914210586b5498055023f1b3b402
-      internalID: -1943912508
+      spriteID: adc48d554bdf72440a842bd1bf2e50c5
+      internalID: -267580019
       vertices: []
       indices: 
       edges: []
@@ -188,15 +188,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45054a6cc1d38044989b7dc05cec1a35
-      internalID: -189705864
+      spriteID: a5a9bf7a0033f614da27b4bf4377c60a
+      internalID: 894157231
       vertices: []
       indices: 
       edges: []
@@ -209,15 +209,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab4b05ed584c1d047b3d5e41e17d41ae
-      internalID: -852588398
+      spriteID: ebbf93d2f33748c418198bc6bc8cbd9b
+      internalID: 1494075711
       vertices: []
       indices: 
       edges: []
@@ -230,15 +230,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd05fe3147af6244a8c12fa5eaeb880a
-      internalID: 761261284
+      spriteID: a7d0dcdf77b316c4f804635acd3a9205
+      internalID: -2044374038
       vertices: []
       indices: 
       edges: []
@@ -251,15 +251,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6bbd2685327d9f4da053336a2b6b3c9
-      internalID: 1117086489
+      spriteID: 0892dbe3754822b4f836d15b13d919a6
+      internalID: 383112613
       vertices: []
       indices: 
       edges: []
@@ -272,15 +272,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d1e2d7cc91f19d468f308e551bb7f74
-      internalID: -1939500487
+      spriteID: 9b4fbd14508c0244f83432f24717319a
+      internalID: -813217321
       vertices: []
       indices: 
       edges: []
@@ -293,15 +293,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 414d1332425538548bc051c2e5f1420d
-      internalID: -401165466
+      spriteID: ab78cccaae754824c920db0aaeb507d4
+      internalID: -1262763202
       vertices: []
       indices: 
       edges: []
@@ -317,15 +317,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Troll_Recovery_0: -5625714799028710922
-      Troll_Recovery_1: -8578933621460515384
-      Troll_Recovery_2: 4738474594574752416
-      Troll_Recovery_3: -6261365590575977774
-      Troll_Recovery_4: 7445709617791993271
-      Troll_Recovery_5: -8633977179672247821
-      Troll_Recovery_6: 4714913301501170648
-      Troll_Recovery_7: -5986917957667676979
-      Troll_Recovery_8: -565036135359239257
+      Ogre Boss_Recovery_0: -1041955875
+      Ogre Boss_Recovery_1: -1117327505
+      Ogre Boss_Recovery_2: 1039349214
+      Ogre Boss_Recovery_3: -267580019
+      Ogre Boss_Recovery_4: 894157231
+      Ogre Boss_Recovery_5: 1494075711
+      Ogre Boss_Recovery_6: -2044374038
+      Ogre Boss_Recovery_7: 383112613
+      Ogre Boss_Recovery_8: -813217321
+      Ogre Boss_Recovery_9: -1262763202
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

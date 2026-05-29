@@ -6,20 +6,12 @@ namespace Gameplay.AI.Animation
     [RequireComponent(typeof(SpriteRenderer))]
     public class CharacterAnimationController : MonoBehaviour
     {
-        public enum AnimState
-        {
-            Idle,
-            Run,
-            Attack,
-            Death
-        }
-
-        public event Action<int, AnimState> OnFrameChanged;
+        public event Action<int, string> OnFrameChanged;
 
         [SerializeField] private AnimationConfig config;
 
         private SpriteRenderer _spriteRenderer;
-        private AnimState _currentState = AnimState.Idle;
+        private string _currentState = Gameplay.AI.Animation.AnimationStateNames.Idle;
         private Sprite[] _currentFrames;
         private int _currentFrameIndex;
         private float _frameTimer;
@@ -49,42 +41,50 @@ namespace Gameplay.AI.Animation
             }
         }
 
-        public void PlayIdle()
+        /// <summary>
+        /// Plays an animation sequence defined in AnimationConfig by name.
+        /// </summary>
+        /// <param name="stateName">The name of the animation state (e.g. "Roar")</param>
+        /// <returns>The duration of the animation sequence, or 0.5f fallback.</returns>
+        public float PlayAnimation(string stateName)
         {
-            if (_currentState == AnimState.Idle) return;
-            SetAnimation(AnimState.Idle, config != null ? config.IdleFrames : null, true);
-        }
+            if (_currentState == stateName) return GetCurrentAnimationDuration();
 
-        public void PlayRun()
-        {
-            if (_currentState == AnimState.Run) return;
-            SetAnimation(AnimState.Run, config != null ? config.RunFrames : null, true);
-        }
-
-public float PlayAttack()
-        {
-            SetAnimation(AnimState.Attack, config != null ? config.AttackFrames : null, false);
-            if (config != null && config.AttackFrames != null && config.FrameRate > 0f)
+            var seq = config != null ? config.GetSequence(stateName) : null;
+            if (seq.HasValue)
             {
-                return (float)config.AttackFrames.Length / config.FrameRate;
+                SetAnimation(stateName, seq.Value.frames, seq.Value.isLooping);
+                return GetCurrentAnimationDuration();
+            }
+
+            return 0.5f; // Fallback
+        }
+
+        private float GetCurrentAnimationDuration()
+        {
+            if (config != null && _currentFrames != null && config.FrameRate > 0f)
+            {
+                return (float)_currentFrames.Length / config.FrameRate;
             }
             return 0.5f; // Fallback
         }
 
-        public void PlayDeath()
-        {
-            SetAnimation(AnimState.Death, config != null ? config.DeathFrames : null, false);
-        }
+        // --- Backward Compatibility Methods ---
+        public void PlayIdle() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Idle);
+        public void PlayRun() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Run);
+        public float PlayAttack() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Attack);
+        public void PlayDeath() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Death);
+        // ---------------------------------------
 
         public void SetFacingByMove(Vector3 direction)
         {
-            if (direction.x == 0) return;
+            if (Mathf.Abs(direction.x) < 0.1f) return;
             var scale = transform.localScale;
             scale.x = Mathf.Sign(direction.x);
             transform.localScale = scale;
         }
 
-        public AnimState GetCurrentState() => _currentState;
+        public string GetCurrentState() => _currentState;
 
         public int GetCurrentFrameIndex() => _currentFrameIndex;
 
@@ -93,13 +93,13 @@ public float PlayAttack()
         public void SetConfig(AnimationConfig animationConfig)
         {
             config = animationConfig;
-            if (_currentState == AnimState.Idle)
+            if (_currentState == Gameplay.AI.Animation.AnimationStateNames.Idle)
             {
-                SetAnimation(AnimState.Idle, config != null ? config.IdleFrames : null, true);
+                PlayIdle();
             }
         }
 
-        private void SetAnimation(AnimState state, Sprite[] frames, bool loop)
+        private void SetAnimation(string state, Sprite[] frames, bool loop)
         {
             _currentState = state;
             _currentFrames = frames;
@@ -136,7 +136,7 @@ public float PlayAttack()
 
         private void UpdateSprite()
         {
-            if (_spriteRenderer == null || _currentFrames == null || _currentFrames.Length == 0) return;
+            if (_spriteRenderer == null || _currentFrames == null || _currentFrames.Length == 0) return;        
             _spriteRenderer.sprite = _currentFrames[_currentFrameIndex];
         }
     }

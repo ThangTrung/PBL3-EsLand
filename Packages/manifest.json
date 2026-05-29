@@ -1,4 +1,5 @@
 {
+  "testables": ["Assembly-CSharp"],
   "dependencies": {
     "com.coplaydev.unity-mcp": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
     "com.unity.collab-proxy": "2.12.4",

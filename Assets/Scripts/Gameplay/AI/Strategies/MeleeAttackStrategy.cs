@@ -5,89 +5,65 @@ using UnityEngine;
 
 namespace Gameplay.AI.Strategies
 {
-    public class MeleeAttackStrategy : IAttackStrategy
+    public class MeleeAttackStrategy : BaseAttackStrategy
     {
         private readonly float _damage;
-        private readonly float _range;
-        private readonly float _cooldown;
-        private readonly CharacterAnimationController _animator;
         private readonly int _attackTriggerFrame;
-        private readonly Transform _selfTransform;
-        private readonly Gameplay.Characters.Character _source;
-
-        private Transform _target;
-        private bool _hitApplied;
-        private float _nextAttackTime;
-
-        public bool IsAttacking { get; private set; }
 
         public MeleeAttackStrategy(float damage, float range, float cooldown, CharacterAnimationController animator, int attackTriggerFrame, Transform selfTransform, Gameplay.Characters.Character source)
+            : base(animator, selfTransform, cooldown, range, source)
         {
             _damage = damage;
-            _range = range;
-            _cooldown = cooldown;
-            _animator = animator;
             _attackTriggerFrame = Mathf.Max(0, attackTriggerFrame);
-            _selfTransform = selfTransform;
-            _source = source;
         }
 
-        public void BeginAttack(Transform target)
+        protected override void OnBeginAttack()
         {
-            if (_animator == null) return;
-
-            _target = target;
             _hitApplied = false;
-            IsAttacking = true;
-
-            _animator.PlayAttack();
         }
 
-        public void TryApplyHitIfReady()
+        protected override void InternalApplyHit()
         {
-            if (!IsAttacking || _target == null || _animator == null) return;
-            if (_animator.GetCurrentState() != CharacterAnimationController.AnimState.Attack) return;
+            if (_animator.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack) return;
 
             var currentFrame = _animator.GetCurrentFrameIndex();
-            if (_hitApplied || currentFrame < _attackTriggerFrame) return;
-
-            float verticalOffset = 0f;
-            if (_source is Gameplay.AI.EnemyBase enemyBase && enemyBase.Config != null)
+            if (!_hitApplied && currentFrame >= _attackTriggerFrame)
             {
-                verticalOffset = enemyBase.Config.VerticalAlignmentOffset;
-            }
+                float verticalOffset = 0f;
+                if (_source is Gameplay.AI.EnemyBase enemyBase && enemyBase.Config != null)
+                {
+                    verticalOffset = enemyBase.Config.VerticalAlignmentOffset;
+                }
 
-            float distX = Mathf.Abs(_selfTransform.position.x - _target.position.x);
-            float distY = Mathf.Abs(_selfTransform.position.y - (_target.position.y + verticalOffset));
-            
-            bool isYAligned = distY <= 0.5f;
-            bool isXInRange = distX <= _range + 0.2f;
+                float distX = Mathf.Abs(_selfTransform.position.x - _target.position.x);
+                float distY = Mathf.Abs(_selfTransform.position.y - (_target.position.y + verticalOffset));
+                
+                bool isYAligned = distY <= 0.5f;
+                bool isXInRange = distX <= _range + 0.2f;
 
-            if (isYAligned && isXInRange && _target.TryGetComponent<IDamageable>(out var victim))
-            {
-                victim.TakeDamage(_damage, _source);
-                Debug.Log($"[Melee] {_source.name} hit {_target.name} for {_damage} damage!");
-            }
-            else if (isYAligned && isXInRange)
-            {
-                Debug.LogWarning($"[Melee] {_source.name} missed {_target.name} - No IDamageable found!");
-            }
+                if (isYAligned && isXInRange && _target.TryGetComponent<IDamageable>(out var victim))
+                {
+                    victim.TakeDamage(_damage, _source);
+                    Debug.Log($"[Melee] {_source.name} hit {_target.name} for {_damage} damage!");
+                }
+                else if (isYAligned && isXInRange)
+                {
+                    Debug.LogWarning($"[Melee] {_source.name} missed {_target.name} - No IDamageable found!");
+                }
 
-            _hitApplied = true;
-            _nextAttackTime = Time.time + _cooldown;
+                _hitApplied = true;
+                _nextAttackTime = Time.time + _cooldown;
+            }
         }
 
-        public void EndAttack()
+        protected override void OnEndAttack()
         {
-            IsAttacking = false;
-            _target = null;
             _hitApplied = false;
         }
 
-        public bool CanStartAttack(Transform target)
+        public override bool CanStartAttack(Transform target)
         {
-            if (IsAttacking || target == null) return false;
-            if (Time.time < _nextAttackTime) return false;
+            if (!base.CanStartAttack(target)) return false;
 
             float verticalOffset = 0f;
             if (_source is Gameplay.AI.EnemyBase enemyBase && enemyBase.Config != null)
@@ -98,7 +74,6 @@ namespace Gameplay.AI.Strategies
             float distX = Mathf.Abs(_selfTransform.position.x - target.position.x);
             float distY = Mathf.Abs(_selfTransform.position.y - (target.position.y + verticalOffset));
             
-            // Thống nhất dung sai với logic gây sát thương và ChaseState
             bool isYAligned = distY <= 0.5f;
             bool isXInRange = distX <= _range + 0.2f;
 

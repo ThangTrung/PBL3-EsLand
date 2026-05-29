@@ -30,8 +30,8 @@ namespace Gameplay.AI.Movement
             _movementController.Move(direction);
             _animationController?.SetFacingByMove(direction);
 
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Attack &&
-                _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Death)
+            if (_animationController != null && _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack &&
+                _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Death)
             {
                 _animationController.PlayRun();
             }
@@ -41,8 +41,8 @@ namespace Gameplay.AI.Movement
         {
             _movementController?.StopMovement();
 
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Attack &&
-                _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Death)
+            if (_animationController != null && _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack &&
+                _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Death)
             {
                 _animationController.PlayIdle();
             }

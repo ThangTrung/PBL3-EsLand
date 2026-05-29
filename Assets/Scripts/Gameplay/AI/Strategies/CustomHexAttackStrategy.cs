@@ -43,8 +43,17 @@ namespace Gameplay.AI.Strategies
 
         public void TryApplyHitIfReady()
         {
+            InternalApplyHit();
+            if (_animator != null && _animator.IsCurrentAnimationFinished())
+            {
+                EndAttack();
+            }
+        }
+
+        private void InternalApplyHit()
+        {
             if (!IsAttacking || _target == null || _animator == null) return;
-            if (_animator.GetCurrentState() != CharacterAnimationController.AnimState.Attack) return;
+            if (_animator.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack) return;
 
             var currentFrame = _animator.GetCurrentFrameIndex();
             if (_projectileSpawned || currentFrame < _attackTriggerFrame) return;

@@ -35,7 +35,7 @@ namespace Gameplay.AI.Enemies.Goblin
             {
                 Debug.LogWarning($"[ShamanEnemy] Missing animation config at Resources/{AnimationPath}. Create one to enable animations.");
                 animationConfig = ScriptableObject.CreateInstance<AnimationConfig>();
-                animationConfig.Initialize(null, null, null, null, 10f, 2);
+                animationConfig.Initialize(new System.Collections.Generic.List<AnimationSequence>(), 10f);
             }
 
             var projectileSpec = Resources.Load<ProjectileSpec>(ProjectileSpecPath);

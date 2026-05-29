@@ -15,6 +15,10 @@ namespace Gameplay.AI.Enemies
 {
     public class OgreBossEnemy : EnemyBase
     {
+        [Header("Weapon Gibs")]
+        [SerializeField] private GameObject clubPart1Prefab;
+        [SerializeField] private GameObject clubPart2Prefab;
+        
         [Header("Boss Settings")]
         [SerializeField] private string bossName = "Ogre Warlord";
         [SerializeField] private float hammerAOERadius = 2.5f;
@@ -35,6 +39,10 @@ namespace Gameplay.AI.Enemies
             _cachedHealth = GetComponent<CharacterHealth>();
             if (_cachedHealth != null)
             {
+                // Ngăn chặn việc đăng ký sự kiện nhiều lần (Memory leak)
+                _cachedHealth.OnHealthChanged -= HandleHealthChanged;
+                _cachedHealth.OnDie -= HandleBossDefeated;
+                
                 _cachedHealth.OnHealthChanged += HandleHealthChanged;
                 _cachedHealth.OnDie += HandleBossDefeated;
             }
@@ -46,7 +54,10 @@ namespace Gameplay.AI.Enemies
             base.InitializeEnemy(config, animationConfig, strategy, attackRange);
             
             // Notify UI
-            BossHealthEventChannel.RaiseBossHealthUpdated(bossName, _cachedHealth.CurrentHealth, _cachedHealth.MaxHealth);
+            if (_cachedHealth != null)
+            {
+                BossHealthEventChannel.RaiseBossHealthUpdated(bossName, _cachedHealth.CurrentHealth, _cachedHealth.MaxHealth);
+            }
         }
 
         public override void ResetStats()
@@ -134,6 +145,11 @@ namespace Gameplay.AI.Enemies
             if (phase is OgrePhase2) cooldownReduction = 0.8f;
             if (phase is OgrePhase3) cooldownReduction = 0.5f;
 
+            var attackSeq = Animator.Config.GetSequence(Gameplay.AI.Animation.AnimationStateNames.Attack);
+            int[] triggerFrames = attackSeq?.multiTriggerFrames != null && attackSeq.Value.multiTriggerFrames.Length > 0 
+                ? attackSeq.Value.multiTriggerFrames 
+                : new int[] { attackSeq?.triggerFrame ?? -1 };
+
             // Replace strategy with a buffed version
             var newStrategy = new HammerSmashAttackStrategy(
                 ConfigInternal.BaseDamage,
@@ -141,24 +157,27 @@ namespace Gameplay.AI.Enemies
                 hammerAOERadius,
                 ConfigInternal.AttackCooldown * cooldownReduction,
                 Animator,
-                Animator.Config.AttackTriggerFrame,
+                triggerFrames,
                 transform,
                 this);
             
-            // Note: In real logic, we'd need a SetAttackStrategy in EnemyBase or re-initialize
-            // For now, we manually overwrite internal member if possible, or re-init
             AttackStrategyInternal = newStrategy;
         }
 
         private IAttackStrategy CreateHammerStrategy(IEnemyConfig config, float range)
         {
+            var attackSeq = Animator.Config.GetSequence(Gameplay.AI.Animation.AnimationStateNames.Attack);
+            int[] triggerFrames = attackSeq?.multiTriggerFrames != null && attackSeq.Value.multiTriggerFrames.Length > 0 
+                ? attackSeq.Value.multiTriggerFrames 
+                : new int[] { attackSeq?.triggerFrame ?? -1 };
+
             return new HammerSmashAttackStrategy(
                 config.BaseDamage,
                 range,
                 hammerAOERadius,
                 config.AttackCooldown,
                 Animator,
-                Animator.Config.AttackTriggerFrame,
+                triggerFrames,
                 transform,
                 this);
         }
@@ -167,7 +186,32 @@ namespace Gameplay.AI.Enemies
         {
             BossHealthEventChannel.RaiseBossDefeated();
             ClearMinions();
+            SpawnBrokenClubParts();
         }
+
+        private void SpawnBrokenClubParts()
+        {
+            if (clubPart1Prefab != null)
+            {
+                var part1 = ObjectPoolManager.Instance.Get(clubPart1Prefab, transform.position, Quaternion.identity);
+                if (part1 != null && part1.TryGetComponent<Rigidbody2D>(out var rb1))
+                {
+                    rb1.velocity = new Vector2(Random.Range(-3f, -1f), Random.Range(2f, 5f));
+                    rb1.angularVelocity = Random.Range(-180f, 180f);
+                }
+            }
+
+            if (clubPart2Prefab != null)
+            {
+                var part2 = ObjectPoolManager.Instance.Get(clubPart2Prefab, transform.position, Quaternion.identity);
+                if (part2 != null && part2.TryGetComponent<Rigidbody2D>(out var rb2))
+                {
+                    rb2.velocity = new Vector2(Random.Range(1f, 3f), Random.Range(2f, 5f));
+                    rb2.angularVelocity = Random.Range(-180f, 180f);
+                }
+            }
+        }
+
 
 private void ClearMinions()
         {
@@ -193,5 +237,23 @@ private void ClearMinions()
             }
             base.OnDestroy();
         }
-    }
+    
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            // Fallback: Tự động khởi tạo nếu Boss được đặt thẳng trên Scene (không qua Factory/Spawner)
+            if (ConfigInternal == null)
+            {
+                var config = Resources.Load<Data.Enemies.SimpleEnemyConfig>("Enemies/Configs/OgreBossConfig");
+                var animConfig = Resources.Load<AnimationConfig>("Enemies/Animations/OgreBossAnims");
+
+                if (config != null && animConfig != null)
+                {
+                    InitializeEnemy(config, animConfig, null, config.BaseAttackRange);
+                }
+            }
+        }
+}
 }

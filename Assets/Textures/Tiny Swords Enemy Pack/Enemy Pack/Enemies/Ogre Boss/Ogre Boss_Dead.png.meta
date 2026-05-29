@@ -104,15 +104,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48fb30e6a838a22488a5ca7f499029d9
-      internalID: 376799810
+      spriteID: 50b23ccbde9ee1144a5a7debdf2eeac0
+      internalID: -110258363
       vertices: []
       indices: 
       edges: []
@@ -125,15 +125,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5549fcc3140f9864486fc129535a8a2d
-      internalID: 1639649777
+      spriteID: afccf8b6f5051e4469019b9f2ef3f129
+      internalID: -1313155599
       vertices: []
       indices: 
       edges: []
@@ -146,15 +146,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e39b2a2ed6658d246974a421c472778e
-      internalID: 328936393
+      spriteID: a50fb74f3ab0116409e09e39e993bad8
+      internalID: 1286071191
       vertices: []
       indices: 
       edges: []
@@ -167,15 +167,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37cd149f682a39e44be807218b3a436d
-      internalID: -1861144659
+      spriteID: b0812d683b3d14e47abb16faa901f373
+      internalID: 2043815989
       vertices: []
       indices: 
       edges: []
@@ -188,15 +188,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25b2cd36ad05b2b4aa34d0f81f2c3d4d
-      internalID: 1909256483
+      spriteID: 944b47812618ade42a7ed6738be90cb6
+      internalID: -1374231411
       vertices: []
       indices: 
       edges: []
@@ -209,15 +209,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd64a9447fade244f9eefb6fe35e2c29
-      internalID: 55322197
+      spriteID: 6585cd91beefe324b82e77002e00ee91
+      internalID: -1112632816
       vertices: []
       indices: 
       edges: []
@@ -230,15 +230,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56ecc27c0e116514c91091d1a1b107ba
-      internalID: -1673141113
+      spriteID: 339d3a8c59a5b0745822b5ac5940c20f
+      internalID: 635563398
       vertices: []
       indices: 
       edges: []
@@ -251,15 +251,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 673e80bf20cadb044b3ae93fe42fa955
-      internalID: 64424022
+      spriteID: 8ef04d5542b57b94ca16f4b157dd1a18
+      internalID: 2108167781
       vertices: []
       indices: 
       edges: []
@@ -272,15 +272,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbba2e9592b6b464bbe3b8a3a020cdbb
-      internalID: 556474264
+      spriteID: 890def6381cb1cf41a00be8f346dd65e
+      internalID: -59807410
       vertices: []
       indices: 
       edges: []
@@ -293,15 +293,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf69fdd1c956b764bb726613d4ac84dd
-      internalID: -1035025663
+      spriteID: 6e27131151f635a43a1da718bf665040
+      internalID: -1280039081
       vertices: []
       indices: 
       edges: []
@@ -317,15 +317,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Troll_Dead_0: -6954100555721609758
-      Troll_Dead_1: 1576912287648024516
-      Troll_Dead_2: -8973113328519082999
-      Troll_Dead_3: 4831364281884084511
-      Troll_Dead_4: 6955004092497268851
-      Troll_Dead_5: -2603755231103321341
-      Troll_Dead_6: -8998228157058827754
-      Troll_Dead_7: 6823996420695084309
-      Troll_Dead_8: 4468737239794561177
+      Ogre Boss_Dead_0: -110258363
+      Ogre Boss_Dead_1: -1313155599
+      Ogre Boss_Dead_2: 1286071191
+      Ogre Boss_Dead_3: 2043815989
+      Ogre Boss_Dead_4: -1374231411
+      Ogre Boss_Dead_5: -1112632816
+      Ogre Boss_Dead_6: 635563398
+      Ogre Boss_Dead_7: 2108167781
+      Ogre Boss_Dead_8: -59807410
+      Ogre Boss_Dead_9: -1280039081
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

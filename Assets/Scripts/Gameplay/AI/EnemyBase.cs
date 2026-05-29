@@ -71,7 +71,7 @@ protected virtual new void Awake()
 
         protected virtual void Start()
         {
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Idle)
+            if (_animationController != null && _animationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Idle)
             {
                 _animationController.PlayIdle();
             }
@@ -91,10 +91,10 @@ protected virtual new void Awake()
             {
                 if (_animationController != null && _animationController.IsCurrentAnimationFinished())
                 {
-                    // PILLAR 2: Kích hoạt hệ thống Loot Event-Driven
+                    // PILLAR 2: KÃ­ch hoáº¡t há»‡ thá»‘ng Loot Event-Driven
                     TriggerLootDrop();
 
-                    // HOTFIX A: Báo cáo cho Director trước khi thu hồi về Pool
+                    // HOTFIX A: BÃ¡o cÃ¡o cho Director trÆ°á»›c khi thu há»“i vá» Pool
                     if (EnemySpawnDirector.Instance != null)
                     {
                         EnemySpawnDirector.Instance.UnregisterEnemy(this);
@@ -157,22 +157,22 @@ protected virtual new void Awake()
             _deathStartTime = 0f;
             _isSwappingEntities = false;
             
-            // 1. Hồi 100% máu
+            // 1. Há»“i 100% mÃ¡u
             if (_health != null)
             {
                 _health.SetMaxHealth(ConfigInternal?.MaxHealth ?? 100f, true);
             }
 
-            // 2. Đưa StateMachine về trạng thái mặc định
+            // 2. ÄÆ°a StateMachine vá» tráº¡ng thÃ¡i máº·c Ä‘á»‹nh
             ChangeState(new PatrolState());
 
-            // 3. Xóa mọi Status Effects
+            // 3. XÃ³a má»i Status Effects
             if (_statusEffectController != null)
             {
                 _statusEffectController.ClearAllEffects();
             }
 
-            // 4. Đảm bảo Collider/SpriteRenderer được bật lại
+            // 4. Äáº£m báº£o Collider/SpriteRenderer Ä‘Æ°á»£c báº­t láº¡i
             var sr = GetComponent<SpriteRenderer>();
             if (sr != null) sr.enabled = true;
             

@@ -1,32 +1,47 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.AI.Animation
 {
+    [System.Serializable]
+    public struct AnimationSequence
+    {
+        public string stateName;
+        public Sprite[] frames;
+        public bool isLooping;
+                public int[] multiTriggerFrames; // Thêm mảng cho phép nhiều frame nổ dame
+public int triggerFrame;
+    }
+
     [CreateAssetMenu(fileName = "AnimationConfig", menuName = "Enemies/Animation Config")]
     public class AnimationConfig : ScriptableObject
     {
-        [SerializeField] private Sprite[] idleFrames;
-        [SerializeField] private Sprite[] runFrames;
-        [SerializeField] private Sprite[] attackFrames;
-        [SerializeField] private Sprite[] deathFrames;
+        [SerializeField] private List<AnimationSequence> animations = new List<AnimationSequence>();
         [SerializeField] private float frameRate = 10f;
-        [SerializeField] private int attackTriggerFrame = 2;
 
-        public Sprite[] IdleFrames => idleFrames;
-        public Sprite[] RunFrames => runFrames;
-        public Sprite[] AttackFrames => attackFrames;
-        public Sprite[] DeathFrames => deathFrames;
         public float FrameRate => frameRate;
-        public int AttackTriggerFrame => attackTriggerFrame;
 
-        public void Initialize(Sprite[] idle, Sprite[] run, Sprite[] attack, Sprite[] death, float rate, int triggerFrame)
+        public AnimationSequence? GetSequence(string stateName)
         {
-            idleFrames = idle;
-            runFrames = run;
-            attackFrames = attack;
-            deathFrames = death;
+            foreach (var seq in animations)
+            {
+                if (seq.stateName == stateName)
+                    return seq;
+            }
+            return null;
+        }
+
+        // Backward compatibility for existing systems
+        public Sprite[] IdleFrames => GetSequence(Gameplay.AI.Animation.AnimationStateNames.Idle)?.frames;
+        public Sprite[] RunFrames => GetSequence(Gameplay.AI.Animation.AnimationStateNames.Run)?.frames;
+        public Sprite[] AttackFrames => GetSequence(Gameplay.AI.Animation.AnimationStateNames.Attack)?.frames;
+        public Sprite[] DeathFrames => GetSequence(Gameplay.AI.Animation.AnimationStateNames.Death)?.frames;
+        public int AttackTriggerFrame => GetSequence(Gameplay.AI.Animation.AnimationStateNames.Attack)?.triggerFrame ?? -1;
+
+        public void Initialize(List<AnimationSequence> sequences, float rate)
+        {
+            animations = sequences;
             frameRate = rate;
-            attackTriggerFrame = triggerFrame;
         }
     }
 }

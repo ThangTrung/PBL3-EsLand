@@ -43,6 +43,15 @@ namespace Gameplay.AI.Strategies
 
         public void TryApplyHitIfReady()
         {
+            InternalApplyHit();
+            if (_animator != null && _animator.IsCurrentAnimationFinished())
+            {
+                EndAttack();
+            }
+        }
+
+        private void InternalApplyHit()
+        {
             if (!IsAttacking || _hitApplied) return;
 
             var player = GameObject.FindGameObjectWithTag("Player");
