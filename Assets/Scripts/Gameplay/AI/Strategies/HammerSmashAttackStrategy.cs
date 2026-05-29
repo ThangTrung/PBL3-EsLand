@@ -1,7 +1,8 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Core.Contracts.Combat;
 using Gameplay.AI.Animation;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Gameplay.AI.Strategies
 {
@@ -12,14 +13,14 @@ namespace Gameplay.AI.Strategies
         private readonly float _aoeRadius;
         private readonly float _cooldown;
         private readonly CharacterAnimationController _animator;
-                private readonly int[] _attackTriggerFrames;
-        private readonly System.Collections.Generic.HashSet<int> _triggeredFrames = new System.Collections.Generic.HashSet<int>();
+        private readonly int[] _attackTriggerFrames;
+        private readonly HashSet<int> _triggeredFrames = new HashSet<int>();
         private readonly Transform _selfTransform;
         private readonly Gameplay.Characters.Character _source;
 
         private Transform _target;
+        private float _nextAttackTime;
 
-        
         private enum AttackPhase
         {
             None,
@@ -29,9 +30,8 @@ namespace Gameplay.AI.Strategies
         }
         
         private AttackPhase _currentPhase = AttackPhase.None;
-private float _nextAttackTime;
 
-                public bool IsAttacking => _currentPhase != AttackPhase.None;
+        public bool IsAttacking => _currentPhase != AttackPhase.None;
 
         public HammerSmashAttackStrategy(float damage, float range, float aoeRadius, float cooldown, 
             CharacterAnimationController animator, int[] attackTriggerFrames, Transform selfTransform, Gameplay.Characters.Character source)
@@ -46,7 +46,6 @@ private float _nextAttackTime;
             _source = source;
         }
 
-        // Overload for backward compatibility with single trigger frame
         public HammerSmashAttackStrategy(float damage, float range, float aoeRadius, float cooldown, 
             CharacterAnimationController animator, int attackTriggerFrame, Transform selfTransform, Gameplay.Characters.Character source)
             : this(damage, range, aoeRadius, cooldown, animator, new int[] { attackTriggerFrame }, selfTransform, source)
@@ -59,8 +58,17 @@ private float _nextAttackTime;
             _target = target;
             _triggeredFrames.Clear();
             
-            _currentPhase = AttackPhase.Windup;
-            _animator.PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Windup);
+            // [IMPROVEMENT] Check if Windup exists, otherwise skip to Attack
+            if (HasAnimation(AnimationStateNames.Windup))
+            {
+                _currentPhase = AttackPhase.Windup;
+                _animator.PlayAnimation(AnimationStateNames.Windup);
+            }
+            else
+            {
+                _currentPhase = AttackPhase.Attack;
+                _animator.PlayAttack();
+            }
         }
 
         public void TryApplyHitIfReady()
@@ -70,20 +78,20 @@ private float _nextAttackTime;
             switch (_currentPhase)
             {
                 case AttackPhase.Windup:
-                    if (_animator.IsCurrentAnimationFinished())
+                    if (_animator.IsCurrentAnimationFinished() || _animator.GetCurrentState() != AnimationStateNames.Windup)
                     {
                         _currentPhase = AttackPhase.Attack;
-                        _animator.PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Attack);
+                        _animator.PlayAttack();
                     }
                     break;
 
                 case AttackPhase.Attack:
+                    if (_animator.GetCurrentState() != AnimationStateNames.Attack) return;
+
                     var currentFrame = _animator.GetCurrentFrameIndex();
-                    
-                    // Check all possible trigger frames
                     foreach (var frame in _attackTriggerFrames)
                     {
-                        if (!_triggeredFrames.Contains(frame) && currentFrame == frame)
+                        if (!_triggeredFrames.Contains(frame) && currentFrame >= frame)
                         {
                             ApplyAOEDamage();
                             _triggeredFrames.Add(frame);
@@ -93,13 +101,20 @@ private float _nextAttackTime;
 
                     if (_animator.IsCurrentAnimationFinished())
                     {
-                        _currentPhase = AttackPhase.Recovery;
-                        _animator.PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Recovery);
+                        if (HasAnimation(AnimationStateNames.Recovery))
+                        {
+                            _currentPhase = AttackPhase.Recovery;
+                            _animator.PlayAnimation(AnimationStateNames.Recovery);
+                        }
+                        else
+                        {
+                            EndAttack();
+                        }
                     }
                     break;
 
                 case AttackPhase.Recovery:
-                    if (_animator.IsCurrentAnimationFinished())
+                    if (_animator.IsCurrentAnimationFinished() || _animator.GetCurrentState() != AnimationStateNames.Recovery)
                     {
                         EndAttack();
                     }
@@ -107,20 +122,24 @@ private float _nextAttackTime;
             }
         }
 
+        private bool HasAnimation(string stateName)
+        {
+            if (_animator == null || _animator.Config == null) return false;
+            return _animator.Config.GetSequence(stateName).HasValue;
+        }
+
         private void ApplyAOEDamage()
         {
-            // Position smash in front of boss
             Vector3 smashPos = _selfTransform.position + (_selfTransform.localScale.x > 0 ? Vector3.right : Vector3.left) * 1.5f;
             
             var colliders = Physics2D.OverlapCircleAll(smashPos, _aoeRadius);
             foreach (var col in colliders)
             {
-                if (col.transform == _selfTransform) continue;
+                if (col.transform.root == _selfTransform.root) continue;
                 
                 if (col.TryGetComponent<IDamageable>(out var victim))
                 {
                     victim.TakeDamage(_damage, _source);
-                    Debug.Log($"Hammer Smash hit {col.name}!");
                 }
             }
         }
@@ -134,7 +153,9 @@ private float _nextAttackTime;
         public bool CanStartAttack(Transform target)
         {
             if (IsAttacking || target == null || Time.time < _nextAttackTime) return false;
-            return Vector3.Distance(_selfTransform.position, target.position) <= _range;
+            
+            // Use 2D distance for fairness
+            return Vector2.Distance(_selfTransform.position, target.position) <= _range;
         }
     }
 }

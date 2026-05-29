@@ -50,7 +50,7 @@ MonoBehaviour:
     isLooping: 0
     multiTriggerFrames: 
     triggerFrame: 2
-  - stateName: Dead
+  - stateName: Death
     frames:
     - {fileID: -731371392, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
     - {fileID: -247524265, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}

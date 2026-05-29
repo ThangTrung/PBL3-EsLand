@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Data.Enemies;
 using Data.Combat;
 using Gameplay.AI.Animation;
@@ -16,6 +16,7 @@ namespace Gameplay.AI.Enemies.Aquatic
 
         protected override void Awake()
         {
+            // Call base.Awake first to initialize shared components like Animator (AnimationController)
             base.Awake();
 
             var config = Resources.Load<SimpleEnemyConfig>(ConfigPath);
@@ -23,17 +24,24 @@ namespace Gameplay.AI.Enemies.Aquatic
             var projectilePrefab = Resources.Load<Projectile2D>(ProjectilePath);
             var projectileSpec = Resources.Load<ProjectileSpec>(ProjectilePath + "Spec");
 
+            if (config == null || animConfig == null || projectilePrefab == null || projectileSpec == null)
+            {
+                Debug.LogError($"[HarpoonShark] Failed to load one or more resources! Path: {ProjectilePath}");
+                return;
+            }
+
             // Strategy: Ranged Projectile (Ném lao)
+            // Pass AnimationController (assigned in base.Awake) to the strategy
             var attackStrategy = new RangedProjectileAttackStrategy(
                 projectileSpec,
                 projectilePrefab,
-                Animator,
-                animConfig?.AttackTriggerFrame ?? 3,
+                AnimationController, 
+                animConfig.AttackTriggerFrame,
                 transform,
-                config?.BaseAttackRange ?? 12f,
-                config?.AttackCooldown ?? 1.6f);
+                config.BaseAttackRange,
+                config.AttackCooldown);
 
-            InitializeEnemy(config, animConfig, attackStrategy, config?.BaseAttackRange ?? 12f);
+            InitializeEnemy(config, animConfig, attackStrategy, config.BaseAttackRange);
         }
     }
 }

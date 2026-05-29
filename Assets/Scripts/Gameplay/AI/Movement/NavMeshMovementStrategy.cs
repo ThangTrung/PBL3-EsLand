@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Gameplay.AI.Animation;
 using UnityEngine;
 using UnityEngine.AI;

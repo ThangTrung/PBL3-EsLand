@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Data.Combat;
 using Gameplay.AI.Animation;
 using Gameplay.Combat.Projectiles;
@@ -7,9 +7,6 @@ using UnityEngine;
 
 namespace Gameplay.AI.Strategies
 {
-    /// <summary>
-    /// Chiáº¿n thuáº­t táº¥n cÃ´ng nÃ©m nhiá»u Ä‘áº¡n cÃ¹ng lÃºc theo hÃ¬nh nan quáº¡t (Shotgun spread).
-    /// </summary>
     public class MultiProjectileAttackStrategy : IAttackStrategy
     {
         private readonly ProjectileSpec _spec;
@@ -19,8 +16,6 @@ namespace Gameplay.AI.Strategies
         private readonly Transform _selfTransform;
         private readonly float _cooldown;
         private readonly float _range;
-        
-        // Cáº¥u hÃ¬nh nan quáº¡t
         private readonly int _projectileCount;
         private readonly float _spreadAngle;
 
@@ -30,16 +25,8 @@ namespace Gameplay.AI.Strategies
 
         public bool IsAttacking { get; private set; }
 
-        public MultiProjectileAttackStrategy(
-            ProjectileSpec spec, 
-            Projectile2D projectilePrefab, 
-            CharacterAnimationController animator, 
-            int attackTriggerFrame, 
-            Transform selfTransform, 
-            float range, 
-            float cooldown,
-            int projectileCount = 3,
-            float spreadAngle = 30f)
+        public MultiProjectileAttackStrategy(ProjectileSpec spec, Projectile2D projectilePrefab, CharacterAnimationController animator, 
+            int attackTriggerFrame, Transform selfTransform, float range, float cooldown, int projectileCount = 3, float spreadAngle = 30f)
         {
             _spec = spec;
             _projectilePrefab = projectilePrefab;
@@ -48,7 +35,6 @@ namespace Gameplay.AI.Strategies
             _selfTransform = selfTransform;
             _range = range;
             _cooldown = cooldown;
-            
             _projectileCount = Mathf.Max(1, projectileCount);
             _spreadAngle = spreadAngle;
         }
@@ -56,11 +42,9 @@ namespace Gameplay.AI.Strategies
         public void BeginAttack(Transform target)
         {
             if (_animator == null || _spec == null) return;
-
             _target = target;
             _projectileSpawned = false;
             IsAttacking = true;
-
             _animator.PlayAttack();
         }
 
@@ -81,8 +65,8 @@ namespace Gameplay.AI.Strategies
             var currentFrame = _animator.GetCurrentFrameIndex();
             if (_projectileSpawned || currentFrame < _attackTriggerFrame) return;
 
-            var distance = Vector3.Distance(_selfTransform.position, _target.position);
-            if (distance > _range) return;
+            var distance = Vector2.Distance(_selfTransform.position, _target.position);
+            if (distance > _range + 1.0f) return;
 
             SpawnMultipleProjectiles();
             _projectileSpawned = true;
@@ -98,22 +82,26 @@ namespace Gameplay.AI.Strategies
 
         public bool CanStartAttack(Transform target)
         {
-            if (IsAttacking || target == null) return false;
-            if (Time.time < _nextAttackTime) return false;
-
-            var distance = Vector3.Distance(_selfTransform.position, target.position);
-            return distance <= _range;
+            if (IsAttacking || target == null || Time.time < _nextAttackTime) return false;
+            return Vector2.Distance(_selfTransform.position, target.position) <= _range;
         }
 
         private void SpawnMultipleProjectiles()
         {
-            if (_target == null) return;
+            // [IMPROVEMENT] Target Prediction
+            Vector3 predictedPos = _target.position;
+            var rb = _target.GetComponent<Rigidbody2D>();
+            if (rb != null && _spec != null && _spec.Speed > 0)
+            {
+                float distance = Vector2.Distance(_selfTransform.position, predictedPos);
+                float travelTime = distance / _spec.Speed;
+                predictedPos += (Vector3)rb.velocity * travelTime * 0.7f; // Slightly less prediction for spread weapons
+            }
 
-            Vector2 baseDirection = (_target.position - _selfTransform.position).normalized;
-            Vector3 spawnOffset = new Vector3(0f, 0.5f, 0f); // NÃ¢ng lÃªn khá»›p vá»›i tay
+            Vector2 baseDirection = (predictedPos - _selfTransform.position).normalized;
+            Vector3 spawnOffset = new Vector3(0f, 0.5f, 0f);
             Vector3 spawnPos = _selfTransform.position + spawnOffset + (Vector3)baseDirection * 0.5f;
 
-            // TÃ­nh toÃ¡n gÃ³c chia Ä‘á»u
             float startAngle = -_spreadAngle / 2f;
             float angleStep = _projectileCount > 1 ? _spreadAngle / (_projectileCount - 1) : 0f;
 
@@ -122,11 +110,6 @@ namespace Gameplay.AI.Strategies
                 float currentAngle = startAngle + (angleStep * i);
                 Vector2 spreadDirection = RotateVector(baseDirection, currentAngle);
 
-                // Táº¡o má»™t Transform áº£o (áº£o Ä‘á»ƒ giáº£ láº­p vá»‹ trÃ­ Ä‘Ã­ch cho Ä‘áº¡n tá»± tÃ­nh gÃ³c)
-                // Projectile2D hiá»‡n táº¡i yÃªu cáº§u Transform target, ta táº¡m thá»i truyá»n _target 
-                // nhÆ°ng sáº½ pháº£i override hÆ°á»›ng bay trong Projectile2D náº¿u muá»‘n nÃ³ bay chÃ©o.
-                // Äá»ƒ tÆ°Æ¡ng thÃ­ch vá»›i code Projectile2D hiá»‡n táº¡i, ta sáº½ táº¡o má»™t GameObject táº¡m thá»i.
-                
                 GameObject tempTarget = new GameObject("TempTarget");
                 tempTarget.transform.position = spawnPos + (Vector3)spreadDirection * 10f;
 
@@ -142,11 +125,8 @@ namespace Gameplay.AI.Strategies
                     projectileInstance = go.AddComponent<Projectile2D>();
                 }
 
-                // Truyá»n Ä‘iá»ƒm Ä‘Ã­ch áº£o vÃ o
                 projectileInstance.Initialize(_spec, _selfTransform, tempTarget.transform);
-                
-                // Tá»± Ä‘á»™ng há»§y Ä‘iá»ƒm Ä‘Ã­ch áº£o sau 2 giÃ¢y (khi Ä‘áº¡n Ä‘Ã£ bay xa)
-                Object.Destroy(tempTarget, 2f);
+                Object.Destroy(tempTarget, 1f);
             }
         }
 
@@ -155,10 +135,7 @@ namespace Gameplay.AI.Strategies
             float radians = degrees * Mathf.Deg2Rad;
             float cos = Mathf.Cos(radians);
             float sin = Mathf.Sin(radians);
-            return new Vector2(
-                v.x * cos - v.y * sin,
-                v.x * sin + v.y * cos
-            );
+            return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
         }
     }
 }

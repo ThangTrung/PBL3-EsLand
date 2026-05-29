@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using UnityEngine;
 
 namespace Data.Enemies
@@ -13,16 +13,21 @@ namespace Data.Enemies
         [SerializeField] private float detectionRange = 10f;
         [SerializeField] private float patrolRadius = 5f;
         [SerializeField] private float attackCooldown = 1f;
+
+        [Header("Defense Settings")]
+        [SerializeField] private float defenseCooldown = 5f;
+        [SerializeField] private float defenseDuration = 2f;
+        [SerializeField, Range(0, 1)] private float defenseChance = 0.3f;
         
-        
+        [Header("Visuals & Movement")]
         [SerializeField] private float verticalAlignmentOffset = 0f;
-[SerializeField] private float horizontalAlignmentOffset = 0.8f;
-[SerializeField] private float moveSpeed = 2.5f;
+        [SerializeField] private float horizontalAlignmentOffset = 0.8f;
+        [SerializeField] private float moveSpeed = 2.5f;
         [SerializeField] private Color tintColor = Color.white;
+        
         [Header("Loot Configuration")]
         [SerializeField] private string lootItemId = "Gold";
         [SerializeField] private int lootQuantity = 1;
-
 
         public string EnemyType => enemyType;
         public float MaxHealth => maxHealth;
@@ -32,14 +37,16 @@ namespace Data.Enemies
         public float PatrolRadius => patrolRadius;
         public float AttackCooldown => attackCooldown;
         
+        public float DefenseCooldown => defenseCooldown;
+        public float DefenseDuration => defenseDuration;
+        public float DefenseChance => defenseChance;
         
         public float VerticalAlignmentOffset => verticalAlignmentOffset;
-public float HorizontalAlignmentOffset => horizontalAlignmentOffset;
-public float MoveSpeed => moveSpeed;
+        public float HorizontalAlignmentOffset => horizontalAlignmentOffset;
+        public float MoveSpeed => moveSpeed;
         public Color TintColor => tintColor;
         public string LootItemId => lootItemId;
         public int LootQuantity => lootQuantity;
-
 
         public void Initialize(string type, float health, float damage, float attackRange, float detection, float patrol, float cooldown, float speed, Color tint, string itemId = "Gold", int quantity = 1, float horizontalOffset = 0.8f)
         {

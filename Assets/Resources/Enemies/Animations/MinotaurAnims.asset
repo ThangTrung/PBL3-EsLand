@@ -80,7 +80,7 @@ MonoBehaviour:
     - {fileID: -546671818, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
     - {fileID: 418766272, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
     - {fileID: 415217627, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
-    isLooping: 1
+    isLooping: 0
     multiTriggerFrames: 
     triggerFrame: 0
   - stateName: Defense
