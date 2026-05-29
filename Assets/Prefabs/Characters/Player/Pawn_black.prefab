@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 8768574144964900732}
   - component: {fileID: 59413808683861242}
   - component: {fileID: 6011599603279066000}
+  - component: {fileID: 1242101239882915100}
   m_Layer: 8
   m_Name: Pawn_black
   m_TagString: Player
@@ -271,10 +272,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6c6407bb380f442b32e9d70141f7bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 0}
+  flashMaterial: {fileID: 2100000, guid: 9c9ebdfb882ddd74e953313905d6a30c, type: 2}
   flashDuration: 0.2
-  knockbackForce: 12
-  knockbackDuration: 0.25
+  knockbackForce: 5
+  knockbackDuration: 0
+--- !u!114 &1242101239882915100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd3288336c636341941695c4a09f7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathDelay: 2
+  respawnDelay: 1
+  deathAnimTrigger: Die
+  respawnAnimTrigger: Respawn
 --- !u!1 &1867301193532782682
 GameObject:
   m_ObjectHideFlags: 0
