@@ -38,10 +38,11 @@ namespace Gameplay.AI.Strategies
                 float distX = Mathf.Abs(_selfTransform.position.x - _target.position.x);
                 float distY = Mathf.Abs(_selfTransform.position.y - (_target.position.y + verticalOffset));
                 
-                bool isYAligned = distY <= 0.5f;
-                bool isXInRange = distX <= _range + 0.2f;
+                // MỞ RỘNG DUNG SAI ĐỂ TRÁNH ĐÁNH HỤT
+                bool isYAligned = distY <= 0.8f; // Cũ: 0.5f
+                bool isXInRange = distX <= _range + 0.5f; // Cũ: _range + 0.2f
 
-                if (isYAligned && isXInRange && _target.TryGetComponent<IDamageable>(out var victim))
+                if (isYAligned && isXInRange && _target.TryGetComponent<Core.Contracts.Combat.IDamageable>(out var victim))
                 {
                     victim.TakeDamage(_damage, _source);
                     Debug.Log($"[Melee] {_source.name} hit {_target.name} for {_damage} damage!");

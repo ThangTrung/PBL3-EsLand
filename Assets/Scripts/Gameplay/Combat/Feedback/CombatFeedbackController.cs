@@ -44,6 +44,23 @@ namespace Gameplay.Combat.Feedback
         private void OnDisable()
         {
             if (_health != null) _health.OnDamageTaken -= HandleDamage;
+            
+            // Object Pooling Fix: Cleanup lingering feedback states
+            _isKnockedBack = false;
+            
+            if (_spriteRenderer != null && _originalMaterial != null)
+            {
+                _spriteRenderer.material = _originalMaterial;
+            }
+            
+            if (_flashRoutine != null)
+            {
+                StopCoroutine(_flashRoutine);
+                _flashRoutine = null;
+            }
+            
+            var enemyMove = GetComponent<Gameplay.AI.Movement.EnemyMovementController>();
+            if (enemyMove != null) enemyMove.SetCanMove(true);
         }
 
         private void HandleDamage(float damage, Gameplay.Characters.Character source)

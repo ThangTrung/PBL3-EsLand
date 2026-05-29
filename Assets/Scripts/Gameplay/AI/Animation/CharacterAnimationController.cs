@@ -76,7 +76,15 @@ namespace Gameplay.AI.Animation
         public void PlayDeath() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Death);
         // ---------------------------------------
 
-        public void SetFacingByMove(Vector3 direction)
+        
+        public void SetFacingDecisive(float directionX)
+        {
+            if (Mathf.Approximately(directionX, 0)) return;
+            var scale = transform.localScale;
+            scale.x = Mathf.Sign(directionX);
+            transform.localScale = scale;
+        }
+public void SetFacingByMove(Vector3 direction)
         {
             if (Mathf.Abs(direction.x) < 0.1f) return;
             var scale = transform.localScale;

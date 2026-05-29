@@ -12,30 +12,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
   m_Name: SkullAnims
   m_EditorClassIdentifier: 
-  idleFrames:
-  - {fileID: 6471116574714101982, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
-  - {fileID: -5517189045170451702, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
-  - {fileID: -3851594745550769105, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
-  - {fileID: -519783078402261626, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
-  - {fileID: -1479804600476029548, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
-  - {fileID: 475156675953305093, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
-  - {fileID: 4517073765492241108, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
-  - {fileID: -5281771008486882139, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
-  runFrames:
-  - {fileID: -821572354167042970, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
-  - {fileID: 6183830700080795110, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
-  - {fileID: -5611761047925831525, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
-  - {fileID: -992156223813187085, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
-  - {fileID: 3058856078925539220, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
-  - {fileID: 6398057966443142182, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
-  attackFrames:
-  - {fileID: -3801873587596287892, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
-  - {fileID: 8453705797323160443, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
-  - {fileID: -2608325685640080977, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
-  - {fileID: 5677903959620856961, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
-  - {fileID: 7921673209264098965, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
-  - {fileID: -8617964307106720966, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
-  - {fileID: -2380647909382967109, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
-  deathFrames: []
+  animations:
+  - stateName: Idle
+    frames:
+    - {fileID: 6471116574714101982, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+    - {fileID: -5517189045170451702, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+    - {fileID: -3851594745550769105, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+    - {fileID: -519783078402261626, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+    - {fileID: -1479804600476029548, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+    - {fileID: 475156675953305093, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+    - {fileID: 4517073765492241108, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+    - {fileID: -5281771008486882139, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
+    isLooping: 1
+    multiTriggerFrames: 
+    triggerFrame: 0
+  - stateName: Run
+    frames:
+    - {fileID: -821572354167042970, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+    - {fileID: 6183830700080795110, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+    - {fileID: -5611761047925831525, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+    - {fileID: -992156223813187085, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+    - {fileID: 3058856078925539220, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+    - {fileID: 6398057966443142182, guid: a248b7fb2b0348c40aa99da6d6be4b67, type: 3}
+    isLooping: 1
+    multiTriggerFrames: 
+    triggerFrame: 0
+  - stateName: Attack
+    frames:
+    - {fileID: -3801873587596287892, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+    - {fileID: 8453705797323160443, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+    - {fileID: -2608325685640080977, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+    - {fileID: 5677903959620856961, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+    - {fileID: 7921673209264098965, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+    - {fileID: -8617964307106720966, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+    - {fileID: -2380647909382967109, guid: 66b10b3fa9342154a80cb00ee52d8c21, type: 3}
+    isLooping: 0
+    multiTriggerFrames: 
+    triggerFrame: 2
+  - stateName: Death
+    frames:
+    - {fileID: -731371392, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: -247524265, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: -910917201, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 1949751092, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 478413961, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: -1016124845, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 661470202, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 398937051, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 1394573236, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 1228149721, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 590186370, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: -546671818, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 418766272, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    - {fileID: 415217627, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
+    isLooping: 0
+    multiTriggerFrames: 
+    triggerFrame: 0
+  - stateName: 
+    frames:
+    - {fileID: 4585887404816075010, guid: 67a2f221e60d8ff48be7a0d71a3e3511, type: 3}
+    - {fileID: 1458890408966233160, guid: 67a2f221e60d8ff48be7a0d71a3e3511, type: 3}
+    - {fileID: 1440176955350386689, guid: 67a2f221e60d8ff48be7a0d71a3e3511, type: 3}
+    - {fileID: -5585492037162905027, guid: 67a2f221e60d8ff48be7a0d71a3e3511, type: 3}
+    - {fileID: 5034910292777789398, guid: 67a2f221e60d8ff48be7a0d71a3e3511, type: 3}
+    - {fileID: -3511898316428907538, guid: 67a2f221e60d8ff48be7a0d71a3e3511, type: 3}
+    - {fileID: 4506625478859674692, guid: 67a2f221e60d8ff48be7a0d71a3e3511, type: 3}
+    isLooping: 0
+    multiTriggerFrames: 
+    triggerFrame: 0
   frameRate: 12
-  attackTriggerFrame: 2

@@ -18,9 +18,11 @@ namespace Gameplay.AI.Movement
             _statusEffectController = statusEffectController;
         }
 
-        public void Move(Vector3 direction)
+        public void Move(Vector3 destination)
         {
             if (_movementController == null) return;
+
+            Vector3 direction = (destination - _movementController.transform.position).normalized;
 
             if (_statusEffectController != null)
             {

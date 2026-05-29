@@ -18,7 +18,7 @@ namespace Gameplay.AI.States
 
         public void Execute(EnemyBase enemy)
         {
-            if (enemy.Target == null)
+            if (!enemy.HasValidTarget)
             {
                 enemy.ChangeState(new PatrolState());
                 return;
