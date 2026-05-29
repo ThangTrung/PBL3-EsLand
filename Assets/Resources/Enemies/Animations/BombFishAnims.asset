@@ -28,7 +28,14 @@ MonoBehaviour:
   - {fileID: 6242624759289299517, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
   - {fileID: -7884875807517210104, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
   - {fileID: -7406733438661465437, guid: 98f8b8b98d892704bb6b3b98e3ccdd50, type: 3}
-  attackFrames: []
+  attackFrames:
+  - {fileID: 2823366511502222935, guid: 7917fbcfebd1e1842af0236c813ac684, type: 3}
+  - {fileID: 764235268529566720, guid: 7917fbcfebd1e1842af0236c813ac684, type: 3}
+  - {fileID: -9179182428650044156, guid: 7917fbcfebd1e1842af0236c813ac684, type: 3}
+  - {fileID: -6342174606454990966, guid: 7917fbcfebd1e1842af0236c813ac684, type: 3}
+  - {fileID: -5275458626044080290, guid: 7917fbcfebd1e1842af0236c813ac684, type: 3}
+  - {fileID: 2365856109582071884, guid: 7917fbcfebd1e1842af0236c813ac684, type: 3}
+  - {fileID: -5394962590245626241, guid: 7917fbcfebd1e1842af0236c813ac684, type: 3}
   deathFrames: []
   frameRate: 12
   attackTriggerFrame: 2

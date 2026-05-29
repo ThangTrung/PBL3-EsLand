@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1611688960969939571}
   - component: {fileID: 3294306566408081226}
   - component: {fileID: 4002186143221869096}
+  - component: {fileID: 8192233427969589335}
+  - component: {fileID: 2819657384682735450}
   m_Layer: 0
   m_Name: Pawn_purple
   m_TagString: Untagged
@@ -119,3 +121,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14dcc722761d40a46a59e4fbffc7b9b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8192233427969589335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6318643010216456728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594a465c4f87f5e4f9b3892b1fa204d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  baseDefense: 5
+--- !u!114 &2819657384682735450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6318643010216456728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd3288336c636341941695c4a09f7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathDelay: 2
+  respawnDelay: 1
+  deathAnimTrigger: Die
+  respawnAnimTrigger: Respawn

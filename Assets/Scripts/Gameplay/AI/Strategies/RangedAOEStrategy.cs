@@ -1,16 +1,17 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Data.Combat;
 using Gameplay.AI.Animation;
 using Gameplay.Combat.Projectiles;
 using UnityEngine;
 using Infrastructure.Pooling;
+using Core.Contracts.Combat;
 
 namespace Gameplay.AI.Strategies
 {
     public class RangedAOEStrategy : IAttackStrategy
     {
         private readonly ProjectileSpec _spec;
-        private readonly Projectile2D _projectilePrefab;
+        private readonly GameObject _projectilePrefab;
         private readonly CharacterAnimationController _animator;
         private readonly int _attackTriggerFrame;
         private readonly Transform _selfTransform;
@@ -23,7 +24,7 @@ namespace Gameplay.AI.Strategies
 
         public bool IsAttacking { get; private set; }
 
-        public RangedAOEStrategy(ProjectileSpec spec, Projectile2D projectilePrefab, CharacterAnimationController animator, int attackTriggerFrame, Transform selfTransform, float range, float cooldown)
+        public RangedAOEStrategy(ProjectileSpec spec, GameObject projectilePrefab, CharacterAnimationController animator, int attackTriggerFrame, Transform selfTransform, float range, float cooldown)
         {
             _spec = spec;
             _projectilePrefab = projectilePrefab;
@@ -74,8 +75,8 @@ namespace Gameplay.AI.Strategies
 
             if (_projectilePrefab != null)
             {
-                var go = ObjectPoolManager.Instance.Get(_projectilePrefab.gameObject, spawnPos, Quaternion.identity);
-                var proj = go.GetComponent<Projectile2D>();
+                var go = ObjectPoolManager.Instance.Get(_projectilePrefab, spawnPos, Quaternion.identity);
+                var proj = go.GetComponent<IProjectile>();
                 if (proj != null) proj.Initialize(_spec, _selfTransform, _target);
             }
         }

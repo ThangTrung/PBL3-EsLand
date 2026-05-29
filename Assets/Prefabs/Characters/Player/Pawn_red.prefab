@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1232962253584367112}
   - component: {fileID: 3111788459971946896}
   - component: {fileID: 2407332232899860143}
+  - component: {fileID: 3380197048889470113}
+  - component: {fileID: 7891518619987754019}
   m_Layer: 0
   m_Name: Pawn_red
   m_TagString: Untagged
@@ -119,3 +121,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14dcc722761d40a46a59e4fbffc7b9b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3380197048889470113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860197315884376947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594a465c4f87f5e4f9b3892b1fa204d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  baseDefense: 5
+--- !u!114 &7891518619987754019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860197315884376947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd3288336c636341941695c4a09f7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathStateName: Death
+  respawnStateName: Respawn
+  deathTriggerName: Die
+  respawnTriggerName: Respawn
+  defaultDeathDelay: 2

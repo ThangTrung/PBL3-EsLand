@@ -12,7 +12,7 @@ namespace Gameplay.AI.Enemies
     {
         private const string ConfigPath = "Enemies/Configs/GnollConfig";
         private const string AnimationPath = "Enemies/Animations/GnollAnims";
-        private const string ProjectilePath = "Enemies/Projectiles/BoneShard";
+        private const string ProjectilePath = "Enemies/Projectiles/Gnoll/BoneShard";
 
         protected override void Awake()
         {
@@ -23,15 +23,17 @@ namespace Gameplay.AI.Enemies
             var projectilePrefab = Resources.Load<Projectile2D>(ProjectilePath);
             var projectileSpec = Resources.Load<ProjectileSpec>(ProjectilePath + "Spec");
 
-            // Strategy: Ranged Projectile (Ném xương)
-            var attackStrategy = new RangedProjectileAttackStrategy(
+            // Strategy: Multi Projectile (Ném 3 cục xương hình nan quạt, tỏa 30 độ)
+            var attackStrategy = new MultiProjectileAttackStrategy(
                 projectileSpec,
                 projectilePrefab,
                 Animator,
                 animConfig?.AttackTriggerFrame ?? 3,
                 transform,
                 config?.BaseAttackRange ?? 10f,
-                config?.AttackCooldown ?? 1.4f);
+                config?.AttackCooldown ?? 1.4f,
+                projectileCount: 3, 
+                spreadAngle: 30f);
 
             InitializeEnemy(config, animConfig, attackStrategy, config?.BaseAttackRange ?? 10f);
         }

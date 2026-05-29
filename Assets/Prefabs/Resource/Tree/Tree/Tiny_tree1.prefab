@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   requiredTool: 2
-  staminaCostPerHit: 5
+  staminaCostPerHit: 25
   stumpSprite: {fileID: 7759314080828431348, guid: 7951e8106b28e48e0b11aed17a9978d1, type: 3}
   nodeCollider: {fileID: 133028340164293406}
   stumpPrefab: {fileID: 7105231942027636971, guid: adbcc6ef515d3ee438acf61026f108cb, type: 3}

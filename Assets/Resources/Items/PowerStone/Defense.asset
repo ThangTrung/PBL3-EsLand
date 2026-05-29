@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Defense
   m_EditorClassIdentifier: 
   id: Defense
-  itemName: "\u0110\xE1 Ph\xF2ng Th\u1EE7"
-  description: 
+  itemName: "Vi\xEAn \u0110\xE1 Ki\xEAn \u0110\u1ECBnh"
+  description: "L\u1EDBp v\u1ECF tinh th\u1EC3 c\u1EE9ng c\xE1p b\u1EA3o v\u1EC7
+    ch\u1EE7 nh\xE2n kh\u1ECFi nh\u1EEFng \u0111\xF2n t\u1EA5n c\xF4ng hi\u1EC3m
+    \xE1c, gia c\u1ED1 kh\u1EA3 n\u0103ng ph\xF2ng ng\u1EF1."
   icon: {fileID: 752084943, guid: 399312f17b7b974468fa1e27b7ed8129, type: 3}
   maxStack: 1
+  fuelTime: 0
   equipSlot: 3
   overrideController: {fileID: 0}
   damageBuff: 0

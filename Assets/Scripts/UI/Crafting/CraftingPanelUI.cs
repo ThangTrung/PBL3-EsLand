@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Core.Contracts.Inventory;
 using Data.Crafting;
 using UnityEngine;
 
@@ -6,22 +8,33 @@ namespace UI.Crafting
 {
     /// <summary>
     /// Quản lý tổng của Canvas Crafting.
-    /// Chịu trách nhiệm Bật/Tắt và khởi tạo danh sách RecipeSlotUI.
+    /// Chịu trách nhiệm Bật/Tắt và khởi tạo danh sách CraftingRecipeSlotUI.
     /// </summary>
     public class CraftingPanelUI : MonoBehaviour
     {
+        public event Action OnCraftingClosed;
+
         [Header("Configuration")]
         [SerializeField] private List<CraftingRecipe> availableRecipes;
-        [SerializeField] private KeyCode toggleKey = KeyCode.B;
 
         [Header("UI References")]
         [SerializeField] private GameObject panelRoot; // Bảng to chứa cả 2 bảng trái phải
         [SerializeField] private Transform recipeListContainer; // Bảng trái (Banner To)
-        [SerializeField] private RecipeSlotUI recipeSlotPrefab;
+        [SerializeField] private CraftingRecipeSlotUI recipeSlotPrefab;
         [SerializeField] private CraftingDetailUI detailUI; // Bảng phải
 
-        private void Start()
+        public bool IsVisible => panelRoot != null && panelRoot.activeSelf;
+
+        private IInventoryHolder _inventoryHolder;
+
+        public void Initialize(IInventoryHolder inventoryHolder)
         {
+            _inventoryHolder = inventoryHolder;
+            if (detailUI != null)
+            {
+                detailUI.Initialize(inventoryHolder);
+            }
+            
             InitializeRecipes();
             
             // Ẩn panel lúc mới vào game
@@ -29,26 +42,33 @@ namespace UI.Crafting
             if (detailUI != null) detailUI.UpdateDetails(null); // Ẩn chi tiết
         }
 
-        private void Update()
+        public void ToggleUI()
         {
-            if (Input.GetKeyDown(toggleKey))
-            {
-                TogglePanel();
-            }
+            SetVisible(!IsVisible);
         }
 
-        private void TogglePanel()
+        public void SetVisible(bool visible)
         {
             if (panelRoot == null) return;
             
-            bool isActive = !panelRoot.activeSelf;
-            panelRoot.SetActive(isActive);
-            
-            // Khi mở lên, nếu đang có một công thức được chọn trước đó thì nên refresh lại UI
-            // để lỡ người chơi vừa nhặt thêm rác thì UI nguyên liệu cập nhật luôn
-            if (isActive && detailUI != null && detailUI.gameObject.activeSelf)
+            panelRoot.SetActive(visible);
+
+            if (_inventoryHolder is Gameplay.Characters.Player player)
             {
-                // Mẹo nhỏ: Gọi một hàm refresh nếu cần. Ở đây để đơn giản ta có thể yêu cầu click lại.
+                player.SetCraftingState(visible);
+            }
+            
+            if (visible)
+            {
+                // Khi mở lên, cập nhật lại chi tiết nếu đang chọn công thức
+                if (detailUI != null)
+                {
+                    detailUI.Refresh();
+                }
+            }
+            else
+            {
+                OnCraftingClosed?.Invoke();
             }
         }
 
@@ -56,12 +76,18 @@ namespace UI.Crafting
         {
             if (recipeSlotPrefab == null || recipeListContainer == null) return;
 
+            // Xóa các slot cũ nếu có
+            foreach (Transform child in recipeListContainer)
+            {
+                Destroy(child.gameObject);
+            }
+
             foreach (var recipe in availableRecipes)
             {
                 if (recipe == null) continue;
 
                 // Sinh ra Slot mới
-                RecipeSlotUI slot = Instantiate(recipeSlotPrefab, recipeListContainer);
+                CraftingRecipeSlotUI slot = Instantiate(recipeSlotPrefab, recipeListContainer);
                 slot.Init(recipe);
                 
                 // Đăng ký sự kiện: Khi slot này bị click, truyền dữ liệu qua DetailUI

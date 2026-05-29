@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   requiredTool: 1
-  staminaCostPerHit: 5
+  staminaCostPerHit: 25
   stumpSprite: {fileID: 0}
   nodeCollider: {fileID: 3236258575997536866}
 --- !u!60 &3236258575997536866

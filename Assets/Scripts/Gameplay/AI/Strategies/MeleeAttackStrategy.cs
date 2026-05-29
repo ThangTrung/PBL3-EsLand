@@ -59,12 +59,18 @@ namespace Gameplay.AI.Strategies
 
             float distX = Mathf.Abs(_selfTransform.position.x - _target.position.x);
             float distY = Mathf.Abs(_selfTransform.position.y - (_target.position.y + verticalOffset));
-            bool isYAligned = distY <= 0.25f;
-            bool isXInRange = distX <= _range + 0.1f;
+            
+            bool isYAligned = distY <= 0.5f;
+            bool isXInRange = distX <= _range + 0.2f;
 
             if (isYAligned && isXInRange && _target.TryGetComponent<IDamageable>(out var victim))
             {
                 victim.TakeDamage(_damage, _source);
+                Debug.Log($"[Melee] {_source.name} hit {_target.name} for {_damage} damage!");
+            }
+            else if (isYAligned && isXInRange)
+            {
+                Debug.LogWarning($"[Melee] {_source.name} missed {_target.name} - No IDamageable found!");
             }
 
             _hitApplied = true;
@@ -91,8 +97,10 @@ namespace Gameplay.AI.Strategies
 
             float distX = Mathf.Abs(_selfTransform.position.x - target.position.x);
             float distY = Mathf.Abs(_selfTransform.position.y - (target.position.y + verticalOffset));
-            bool isYAligned = distY <= 0.25f;
-            bool isXInRange = distX <= _range + 0.1f;
+            
+            // Thống nhất dung sai với logic gây sát thương và ChaseState
+            bool isYAligned = distY <= 0.5f;
+            bool isXInRange = distX <= _range + 0.2f;
 
             return isYAligned && isXInRange;
         }

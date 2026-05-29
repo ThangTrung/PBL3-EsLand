@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   id: Attack
-  itemName: "\u0110\xE1 S\u1EE9c M\u1EA1nh"
-  description: "Mang s\u1EE9c m\u1EA1nh nguy\xEAn t\u1ED1 l\u1EEDa thi\xEAu r\u1EE5i
-    m\u1ECDi k\u1EBB th\xF9"
+  itemName: "Vi\xEAn \u0110\xE1 Cu\u1ED3ng N\u1ED9"
+  description: "Ch\u1EE9a \u0111\u1EF1ng s\u1EE9c m\u1EA1nh c\u1EE7a ng\u1ECDn l\u1EEDa
+    v\u0129nh c\u1EEDu, gi\xFAp t\u0103ng c\u01B0\u1EDDng uy l\u1EF1c trong m\u1ED7i
+    \u0111\xF2n \u0111\xE1nh."
   icon: {fileID: 1873737236, guid: e0ebbc0d03fd42c4b9a1ac873d10394e, type: 3}
   maxStack: 1
+  fuelTime: 0
   equipSlot: 0
   overrideController: {fileID: 0}
   damageBuff: 100
