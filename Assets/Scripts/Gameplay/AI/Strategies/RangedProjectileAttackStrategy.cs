@@ -80,7 +80,10 @@ namespace Gameplay.AI.Strategies
         private void SpawnProjectile()
         {
             var direction = (_target.position - _selfTransform.position).normalized;
-            var spawnPos = _selfTransform.position + direction * 0.2f;
+            
+            // Nâng toạ độ Y lên khớp với tay/miệng (tuỳ thuộc vào Sprite)
+            Vector3 spawnOffset = new Vector3(0f, 0.8f, 0f); 
+            var spawnPos = _selfTransform.position + spawnOffset + (direction * 0.5f);
 
             Projectile2D projectileInstance;
             if (_projectilePrefab != null)

@@ -203,16 +203,25 @@ namespace Gameplay.Characters
             Gizmos.DrawWireSphere(transform.position, patrolRadius);
         }
 
+        public bool CanInteract(Character interactor)
+        {
+            return _health == null || !_health.IsDead;
+        }
+
+        public float GetStaminaCost(Character interactor)
+        {
+            return 5f; // Base combat stamina cost
+        }
+
         public void Interact(Character interactor)
         {
-            // Player InteractionController might pass in Player Facade. We need player damage.
-            // For now, PlayerInteractionController passes damage via GetTotalDamage?
-            // Actually, PlayerInteractionController has GetTotalDamage. Let's just have PlayerInteractionController directly deal damage,
-            // but the original code had interactor.GetTotalDamage(). 
-            
-            if (interactor != null && interactor.TryGetComponent<PlayerInteractionController>(out var pic))
+            if (interactor != null)
             {
-                _health?.TakeDamage(pic.GetTotalDamage(), interactor);
+                var pic = interactor.GetComponentInChildren<PlayerInteractionController>();
+                if (pic != null)
+                {
+                    _health?.TakeDamage(pic.GetTotalDamage(), interactor);
+                }
             }
         }
     }

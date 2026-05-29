@@ -19,8 +19,8 @@ MonoBehaviour:
   detectionRange: 12
   patrolRadius: 5
   attackCooldown: 1.2
-  verticalAlignmentOffset: -0.97
-  horizontalAlignmentOffset: 0.8
+  verticalAlignmentOffset: 0.5
+  horizontalAlignmentOffset: 0
   moveSpeed: 2.8
   tintColor: {r: 1, g: 1, b: 1, a: 1}
   lootItemId: Gold

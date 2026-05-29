@@ -9,7 +9,7 @@ namespace UI.Crafting
     /// Gắn lên prefab đại diện cho 1 dòng nguyên liệu yêu cầu ở Bảng Phải.
     /// Hierarchy: Panel -> Image (Icon) + TextMeshProUGUI (Amount)
     /// </summary>
-    public class IngredientSlotUI : MonoBehaviour
+    public class CraftingIngredientSlotUI : MonoBehaviour
     {
         [SerializeField] private Image icon;
         [SerializeField] private TextMeshProUGUI amountText;
@@ -17,9 +17,6 @@ namespace UI.Crafting
         public void Setup(CraftingIngredient ingredient, int currentAmount)
         {
             if (ingredient.Item == null) return;
-
-            // Tính toán lại currentAmount thực tế từ InventoryController
-            currentAmount = FindObjectOfType<Gameplay.Inventory.InventoryController>().CountItem(ingredient.Item);
 
             // Gán Icon
             if (icon != null)
@@ -31,7 +28,7 @@ namespace UI.Crafting
             if (amountText != null)
             {
                 int needAmount = ingredient.Amount;
-                string colorHex = currentAmount >= needAmount ? "black" : "red";
+                string colorHex = currentAmount >= needAmount ? "#2ECC71" : "#E74C3C";
                 amountText.text = $"{ingredient.Item.ItemName}: <color={colorHex}>{currentAmount}</color>/{needAmount}";
             }
         }

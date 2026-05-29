@@ -30,6 +30,16 @@ namespace Gameplay.Building
             }
         }
 
+        public bool CanInteract(Character interactor)
+        {
+            return true; // Always can interact if in range
+        }
+
+        public float GetStaminaCost(Character interactor)
+        {
+            return 0f; // Interacting with UI costs no stamina
+        }
+
         public void Interact(Character interactor)
         {
             if (Vector2.Distance(transform.position, interactor.transform.position) <= interactRange)

@@ -24,9 +24,11 @@ namespace Gameplay.World
         public float MaxHealth => maxHealth;
         public float CurrentHealth { get; private set; }
         public bool IsDead { get; private set; }
+        public float StaminaCostPerHit => staminaCostPerHit;
 
         public event Action<float> OnHealthChanged;
         public event Action OnDamaged;
+        public event Action<float, Character> OnDamageTaken;
         public event Action OnDie;
 
         private Animator _animator;
@@ -94,9 +96,19 @@ namespace Gameplay.World
             }
         }
 
+        public bool CanInteract(Character interactor)
+        {
+            return !IsDead && HasRequiredTool(interactor);
+        }
+
+        public float GetStaminaCost(Character interactor)
+        {
+            return staminaCostPerHit;
+        }
+
         public void Interact(Character interactor)
         {
-            if (IsDead) return;
+            if (!CanInteract(interactor)) return;
 
             float finalDamage = CalculateDamage(interactor);
             if (!ValidateTool(interactor, ref finalDamage)) return;
@@ -142,6 +154,7 @@ namespace Gameplay.World
 
             CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
             OnDamaged?.Invoke();
+            OnDamageTaken?.Invoke(amount, source);
             OnHealthChanged?.Invoke(CurrentHealth);
             
             if (_animator != null && _animator.runtimeAnimatorController != null && _animator.enabled)
@@ -172,42 +185,37 @@ namespace Gameplay.World
             UpdateVisuals();
         }
 
-        // 🔥 THAY ĐỔI CỐT LÕI: Đổi hình ảnh trực tiếp, né lỗi RequireComponent
         private void UpdateVisuals()
         {
             if (_spriteRenderer != null)
             {
-                // Nếu chết thì đổi sang hình gốc cây, nếu sống thì trả lại hình cây ban đầu
                 _spriteRenderer.sprite = IsDead ? stumpSprite : _defaultTreeSprite;
             }
             
-            // Tắt Animator khi thành gốc cây (Vì nếu bật, animator sẽ ép hiển thị hình cái cây)
             if (_animator != null) 
             {
                 _animator.enabled = !IsDead;
             }
 
-            // Tắt collider để người chơi đi xuyên qua cái gốc cây cho mượt
             if (nodeCollider != null) 
             {
                 nodeCollider.enabled = !IsDead;
             }
         }
-        // Hàm này để Player check xem có đúng dụng cụ không từ xa
+        
         public bool HasRequiredTool(Character interactor)
         {
-            if (requiredTool == ToolType.None) return true; // Không yêu cầu tool thì cho qua
+            if (requiredTool == ToolType.None) return true;
             
             if (interactor == null || interactor.EquipmentManager == null) return false;
 
             var mainItem = interactor.EquipmentManager.GetEquippedItem(EquipSlot.MainHand);
             if (mainItem is IGatheringTool tool && tool.Type == requiredTool)
             {
-                return true; // Đúng Tool rồi
+                return true;
             }
             
-            return false; // Sai Tool
+            return false;
         }
-        public float GetStaminaCost() => staminaCostPerHit;
     }
 }

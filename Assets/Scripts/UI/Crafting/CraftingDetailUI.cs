@@ -1,3 +1,4 @@
+using Core.Contracts.Inventory;
 using Data.Crafting;
 using Gameplay.Crafting;
 using Gameplay.Inventory;
@@ -13,14 +14,14 @@ namespace UI.Crafting
     /// </summary>
     public class CraftingDetailUI : MonoBehaviour
     {
-        private InventoryController playerInventory;
+        private IInventoryHolder _inventoryHolder;
 
         [Header("UI Elements")]
         [SerializeField] private TextMeshProUGUI recipeNameText;
         [SerializeField] private Transform ingredientsContainer;
         
-        [Tooltip("Prefab chứa IngredientSlotUI (có Icon và Text)")]
-        [SerializeField] private IngredientSlotUI ingredientSlotPrefab; 
+        [Tooltip("Prefab chứa CraftingIngredientSlotUI (có Icon và Text)")]
+        [SerializeField] private CraftingIngredientSlotUI ingredientSlotPrefab; 
         
         [SerializeField] private Button craftButton;
 
@@ -34,11 +35,16 @@ namespace UI.Crafting
             }
         }
 
-        private void Start()
+        public void Initialize(IInventoryHolder inventoryHolder)
         {
-            if (playerInventory == null)
+            _inventoryHolder = inventoryHolder;
+        }
+
+        public void Refresh()
+        {
+            if (currentRecipe != null)
             {
-                playerInventory = FindObjectOfType<Gameplay.Inventory.InventoryController>();
+                UpdateDetails(currentRecipe);
             }
         }
 
@@ -67,10 +73,15 @@ namespace UI.Crafting
             bool canCraft = true;
             foreach (var ingredient in recipe.Ingredients)
             {
-                int have = playerInventory != null ? playerInventory.CountItem(ingredient.Item) : 0;
+                int have = 0;
+                if (_inventoryHolder != null && _inventoryHolder.Inventory != null)
+                {
+                    have = _inventoryHolder.Inventory.CountItem(ingredient.Item);
+                }
+                
                 if (have < ingredient.Amount) canCraft = false;
 
-                IngredientSlotUI slotUI = Instantiate(ingredientSlotPrefab, ingredientsContainer);
+                CraftingIngredientSlotUI slotUI = Instantiate(ingredientSlotPrefab, ingredientsContainer);
                 if (slotUI != null)
                 {
                     slotUI.Setup(ingredient, have);
@@ -86,27 +97,26 @@ namespace UI.Crafting
 
         public void OnCraftButtonClicked()
         {
-            Debug.Log("1. Đã bấm nút chế tạo!");
-
             if (currentRecipe == null)
             {
                 Debug.LogWarning("currentRecipe bị Null!");
                 return;
             }
-            if (playerInventory == null)
+            if (_inventoryHolder == null || _inventoryHolder.Inventory == null)
             {
-                Debug.LogWarning("playerInventory bị Null!");
+                Debug.LogWarning("inventoryHolder hoặc Inventory bị Null!");
                 return;
             }
 
-            if (playerInventory.TryCraftRecipe(currentRecipe))
+            // Gọi tới dịch vụ trung gian chuyên biệt cho Crafting
+            if (CraftingService.TryCraft(currentRecipe, _inventoryHolder.Inventory))
             {
                 UpdateDetails(currentRecipe);
                 Debug.Log("Chế tạo thành công!");
             }
             else
             {
-                Debug.LogWarning("Không đủ nguyên liệu!");
+                Debug.LogWarning("Không đủ nguyên liệu hoặc không có chỗ trống trong túi đồ!");
             }
         }
     }

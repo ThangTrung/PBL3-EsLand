@@ -63,11 +63,13 @@ namespace Infrastructure.SaveSystem.Data
         [Header("Player Stats")]
         public float playerHealth;
         public Vector3 playerPosition;
+        public Vector3 respawnPoint; // Điểm hồi sinh khi chết
 
         public GameData()
         {
             playerHealth = 100f;
             playerPosition = Vector3.zero;
+            respawnPoint = Vector3.zero;
         }
     }
 }

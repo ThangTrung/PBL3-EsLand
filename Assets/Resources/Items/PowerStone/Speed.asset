@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Speed
   m_EditorClassIdentifier: 
   id: Speed
-  itemName: "\u0110\xE1 T\u1ED1c \u0110\u1ED9"
-  description: 
+  itemName: "Vi\xEAn \u0110\xE1 T\u1EADt Phong"
+  description: "Nh\u1EB9 nh\xE0ng nh\u01B0 nh\u1EEFng c\u01A1n gi\xF3 ph\u01B0\u01A1ng
+    B\u1EAFc, gi\xFAp c\u01A1 th\u1EC3 tr\u1EDF n\xEAn linh ho\u1EA1t v\xE0 nhanh
+    nh\u1EB9n h\u01A1n bao gi\u1EDD h\u1EBFt."
   icon: {fileID: 1177542737, guid: ac7da059228fdd84ca27604f6dee6c00, type: 3}
   maxStack: 1
+  fuelTime: 0
   equipSlot: 2
   overrideController: {fileID: 0}
   damageBuff: 0
