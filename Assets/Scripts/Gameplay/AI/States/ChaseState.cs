@@ -45,7 +45,8 @@ namespace Gameplay.AI.States
                 return;
             }
 
-            // [FIX] Attack check must be prioritized and have a slight buffer
+            // [IMPROVEMENT] Prioritize direct attack strategy check. 
+            // If the strategy says we can shoot, we shoot, even if not perfectly aligned on Y.
             if (enemy.AttackStrategy != null)
             {
                 if (enemy.AttackStrategy.CanStartAttack(enemy.Target))
@@ -64,7 +65,9 @@ namespace Gameplay.AI.States
             float distX = Mathf.Abs(enemy.transform.position.x - enemy.Target.position.x);
             float distY = Mathf.Abs(enemy.transform.position.y - yWithOffset);
 
-            bool isYAligned = distY <= 0.6f; 
+            // [FIX] More lenient Y-alignment for ranged attackers (based on distance)
+            float yTolerance = (enemy.AttackRange > 4f) ? 1.2f : 0.6f;
+            bool isYAligned = distY <= yTolerance; 
 
             // --- STABILITY FIX: Side Choice Hysteresis ---
             float realSide = (enemy.transform.position.x < enemy.Target.position.x) ? -1f : 1f;
@@ -76,31 +79,35 @@ namespace Gameplay.AI.States
             float offsetDirection = _sidePreference;
             // ---------------------------------------------
 
-            // [FIX] Ensure flank target is WELL WITHIN attack range to avoid oscillation at the edge
             float attackRange = enemy.AttackRange > 0 ? enemy.AttackRange : 2.0f;
-            float targetXDistance = attackRange * 0.75f + _randomXOffset; // 75% of range + small random
+            
+            // For ranged units, we want to stay around 70-80% of range
+            float targetXDistance = (attackRange > 4f) ? attackRange * 0.8f : attackRange * 0.75f;
+            targetXDistance += _randomXOffset;
             
             float targetY = yWithOffset + _randomYOffset;
             Vector3 flankTarget;
 
             if (!isYAligned)
             {
-                if (distX < 0.2f)
+                // If we are already at a good X distance, just move vertically to align better
+                if (Mathf.Abs(distX - targetXDistance) < 0.5f)
                 {
                     flankTarget = new Vector3(enemy.transform.position.x, targetY, enemy.transform.position.z);
-                }
-                else if (distX < targetXDistance - 0.2f)
-                {
-                    flankTarget = new Vector3(enemy.Target.position.x + (offsetDirection * targetXDistance), enemy.transform.position.y, enemy.transform.position.z);
                 }
                 else
                 {
-                    flankTarget = new Vector3(enemy.transform.position.x, targetY, enemy.transform.position.z);
+                    // Move towards the ideal flanking spot
+                    flankTarget = new Vector3(
+                        enemy.Target.position.x + (offsetDirection * targetXDistance),
+                        targetY,
+                        enemy.transform.position.z
+                    );
                 }
             }
             else
             {
-                // Close in for the kill
+                // Already aligned on Y, just maintain ideal X distance
                 flankTarget = new Vector3(
                     enemy.Target.position.x + (offsetDirection * targetXDistance),
                     targetY,
@@ -111,7 +118,7 @@ namespace Gameplay.AI.States
             enemy.DebugTargetPosition = flankTarget;
             enemy.MoveTowardsPosition(flankTarget);
             
-            if (distanceToTarget < 5f)
+            if (distanceToTarget < 6f || enemy.AttackRange > 5f)
             {
                 enemy.FaceTarget();
             }
