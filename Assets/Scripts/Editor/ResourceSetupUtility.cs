@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using Gameplay.World;
 using Gameplay.Environment;
@@ -46,11 +46,9 @@ namespace Editor.Utilities
             if (processedCount > 0)
             {
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-                Debug.Log($"<color=green>ResourceSetupUtility:</color> Processed {processedCount} resources successfully.");
             }
             else
             {
-                Debug.LogWarning("ResourceSetupUtility: No GameObjects containing 'Tiny_tree' or 'Rock' found.");
             }
         }
 

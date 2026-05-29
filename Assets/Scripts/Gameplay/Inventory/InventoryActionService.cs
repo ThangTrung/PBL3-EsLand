@@ -1,4 +1,4 @@
-using Core.Contracts.Equipment;
+﻿using Core.Contracts.Equipment;
 using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
 using Data.Equipment;using Data.Items;
@@ -22,7 +22,6 @@ namespace Gameplay.Inventory
 
         public void UseItem(IInventorySlot slot)
         {
-            Debug.Log($"Using item: {slot.ItemData?.ItemName ?? "null"}");
             if (slot.IsEmpty || _ownerFacade == null) return;
             if (slot.ItemData is IItemUsable usable && usable.Use(_ownerFacade))
                 _inventory.ConsumeSlot(slot, 1);
@@ -41,13 +40,11 @@ namespace Gameplay.Inventory
             
             if (_ownerFacade.EquipmentManager == null)
             {
-                Debug.LogWarning($"Cannot equip item: {_ownerFacade.name} has no EquipmentManager component!");
                 return;
             }
 
             if (slot.ItemData is IDurable && slot.CurrentDurability <= 0)
             {
-                Debug.LogWarning("Item is broken, cannot equip!");
                 return;
             }
 
@@ -78,7 +75,6 @@ namespace Gameplay.Inventory
                 }
                 else
                 {
-                    Debug.LogWarning("Inventory full, cannot unequip!");
                 }
             }
                 

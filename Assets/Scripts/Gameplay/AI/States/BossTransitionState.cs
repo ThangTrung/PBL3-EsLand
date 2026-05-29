@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Gameplay.AI.Enemies;
 using UnityEngine;
 
@@ -11,7 +11,6 @@ namespace Gameplay.AI.States
 
         public void Enter(EnemyBase enemy)
         {
-            Debug.Log($"{enemy.name} is transitioning phases!");
             enemy.StopMovement();
             
             // Play Roar animation (assuming Attack state used for roar or special trigger)

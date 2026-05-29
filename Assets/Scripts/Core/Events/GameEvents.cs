@@ -32,6 +32,7 @@ namespace Core.Events
             OnEnemyDroppedLoot?.Invoke(data);
         }
 
-
+        // Sự kiện yêu cầu ngủ (để UIManager xử lý chuyển cảnh)
+        public static Action<Gameplay.Building.HomeSavePoint, Gameplay.Characters.Player> OnSleepRequested;
     }
 }

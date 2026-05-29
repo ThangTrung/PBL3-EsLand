@@ -1,31 +1,25 @@
-﻿using Core.Contracts.AI;
+using Core.Contracts.AI;
 using UnityEngine;
 
 namespace Gameplay.AI.States
 {
+    /// <summary>
+    /// AI bám đuổi mục tiêu.
+    /// Cập nhật: Luôn đảm bảo quái vật bám sát và nhìn về phía mục tiêu.
+    /// </summary>
     public class ChaseState : IAIState
     {
-        private float _randomYOffset;
-        private float _sidePreference = 0f; // -1 for Left, 1 for Right, 0 for Unset
-        private float _randomXOffset;
-        private bool _isStalker;
-
         public void Enter(EnemyBase enemy)
         {
-            _randomYOffset = Random.Range(-0.15f, 0.15f);
-            _randomXOffset = Random.Range(0.05f, 0.2f);
-            
-            // PROFESSIONAL DESIGN: Check if enemy is a "Thief" type to enable Stalker behavior
-            _isStalker = enemy.gameObject.name.Contains("Thief");
-
-            if (enemy.Target != null)
-            {
-                _sidePreference = (enemy.transform.position.x < enemy.Target.position.x) ? -1f : 1f;
-            }
-
             if (enemy.Animator != null)
             {
                 enemy.Animator.PlayRun();
+            }
+
+            if (enemy.Target != null)
+            {
+                // Kích hoạt bám đuổi lần đầu
+                enemy.FollowTarget(enemy.Target, enemy.AttackRange * 0.8f);
             }
         }
 
@@ -46,6 +40,7 @@ namespace Gameplay.AI.States
                 return;
             }
 
+            // Kiểm tra khả năng tấn công
             if (enemy.AttackStrategy != null)
             {
                 if (enemy.AttackStrategy.CanStartAttack(enemy.Target))
@@ -55,80 +50,27 @@ namespace Gameplay.AI.States
                 }
             }
 
-            float yWithOffset = enemy.Target.position.y;
-            if (enemy.Config != null)
-            {
-                yWithOffset += enemy.Config.VerticalAlignmentOffset;
-            }
-
-            float distX = Mathf.Abs(enemy.transform.position.x - enemy.Target.position.x);
-            float distY = Mathf.Abs(enemy.transform.position.y - yWithOffset);
-
-            float yTolerance = (enemy.AttackRange > 4f) ? 1.2f : 0.6f;
-            bool isYAligned = distY <= yTolerance; 
-
-            // --- STALKER LOGIC: Always stay behind player ---
-            if (_isStalker && enemy.Target != null)
-            {
-                // Target is behind if they are on the opposite side of player's facing
-                // Assuming player localScale.x > 0 means facing Right
-                float playerFacing = Mathf.Sign(enemy.Target.localScale.x);
-                _sidePreference = -playerFacing; // Aim for the back
-            }
-            else
-            {
-                float realSide = (enemy.transform.position.x < enemy.Target.position.x) ? -1f : 1f;
-                if (distX > 1.5f || _sidePreference == 0f) 
-                {
-                    _sidePreference = realSide;
-                }
-            }
+            // [STABILITY] Luôn gọi FollowTarget để đảm bảo AI 'tỉnh táo'.
+            float stopDist = enemy.AttackRange * 0.6f;
             
-            float offsetDirection = _sidePreference;
-            // ---------------------------------------------
+            // [FIX] ÁP SÁT LINH HOẠT: 
+            // Nếu đã vào tầm đánh (60%) mà chưa đánh được (do lệch hàng), 
+            // hãy ép nó 'nhích' sát vào Player (stopDist = 0.1m) cho đến khi vung đòn được thì thôi.
+            if (distanceToTarget <= stopDist)
+            {
+                stopDist = 0.1f;
+            }
 
-            float attackRange = enemy.AttackRange > 0 ? enemy.AttackRange : 2.0f;
-            float targetXDistance = (attackRange > 4f) ? attackRange * 0.8f : attackRange * 0.75f;
-            targetXDistance += _randomXOffset;
+            enemy.FollowTarget(enemy.Target, stopDist);
             
-            float targetY = yWithOffset + _randomYOffset;
-            Vector3 flankTarget;
-
-            if (!isYAligned)
-            {
-                if (Mathf.Abs(distX - targetXDistance) < 0.5f)
-                {
-                    flankTarget = new Vector3(enemy.transform.position.x, targetY, enemy.transform.position.z);
-                }
-                else
-                {
-                    flankTarget = new Vector3(
-                        enemy.Target.position.x + (offsetDirection * targetXDistance),
-                        targetY,
-                        enemy.transform.position.z
-                    );
-                }
-            }
-            else
-            {
-                flankTarget = new Vector3(
-                    enemy.Target.position.x + (offsetDirection * targetXDistance),
-                    targetY,
-                    enemy.transform.position.z
-                );
-            }
-
-            enemy.DebugTargetPosition = flankTarget;
-            enemy.MoveTowardsPosition(flankTarget);
-            
-            if (distanceToTarget < 6f || enemy.AttackRange > 5f)
-            {
-                enemy.FaceTarget();
-            }
+            // Xoay mặt nhìn Player khi đứng gần (Hàm này đã có bảo vệ vận tốc bên trong EnemyBase)
+            enemy.FaceTarget();
         }
 
         public void Exit(EnemyBase enemy)
         {
+            // Stop movement when leaving chase state
+            enemy.StopMovement();
         }
     }
 }

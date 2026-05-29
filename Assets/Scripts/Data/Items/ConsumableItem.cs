@@ -1,4 +1,4 @@
-using Core.Contracts.Shared;
+﻿using Core.Contracts.Shared;
 using Gameplay.Characters;
 using UnityEngine;
 
@@ -52,7 +52,6 @@ namespace Data.Items
 
             if (used)
             {
-                Debug.Log($"Đã sử dụng {ItemName}. Hồi {healthRestore} Máu, {hungerRestore} Thức ăn, {thirstRestore} Nước uống cho {user.CharacterName}!");
             }
             
             return used;

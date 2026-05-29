@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Gameplay.World
 {
@@ -53,7 +53,6 @@ namespace Gameplay.World
                 _spriteRenderer.sortingOrder = (currentLevel == ElevationLevel.Mountain) ? mountainSortingOrder : landSortingOrder;
             }
 
-            Debug.Log($"Player elevation updated to: {currentLevel} (Physics Layer: {LayerMask.LayerToName(gameObject.layer)}, Sorting: {_spriteRenderer?.sortingLayerName}/{_spriteRenderer?.sortingOrder})");
         }
     }
 }

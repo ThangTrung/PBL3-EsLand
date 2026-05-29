@@ -1,4 +1,4 @@
-using Core.Contracts.Equipment;
+﻿using Core.Contracts.Equipment;
 using Core.Contracts.Inventory;
 using UnityEngine;
 
@@ -32,7 +32,6 @@ namespace Gameplay.Characters
             
             EquipmentManager?.Initialize(this);
             
-            Debug.Log($"Character '{name}' initialized. Name: {characterName}, Inv: {Inventory != null}, Equip: {EquipmentManager != null}");
         }
     }
 }

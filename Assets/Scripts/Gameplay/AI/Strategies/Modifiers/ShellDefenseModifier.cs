@@ -1,4 +1,4 @@
-using Core.Contracts.Combat;
+﻿using Core.Contracts.Combat;
 using Gameplay.AI;
 using Gameplay.Characters;
 using UnityEngine;
@@ -49,14 +49,12 @@ namespace Gameplay.AI.Strategies.Modifiers
             _lastTriggerTime = Time.time;
             _enemy?.StopMovement();
             // Trigger animation state if handled by animator
-            Debug.Log($"{gameObject.name} entered Shell Mode!");
             Invoke(nameof(ExitShellMode), duration);
         }
 
         private void ExitShellMode()
         {
             _isInShellMode = false;
-            Debug.Log($"{gameObject.name} exited Shell Mode.");
         }
     }
 }

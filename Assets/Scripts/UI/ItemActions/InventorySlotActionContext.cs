@@ -1,4 +1,4 @@
-using Core.Contracts.Equipment;
+﻿using Core.Contracts.Equipment;
 using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
 using Data.Items;
@@ -25,20 +25,16 @@ namespace UI.ItemActions
 
         public void Use()
         {
-            Debug.Log($"[InventorySlotActionContext] Use() called. Forwarding to _handler.UseItem() for item: {DisplayName}");
             _handler?.UseItem(_slot);
         }
 
         public void Drop()
         {
-            Debug.Log($"[InventorySlotActionContext] Drop() called. Forwarding to _handler.DropItem() for item: {DisplayName}");
             _handler?.DropItem(_slot);
         }
 
         public void Equip()
         {
-            Debug.Log($"[InventorySlotActionContext] Equip() called. Handler is null: {_handler == null}");
-            Debug.Log($"[InventorySlotActionContext] Equip() called. Forwarding to _handler.EquipItem() for item: {DisplayName}");
             _handler?.EquipItem(_slot);
         }
 
@@ -46,12 +42,10 @@ namespace UI.ItemActions
         {
             if (_slot?.ItemData is IEquippable equippable)
             {
-                Debug.Log($"[InventorySlotActionContext] Unequip() called. Forwarding to _handler.UnequipItem() for item: {DisplayName} in slot {equippable.Slot}");
                 _handler?.UnequipItem(equippable.Slot);
             }
             else
             {
-                Debug.LogWarning($"[InventorySlotActionContext] Unequip() called, but item {DisplayName} is not IEquippable.");
             }
         }
     }

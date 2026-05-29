@@ -219,6 +219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRange: 3
+  availableRecipes:
+  - {fileID: 11400000, guid: 24284a4438725ba4a8e6bfc08656c2d8, type: 2}
 --- !u!114 &6995318355734326696
 MonoBehaviour:
   m_ObjectHideFlags: 0

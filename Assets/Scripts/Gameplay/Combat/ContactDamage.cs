@@ -1,4 +1,4 @@
-using Core.Contracts.Combat;
+﻿using Core.Contracts.Combat;
 using Gameplay.Characters;
 using UnityEngine;
 
@@ -41,7 +41,6 @@ namespace Gameplay.Combat
             {
                 health.TakeDamage(damage, _owner);
                 _nextDamageTime = Time.time + damageCooldown;
-                Debug.Log($"[ContactDamage] {gameObject.name} dealt contact damage to {target.name}");
             }
         }
     }

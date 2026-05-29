@@ -1,4 +1,4 @@
-using Core.Contracts.Inventory;
+﻿using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
 using Core.Events;
 using Data.Items;
@@ -22,6 +22,7 @@ namespace UI
         [SerializeField] private ItemActionMenu actionMenu;
         [SerializeField] private StatusPanelUI statusUI;
         [SerializeField] private CookingTowerUI cookingUI;
+        [SerializeField] private UI.Transition.CloudTransitionUI cloudTransitionUI;
 
         private IInventory _playerInventory;
         private Player _currentPlayer;
@@ -29,6 +30,7 @@ namespace UI
         private void OnEnable()
         {
             GameEvents.OnPlayerReady += HandlePlayerReady;
+            GameEvents.OnSleepRequested += HandleSleepRequested;
             Gameplay.Building.CookingTower.OnTowerInteracted += HandleTowerInteracted;
 
             if (cookingUI != null)
@@ -40,6 +42,7 @@ namespace UI
         private void OnDisable()
         {
             GameEvents.OnPlayerReady -= HandlePlayerReady;
+            GameEvents.OnSleepRequested -= HandleSleepRequested;
             Gameplay.Building.CookingTower.OnTowerInteracted -= HandleTowerInteracted;
             
             if (inventoryUI != null)
@@ -82,7 +85,6 @@ namespace UI
                 inventoryUI.OnActionMenuRequested += OpenActionMenu;
                 inventoryUI.OnInventoryClosed += actionMenu.HideMenu;
                 inventoryUI.OnSlotLeftClicked += HandleInventorySlotLeftClicked;
-                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo và kết nối Inventory UI.");
             }
 
             if (equipmentUI != null)
@@ -90,13 +92,11 @@ namespace UI
                 equipmentUI.Initialize(inventoryHolder);
                 equipmentUI.OnActionMenuRequested += OpenActionMenu;
                 equipmentUI.OnEquipmentClosed += actionMenu.HideMenu;
-                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Equipment UI.");
             }
 
             if (craftingUI != null)
             {
                 craftingUI.Initialize(inventoryHolder);
-                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Crafting UI.");
             }
 
             if (inventoryHolder is not Player player) return;
@@ -106,7 +106,6 @@ namespace UI
             if (statusUI != null)
             {
                 statusUI.Initialize(player);
-                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Status UI.");
             }
 
             if (inventoryUI != null)
@@ -149,15 +148,19 @@ namespace UI
             bool added = false;
 
             // Áp dụng Logic Định Tuyến Nghiêm Ngặt (Strict Routing) dựa trên Type:
-            switch (item)
+            // Ưu tiên Fuel vào Slot 1. Các item khác vào Slot 0.
+            if (item is MaterialItem material && material.FuelTime > 0)
             {
-                case ConsumableItem consumable when consumable.IsCookable:
+                added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
+                // Nếu Slot 1 đầy, hoặc item này cũng là nguyên liệu nấu, có thể thử thêm vào slot 0
+                if (!added)
+                {
                     added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
-                    break;
-
-                case MaterialItem material when material.FuelTime > 0:
-                    added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
-                    break;
+                }
+            }
+            else
+            {
+                added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
             }
 
             if (added)
@@ -178,7 +181,6 @@ namespace UI
             if (success) return;
             
             cookingUI.CurrentTower.TryAddItem(slotIndex, item, amount);
-            Debug.LogWarning("Túi đồ đã đầy, không thể lấy vật phẩm từ lò!");
         }
 
         private void Update()
@@ -197,6 +199,48 @@ namespace UI
             {
                 actionMenu.ShowMenu(context, pos);
             }
+        }
+
+        private void HandleSleepRequested(Gameplay.Building.HomeSavePoint house, Player player)
+        {
+            if (cloudTransitionUI == null)
+            {
+                cloudTransitionUI = FindObjectOfType<UI.Transition.CloudTransitionUI>();
+            }
+
+            if (cloudTransitionUI != null)
+            {
+                StartCoroutine(PerformSleepTransition(house, player));
+            }
+            else
+            {
+                house.ExecuteSleepLogic(player);
+            }
+        }
+
+        private System.Collections.IEnumerator PerformSleepTransition(Gameplay.Building.HomeSavePoint house, Player player)
+        {
+            // 1. Khoá người chơi nhưng CHƯA dừng game (để mây bay vào mượt mà)
+            player.SetCanMove(false);
+
+            // 2. Mây bay vào (Fade Out)
+            yield return cloudTransitionUI.FadeOut(1.5f, "Đang nghỉ ngơi...");
+
+            // 3. KHI MÂY ĐÃ CHE KÍN: Bắt đầu tạm dừng game
+            Time.timeScale = 0;
+
+            // 4. Thực hiện logic Gameplay tại nhà
+            house.ExecuteSleepLogic(player);
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            // 5. TRƯỚC KHI MÂY BAY RA: Chạy lại game
+            Time.timeScale = 1;
+
+            // 6. Mây bay ra (Fade In)
+            yield return cloudTransitionUI.FadeIn(1.5f);
+
+            // 7. Hoàn tất: Mở khoá người chơi
+            player.SetCanMove(true);
         }
     }
 }

@@ -3,9 +3,14 @@ using UnityEngine;
 
 namespace Gameplay.AI.States
 {
+    /// <summary>
+    /// AI giữ khoảng cách với mục tiêu (Dùng cho quái đánh xa/Shaman).
+    /// Tối ưu hóa: Chỉ cập nhật đích đến khi vị trí lý tưởng thay đổi đáng kể.
+    /// </summary>
     public class KeepDistanceState : IAIState
     {
         private const float MinRangeFactor = 0.6f;
+        private Vector3 _lastDestination;
 
         public void Enter(EnemyBase enemy)
         {
@@ -27,6 +32,8 @@ namespace Gameplay.AI.States
             }
 
             var minRange = enemy.AttackRange * MinRangeFactor;
+            
+            // Ở trong vùng lý tưởng -> Tấn công
             if (distanceToTarget <= enemy.AttackRange && distanceToTarget >= minRange)
             {
                 enemy.StopMovement();
@@ -34,19 +41,31 @@ namespace Gameplay.AI.States
                 return;
             }
 
+            Vector3 targetDest;
+            // Quá gần -> Lùi lại
             if (distanceToTarget < minRange)
             {
                 var awayDirection = (enemy.transform.position - enemy.Target.position).normalized;
-                var retreatPoint = enemy.transform.position + awayDirection;
-                enemy.MoveTowardsPosition(retreatPoint);
-                return;
+                targetDest = enemy.transform.position + awayDirection * 2f;
+            }
+            else // Quá xa -> Tiến lại gần
+            {
+                targetDest = enemy.Target.position;
             }
 
-            enemy.MoveTowardsPosition(enemy.Target.position);
+            // Chỉ cập nhật đích đến nếu nó thay đổi đáng kể (> 0.5m)
+            if (Vector3.Distance(targetDest, _lastDestination) > 0.5f)
+            {
+                _lastDestination = targetDest;
+                enemy.MoveTowardsPosition(targetDest);
+            }
+
+            enemy.FaceTarget();
         }
 
         public void Exit(EnemyBase enemy)
         {
+            enemy.StopMovement();
         }
     }
 }

@@ -1,4 +1,4 @@
-using Core.Contracts.Combat;
+﻿using Core.Contracts.Combat;
 using Gameplay.Characters;
 using UnityEngine;
 
@@ -29,7 +29,6 @@ namespace Gameplay.Combat.StatusEffects
             _damageable = target.GetComponent<IDamageable>();
             _elapsedTime = 0f;
             _tickTimer = 0f;
-            Debug.Log($"Burn applied to {target.name}");
         }
 
         public void Tick(float deltaTime)
@@ -46,7 +45,6 @@ namespace Gameplay.Combat.StatusEffects
 
         public void OnRemove()
         {
-            Debug.Log($"Burn removed from {_target.name}");
         }
     }
 }
