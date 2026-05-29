@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   id: Axe
-  itemName: 
-  description: 
+  itemName: Axe
+  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
+    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
   icon: {fileID: 803085355, guid: 49df2e0fb77954f0aa56465bfe992c16, type: 3}
   maxStack: 1
+  fuelTime: 0
   equipSlot: 4
   overrideController: {fileID: 22100000, guid: a341558ad9d09454392cd92c288beaab, type: 2}
   toolType: 2

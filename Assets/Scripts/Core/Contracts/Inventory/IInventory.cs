@@ -12,6 +12,7 @@ namespace Core.Contracts.Inventory
         event Action OnInventoryChanged;
         void NotifyChanged();
         bool AddItem(ItemData item, int amount = 1);
+        bool RemoveItem(ItemData item, int amount = 1);
         void ConsumeSlot(IInventorySlot slot, int amount = 1);
         bool RemoveSlot(IInventorySlot slot);
         int CountItem(ItemData item);

@@ -164,6 +164,7 @@ namespace Gameplay.Inventory
         {
             OnInventoryChanged?.Invoke(); // Giữ nguyên chức năng cũ (cập nhật UI)
         }
+
         #region ISaveable Implementation
         public void LoadData(Infrastructure.SaveSystem.Data.GameData data)
         {

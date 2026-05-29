@@ -14,7 +14,7 @@ namespace Gameplay.AI
     [RequireComponent(typeof(CharacterHealth))]
     [RequireComponent(typeof(EnemyMovementController))]
     [RequireComponent(typeof(CharacterAnimationController))]
-    public abstract class EnemyBase : Character, IPoolable, IResettable
+    public abstract class EnemyBase : Character, IPoolable, IResettable, IInteractable
     {
         private const float DefaultPatrolReachDistance = 0.3f;
         private const float DeathFallbackDelay = 2f;
@@ -50,6 +50,35 @@ public bool IsDead => IsDeadInternal;
         public virtual IAIState CreateChaseState()
         {
             return new ChaseState();
+        }
+
+        public virtual bool CanInteract(Character interactor)
+        {
+            return !IsDeadInternal;
+        }
+
+        public virtual float GetStaminaCost(Character interactor)
+        {
+            return 5f; // Default combat stamina cost
+        }
+
+        public virtual void Interact(Character interactor)
+        {
+            if (IsDeadInternal) return;
+
+            // When player interacts with an enemy, it counts as an attack
+            if (interactor != null)
+            {
+                var pic = interactor.GetComponentInChildren<PlayerInteractionController>();
+                if (pic != null)
+                {
+                    _health?.TakeDamage(pic.GetTotalDamage(), interactor);
+                }
+                else
+                {
+                    Debug.LogWarning($"[EnemyBase] {interactor.name} does not have a PlayerInteractionController in its children.");
+                }
+            }
         }
 
 protected virtual new void Awake()

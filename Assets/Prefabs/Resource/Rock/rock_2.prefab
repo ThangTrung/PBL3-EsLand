@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4634479693279154412}
   - component: {fileID: 6910032608303919774}
   - component: {fileID: 4239286625261723597}
+  - component: {fileID: -2689982986266051781}
   m_Layer: 12
   m_Name: rock_2
   m_TagString: Untagged
@@ -103,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 2
   requiredTool: 1
-  staminaCostPerHit: 5
+  staminaCostPerHit: 25
   stumpSprite: {fileID: 0}
   nodeCollider: {fileID: 4239286625261723597}
 --- !u!114 &5873528783934106605
@@ -205,3 +206,19 @@ PolygonCollider2D:
       - {x: 0.21511269, y: -0.041319847}
       - {x: 0.16670623, y: 0.19642204}
   m_UseDelaunayMesh: 0
+--- !u!114 &-2689982986266051781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566310596956486315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

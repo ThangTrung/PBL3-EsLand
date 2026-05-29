@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Bronze_ore
   itemName: "Ph\xF4i \u0110\u1ED3ng"
-  description: 
+  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
+    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
   icon: {fileID: 1756097733, guid: c835222b449ebea44b99dc22cd48146d, type: 3}
   maxStack: 64
+  fuelTime: 0
   canBeSmelted: 0
   resultItem: {fileID: 0}
   smeltTime: 5

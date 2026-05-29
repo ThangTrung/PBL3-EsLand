@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c12e02f6a04564daeab3a6cd55c833, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
-  itemName: 
-  description: 
+  id: Knife
+  itemName: Knife
+  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
+    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
   icon: {fileID: -351778627, guid: f79e783d7d44f49c0a1cef17b11c736a, type: 3}
   maxStack: 1
+  fuelTime: 0
   equipSlot: 4
   overrideController: {fileID: 22100000, guid: 57b75881957c8c6468ea9fb47f9a0270, type: 2}
   toolType: 3

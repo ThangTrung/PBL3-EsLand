@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3436084896103920420}
   - component: {fileID: 5430505190524564619}
   - component: {fileID: 4102086218884126855}
+  - component: {fileID: 1432704660120872969}
   m_Layer: 12
   m_Name: Gold_Resource_6
   m_TagString: Untagged
@@ -169,7 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   requiredTool: 1
-  staminaCostPerHit: 10
+  staminaCostPerHit: 25
   stumpSprite: {fileID: 0}
   nodeCollider: {fileID: 6921790535751811005}
 --- !u!114 &5430505190524564619
@@ -204,3 +205,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1432704660120872969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1843340195584360617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

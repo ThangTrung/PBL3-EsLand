@@ -10,9 +10,11 @@ namespace Gameplay.Characters
         private PlayerInteractionController _interaction;
         private Player _playerFacade;
         private Camera _mainCamera;
+        private Camera _camera;
 
         private void Awake()
         {
+            _camera = GetComponentInChildren<Camera>();
             _movement = GetComponent<PlayerMovementController>();
             _interaction = GetComponentInChildren<PlayerInteractionController>();
             _playerFacade = GetComponent<Player>();
@@ -21,7 +23,7 @@ namespace Gameplay.Characters
         private void Start()
         {
             _mainCamera = Camera.main;
-            if (_mainCamera == null) _mainCamera = GetComponentInChildren<Camera>();
+            if (_mainCamera == null) _mainCamera = _camera;
         }
 
         private void Update()
@@ -55,29 +57,19 @@ namespace Gameplay.Characters
 
         private void HandleActionInput()
         {
-            if (_mainCamera == null)
-            {
-                _mainCamera = Camera.main;
-                if (_mainCamera == null) _mainCamera = GetComponentInChildren<Camera>();
-            }
-
             if (_interaction == null || _mainCamera == null) return;
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                // Account for camera depth to get accurate world position in 2D
-                Vector3 screenPos = Input.mousePosition;
-                screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
-                Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
-                
-                _interaction.HandleInteractionClick(mouseWorldPos);
-            }
+            if (!Input.GetMouseButtonDown(0)) return;
+            var screenPos = Input.mousePosition;
+            var mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
+            _interaction.HandleInteractionClick(mouseWorldPos);
         }
 
         private void HandleUIInput()
         {
             if (Input.GetKeyDown(KeyCode.Tab)) _playerFacade.ToggleInventory();
             if (Input.GetKeyDown(KeyCode.E)) _playerFacade.ToggleEquipment();
+            if (Input.GetKeyDown(KeyCode.B)) _playerFacade.ToggleCrafting();
         }
     }
 }

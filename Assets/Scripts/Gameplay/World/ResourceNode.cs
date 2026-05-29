@@ -24,6 +24,7 @@ namespace Gameplay.World
         public float MaxHealth => maxHealth;
         public float CurrentHealth { get; private set; }
         public bool IsDead { get; private set; }
+        public float StaminaCostPerHit => staminaCostPerHit;
 
         public event Action<float> OnHealthChanged;
         public event Action OnDamaged;
@@ -95,9 +96,19 @@ namespace Gameplay.World
             }
         }
 
+        public bool CanInteract(Character interactor)
+        {
+            return !IsDead && HasRequiredTool(interactor);
+        }
+
+        public float GetStaminaCost(Character interactor)
+        {
+            return staminaCostPerHit;
+        }
+
         public void Interact(Character interactor)
         {
-            if (IsDead) return;
+            if (!CanInteract(interactor)) return;
 
             float finalDamage = CalculateDamage(interactor);
             if (!ValidateTool(interactor, ref finalDamage)) return;
@@ -206,6 +217,5 @@ namespace Gameplay.World
             
             return false;
         }
-        public float GetStaminaCost() => staminaCostPerHit;
     }
 }

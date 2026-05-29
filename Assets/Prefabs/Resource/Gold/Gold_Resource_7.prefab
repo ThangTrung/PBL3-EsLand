@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6244246766652862840}
   - component: {fileID: 3130891622987163899}
   - component: {fileID: 3236258575997536866}
+  - component: {fileID: -1902323649273439747}
   m_Layer: 12
   m_Name: Gold_Resource_7
   m_TagString: Untagged
@@ -170,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   requiredTool: 1
-  staminaCostPerHit: 5
+  staminaCostPerHit: 25
   stumpSprite: {fileID: 0}
   nodeCollider: {fileID: 3236258575997536866}
 --- !u!60 &3236258575997536866
@@ -234,3 +235,19 @@ PolygonCollider2D:
       - {x: 0.50755143, y: 0.3125652}
       - {x: 0.56174016, y: 0.55577505}
   m_UseDelaunayMesh: 0
+--- !u!114 &-1902323649273439747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

@@ -8,6 +8,7 @@ using UI.Inventory;
 using UI.ItemActions;
 using UI.Status;
 using UI.Building;
+using UI.Crafting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,13 +16,15 @@ namespace UI
 {
     public class UIManager : MonoBehaviour
     {
-        public InventoryPanelUI inventoryUI;
-        public EquipmentPanelUI equipmentUI;
-        public ItemActionMenu actionMenu;
-        public StatusPanelUI statusUI;
-        public CookingTowerUI cookingUI;
+        [SerializeField] private InventoryPanelUI inventoryUI;
+        [SerializeField] private EquipmentPanelUI equipmentUI;
+        [SerializeField] private CraftingPanelUI craftingUI;
+        [SerializeField] private ItemActionMenu actionMenu;
+        [SerializeField] private StatusPanelUI statusUI;
+        [SerializeField] private CookingTowerUI cookingUI;
 
         private IInventory _playerInventory;
+        private Player _currentPlayer;
 
         private void OnEnable()
         {
@@ -56,6 +59,14 @@ namespace UI
             {
                 cookingUI.OnSlotClicked -= HandleCookingSlotClicked;
             }
+
+            // Dọn dẹp sự kiện để tránh Memory Leak / Double Subscribe
+            if (_currentPlayer != null)
+            {
+                if (inventoryUI != null) _currentPlayer.OnToggleInventory -= inventoryUI.ToggleUI;
+                if (equipmentUI != null) _currentPlayer.OnToggleEquipment -= equipmentUI.ToggleUI;
+                if (craftingUI != null) _currentPlayer.OnToggleCrafting -= craftingUI.ToggleUI;
+            }
         }
 
         private void HandlePlayerReady(IInventoryHolder inventoryHolder)
@@ -82,7 +93,15 @@ namespace UI
                 Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Equipment UI.");
             }
 
+            if (craftingUI != null)
+            {
+                craftingUI.Initialize(inventoryHolder);
+                Debug.Log("<color=green>[UIManager]</color> Đã khởi tạo Crafting UI.");
+            }
+
             if (inventoryHolder is not Player player) return;
+            
+            _currentPlayer = player;
 
             if (statusUI != null)
             {
@@ -96,9 +115,17 @@ namespace UI
                 player.OnToggleInventory += inventoryUI.ToggleUI;
             }
 
-            if (equipmentUI == null) return;
-            player.OnToggleEquipment -= equipmentUI.ToggleUI;
-            player.OnToggleEquipment += equipmentUI.ToggleUI;
+            if (equipmentUI != null)
+            {
+                player.OnToggleEquipment -= equipmentUI.ToggleUI;
+                player.OnToggleEquipment += equipmentUI.ToggleUI;
+            }
+
+            if (craftingUI != null)
+            {
+                player.OnToggleCrafting -= craftingUI.ToggleUI;
+                player.OnToggleCrafting += craftingUI.ToggleUI;
+            }
         }
 
         private void HandleTowerInteracted(Gameplay.Building.CookingTower tower)
@@ -117,19 +144,22 @@ namespace UI
         {
             if (cookingUI == null || !cookingUI.IsVisible || cookingUI.CurrentTower == null) return;
             if (slot == null || slot.IsEmpty || _playerInventory == null) return;
-            var item = slot.ItemData;
-            var added = false;
 
-            // Kiểm tra nhiên liệu trước tiên, hoặc kiểm tra nấu ăn trước tùy mức ưu tiên.
-            // Để rõ ràng, nếu là MaterialItem và canBeSmelted thì ưu tiên vào Input (0).
-            if (item is MaterialItem { canBeSmelted: true })
+            var item = slot.ItemData;
+            bool added = false;
+
+            // Áp dụng Logic Định Tuyến Nghiêm Ngặt (Strict Routing) dựa trên Type:
+            switch (item)
             {
-                added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
+                case ConsumableItem consumable when consumable.IsCookable:
+                    added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
+                    break;
+
+                case MaterialItem material when material.FuelTime > 0:
+                    added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
+                    break;
             }
-            if (!added && item.FuelTime > 0)
-            {
-                added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
-            }
+
             if (added)
             {
                 _playerInventory.ConsumeSlot(slot, 1);
@@ -141,12 +171,12 @@ namespace UI
             if (cookingUI == null || !cookingUI.IsVisible || cookingUI.CurrentTower == null) return;
             if (slot == null || slot.IsEmpty || _playerInventory == null) return;
 
-            // Rút toàn bộ số lượng trong slot của lò ra (hoặc rút từng cái, ở đây rút toàn bộ cho giống lấy thành phẩm)
             var item = cookingUI.CurrentTower.WithdrawItem(slotIndex, out int amount);
             if (item == null || amount <= 0) return;
-            // Cố gắng thêm vào túi đồ
+            
             var success = _playerInventory.AddItem(item, amount);
             if (success) return;
+            
             cookingUI.CurrentTower.TryAddItem(slotIndex, item, amount);
             Debug.LogWarning("Túi đồ đã đầy, không thể lấy vật phẩm từ lò!");
         }
@@ -157,6 +187,7 @@ namespace UI
             if (!EventSystem.current || EventSystem.current.IsPointerOverGameObject()) return;
             if (inventoryUI && inventoryUI.IsVisible) inventoryUI.SetVisible(false);
             if (equipmentUI && equipmentUI.IsVisible) equipmentUI.SetVisible(false);
+            if (craftingUI && craftingUI.IsVisible) craftingUI.SetVisible(false);
             if (cookingUI && cookingUI.IsVisible) cookingUI.ClosePanel();
         }
 

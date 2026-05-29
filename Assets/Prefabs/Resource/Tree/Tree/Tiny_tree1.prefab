@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 133028340164293406}
   - component: {fileID: 7456336758574638737}
   - component: {fileID: 6962546678608921805}
+  - component: {fileID: 7084980971809460692}
   m_Layer: 12
   m_Name: Tiny_tree1
   m_TagString: Untagged
@@ -172,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   requiredTool: 2
-  staminaCostPerHit: 5
+  staminaCostPerHit: 25
   stumpSprite: {fileID: 7759314080828431348, guid: 7951e8106b28e48e0b11aed17a9978d1, type: 3}
   nodeCollider: {fileID: 133028340164293406}
   stumpPrefab: {fileID: 7105231942027636971, guid: adbcc6ef515d3ee438acf61026f108cb, type: 3}
@@ -336,3 +337,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeAlpha: 0.4
   fadeSpeed: 0.2
+--- !u!114 &7084980971809460692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890112345585659775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

@@ -17,12 +17,14 @@ namespace Gameplay.Characters
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float baseAttackCooldown = 1f;
+        [SerializeField] private float interactionRange = 0.5f;
 
         private float _attackTimer;
         private Character _facade;
         private PlayerMovementController _movement;
+        private PlayerSurvivalController _survival;
         private Camera _mainCamera;
-        private Gameplay.Environment.EnvironmentHighlight _currentHover;
+        private Environment.Highlight _currentHover;
 
         private void Awake()
         {
@@ -38,12 +40,14 @@ namespace Gameplay.Characters
 
         private void InitializeReferences()
         {
-            if (_facade == null) _facade = GetComponentInParent<Character>();
-            if (_movement == null) _movement = GetComponentInParent<PlayerMovementController>();
+            if (!_facade) _facade = GetComponentInParent<Character>();
+            if (!_movement) _movement = GetComponentInParent<PlayerMovementController>();
+            if (!_survival) _survival = GetComponentInParent<PlayerSurvivalController>();
             
             // Fallback for detached prefabs
-            if (_facade == null && transform.parent != null) _facade = transform.parent.GetComponent<Character>();
-            if (_movement == null && transform.parent != null) _movement = transform.parent.GetComponent<PlayerMovementController>();
+            if (!_facade && !transform.parent) _facade = transform.parent.GetComponent<Character>();
+            if (!_movement && !transform.parent) _movement = transform.parent.GetComponent<PlayerMovementController>();
+            if (!_survival && !transform.parent) _survival = transform.parent.GetComponent<PlayerSurvivalController>();
         }
 
         private void Update()
@@ -59,16 +63,17 @@ namespace Gameplay.Characters
             if (_mainCamera == null) _mainCamera = Camera.main;
             if (_mainCamera == null) return;
 
-            Vector3 screenPos = Input.mousePosition;
+            var screenPos = Input.mousePosition;
             screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
             Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
 
-            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
-            Gameplay.Environment.EnvironmentHighlight newHover = null;
+            // Use OverlapCircleAll for a more forgiving hover area
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
+            Environment.Highlight newHover = null;
 
             foreach (var col in colliders)
             {
-                if (col != null && col.TryGetComponent<Gameplay.Environment.EnvironmentHighlight>(out var highlight))
+                if (col != null && col.TryGetComponent<Gameplay.Environment.Highlight>(out var highlight))
                 {
                     newHover = highlight;
                     break;
@@ -83,36 +88,30 @@ namespace Gameplay.Characters
             }
         }
 
-        public void HandleInteractionClick(Vector2 mouseWorldPos)
+        public void HandleInteractionClick(Vector3 mouseWorldPos)
         {
-            Collider2D[] colliders = Physics2D.OverlapPointAll(mouseWorldPos, interactableLayer);
+            // Use OverlapCircleAll for a more forgiving click area
+            var colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             
             foreach (var col in colliders)
             {
-                if (col != null && col.TryGetComponent<IInteractable>(out var target))
-                {
-                    InteractWithTarget(target, col.transform);
-                    return; 
-                }
+                if (!col || !col.TryGetComponent<IInteractable>(out var target)) continue;
+                InteractWithTarget(target, col.transform);
+                return;
             }
         }
 
-        public void InteractWithTarget(IInteractable target, Transform targetTransform)
+        private void InteractWithTarget(IInteractable target, Transform targetTransform)
         {
             InitializeReferences();
-            if (target == null || targetTransform == null || _movement == null) return;
-
-            // --- CHỐT CHẶN TỪ XA ---
-            if (target is Gameplay.World.ResourceNode node)
+            if (target == null || !targetTransform  || !_movement) return;
+            
+            if (!target.CanInteract(_facade))
             {
-                if (node.IsDead) return; 
-
-                if (!node.HasRequiredTool(_facade))
-                {
-                    return; 
-                }
+                return;
             }
-            _movement.SetFollowTarget(targetTransform, 0f, () => 
+
+            _movement.SetFollowTarget(targetTransform, interactionRange, () => 
             {
                 FaceTarget(targetTransform.position);
                 StartCoroutine(ExecuteAttackSequence(target));
@@ -121,17 +120,41 @@ namespace Gameplay.Characters
 
         private System.Collections.IEnumerator ExecuteAttackSequence(IInteractable specificTarget)
         {
-            if (specificTarget == null) yield break;
+            Debug.Log("[Combat] ExecuteAttackSequence started.");
+            if (specificTarget == null) 
+            {
+                Debug.Log("[Combat] specificTarget is null, aborting.");
+                yield break;
+            }
 
             while (_attackTimer > 0) yield return null;
 
-            if (!CanAttack()) yield break;
-            
-            if (specificTarget is Gameplay.World.ResourceNode node && node.IsDead)
+            if (!CanAttack()) 
             {
+                Debug.Log($"[Combat] CanAttack() is false (Dead or timer). _attackTimer={_attackTimer}, Health={(_facade?.Health?.CurrentHealth)}");
+                yield break;
+            }
+            
+            if (!specificTarget.CanInteract(_facade))
+            {
+                Debug.Log("[Combat] specificTarget.CanInteract returned false.");
                 yield break; 
             }
 
+            // Determine stamina cost dynamically via the interface
+            float staminaCost = specificTarget.GetStaminaCost(_facade);
+
+            // Try to consume stamina
+            if (_survival != null && staminaCost > 0f)
+            {
+                if (!_survival.TryConsumeStamina(staminaCost))
+                {
+                    Debug.Log($"[Combat] Not enough stamina. Cost: {staminaCost}, Current: {_survival.CurrentStamina}");
+                    yield break;
+                }
+            }
+
+            Debug.Log("[Combat] Triggering Attack Animation.");
             _attackTimer = baseAttackCooldown;
             TriggerInteractAnimation();
 
@@ -139,6 +162,7 @@ namespace Gameplay.Characters
 
             if (specificTarget != null)
             {
+                Debug.Log("[Combat] Delivering damage via specificTarget.Interact().");
                 specificTarget.Interact(_facade);
             }
         }

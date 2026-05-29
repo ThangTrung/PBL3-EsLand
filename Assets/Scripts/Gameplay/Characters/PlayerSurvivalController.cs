@@ -17,6 +17,7 @@ namespace Gameplay.Characters
         [Header("Drain Rates (units/sec)")]
         [SerializeField] private float hungerDrainRate = 5.0f;
         [SerializeField] private float thirstDrainRate = 7.0f;
+        [SerializeField] private float staminaRegenRate = 5.0f;
 
         [Header("Runtime Stats")]
         [SerializeField] private float currentHunger;
@@ -33,6 +34,7 @@ namespace Gameplay.Characters
 
         public event Action<float> OnHungerChanged;
         public event Action<float> OnThirstChanged;
+        public event Action<float> OnStaminaChanged;
 
         private void Awake()
         {
@@ -45,6 +47,12 @@ namespace Gameplay.Characters
         {
             ModifyHunger(-hungerDrainRate * Time.deltaTime);
             ModifyThirst(-thirstDrainRate * Time.deltaTime);
+            
+            // Hồi phục thể lực theo thời gian nếu chưa đầy
+            if (currentStamina < maxStamina)
+            {
+                ModifyStamina(staminaRegenRate * Time.deltaTime);
+            }
         }
 
         public void ModifyHunger(float delta)
@@ -59,9 +67,24 @@ namespace Gameplay.Characters
             OnThirstChanged?.Invoke(currentThirst);
         }
 
+        public void ModifyStamina(float delta)
+        {
+            currentStamina = Mathf.Clamp(currentStamina + delta, 0, maxStamina);
+            OnStaminaChanged?.Invoke(currentStamina);
+        }
+
         public void ConsumeHunger(float amount) => ModifyHunger(-amount);
         public void ConsumeThirst(float amount) => ModifyThirst(-amount);
         public void AddHunger(float amount) => ModifyHunger(amount);
         public void AddThirst(float amount) => ModifyThirst(amount);
+        
+        public bool HasEnoughStamina(float amount) => currentStamina >= amount;
+        
+        public bool TryConsumeStamina(float amount)
+        {
+            if (!HasEnoughStamina(amount)) return false;
+            ModifyStamina(-amount);
+            return true;
+        }
     }
 }
