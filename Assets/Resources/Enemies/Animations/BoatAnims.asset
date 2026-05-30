@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
   m_Name: BoatAnims
   m_EditorClassIdentifier: 
-  idleFrames:
-  - {fileID: 6161816635491882707, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
-  - {fileID: 5587901902507797589, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
-  - {fileID: 5386769243147980573, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
-  - {fileID: -913276284504280237, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
-  - {fileID: -1543534895457406598, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
-  - {fileID: 4648445442389332319, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
-  - {fileID: -4543072844462588810, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
-  - {fileID: 726911693686558231, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
-  runFrames: []
-  attackFrames: []
-  deathFrames: []
+  animations:
+  - stateName: Idle
+    frames:
+    - {fileID: 6161816635491882707, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
+    - {fileID: 5587901902507797589, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
+    - {fileID: 5386769243147980573, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
+    - {fileID: -913276284504280237, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
+    - {fileID: -1543534895457406598, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
+    - {fileID: 4648445442389332319, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
+    - {fileID: -4543072844462588810, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
+    - {fileID: 726911693686558231, guid: 624ff63a8477c284e9c89d30505d3100, type: 3}
+    isLooping: 1
+    multiTriggerFrames: 
+    triggerFrame: 0
   frameRate: 12
-  attackTriggerFrame: 2

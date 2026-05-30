@@ -15,17 +15,18 @@ GameObject:
   - component: {fileID: 7451048533748809482}
   - component: {fileID: 4265081676009555971}
   - component: {fileID: 1457626184916512051}
-  - component: {fileID: 8128174859426311239}
   - component: {fileID: 6393301595055564234}
   - component: {fileID: 735776205102663229}
-  - component: {fileID: 6392524165474470857}
+  - component: {fileID: 8965230565628386677}
+  - component: {fileID: 4571322354114276571}
+  - component: {fileID: 2676430984015977640}
   m_Layer: 10
   m_Name: HarpoonShark
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2568972883933053875
 Transform:
   m_ObjectHideFlags: 0
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: -6413962263263825353, guid: 62e2e59f1f6304540bc374ea6b01f079, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -106,7 +107,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -147,9 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
-  movementSmoothing: 10
-  pathUpdateCooldown: 0.5
-  destinationChangeThreshold: 0.5
+  movementSmoothing: 12
+  pathUpdateCooldown: 0.3
+  destinationChangeThreshold: 0.3
 --- !u!114 &4265081676009555971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,8 +176,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714de8186c0a86447b62465bed3ca41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!60 &8128174859426311239
-PolygonCollider2D:
+--- !u!114 &6393301595055564234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083409326931047421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2ab7e4aed882e4588626d342f53881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: New Character
+--- !u!114 &735776205102663229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083409326931047421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6c6407bb380f442b32e9d70141f7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  flashDuration: 0.15
+  knockbackForce: 5
+  knockbackDuration: 0.25
+--- !u!114 &8965230565628386677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083409326931047421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!195 &4571322354114276571
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083409326931047421}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!61 &2676430984015977640
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -207,7 +271,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.033360004, y: -0.07505953}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -217,78 +281,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.421875, y: 0.203125}
-      - {x: 0.40625, y: 0.234375}
-      - {x: 0.234375, y: 0.421875}
-      - {x: 0.046875, y: 0.53125}
-      - {x: -0.203125, y: 0.59375}
-      - {x: -0.421875, y: 0.640625}
-      - {x: -0.546875, y: 0.640625}
-      - {x: -0.609375, y: 0.625}
-      - {x: -0.765625, y: 0.5}
-      - {x: -0.78125, y: 0.453125}
-      - {x: -0.78125, y: 0.296875}
-      - {x: -0.6875, y: 0.046875}
-      - {x: -0.59375, y: -0.328125}
-      - {x: -0.53125, y: -0.484375}
-      - {x: -0.40625, y: -0.453125}
-      - {x: -0.265625, y: -0.53125}
-      - {x: -0.234375, y: -0.546875}
-      - {x: -0.15625, y: -0.546875}
-      - {x: -0.09375, y: -0.46875}
-      - {x: 0.140625, y: -0.53125}
-      - {x: 0.421875, y: -0.234375}
-  m_UseDelaunayMesh: 0
---- !u!114 &6393301595055564234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083409326931047421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2ab7e4aed882e4588626d342f53881, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: New Character
---- !u!114 &735776205102663229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083409326931047421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c6c6407bb380f442b32e9d70141f7bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 0}
-  flashDuration: 0.2
-  knockbackForce: 12
-  knockbackDuration: 0.25
---- !u!195 &6392524165474470857
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083409326931047421}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  serializedVersion: 2
+  m_Size: {x: 0.531373, y: 0.6814945}
+  m_EdgeRadius: 0

@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Gameplay.AI.Animation;
 using Infrastructure.Pooling;
 using UnityEngine;
@@ -38,10 +38,14 @@ namespace Gameplay.AI.Factories
             EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
             if (enemy != null)
             {
-                // 2. [CRITICAL] Gọi Reset ngay lập tức để dọn dẹp state/máu cũ
+                // 2. [FIX] Đảm bảo gọi InitializeEnemy với đầy đủ dữ liệu từ data
+                // Nếu attackStrategy truyền vào là null, EnemyBase sẽ tự quyết định theo logic class của nó
+                enemy.InitializeEnemy(data.config, data.animConfig, null, data.config != null ? data.config.BaseAttackRange : 2f);
+                
+                // 3. Reset state/máu
                 enemy.ResetEnemy();
                 
-                // 3. Thông báo sinh thành công (Bật collider/sprite đã có trong ResetEnemy)
+                // 4. Thông báo sinh thành công
                 enemy.OnSpawn();
             }
             
@@ -57,7 +61,7 @@ namespace Gameplay.AI.Factories
             EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
             if (enemy != null)
             {
-                enemy.InitializeEnemy(config, animConfig, attackStrategy, config.BaseAttackRange);
+                enemy.InitializeEnemy(config, animConfig, attackStrategy, config != null ? config.BaseAttackRange : 2f);
                 enemy.ResetEnemy();
                 enemy.OnSpawn();
             }

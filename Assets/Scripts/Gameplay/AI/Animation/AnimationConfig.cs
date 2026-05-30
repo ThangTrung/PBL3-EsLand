@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.AI.Animation
@@ -9,8 +9,8 @@ namespace Gameplay.AI.Animation
         public string stateName;
         public Sprite[] frames;
         public bool isLooping;
-                public int[] multiTriggerFrames; // Thêm mảng cho phép nhiều frame nổ dame
-public int triggerFrame;
+        public int[] multiTriggerFrames;
+        public int triggerFrame;
     }
 
     [CreateAssetMenu(fileName = "AnimationConfig", menuName = "Enemies/Animation Config")]
@@ -23,9 +23,12 @@ public int triggerFrame;
 
         public AnimationSequence? GetSequence(string stateName)
         {
+            if (string.IsNullOrEmpty(stateName)) return null;
+            
+            string targetName = stateName.Trim();
             foreach (var seq in animations)
             {
-                if (seq.stateName == stateName)
+                if (seq.stateName != null && seq.stateName.Trim() == targetName)
                     return seq;
             }
             return null;

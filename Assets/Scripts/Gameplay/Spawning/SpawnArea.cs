@@ -1,9 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
+using Data.Spawning;
 
 namespace Gameplay.Spawning
 {
     /// <summary>
     /// Đánh dấu một vùng không gian hợp lệ để sinh quái vật.
+    /// Hỗ trợ Map rộng bằng cách tự động đăng ký với Director.
     /// </summary>
     [RequireComponent(typeof(Collider2D))]
     public class SpawnArea : MonoBehaviour
@@ -11,21 +13,39 @@ namespace Gameplay.Spawning
         [Header("Area Settings")]
         [SerializeField] private LayerMask obstacleLayer;
         [SerializeField] private float checkRadius = 0.5f;
+        
+        [Header("Local Ecosystem (Optional)")]
+        [Tooltip("Nếu để trống, sẽ dùng WaveConfig mặc định của Director.")]
+        [SerializeField] private WaveConfig localWaveConfig;
 
         private Collider2D _collider;
+
+        public WaveConfig LocalWaveConfig => localWaveConfig;
 
         private void Awake()
         {
             _collider = GetComponent<Collider2D>();
-            // Đảm bảo collider là Trigger để không gây va chạm vật lý
             _collider.isTrigger = true;
         }
 
-        /// <summary>
-        /// Tìm một vị trí trống ngẫu nhiên bên trong vùng.
-        /// </summary>
-        /// <param name="maxAttempts">Số lần thử tìm điểm trống tối đa.</param>
-        /// <returns>Vị trí hợp lệ hoặc Vector3.zero nếu thất bại.</returns>
+        private void OnEnable()
+        {
+            // Tự động đăng ký khi được kích hoạt trong Scene
+            if (EnemySpawnDirector.Instance != null)
+            {
+                EnemySpawnDirector.Instance.ManualRegisterSpawnArea(this);
+            }
+        }
+
+        private void OnDisable()
+        {
+            // Tự động hủy đăng ký khi bị tắt/xóa
+            if (EnemySpawnDirector.Instance != null)
+            {
+                EnemySpawnDirector.Instance.UnregisterSpawnArea(this);
+            }
+        }
+
         public Vector3 GetValidSpawnPoint(int maxAttempts = 10)
         {
             if (_collider == null) return transform.position;
@@ -34,33 +54,26 @@ namespace Gameplay.Spawning
 
             for (int i = 0; i < maxAttempts; i++)
             {
-                // Lấy điểm ngẫu nhiên trong Bounds
                 Vector3 randomPoint = new Vector3(
                     Random.Range(bounds.min.x, bounds.max.x),
                     Random.Range(bounds.min.y, bounds.max.y),
                     0f
                 );
 
-                // Kiểm tra xem điểm đó có nằm TRONG Collider không (dành cho PolygonCollider2D)
                 if (!_collider.OverlapPoint(randomPoint)) continue;
 
-                // Kiểm tra xem có bị đè lên vật cản (Tường, Đá, Cây) không
                 Collider2D hit = Physics2D.OverlapCircle(randomPoint, checkRadius, obstacleLayer);
-                
-                if (hit == null)
-                {
-                    return randomPoint;
-                }
+                if (hit == null) return randomPoint;
             }
 
-            return Vector3.zero; // Không tìm được điểm trống
+            return Vector3.zero;
         }
 
         #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             if (_collider == null) _collider = GetComponent<Collider2D>();
-            Gizmos.color = new Color(0, 1, 0, 0.3f);
+            Gizmos.color = localWaveConfig != null ? new Color(1, 0.5f, 0, 0.4f) : new Color(0, 1, 0, 0.3f);
             Gizmos.DrawCube(_collider.bounds.center, _collider.bounds.size);
         }
         #endif

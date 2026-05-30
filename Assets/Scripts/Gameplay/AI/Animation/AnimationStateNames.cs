@@ -1,4 +1,4 @@
-namespace Gameplay.AI.Animation
+﻿namespace Gameplay.AI.Animation
 {
     /// <summary>
     /// Constants for Animation States. 
@@ -10,6 +10,11 @@ namespace Gameplay.AI.Animation
         public const string Run = "Run";
         public const string Attack = "Attack";
         public const string Death = "Death";
+        public const string Defense = "Defense";
+        
+        // Turtle Specific
+        public const string Defense_1 = "Defense_1";
+        public const string Defense_2 = "Defense_2";
         
         // Boss Specific
         public const string Windup = "Windup";
