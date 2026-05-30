@@ -35,7 +35,7 @@ namespace Gameplay.AI.Movement
         private bool _isNavigating;
         private Vector3 _lastPathDestination = Vector3.positiveInfinity;
         private float _pathCooldownTimer;
-        [SerializeField] private float pathUpdateCooldown = 0.3f; // Nhanh hơn 1 chút để bám sát
+        [SerializeField] private float pathUpdateCooldown = 0.3f; 
         [SerializeField] private float destinationChangeThreshold = 0.3f;
         
         private float _lastFlipTime;
@@ -80,14 +80,12 @@ namespace Gameplay.AI.Movement
             else { _isNavigating = false; return; }
 
             // [FIX] KIỂM TRA ĐÍCH ĐẾN: Nếu đã tới tầm, chỉ dừng lại nhưng VẪN giữ trạng thái Navigating
-            // Điều này cho phép AI tự động đi tiếp ngay khi mục tiêu di chuyển ra xa.
             bool isAtTarget = CheckReachedTarget(destination);
             
             if (isAtTarget)
             {
                 ApplyVelocity(Vector2.zero);
                 
-                // Nếu là lệnh di chuyển tới 1 điểm (One-shot), ta kết thúc hoàn toàn
                 if (!_followTarget.HasValue() && _targetPosition.HasValue)
                 {
                     CompleteFollow();
@@ -159,9 +157,13 @@ namespace Gameplay.AI.Movement
 
         public void SetTargetPosition(Vector3 position, float stopDistance = 0.5f, System.Action onReached = null)
         {
+            // [FIX] Luôn cập nhật stopDistance mới kể cả khi đích đến không đổi
+            _stopDistance = stopDistance;
+
+            if (_isNavigating && _targetPosition.HasValue && Vector3.Distance(_targetPosition.Value, position) < 0.1f) return;
+
             _targetPosition = position;
             _followTarget = null;
-            _stopDistance = stopDistance;
             _onTargetReached = onReached;
             _canMove = true;
             _isNavigating = true;
@@ -171,9 +173,13 @@ namespace Gameplay.AI.Movement
 
         public void SetFollowTarget(Transform target, float stopDistance = 1.0f, System.Action onReached = null)
         {
+            // [FIX] Luôn cập nhật stopDistance mới
+            _stopDistance = stopDistance;
+
+            if (_isNavigating && _followTarget == target) return;
+
             _followTarget = target;
             _targetPosition = null;
-            _stopDistance = stopDistance;
             _onTargetReached = onReached;
             _canMove = true;
             _isNavigating = true;
@@ -224,7 +230,6 @@ namespace Gameplay.AI.Movement
 
         private bool CheckReachedTarget(Vector3 destination)
         {
-            // Kiểm tra va chạm vật lý trước (Chính xác nhất)
             if (_followTarget != null)
             {
                 var targetCollider = _followTarget.GetComponent<Collider2D>();
@@ -236,11 +241,9 @@ namespace Gameplay.AI.Movement
                 }
             }
             
-            // Kiểm tra khoảng cách toán học
             float dist = Vector2.Distance(transform.position, destination);
             if (dist <= _stopDistance) return true;
 
-            // NavMesh completion check
             if (_agent && _agent.enabled && _agent.isOnNavMesh && !_agent.pathPending)
             {
                 if (_agent.remainingDistance <= 0.2f && dist <= _stopDistance + 0.5f) return true;

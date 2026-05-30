@@ -183,7 +183,7 @@ public class EnemyPrefabBuilderWindow : EditorWindow
 
         var spriteRenderer = go.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = spriteGroups["Idle"][0];
-        spriteRenderer.sortingOrder = 2;
+        spriteRenderer.sortingOrder = 100;
 
         var animator = go.AddComponent<Gameplay.AI.Animation.CharacterAnimationController>();
         animator.SetConfig(animConfig);
