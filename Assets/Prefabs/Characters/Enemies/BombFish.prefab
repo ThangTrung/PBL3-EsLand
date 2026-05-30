@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6776607550251131375}
   - component: {fileID: 8385372500718283912}
   - component: {fileID: 7301330275602314412}
+  - component: {fileID: 6135752407350869432}
   m_Layer: 10
   m_Name: BombFish
   m_TagString: Enemy
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -6108214160095504353, guid: fe552c58b5131864db5e3cc5c04395a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -146,6 +147,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
+  movementSmoothing: 10
+  pathUpdateCooldown: 0.5
+  destinationChangeThreshold: 0.5
 --- !u!114 &-4587724715818927015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,3 +264,25 @@ MonoBehaviour:
   flashDuration: 0.2
   knockbackForce: 12
   knockbackDuration: 0.25
+--- !u!195 &6135752407350869432
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2956627331902871558}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

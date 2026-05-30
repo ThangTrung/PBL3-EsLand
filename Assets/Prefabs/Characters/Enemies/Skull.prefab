@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6420866932199094772}
   - component: {fileID: -4241809800022523406}
   - component: {fileID: 6151627044287599471}
+  - component: {fileID: 3013196416513210293}
   m_Layer: 10
   m_Name: Skull
   m_TagString: Enemy
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 6471116574714101982, guid: c359c534cfd54f1479a373d4e086a5c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -145,6 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
+  movementSmoothing: 10
+  pathUpdateCooldown: 0.5
+  destinationChangeThreshold: 0.5
 --- !u!114 &5746585809271350689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,3 +256,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: New Character
   blockChance: 0.15
+--- !u!195 &3013196416513210293
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5627486747692335910}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

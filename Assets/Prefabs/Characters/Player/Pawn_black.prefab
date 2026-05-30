@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2538879719425757417}
   - component: {fileID: 5157322470952279880}
   - component: {fileID: 7928832951855625043}
-  - component: {fileID: 5883678090441761009}
   - component: {fileID: 1601924781624018120}
   - component: {fileID: 429650107241706086}
   - component: {fileID: 2813311032241275830}
@@ -127,22 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: Pawn
---- !u!114 &5883678090441761009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673750509214528949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98fe59fd88e403047bf956914500f9a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentLevel: 0
-  landSortingOrder: 0
-  mountainSortingOrder: 10
-  _spriteRenderer: {fileID: 4206428813446386912}
 --- !u!114 &1601924781624018120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,10 +271,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebd3288336c636341941695c4a09f7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathDelay: 2
-  respawnDelay: 1
-  deathAnimTrigger: Die
-  respawnAnimTrigger: Respawn
+  deathStateName: Death
+  deathTriggerName: Die
+  respawnTriggerName: Respawn
+  defaultDeathDelay: 2
 --- !u!1 &1867301193532782682
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,7 +658,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -5948806968594788206, guid: f06e2727e33304d9d86114733c00ba84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2112784713251704390}
   - component: {fileID: 6886574592820252123}
   - component: {fileID: 676584260226619096}
+  - component: {fileID: 7048552720646528586}
   m_Layer: 0
   m_Name: Wood
   m_TagString: Loot
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: a9a43588ca0954d40877096937238822, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -166,3 +167,16 @@ MonoBehaviour:
   acceleration: 20
   pickupDistance: 0.5
   pickupDelay: 0.75
+--- !u!114 &7048552720646528586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729092896824613032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 

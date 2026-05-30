@@ -43,6 +43,15 @@ namespace Gameplay.World
 
             var droppedObj = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
             
+            // [FIX] Sử dụng Order 100 để đảm bảo tuyệt đối nằm trên mọi lớp địa hình.
+            // Đồng bộ với Player và Cây cối để Y-Sorting hoạt động chuẩn xác.
+            var spriteRenderer = droppedObj.GetComponent<SpriteRenderer>() ?? droppedObj.GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.sortingLayerName = "Default";
+                spriteRenderer.sortingOrder = 100;
+            }
+
             if (droppedObj.TryGetComponent<ItemPickup>(out var pickupScript))
             {
                 pickupScript.itemData = item;
@@ -56,4 +65,3 @@ namespace Gameplay.World
         }
     }
 }
-

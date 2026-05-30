@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3431034126419483517}
   - component: {fileID: 5240338270515508422}
   - component: {fileID: 8399318447459626987}
+  - component: {fileID: 723107370263103932}
   m_Layer: 10
   m_Name: Panda
   m_TagString: Enemy
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -8149974332647491319, guid: c2c4bd74b18b61644ab16ce442fb0c3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -145,6 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
+  movementSmoothing: 10
+  pathUpdateCooldown: 0.5
+  destinationChangeThreshold: 0.5
 --- !u!114 &324168907954666948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,3 +263,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: New Character
+--- !u!195 &723107370263103932
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229274262878235575}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
