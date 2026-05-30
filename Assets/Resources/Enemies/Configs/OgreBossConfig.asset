@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: OgreBossConfig
   m_EditorClassIdentifier: 
   enemyType: OgreBoss
-  maxHealth: 25
+  maxHealth: 100
   baseDamage: 5
   baseAttackRange: 2.5
   detectionRange: 12
   patrolRadius: 5
   attackCooldown: 1.2
+  defenseCooldown: 5
+  defenseDuration: 2
+  defenseChance: 0
   verticalAlignmentOffset: 1
   horizontalAlignmentOffset: 0.8
   moveSpeed: 2.8

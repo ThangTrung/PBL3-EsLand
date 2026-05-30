@@ -13,11 +13,18 @@ MonoBehaviour:
   m_Name: TurtleConfig
   m_EditorClassIdentifier: 
   enemyType: Turtle
-  maxHealth: 25
+  maxHealth: 50
   baseDamage: 5
-  baseAttackRange: 2.5
+  baseAttackRange: 1.5
   detectionRange: 12
   patrolRadius: 5
   attackCooldown: 1.2
-  moveSpeed: 2.8
+  defenseCooldown: 5
+  defenseDuration: 2
+  defenseChance: 0.3
+  verticalAlignmentOffset: 0
+  horizontalAlignmentOffset: 0.8
+  moveSpeed: 2
   tintColor: {r: 1, g: 1, b: 1, a: 1}
+  lootItemId: Gold
+  lootQuantity: 1

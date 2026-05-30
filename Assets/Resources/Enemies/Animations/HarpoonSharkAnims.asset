@@ -36,7 +36,20 @@ MonoBehaviour:
     - {fileID: -9169159741288123458, guid: 7f9a552f944acb640ab3ebbc367222a3, type: 3}
     isLooping: 1
     multiTriggerFrames: 
-    triggerFrame: 2
+    triggerFrame: 0
+  - stateName: Attack
+    frames:
+    - {fileID: 5588494715284051113, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+    - {fileID: -6957279065739340243, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+    - {fileID: -147271231698429853, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+    - {fileID: 7686597269111172083, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+    - {fileID: -4265247270154572350, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+    - {fileID: -4749676018786956267, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+    - {fileID: 490575443771225979, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+    - {fileID: -7303351033157997517, guid: c475f6b1e10ae6d46b3927e94659d0ad, type: 3}
+    isLooping: 0
+    multiTriggerFrames: 
+    triggerFrame: 7
   - stateName: Death
     frames:
     - {fileID: -731371392, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
@@ -54,6 +67,6 @@ MonoBehaviour:
     - {fileID: 418766272, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
     - {fileID: 415217627, guid: 6ce157fe07b088542b3de548840fa15d, type: 3}
     isLooping: 0
-    multiTriggerFrames: 00000000
+    multiTriggerFrames: 
     triggerFrame: 0
   frameRate: 12

@@ -16,7 +16,7 @@ namespace Gameplay.AI.Enemies.Aquatic
 
         protected override void Awake()
         {
-            // Call base.Awake first to initialize shared components like Animator (AnimationController)
+            // Call base.Awake first to initialize standard components like Animator
             base.Awake();
 
             var config = Resources.Load<SimpleEnemyConfig>(ConfigPath);
@@ -31,11 +31,11 @@ namespace Gameplay.AI.Enemies.Aquatic
             }
 
             // Strategy: Ranged Projectile (Ném lao)
-            // Pass AnimationController (assigned in base.Awake) to the strategy
+            // [FIX] Use the public 'Animator' property from EnemyBase
             var attackStrategy = new RangedProjectileAttackStrategy(
                 projectileSpec,
                 projectilePrefab,
-                AnimationController, 
+                Animator, 
                 animConfig.AttackTriggerFrame,
                 transform,
                 config.BaseAttackRange,
