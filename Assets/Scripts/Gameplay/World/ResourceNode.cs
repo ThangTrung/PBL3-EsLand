@@ -34,6 +34,9 @@ namespace Gameplay.World
         private Animator _animator;
         private SpriteRenderer _spriteRenderer; // Thêm để quản lý hình ảnh
         private Sprite _defaultTreeSprite;      // Thêm để lưu lại hình cái cây ban đầu
+        private UnityEngine.AI.NavMeshObstacle _navObstacle; // Hỗ trợ AI cập nhật đường đi
+        private Vector3 _originalObstacleSize;
+        private Vector3 _originalObstacleCenter;
         private static readonly int HitHash = Animator.StringToHash("Hit");
         
         private string _entityId;
@@ -43,6 +46,13 @@ namespace Gameplay.World
             CurrentHealth = maxHealth;
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>(); // Lấy SpriteRenderer gốc của thằng cha
+            _navObstacle = GetComponent<UnityEngine.AI.NavMeshObstacle>();
+            
+            if (_navObstacle != null)
+            {
+                _originalObstacleSize = _navObstacle.size;
+                _originalObstacleCenter = _navObstacle.center;
+            }
 
             // Lưu lại hình ảnh cái cây ban đầu để lúc load game còn biết đường vẽ lại
             if (_spriteRenderer != null)
@@ -184,9 +194,14 @@ namespace Gameplay.World
 
         private void UpdateVisuals()
         {
+            bool hasStump = stumpSprite != null;
+
             if (_spriteRenderer != null)
             {
                 _spriteRenderer.sprite = IsDead ? stumpSprite : _defaultTreeSprite;
+                // Nếu chết và không có hình gốc cây, ẩn luôn renderer
+                if (IsDead && !hasStump) _spriteRenderer.enabled = false;
+                else _spriteRenderer.enabled = true;
             }
             
             if (_animator != null) 
@@ -196,7 +211,24 @@ namespace Gameplay.World
 
             if (nodeCollider != null) 
             {
-                nodeCollider.enabled = !IsDead;
+                // [FIX] Nếu là gốc cây thì vẫn phải cản đường Player/Vật lý
+                nodeCollider.enabled = !IsDead || hasStump;
+            }
+
+            // [FIX] Cập nhật NavMesh: Gốc cây vẫn cản đường AI, chỉ hòn đá biến mất mới mở đường
+            if (_navObstacle != null)
+            {
+                _navObstacle.enabled = !IsDead || hasStump;
+
+                // Nếu là gốc cây, thu nhỏ vùng cản đường (ví dụ còn 40% kích thước cũ)
+                if (IsDead && hasStump)
+                {
+                    _navObstacle.size = _originalObstacleSize * 0.4f;
+                }
+                else
+                {
+                    _navObstacle.size = _originalObstacleSize;
+                }
             }
         }
         
