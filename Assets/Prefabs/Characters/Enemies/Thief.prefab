@@ -21,13 +21,14 @@ GameObject:
   - component: {fileID: 7444008209520656892}
   - component: {fileID: 6608148302978364386}
   - component: {fileID: 3065337806270119218}
+  - component: {fileID: 4393746451843118264}
   m_Layer: 10
   m_Name: Thief
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2764748370578065693
 Transform:
   m_ObjectHideFlags: 0
@@ -300,3 +301,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53664875, y: 0.8802712}
   m_EdgeRadius: 0
+--- !u!114 &4393746451843118264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350449110539412261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9535b630b9f92a419c23f4070749220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMultiplier: 0.2
