@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d71b3726548824bbdf7bfea8b4cb05, type: 3}
+  m_Name: StarterWaveConfig
+  m_EditorClassIdentifier: 
+  waveName: Starter Forest Wave
+  totalBudget: 15
+  spawnRate: 3
+  enemies:
+  - prefab: {fileID: 0}
+    config: {fileID: 0}
+    animConfig: {fileID: 0}
+    weight: 0
+    cost: 0

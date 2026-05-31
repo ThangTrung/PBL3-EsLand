@@ -3,11 +3,6 @@ using UnityEngine.AI;
 
 namespace Gameplay.AI.Movement
 {
-    /// <summary>
-    /// Handles physical movement for enemy entities.
-    /// Unified controller for NavMesh and Physics.
-    /// Optimized for reliability: AI will never get stuck or 'forget' to chase.
-    /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyMovementController : MonoBehaviour
@@ -16,7 +11,7 @@ namespace Gameplay.AI.Movement
 
         [Header("Movement Settings")]
         [SerializeField] private float baseMoveSpeed = 3f;
-        [SerializeField] private float movementSmoothing = 12f; 
+        [SerializeField] private float movementSmoothing = 12f;
         private float _speedMultiplier = 1f;
 
         private Rigidbody2D _rb;
@@ -31,13 +26,12 @@ namespace Gameplay.AI.Movement
         private float _stopDistance = 0.5f;
         private System.Action _onTargetReached;
 
-        // --- Navigation State ---
         private bool _isNavigating;
         private Vector3 _lastPathDestination = Vector3.positiveInfinity;
         private float _pathCooldownTimer;
-        [SerializeField] private float pathUpdateCooldown = 0.3f; 
+        [SerializeField] private float pathUpdateCooldown = 0.3f;
         [SerializeField] private float destinationChangeThreshold = 0.3f;
-        
+
         private float _lastFlipTime;
         private const float FlipCooldown = 0.2f;
         private const float MinFlippingThreshold = 0.15f;
@@ -79,14 +73,12 @@ namespace Gameplay.AI.Movement
             else if (_targetPosition.HasValue) destination = _targetPosition.Value;
             else { _isNavigating = false; return; }
 
-            // [FIX] KIỂM TRA ĐÍCH ĐẾN: Nếu đã tới tầm, chỉ dừng lại nhưng VẪN giữ trạng thái Navigating
             bool isAtTarget = CheckReachedTarget(destination);
-            
+
             if (isAtTarget)
             {
                 ApplyVelocity(Vector2.zero);
-                
-                if (!_followTarget.HasValue() && _targetPosition.HasValue)
+                if (_followTarget == null && _targetPosition.HasValue)
                 {
                     CompleteFollow();
                 }
@@ -144,7 +136,7 @@ namespace Gameplay.AI.Movement
 
         private void UpdateFacing(float directionX)
         {
-            if (Mathf.Abs(directionX) > MinFlippingThreshold && Time.time >= _lastFlipTime + FlipCooldown)
+            if (Mathf.Abs(directionX) > MinFlippingThreshold && Time.time >= _lastFlipTime + FlipCooldown)      
             {
                 float targetScaleX = Mathf.Sign(directionX);
                 if (!Mathf.Approximately(transform.localScale.x, targetScaleX))
@@ -157,33 +149,23 @@ namespace Gameplay.AI.Movement
 
         public void SetTargetPosition(Vector3 position, float stopDistance = 0.5f, System.Action onReached = null)
         {
-            // [FIX] Luôn cập nhật stopDistance mới kể cả khi đích đến không đổi
             _stopDistance = stopDistance;
-
-            if (_isNavigating && _targetPosition.HasValue && Vector3.Distance(_targetPosition.Value, position) < 0.1f) return;
-
             _targetPosition = position;
             _followTarget = null;
             _onTargetReached = onReached;
             _canMove = true;
             _isNavigating = true;
-
             if (_agent && _agent.isOnNavMesh) _agent.isStopped = false;
         }
 
         public void SetFollowTarget(Transform target, float stopDistance = 1.0f, System.Action onReached = null)
         {
-            // [FIX] Luôn cập nhật stopDistance mới
             _stopDistance = stopDistance;
-
-            if (_isNavigating && _followTarget == target) return;
-
             _followTarget = target;
             _targetPosition = null;
             _onTargetReached = onReached;
             _canMove = true;
             _isNavigating = true;
-
             if (_agent && _agent.isOnNavMesh) _agent.isStopped = false;
         }
 
@@ -213,19 +195,10 @@ namespace Gameplay.AI.Movement
         private void ApplyVelocity(Vector2 targetVelocity)
         {
             if (!_rb) return;
-            
-            _rb.velocity = Vector2.Lerp(_rb.velocity, targetVelocity, Time.fixedDeltaTime * movementSmoothing);
-            
+            _rb.velocity = Vector2.Lerp(_rb.velocity, targetVelocity, Time.fixedDeltaTime * movementSmoothing); 
             bool isMoving = _rb.velocity.sqrMagnitude > 0.1f;
-            
             if (_facade != null && _facade.Animator != null)
                 _facade.Animator.SetBool(IsMovingHash, isMoving);
-
-            if (_animController != null)
-            {
-                if (isMoving) _animController.PlayRun();
-                else _animController.PlayIdle();
-            }
         }
 
         private bool CheckReachedTarget(Vector3 destination)
@@ -240,15 +213,8 @@ namespace Gameplay.AI.Movement
                     if (result.distance <= _stopDistance) return true;
                 }
             }
-            
             float dist = Vector2.Distance(transform.position, destination);
             if (dist <= _stopDistance) return true;
-
-            if (_agent && _agent.enabled && _agent.isOnNavMesh && !_agent.pathPending)
-            {
-                if (_agent.remainingDistance <= 0.2f && dist <= _stopDistance + 0.5f) return true;
-            }
-
             return false;
         }
 
@@ -266,17 +232,10 @@ namespace Gameplay.AI.Movement
         {
             _canMove = false;
             StopMovement();
-            if (_agent && _agent.isOnNavMesh) 
-                _agent.isStopped = true;
         }
 
         public void SetBaseMoveSpeed(float speed) => baseMoveSpeed = speed;
         public void SetSpeedMultiplier(float multiplier) => _speedMultiplier = multiplier;
         public float GetCurrentMoveSpeed() => Mathf.Max(0.1f, baseMoveSpeed * _speedMultiplier);
-    }
-
-    public static class TransformExtensions
-    {
-        public static bool HasValue(this Transform t) => t != null;
     }
 }

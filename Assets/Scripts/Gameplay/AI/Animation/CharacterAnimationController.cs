@@ -17,6 +17,7 @@ namespace Gameplay.AI.Animation
         private float _frameTimer;
         private bool _isLooping = true;
         private bool _isFinished;
+        private bool _isLocked;
 
         public AnimationConfig Config => config;
 
@@ -49,6 +50,7 @@ namespace Gameplay.AI.Animation
         public float PlayAnimation(string stateName)
         {
             if (_currentState == stateName) return GetCurrentAnimationDuration();
+            if (_isLocked && stateName != AnimationStateNames.Death) return 0.5f;
 
             var seq = config != null ? config.GetSequence(stateName) : null;
             if (seq.HasValue)
@@ -73,7 +75,9 @@ namespace Gameplay.AI.Animation
         public void PlayIdle() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Idle);
         public void PlayRun() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Run);
         public float PlayAttack() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Attack);
-        public void PlayDeath() => PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Death);
+        public void ResetAnimationLock() => _isLocked = false;
+
+        public void PlayDeath() { _isLocked = true; PlayAnimation(Gameplay.AI.Animation.AnimationStateNames.Death); }
         // ---------------------------------------
 
         
