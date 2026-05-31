@@ -1,23 +1,24 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Data.Spawning;
 using Gameplay.AI;
 using Gameplay.AI.Factories;
 using Infrastructure.Pooling;
+using Core.Events;
 
 namespace Gameplay.Spawning
 {
     /// <summary>
-    /// AI Director điều phối việc sinh và hủy quái vật dựa trên vị trí Player và hiệu suất.
+    /// AI Director điều phối việc sinh và hủy quái vật tối ưu cho Map rộng (Open World).
+    /// Sử dụng cơ chế Auto-Registration và Spatial Partitioning.
     /// </summary>
     public class EnemySpawnDirector : MonoBehaviour
     {
         #region Constants & Config
-        private const float DeadZoneRadiusSqr = 10f * 10f;    // 10m
-        private const float ActiveZoneRadiusSqr = 25f * 25f;  // 25m
-        private const float DespawnRadiusSqr = 35f * 35f;     // 35m
-        private const float LazyTickInterval = 1.5f;          // Tần suất check quái ở xa
+        private const float DeadZoneRadiusSqr = 12f * 12f;    // 12m (Gần quá không sinh)
+        private const float DespawnRadiusSqr = 45f * 45f;     // 45m (Xa quá thu hồi)
+        private const float LazyTickInterval = 1.0f;
         #endregion
 
         #region Singleton
@@ -30,17 +31,33 @@ namespace Gameplay.Spawning
         #endregion
 
         #region Serialized Fields
-        [Header("Director Settings")]
-        [SerializeField] private WaveConfig currentWave;
+        [Header("Global Settings")]
+        [SerializeField] private WaveConfig defaultWave;
         [SerializeField] private Transform playerTransform;
-        [SerializeField] private List<SpawnArea> spawnAreas = new List<SpawnArea>();
+        [SerializeField] private LayerMask spawnAreaLayer;
 
         [Header("Performance Monitor")]
         [SerializeField] private float currentBudget;
-        [SerializeField] private List<EnemyBase> activeEnemies = new List<EnemyBase>();
+        [SerializeField] private int activeCount;
+        
+        private List<EnemyBase> activeEnemies = new List<EnemyBase>();
+        private Dictionary<EnemyBase, float> _enemyCosts = new Dictionary<EnemyBase, float>();
+        
+        // Tất cả Area hiện có (để fallback hoặc debug)
+        private HashSet<SpawnArea> _registeredAreas = new HashSet<SpawnArea>();
         #endregion
 
         private float _spawnTimer;
+
+        private void OnEnable()
+        {
+            GameEvents.OnEnemyDied += HandleEnemyDied;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnEnemyDied -= HandleEnemyDied;
+        }
 
         private void Start()
         {
@@ -50,47 +67,50 @@ namespace Gameplay.Spawning
                 if (player != null) playerTransform = player.transform;
             }
 
-            // Bắt đầu chu kỳ Lazy Tick để tối ưu CPU
             StartCoroutine(LazyTickRoutine());
         }
 
         private void Update()
         {
-            if (currentWave == null || playerTransform == null) return;
+            if (playerTransform == null) return;
 
             _spawnTimer += Time.deltaTime;
-            if (_spawnTimer >= currentWave.spawnRate)
+            
+            // Lấy WaveConfig hiện tại (ưu tiên Area gần nhất, nếu không dùng Default)
+            SpawnArea currentArea = FindActiveSpawnArea();
+            WaveConfig targetWave = (currentArea != null && currentArea.LocalWaveConfig != null) 
+                                    ? currentArea.LocalWaveConfig 
+                                    : defaultWave;
+
+            if (targetWave == null) return;
+
+            if (_spawnTimer >= targetWave.spawnRate)
             {
                 _spawnTimer = 0f;
-                TrySpawnEnemy();
+                TrySpawnEnemy(targetWave, currentArea);
             }
         }
 
         #region Logic Spawning
-        private void TrySpawnEnemy()
+        private void TrySpawnEnemy(WaveConfig wave, SpawnArea area)
         {
-            // Kiểm tra hạn mức ngân sách (Quota)
-            if (currentBudget >= currentWave.totalBudget) return;
+            if (currentBudget >= wave.totalBudget) return;
 
-            // 1. Chọn quái ngẫu nhiên từ cấu hình đợt
-            EnemySpawnData spawnData = currentWave.GetRandomEnemy();
+            EnemySpawnData spawnData = wave.GetRandomEnemy();
             if (spawnData == null) return;
 
-            // 2. Tìm khu vực sinh sản (SpawnArea) nằm trong Vòng Active (10-25m)
-            SpawnArea targetArea = FindActiveSpawnArea();
-            if (targetArea == null) return;
+            // Nếu chưa tìm được Area từ Update, tìm lại
+            if (area == null) area = FindActiveSpawnArea();
+            if (area == null) return;
 
-            // 3. Lấy điểm trống trong Area
-            Vector3 spawnPos = targetArea.GetValidSpawnPoint();
+            Vector3 spawnPos = area.GetValidSpawnPoint();
             if (spawnPos == Vector3.zero) return;
 
-            // 4. Sinh quái thông qua Factory (Đảm bảo Object Pooling)
-            // LƯU Ý: Phải truyền đầy đủ config từ spawnData
             EnemyBase enemy = EnemyFactory.Instance.CreateEnemy(
                 spawnData.prefab, 
                 spawnData.config, 
                 spawnData.animConfig, 
-                null, // Strategy sẽ được script quái tự khởi tạo nếu truyền null
+                null, 
                 spawnPos
             );
 
@@ -100,87 +120,130 @@ namespace Gameplay.Spawning
             }
         }
 
+        /// <summary>
+        /// Tìm kiếm vùng sinh quái hiệu quả cao bằng Physics Overlap (Spatial Partitioning).
+        /// Cực nhanh ngay cả khi Map có hàng nghìn Area.
+        /// </summary>
         private SpawnArea FindActiveSpawnArea()
         {
-            if (spawnAreas.Count == 0) return null;
+            if (playerTransform == null) return null;
 
-            List<SpawnArea> validAreas = new List<SpawnArea>();
+            // Tìm tất cả Area trong bán kính sinh hoạt động (12m - 40m)
+            // Lưu ý: Chúng ta dùng bán kính lớn để lấy list, sau đó lọc DeadZone
+            float searchRadius = 40f;
+            Collider2D[] hitAreas = Physics2D.OverlapCircleAll(playerTransform.position, searchRadius, spawnAreaLayer);
+
+            if (hitAreas == null || hitAreas.Length == 0) return null;
+
+            List<SpawnArea> candidates = new List<SpawnArea>();
             Vector3 playerPos = playerTransform.position;
 
-            foreach (var area in spawnAreas)
+            foreach (var col in hitAreas)
             {
-                float distSqr = (area.transform.position - playerPos).sqrMagnitude;
-
-                // CHỈ sinh trong vùng Active (10-25m)
-                if (distSqr >= DeadZoneRadiusSqr && distSqr <= ActiveZoneRadiusSqr)
+                if (col.TryGetComponent<SpawnArea>(out var area))
                 {
-                    validAreas.Add(area);
+                    float distSqr = (area.transform.position - playerPos).sqrMagnitude;
+                    
+                    // Lọc: Không sinh quá gần Player
+                    if (distSqr >= DeadZoneRadiusSqr)
+                    {
+                        candidates.Add(area);
+                    }
                 }
             }
 
-            if (validAreas.Count == 0) return null;
-            return validAreas[Random.Range(0, validAreas.Count)];
+            if (candidates.Count == 0) return null;
+            
+            // Trả về Area ngẫu nhiên trong danh sách hợp lệ gần Player
+            return candidates[Random.Range(0, candidates.Count)];
         }
 
         private void RegisterEnemy(EnemyBase enemy, float cost)
         {
-            activeEnemies.Add(enemy);
-            currentBudget += cost;
+            if (enemy == null) return;
+            
+            if (!activeEnemies.Contains(enemy))
+            {
+                activeEnemies.Add(enemy);
+                _enemyCosts[enemy] = cost;
+                currentBudget += cost;
+                activeCount = activeEnemies.Count;
+            }
+        }
 
-            // Lắng nghe sự kiện chết để hoàn trả Budget
-            // Cần một cách để lưu trữ Cost của từng con quái (VD: dùng Dictionary)
+        private void HandleEnemyDied(EnemyBase enemy)
+        {
+            if (enemy == null) return;
+            UnregisterEnemy(enemy);
+        }
+
+        public void UnregisterEnemy(EnemyBase enemy)
+        {
+            if (enemy == null) return;
+
+            if (_enemyCosts.TryGetValue(enemy, out float cost))
+            {
+                currentBudget = Mathf.Max(0, currentBudget - cost);
+                _enemyCosts.Remove(enemy);
+            }
+
+            if (activeEnemies.Contains(enemy))
+            {
+                activeEnemies.Remove(enemy);
+                activeCount = activeEnemies.Count;
+            }
         }
         #endregion
 
         #region Performance Optimization (Lazy Tick)
         private IEnumerator LazyTickRoutine()
         {
-            while (true)
+            var wait = new WaitForSeconds(LazyTickInterval);
+            while (isActiveAndEnabled)
             {
-                yield return new WaitForSeconds(LazyTickInterval);
+                yield return wait;
                 if (playerTransform == null) continue;
 
                 Vector3 playerPos = playerTransform.position;
                 
-                // Duyệt ngược để an toàn khi xóa phần tử
                 for (int i = activeEnemies.Count - 1; i >= 0; i--)
                 {
                     var enemy = activeEnemies[i];
-                    if (enemy == null || !enemy.gameObject.activeInHierarchy)
+                    if (enemy == null) { activeEnemies.RemoveAt(i); continue; }
+
+                    if (!enemy.gameObject.activeInHierarchy)
                     {
-                        activeEnemies.RemoveAt(i);
+                        UnregisterEnemy(enemy);
                         continue;
                     }
 
-                    // Nếu quái ra khỏi Vòng 3 (35m), thu hồi về Pool
+                    // Nếu quái ra khỏi Vòng Despawn (45m), thu hồi về Pool
                     float distSqr = (enemy.transform.position - playerPos).sqrMagnitude;
                     if (distSqr > DespawnRadiusSqr)
                     {
-                        DespawnEnemy(enemy, i);
+                        DespawnEnemy(enemy);
                     }
                 }
             }
         }
 
-        private void DespawnEnemy(EnemyBase enemy, int index)
+        private void DespawnEnemy(EnemyBase enemy)
         {
-            // Cần trừ Budget ở đây (Giả định cost cố định cho demo hoặc lưu trữ meta-data)
-            currentBudget = Mathf.Max(0, currentBudget - 1f); // Cần refactor để lấy cost chuẩn
-            activeEnemies.RemoveAt(index);
-            
-            // Trả về Pool ngay lập tức
+            if (enemy == null) return;
+            UnregisterEnemy(enemy);
             ObjectPoolManager.Instance.Return(enemy.gameObject);
         }
         #endregion
 
-        #region Helper
-                public void UnregisterEnemy(EnemyBase enemy)
+        #region Area Registration
+        public void ManualRegisterSpawnArea(SpawnArea area)
         {
-            if (activeEnemies.Contains(enemy)) activeEnemies.Remove(enemy);
+            if (area != null) _registeredAreas.Add(area);
         }
-public void ManualRegisterSpawnArea(SpawnArea area)
+
+        public void UnregisterSpawnArea(SpawnArea area)
         {
-            if (!spawnAreas.Contains(area)) spawnAreas.Add(area);
+            if (area != null && _registeredAreas.Contains(area)) _registeredAreas.Remove(area);
         }
         #endregion
     }

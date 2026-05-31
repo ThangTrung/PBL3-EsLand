@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace Gameplay.AI.Strategies
 {
+    /// <summary>
+    /// Chiến thuật húc (Charge): Quái lao thẳng vào mục tiêu.
+    /// Đã sửa: Không cộng dồn transform.position trực tiếp để tránh húc xuyên tường.
+    /// </summary>
     public class ChargeAttackStrategy : IAttackStrategy
     {
         private readonly float _damage;
@@ -16,7 +20,6 @@ namespace Gameplay.AI.Strategies
         private readonly Transform _selfTransform;
         private readonly Character _source;
         private readonly float _chargeSpeedMultiplier = 2.5f;
-        private readonly float _knockbackForce = 0.8f;
 
         private Transform _target;
         private bool _isCharging;
@@ -41,21 +44,24 @@ namespace Gameplay.AI.Strategies
             _target = target;
             _isCharging = true;
             _chargeDirection = (_target.position - _selfTransform.position).normalized;
-            _animator?.PlayRun(); // Charge uses run animation or special charge if available
-            Debug.Log($"{_selfTransform.name} is CHARGING!");
+            _animator?.PlayRun(); 
         }
 
         public void TryApplyHitIfReady()
         {
             if (!_isCharging || _target == null) return;
 
-            // Move during charge
+            // [FIX] SỬ DỤNG RIGIDBODY (VẬT LÝ): Lao bằng lệnh Move để bị vật cản chặn lại.
+            // KHÔNG dùng cộng dồn Transform.position += ... (gây xuyên tường và lỗi NavMesh).
             var movementController = _source.GetComponent<EnemyMovementController>();
-            float speed = movementController != null ? movementController.GetCurrentMoveSpeed() : 3f;
-            _selfTransform.position += _chargeDirection * (speed * _chargeSpeedMultiplier) * Time.deltaTime;
+            if (movementController != null)
+            {
+                float chargeSpeed = movementController.GetCurrentMoveSpeed() * _chargeSpeedMultiplier;
+                movementController.Move(_chargeDirection, chargeSpeed);
+            }
 
-            // Check collision
-            if (Vector3.Distance(_selfTransform.position, _target.position) <= 0.5f)
+            // Kiểm tra va chạm để gây sát thương
+            if (Vector3.Distance(_selfTransform.position, _target.position) <= 0.6f)
             {
                 ApplyHit();
             }
@@ -66,7 +72,6 @@ namespace Gameplay.AI.Strategies
             if (_target.TryGetComponent<IDamageable>(out var victim))
             {
                 victim.TakeDamage(_damage, _source);
-                // Apply knockback logic here if supported by target
             }
             EndAttack();
             _nextAttackTime = Time.time + _cooldown;
@@ -83,7 +88,7 @@ namespace Gameplay.AI.Strategies
         {
             if (_isCharging || target == null || Time.time < _nextAttackTime) return false;
             float dist = Vector3.Distance(_selfTransform.position, target.position);
-            return dist <= _range && dist > 1.5f; // Charge only if somewhat far
+            return dist <= _range && dist > 1.5f;
         }
     }
 }

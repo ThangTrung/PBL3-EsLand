@@ -15,10 +15,13 @@ MonoBehaviour:
   enemyType: TorchGoblin
   maxHealth: 25
   baseDamage: 5
-  baseAttackRange: 2.5
+  baseAttackRange: 1.5
   detectionRange: 12
   patrolRadius: 5
-  attackCooldown: 1.2
+  attackCooldown: 2
+  defenseCooldown: 5
+  defenseDuration: 2
+  defenseChance: 0
   verticalAlignmentOffset: 0.5
   horizontalAlignmentOffset: 0
   moveSpeed: 2.8

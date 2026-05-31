@@ -102,7 +102,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
         void Set_FrameCounter_Position(FpsCounterAnchorPositions anchor_position)
         {
-            //Debug.Log("Changing frame counter anchor position.");
+            //
             m_TextMeshPro.margin = new Vector4(1f, 1f, 1f, 1f);
 
             switch (anchor_position)
@@ -131,3 +131,4 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         }
     }
 }
+

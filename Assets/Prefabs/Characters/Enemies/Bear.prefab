@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 7036681119202084369}
   - component: {fileID: 2927835550682106289}
   - component: {fileID: 1863167149465932433}
-  - component: {fileID: 3737788190497529295}
   m_Layer: 10
   m_Name: Bear
   m_TagString: Enemy
@@ -81,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 6337399714680752440, guid: 60e416af9b4bdc74ea77674053135f36, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -147,6 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
+  movementSmoothing: 12
+  pathUpdateCooldown: 0.3
+  destinationChangeThreshold: 0.3
 --- !u!114 &3162684375761961734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,17 +281,3 @@ NavMeshAgent:
   m_BaseOffset: 4
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3737788190497529295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2441053647874892881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f313791f0b0b59240b2b85e2afc2b38f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshSampleDistance: 2
-  repathCooldown: 0.5

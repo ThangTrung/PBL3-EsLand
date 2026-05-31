@@ -1,11 +1,14 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Gameplay.AI.Animation;
 using Gameplay.AI.Movement;
 using Gameplay.AI.States;
+using Gameplay.AI.Strategies;
+using Gameplay.AI.Strategies.Modifiers;
 using Gameplay.Characters;
 using Infrastructure.Pooling;
 using Core.Contracts.Shared;
 using Gameplay.Spawning;
+using UnityEngine.AI;
 
 using UnityEngine;
 
@@ -17,13 +20,14 @@ namespace Gameplay.AI
     public abstract class EnemyBase : Character, IPoolable, IResettable, IInteractable
     {
         private const float DefaultPatrolReachDistance = 0.3f;
-        private const float DeathFallbackDelay = 2f;
+        private const float DeathFallbackDelay = 2.5f; // Increased for safety
 
-        private CharacterHealth _health;
-        private EnemyMovementController _movementController;
-        private CharacterAnimationController _animationController;
-        private Gameplay.Combat.StatusEffects.StatusEffectController _statusEffectController;
+        protected CharacterHealth HealthInternal;
+        protected EnemyMovementController MovementController;
+        protected CharacterAnimationController AnimationController;
+        protected Gameplay.Combat.StatusEffects.StatusEffectController StatusEffectController;
         private IMovementStrategy _movementStrategy;
+        private IDefenseStrategy _defenseStrategy;
         private IAIState _currentState;
         private Transform _target;
         protected bool IsDeadInternal;
@@ -37,15 +41,29 @@ namespace Gameplay.AI
         protected float AttackRangeInternal;
 
         public Transform Target => _target;
-        public new CharacterAnimationController Animator => _animationController;
+        
+        public bool HasValidTarget 
+        {
+            get 
+            {
+                if (_target == null) return false;
+                if (_target.TryGetComponent<Core.Contracts.Combat.IDamageable>(out var damageable))
+                {
+                    return !damageable.IsDead;
+                }
+                return true;
+            }
+        }
+        public new CharacterAnimationController Animator => AnimationController;
         
         public IAttackStrategy AttackStrategy => AttackStrategyInternal;
+        public IDefenseStrategy DefenseStrategy => _defenseStrategy;
         public IEnemyConfig Config => ConfigInternal;
         public float AttackRange => AttackRangeInternal;
         public float PatrolReachDistance => DefaultPatrolReachDistance;
         
         public Vector3 DebugTargetPosition { get; set; }
-public bool IsDead => IsDeadInternal;
+        public bool IsDead => IsDeadInternal;
 
         public virtual IAIState CreateChaseState()
         {
@@ -59,58 +77,137 @@ public bool IsDead => IsDeadInternal;
 
         public virtual float GetStaminaCost(Character interactor)
         {
-            return 5f; // Default combat stamina cost
+            return 5f;
         }
 
         public virtual void Interact(Character interactor)
         {
             if (IsDeadInternal) return;
 
-            // When player interacts with an enemy, it counts as an attack
             if (interactor != null)
             {
                 var pic = interactor.GetComponentInChildren<PlayerInteractionController>();
                 if (pic != null)
                 {
-                    _health?.TakeDamage(pic.GetTotalDamage(), interactor);
-                }
-                else
-                {
-                    Debug.LogWarning($"[EnemyBase] {interactor.name} does not have a PlayerInteractionController in its children.");
+                    HealthInternal?.TakeDamage(pic.GetTotalDamage(), interactor);
                 }
             }
         }
 
-protected virtual new void Awake()
+        protected override void Awake()
         {
             base.Awake();
-            _health = GetComponent<CharacterHealth>();
-            _movementController = GetComponent<EnemyMovementController>();
-            _animationController = GetComponent<CharacterAnimationController>();
-            _statusEffectController = GetComponent<Gameplay.Combat.StatusEffects.StatusEffectController>();     
+            HealthInternal = GetComponent<CharacterHealth>();
+            MovementController = GetComponent<EnemyMovementController>();
+            AnimationController = GetComponent<CharacterAnimationController>();
+            StatusEffectController = GetComponent<Gameplay.Combat.StatusEffects.StatusEffectController>();     
 
-            if (_health != null)
+            if (HealthInternal != null)
             {
-                _health.OnDie += HandleDie;
+                HealthInternal.OnDie += HandleDie;
+                HealthInternal.OnDamageTaken += HandleDamageTaken;
             }
 
-            var player = GameObject.FindGameObjectWithTag("Player");
-            _target = player != null ? player.transform : null;
+            FindTarget();
+            // [SAFETY] Prevent 'Endless Flight' bug by ensuring minimum drag
+            var rb = GetComponent<Rigidbody2D>();
+            if (rb != null && rb.drag < 1.0f) rb.drag = 5f;
+
+            // Global NavMesh Protection
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.updateRotation = false;
+                agent.updatePosition = false;
+                agent.updateUpAxis = false;
+            }
+
+            if (ConfigInternal == null)
+            {
+                TryAutoInitialize();
+            }
         }
 
         protected virtual void Start()
         {
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Idle)
+            if (AnimationController != null && AnimationController.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Idle)
             {
-                _animationController.PlayIdle();
+                AnimationController.PlayIdle();
             }
+
+            if (_movementStrategy == null) InitializeMovementStrategy();
+            if (_defenseStrategy == null) InitializeDefenseStrategy();
+
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null && !agent.isOnNavMesh)
+            {
+                if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 10.0f, NavMesh.AllAreas))
+                {
+                    agent.Warp(hit.position);
+                }
+            }
+
+            if (_currentState == null)
+            {
+                ChangeState(new PatrolState());
+            }
+        }
+
+        private void TryAutoInitialize()
+        {
+            string enemyName = gameObject.name.Replace(" (Clone)", "").Trim();
+            var configAsset = Resources.Load($"Enemies/Configs/{enemyName}Config");
+            var animConfig = Resources.Load<AnimationConfig>($"Enemies/Animations/{enemyName}Anims");
+
+            if (configAsset != null && animConfig != null)
+            {
+                IEnemyConfig config = configAsset as IEnemyConfig;
+                if (config != null)
+                {
+                    InitializeEnemy(config, animConfig, null, config.BaseAttackRange);
+                }
+            }
+        }
+
+        private void FindTarget()
+        {
+            if (_target != null) return;
+            var player = GameObject.FindGameObjectWithTag("Player");
+            _target = player != null ? player.transform : null;
+        }
+
+        private void InitializeMovementStrategy()
+        {
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                _movementStrategy = new NavMeshMovementStrategy(MovementController, AnimationController, agent, StatusEffectController);
+            }
+            else
+            {
+                _movementStrategy = new SimpleMovementStrategy(MovementController, AnimationController, StatusEffectController);
+            }
+        }
+
+        protected virtual void InitializeDefenseStrategy()
+        {
+            if (ConfigInternal == null) return;
+            var blockMod = GetComponent<BlockDamageModifier>();
+            if (blockMod == null) blockMod = gameObject.AddComponent<BlockDamageModifier>();
+            
+            string enemyName = gameObject.name.Replace(" (Clone)", "").Trim();
+            if (enemyName.Contains("Turtle"))
+                _defenseStrategy = new TurtleDefenseStrategy(ConfigInternal.DefenseDuration, ConfigInternal.DefenseCooldown, blockMod);
+            else if (enemyName.Contains("Minotaur") || enemyName.Contains("Skull"))
+                _defenseStrategy = new StandardDefenseStrategy(ConfigInternal.DefenseDuration, ConfigInternal.DefenseCooldown, blockMod);
         }
 
         protected virtual void OnDestroy()
         {
-            if (_health != null)
+            if (HealthInternal != null)
             {
-                _health.OnDie -= HandleDie;
+                HealthInternal.OnDie -= HandleDie;
+                HealthInternal.OnDamageTaken -= HandleDamageTaken;
             }
         }
 
@@ -118,39 +215,51 @@ protected virtual new void Awake()
         {
             if (IsDeadInternal)
             {
-                if (_animationController != null && _animationController.IsCurrentAnimationFinished())
-                {
-                    // PILLAR 2: Kích hoạt hệ thống Loot Event-Driven
-                    TriggerLootDrop();
-
-                    // HOTFIX A: Báo cáo cho Director trước khi thu hồi về Pool
-                    if (EnemySpawnDirector.Instance != null)
-                    {
-                        EnemySpawnDirector.Instance.UnregisterEnemy(this);
-                    }
-                    
-                    ObjectPoolManager.Instance.ReturnToPool(gameObject);
-                    return;
-                }
-
-                if (Time.time - _deathStartTime >= DeathFallbackDelay)
-                {
-                    // PILLAR 2: Fallback loot drop
-                    TriggerLootDrop();
-
-                    // HOTFIX A: Fallback check
-                    if (EnemySpawnDirector.Instance != null)
-                    {
-                        EnemySpawnDirector.Instance.UnregisterEnemy(this);
-                    }
-
-                    ObjectPoolManager.Instance.ReturnToPool(gameObject);
-                }
-
+                HandleDeathProcess();
                 return;
             }
 
+            if (_target == null) FindTarget();
+            // [SAFETY] Prevent 'Endless Flight' bug by ensuring minimum drag
+            var rb = GetComponent<Rigidbody2D>();
+            if (rb != null && rb.drag < 1.0f) rb.drag = 5f;
+            
+            if (StatusEffectController != null && MovementController != null)
+            {
+                MovementController.SetSpeedMultiplier(StatusEffectController.SpeedMultiplier);
+            }
+
             _currentState?.Execute(this);
+        }
+
+        private void HandleDeathProcess()
+        {
+            if (AnimationController == null)
+            {
+                FinishDeath();
+                return;
+            }
+
+            // [FIX] Ensure we are in Death state before checking if finished
+            // This prevents finishing prematurely if the previous state was already finished
+            bool isDeathState = AnimationController.GetCurrentState() == AnimationStateNames.Death;
+            
+            if (isDeathState && AnimationController.IsCurrentAnimationFinished())
+            {
+                FinishDeath();
+            }
+            else if (Time.time - _deathStartTime >= DeathFallbackDelay)
+            {
+                // Safety fallback if animation gets stuck
+                FinishDeath();
+            }
+        }
+
+        private void FinishDeath()
+        {
+            TriggerLootDrop();
+            if (EnemySpawnDirector.Instance != null) EnemySpawnDirector.Instance.UnregisterEnemy(this);
+            ObjectPoolManager.Instance.ReturnToPool(gameObject);
         }
 
         public virtual void InitializeEnemy(IEnemyConfig config, AnimationConfig animationConfig, IAttackStrategy attackStrategy, float attackRange)
@@ -159,59 +268,41 @@ protected virtual new void Awake()
             if (attackStrategy != null) AttackStrategyInternal = attackStrategy;
             if (attackRange > 0) AttackRangeInternal = attackRange;
 
-            if (animationConfig != null && _animationController != null)
-            {
-                _animationController.SetConfig(animationConfig);
-            }
+            if (animationConfig != null && AnimationController != null) AnimationController.SetConfig(animationConfig);
+            if (HealthInternal != null && ConfigInternal != null) HealthInternal.SetMaxHealth(ConfigInternal.MaxHealth, true);
 
-            if (_health != null && ConfigInternal != null)
-            {
-                _health.SetMaxHealth(ConfigInternal.MaxHealth, true);
-            }
-
-            _movementStrategy = new SimpleMovementStrategy(_movementController, _animationController, _statusEffectController);
-            ChangeState(new PatrolState());
+            InitializeMovementStrategy();
+            InitializeDefenseStrategy();
+            
+            if (_currentState == null) ChangeState(new PatrolState());
         }
 
-        public virtual void OnSpawn()
-        {
-            IsDeadInternal = false;
-        }
+        public virtual void OnSpawn() { IsDeadInternal = false; }
 
         public virtual void ResetEnemy()
         {
             _lootDropped = false;
-
             IsDeadInternal = false;
             _deathStartTime = 0f;
             _isSwappingEntities = false;
-            
-            // 1. Hồi 100% máu
-            if (_health != null)
-            {
-                _health.SetMaxHealth(ConfigInternal?.MaxHealth ?? 100f, true);
-            }
-
-            // 2. Đưa StateMachine về trạng thái mặc định
+            if (HealthInternal != null) HealthInternal.SetMaxHealth(ConfigInternal?.MaxHealth ?? 100f, true);
             ChangeState(new PatrolState());
-
-            // 3. Xóa mọi Status Effects
-            if (_statusEffectController != null)
-            {
-                _statusEffectController.ClearAllEffects();
-            }
-
-            // 4. Đảm bảo Collider/SpriteRenderer được bật lại
+            if (StatusEffectController != null) StatusEffectController.ClearAllEffects();
             var sr = GetComponent<SpriteRenderer>();
             if (sr != null) sr.enabled = true;
-            
             var col = GetComponent<Collider2D>();
             if (col != null) col.enabled = true;
 
-            if (_animationController != null)
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
             {
-                _animationController.PlayIdle();
+                agent.updateRotation = false;
+                agent.updatePosition = false;
+                agent.updateUpAxis = false;
+                if (agent.isOnNavMesh) agent.isStopped = true;
             }
+
+            if (AnimationController != null) AnimationController.PlayIdle();
         }
 
         public virtual void ResetStats() => ResetEnemy();
@@ -225,7 +316,6 @@ protected virtual new void Awake()
         public void ChangeState(IAIState newState)
         {
             if (IsDeadInternal && newState != null) return;
-            
             _currentState?.Exit(this);
             _currentState = newState;
             _currentState?.Enter(this);
@@ -233,47 +323,71 @@ protected virtual new void Awake()
 
         public void MoveTowardsPosition(Vector3 position)
         {
-            if (_movementStrategy == null) return;
+            if (MovementController == null) return;
+            MovementController.SetTargetPosition(position, DefaultPatrolReachDistance);
+        }
 
-            var direction = position - transform.position;
-            direction.z = 0f;
-
-            if (direction.sqrMagnitude < 0.0001f)
-            {
-                _movementStrategy.StopMovement();
-                return;
-            }
-
-            direction.Normalize();
-            _movementStrategy.Move(direction);
+        public void FollowTarget(Transform target, float stopDistance = 1.0f, System.Action onReached = null)
+        {
+            if (MovementController == null) return;
+            MovementController.SetFollowTarget(target, stopDistance, onReached);
         }
 
         public void StopMovement()
         {
-            _movementStrategy?.StopMovement();
+            MovementController?.StopMovement();
         }
 
         public void FaceTarget()
         {
-            if (_target == null || _animationController == null) return;
-            var dir = _target.position - transform.position;
-            _animationController.SetFacingByMove(dir);
+            if (_target == null || AnimationController == null) return;
+            
+            var rb = GetComponent<Rigidbody2D>();
+            if (rb != null && rb.velocity.sqrMagnitude < 0.2f)
+            {
+                var dir = _target.position - transform.position;
+                AnimationController.SetFacingDecisive(dir.x);
+            }
         }
 
-        public void PrepareForEntitySwap()
-        {
-            _isSwappingEntities = true;
-        }
+        public void PrepareForEntitySwap() { _isSwappingEntities = true; }
 
         private void HandleDie()
         {
             if (IsDeadInternal || _isSwappingEntities) return;
             IsDeadInternal = true;
             _deathStartTime = Time.time;
-            _movementStrategy?.StopMovement();
-            _animationController?.PlayDeath();
+            
+            // [CRITICAL] Stop everything
+            StopMovement();
+            
+            // Disable physics interaction but keep simulation for knockback settling
+            var col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+            
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null) agent.enabled = false;
+            
+            // [CRITICAL] Play Death Animation immediately
+            if (AnimationController != null)
+            {
+                AnimationController.PlayDeath();
+            }
             
             Core.Events.GameEvents.OnEnemyDied?.Invoke(this);
+        }
+
+        private void HandleDamageTaken(float finalDamage, Character source)
+        {
+            if (IsDeadInternal) return;
+            if (_defenseStrategy != null && _currentState != null && _currentState.GetType() != typeof(DefenseState))
+            {
+                float chance = ConfigInternal != null ? ConfigInternal.DefenseChance : 0.2f;
+                if (Random.value <= chance && _defenseStrategy.CanDefend(this))
+                {
+                    ChangeState(new DefenseState());
+                }
+            }
         }
 
         private void TriggerLootDrop()
@@ -288,11 +402,9 @@ protected virtual new void Awake()
                     ConfigInternal.LootQuantity,
                     transform.position
                 );
-
                 Core.Events.GameEvents.InvokeEnemyDroppedLoot(lootData);
             }
         }
-
 
         private void OnDrawGizmos()
         {
@@ -303,6 +415,5 @@ protected virtual new void Awake()
                 Gizmos.DrawWireSphere(DebugTargetPosition, 0.2f);
             }
         }
-
     }
 }

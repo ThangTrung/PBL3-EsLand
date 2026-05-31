@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 3335717241879676308}
   - component: {fileID: -4745391889140436151}
   - component: {fileID: 4293753280745235589}
+  - component: {fileID: 3882523880338399887}
+  - component: {fileID: 826248869565307661}
   m_Layer: 10
   m_Name: Gnome
   m_TagString: Enemy
@@ -79,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 1007295932235086194, guid: bfcc0af4d7f910544bd91b7d88d6e525, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -104,7 +106,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -114,7 +116,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -145,6 +147,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
+  movementSmoothing: 12
+  pathUpdateCooldown: 0.3
+  destinationChangeThreshold: 0.3
 --- !u!114 &3052610834780489851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +210,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3, y: 3}
     newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
@@ -214,24 +219,24 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.546875, y: 1.53125}
-      - {x: 0.546875, y: 1.640625}
-      - {x: 0.53125, y: 1.703125}
-      - {x: 0.296875, y: 1.765625}
-      - {x: 0.203125, y: 1.765625}
-      - {x: -0.03125, y: 2.125}
-      - {x: -0.0625, y: 2.140625}
-      - {x: -0.1875, y: 2.140625}
-      - {x: -0.28125, y: 2.078125}
-      - {x: -0.390625, y: 1.984375}
-      - {x: -0.71875, y: 1.84375}
-      - {x: -0.71875, y: 1.5}
-      - {x: -0.59375, y: 1.390625}
-      - {x: -0.46875, y: 1.421875}
-      - {x: -0.28125, y: 1.109375}
-      - {x: 0.3125, y: 1.109375}
-      - {x: 0.34375, y: 1.453125}
-      - {x: 0.5, y: 1.5}
+    - - {x: 0.546875, y: 0.03125}
+      - {x: 0.546875, y: 0.140625}
+      - {x: 0.53125, y: 0.203125}
+      - {x: 0.296875, y: 0.265625}
+      - {x: 0.203125, y: 0.265625}
+      - {x: -0.03125, y: 0.625}
+      - {x: -0.0625, y: 0.640625}
+      - {x: -0.1875, y: 0.640625}
+      - {x: -0.28125, y: 0.578125}
+      - {x: -0.390625, y: 0.484375}
+      - {x: -0.71875, y: 0.34375}
+      - {x: -0.71875, y: 0}
+      - {x: -0.59375, y: -0.109375}
+      - {x: -0.46875, y: -0.078125}
+      - {x: -0.28125, y: -0.390625}
+      - {x: 0.3125, y: -0.390625}
+      - {x: 0.34375, y: -0.046875}
+      - {x: 0.5, y: 0}
   m_UseDelaunayMesh: 0
 --- !u!114 &4293753280745235589
 MonoBehaviour:
@@ -246,3 +251,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterName: New Character
+--- !u!114 &3882523880338399887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318722705901189585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6c6407bb380f442b32e9d70141f7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 0}
+  flashDuration: 0.2
+  knockbackForce: 12
+  knockbackDuration: 0.25
+--- !u!195 &826248869565307661
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318722705901189585}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

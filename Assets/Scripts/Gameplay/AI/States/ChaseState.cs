@@ -3,103 +3,74 @@ using UnityEngine;
 
 namespace Gameplay.AI.States
 {
+    /// <summary>
+    /// AI bám đuổi mục tiêu.
+    /// Cập nhật: Luôn đảm bảo quái vật bám sát và nhìn về phía mục tiêu.
+    /// </summary>
     public class ChaseState : IAIState
     {
-        private const float HorizontalTolerance = 0.2f;
-
-        private float _randomYOffset;
-        private float _randomXOffset;
-
         public void Enter(EnemyBase enemy)
         {
-            _randomYOffset = Random.Range(-0.15f, 0.15f);
-            _randomXOffset = Random.Range(0.1f, 0.4f);
             if (enemy.Animator != null)
             {
                 enemy.Animator.PlayRun();
+            }
+
+            if (enemy.Target != null)
+            {
+                // Kích hoạt bám đuổi lần đầu
+                enemy.FollowTarget(enemy.Target, enemy.AttackRange * 0.8f);
             }
         }
 
         public void Execute(EnemyBase enemy)
         {
-            if (enemy.Target == null)
+            if (!enemy.HasValidTarget)
             {
                 enemy.ChangeState(new PatrolState());
                 return;
             }
 
+            float detectionRange = enemy.Config != null ? enemy.Config.DetectionRange : 12f;
             var distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.Target.position);
-            if (distanceToTarget > enemy.Config.DetectionRange)
+            
+            if (distanceToTarget > detectionRange)
             {
                 enemy.ChangeState(new PatrolState());
                 return;
             }
 
-            float yWithOffset = enemy.Target.position.y;
-            if (enemy.Config != null)
+            // Kiểm tra khả năng tấn công
+            if (enemy.AttackStrategy != null)
             {
-                yWithOffset += enemy.Config.VerticalAlignmentOffset;
-            }
-
-            float distX = Mathf.Abs(enemy.transform.position.x - enemy.Target.position.x);
-            float distY = Mathf.Abs(enemy.transform.position.y - yWithOffset);
-            
-            // Nới lỏng dung sai để quái dễ dàng tung đòn trúng hơn
-            bool isYAligned = distY <= 0.5f; 
-            bool isXInRange = distX <= enemy.AttackRange + 0.3f;
-
-            if (isYAligned && isXInRange)
-            {
-                enemy.ChangeState(new AttackState());
-                return;
-            }
-
-            float offsetDirection = (enemy.transform.position.x < enemy.Target.position.x) ? -1f : 1f;
-
-            // X offset: Đạt khoảng 90% AttackRange để đảm bảo quái tiến vào vùng có thể tấn công
-            float safeXOffset = enemy.AttackRange * 0.9f + _randomXOffset;
-
-            float targetY = yWithOffset + _randomYOffset;
-            Vector3 flankTarget;
-
-            if (!isYAligned)
-            {
-                // Nếu đang đứng trên đầu/dưới chân mà khoảng cách X quá hẹp (nguy cơ kẹt đầu Player)
-                if (distX < safeXOffset - 0.1f)
+                if (enemy.AttackStrategy.CanStartAttack(enemy.Target))
                 {
-                    // ƯU TIÊN 1: Chạy dạt ngang ra ngoài trước (Né Collider)
-                    flankTarget = new Vector3(
-                        enemy.Target.position.x + (offsetDirection * safeXOffset),
-                        enemy.transform.position.y,
-                        enemy.transform.position.z
-                    );
-                }
-                else
-                {
-                    // ƯU TIÊN 2: Khi đã ở ngoài rìa an toàn, chạy thẳng xuống để dóng chuẩn trục Y
-                    flankTarget = new Vector3(
-                        enemy.transform.position.x,
-                        targetY,
-                        enemy.transform.position.z
-                    );
+                    enemy.ChangeState(new AttackState());
+                    return;
                 }
             }
-            else
-            {
-                // ƯU TIÊN 3: Đã dóng chuẩn trục Y, chạy áp sát vào theo trục X để vụt
-                flankTarget = new Vector3(
-                    enemy.Target.position.x + (offsetDirection * (enemy.AttackRange - 0.1f)),
-                    targetY,
-                    enemy.transform.position.z
-                );
-            }
+
+            // [STABILITY] Luôn gọi FollowTarget để đảm bảo AI 'tỉnh táo'.
+            float stopDist = enemy.AttackRange * 0.6f;
             
-            enemy.DebugTargetPosition = flankTarget;
-            enemy.MoveTowardsPosition(flankTarget);
+            // [FIX] ÁP SÁT LINH HOẠT: 
+            // Nếu đã vào tầm đánh (60%) mà chưa đánh được (do lệch hàng), 
+            // hãy ép nó 'nhích' sát vào Player (stopDist = 0.1m) cho đến khi vung đòn được thì thôi.
+            if (distanceToTarget <= stopDist)
+            {
+                stopDist = 0.1f;
+            }
+
+            enemy.FollowTarget(enemy.Target, stopDist);
+            
+            // Xoay mặt nhìn Player khi đứng gần (Hàm này đã có bảo vệ vận tốc bên trong EnemyBase)
+            enemy.FaceTarget();
         }
 
         public void Exit(EnemyBase enemy)
         {
+            // Stop movement when leaving chase state
+            enemy.StopMovement();
         }
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7404318518534531144}
   - component: {fileID: 5887605509495481706}
   - component: {fileID: -6054081985407076865}
+  - component: {fileID: 9167028564369832549}
   m_Layer: 10
   m_Name: SeahorseBoat
   m_TagString: Enemy
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: -7010591647040895799, guid: 19fa8d9a34eef5f4e9c5ef170cd67a3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -113,7 +114,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -144,6 +145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
+  movementSmoothing: 10
+  pathUpdateCooldown: 0.5
+  destinationChangeThreshold: 0.5
 --- !u!114 &7404318518534531144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,3 +239,25 @@ PolygonCollider2D:
       - {x: 0.28125, y: 0.90625}
       - {x: 0.484375, y: 1.109375}
   m_UseDelaunayMesh: 0
+--- !u!195 &9167028564369832549
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4333614539606367424}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

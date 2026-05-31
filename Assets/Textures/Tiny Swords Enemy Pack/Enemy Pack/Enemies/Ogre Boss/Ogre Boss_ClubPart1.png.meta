@@ -104,15 +104,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0ef0e8e90ce5a044a558f32f66bdcb8
-      internalID: 497356356
+      spriteID: f89340fcef82e394a914ac2a8512186f
+      internalID: 738472191
       vertices: []
       indices: 
       edges: []
@@ -125,15 +125,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f7caf12051afbf43b01c2c0f55b1a48
-      internalID: 814780589
+      spriteID: 58bf73d2fae9fd746a41c1f047b43323
+      internalID: -315680892
       vertices: []
       indices: 
       edges: []
@@ -146,15 +146,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c5f946c0524d0e4d86faafd9ab06faf
-      internalID: -1657044231
+      spriteID: 462f903bf97d18445931a14a6a5c3f7f
+      internalID: 1349138420
       vertices: []
       indices: 
       edges: []
@@ -167,15 +167,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31bc43f55fd6bcd43aa186fbfea1f250
-      internalID: 118926986
+      spriteID: 1a13026a76701fa4c9df9986527b3b47
+      internalID: 1545850979
       vertices: []
       indices: 
       edges: []
@@ -188,15 +188,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0452e834ddc80b45b42d9df0f2ba4d4
-      internalID: 386479116
+      spriteID: 70ae9890d2436cf4fb9ae2fa22b1a108
+      internalID: -355513233
       vertices: []
       indices: 
       edges: []
@@ -209,15 +209,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e87c36e1b19371546979f4f81d247651
-      internalID: -585036414
+      spriteID: f0852a7c86c243946bb33a9f023a01e6
+      internalID: -1185606683
       vertices: []
       indices: 
       edges: []
@@ -230,15 +230,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d262db3fa2bcdb428ea312d43023d96
-      internalID: -1160879903
+      spriteID: 26338f09c56eb12479620002af6a38e0
+      internalID: 1953031135
       vertices: []
       indices: 
       edges: []
@@ -251,15 +251,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3716238fed2337e43b1cce93be5b92f5
-      internalID: 1196583653
+      spriteID: c4f0a9b835e4a9b42b335a0c11f38f05
+      internalID: 2074724396
       vertices: []
       indices: 
       edges: []
@@ -272,15 +272,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab2a5e178164c474eb6cb6867be67b0e
-      internalID: 53501339
+      spriteID: 1e02c6d98c3c47a4392a3a52f0166044
+      internalID: 1678511173
       vertices: []
       indices: 
       edges: []
@@ -293,15 +293,15 @@ TextureImporter:
         y: 0
         width: 384
         height: 384
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6c0b65ee588e764aa867d5ebd07afc6
-      internalID: 1404981014
+      spriteID: a9fa7a4618a579d4896ea3f9c857c41f
+      internalID: -1619892113
       vertices: []
       indices: 
       edges: []
@@ -317,15 +317,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Troll_ClubPart1_0: 5550521924697024619
-      Troll_ClubPart1_1: -7983151222187990412
-      Troll_ClubPart1_2: -3078414893363241543
-      Troll_ClubPart1_3: 8189006651700893837
-      Troll_ClubPart1_4: 2770803503123058819
-      Troll_ClubPart1_5: 1067858422344453858
-      Troll_ClubPart1_6: -6421735939145680508
-      Troll_ClubPart1_7: 7471215834859167893
-      Troll_ClubPart1_8: 2073238345441870467
+      Ogre Boss_ClubPart1_0: 738472191
+      Ogre Boss_ClubPart1_1: -315680892
+      Ogre Boss_ClubPart1_2: 1349138420
+      Ogre Boss_ClubPart1_3: 1545850979
+      Ogre Boss_ClubPart1_4: -355513233
+      Ogre Boss_ClubPart1_5: -1185606683
+      Ogre Boss_ClubPart1_6: 1953031135
+      Ogre Boss_ClubPart1_7: 2074724396
+      Ogre Boss_ClubPart1_8: 1678511173
+      Ogre Boss_ClubPart1_9: -1619892113
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

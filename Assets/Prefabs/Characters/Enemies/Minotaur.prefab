@@ -15,15 +15,18 @@ GameObject:
   - component: {fileID: 5492170312568384448}
   - component: {fileID: 666336657427355844}
   - component: {fileID: 6498095765475665029}
-  - component: {fileID: 8090439247974740145}
   - component: {fileID: 7639486042787650792}
+  - component: {fileID: 2194936747924277091}
+  - component: {fileID: 822677277501819639}
+  - component: {fileID: 4275859616334212860}
+  - component: {fileID: 8888075146448694127}
   m_Layer: 10
   m_Name: Minotaur
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3584312958301049463
 Transform:
   m_ObjectHideFlags: 0
@@ -79,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 1493461491694850562, guid: 95e2e8036fa9997409a3aafbce63d992, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -103,8 +106,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
+  m_Mass: 1000
+  m_LinearDrag: 5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -114,7 +117,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -145,6 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
+  movementSmoothing: 12
+  pathUpdateCooldown: 0.3
+  destinationChangeThreshold: 0.3
 --- !u!114 &666336657427355844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,8 +176,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714de8186c0a86447b62465bed3ca41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!60 &8090439247974740145
-PolygonCollider2D:
+--- !u!114 &7639486042787650792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323278217092068097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4bb8b65bab46e4a978001dcf2f7d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: New Character
+--- !u!114 &2194936747924277091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323278217092068097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &822677277501819639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323278217092068097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c6c6407bb380f442b32e9d70141f7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 9c9ebdfb882ddd74e953313905d6a30c, type: 2}
+  flashDuration: 0.15
+  knockbackForce: 5
+  knockbackDuration: 0.25
+--- !u!195 &4275859616334212860
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323278217092068097}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.7
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.6
+  m_BaseOffset: 0.6
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!61 &8888075146448694127
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -202,70 +271,16 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.011360645, y: 0.039761007}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 5, y: 5}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.171875, y: 1.796875}
-      - {x: 0.5, y: 1.796875}
-      - {x: 0.65625, y: 1.84375}
-      - {x: 0.609375, y: 2.09375}
-      - {x: 0.671875, y: 2.5}
-      - {x: 0.6875, y: 2.796875}
-      - {x: 0.765625, y: 3.0625}
-      - {x: 0.765625, y: 3.25}
-      - {x: 0.625, y: 3.515625}
-      - {x: 0.515625, y: 3.484375}
-      - {x: 0.359375, y: 3.4375}
-      - {x: 0.140625, y: 3.5}
-      - {x: -0.046875, y: 3.59375}
-      - {x: -0.171875, y: 3.5625}
-      - {x: -0.28125, y: 3.28125}
-      - {x: -0.328125, y: 3.078125}
-      - {x: -0.453125, y: 3.1875}
-      - {x: -0.546875, y: 3.484375}
-      - {x: -0.625, y: 3.578125}
-      - {x: -0.9375, y: 3.703125}
-      - {x: -1.109375, y: 3.703125}
-      - {x: -1.375, y: 3.5625}
-      - {x: -1.5, y: 3.4375}
-      - {x: -1.640625, y: 3.171875}
-      - {x: -1.640625, y: 3.03125}
-      - {x: -1.390625, y: 2.734375}
-      - {x: -1.25, y: 2.609375}
-      - {x: -1.109375, y: 2.578125}
-      - {x: -1, y: 2.59375}
-      - {x: -0.90625, y: 2.609375}
-      - {x: -0.921875, y: 2.390625}
-      - {x: -0.875, y: 2.296875}
-      - {x: -0.78125, y: 2.203125}
-      - {x: -0.515625, y: 2.125}
-      - {x: -0.609375, y: 1.953125}
-      - {x: -0.625, y: 1.828125}
-      - {x: -0.53125, y: 1.796875}
-      - {x: -0.34375, y: 1.796875}
-      - {x: -0.265625, y: 1.96875}
-      - {x: -0.125, y: 2.078125}
-      - {x: 0.109375, y: 1.8125}
-  m_UseDelaunayMesh: 0
---- !u!114 &7639486042787650792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323278217092068097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4bb8b65bab46e4a978001dcf2f7d95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterName: New Character
+  serializedVersion: 2
+  m_Size: {x: 1.0238848, y: 1.2624522}
+  m_EdgeRadius: 0

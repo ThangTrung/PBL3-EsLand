@@ -1,18 +1,14 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
+using Core.Contracts.Combat;
 using Data.Combat;
 using Gameplay.AI.Animation;
 using Gameplay.Combat.Projectiles;
 using UnityEngine;
-using Core.Contracts.Combat;
 using Infrastructure.Pooling;
 using System.Collections.Generic;
 
 namespace Gameplay.AI.Strategies
 {
-    /// <summary>
-    /// Chiến thuật ném bom diện rộng với giới hạn số lượng bom hoạt động.
-    /// Theo blueprint: Max 2 bombs active.
-    /// </summary>
     public class AOEBombAttackStrategy : IAttackStrategy
     {
         private readonly ProjectileSpec _spec;
@@ -55,8 +51,17 @@ namespace Gameplay.AI.Strategies
 
         public void TryApplyHitIfReady()
         {
+            InternalApplyHit();
+            if (_animator != null && (_animator.GetCurrentState() != AnimationStateNames.Attack || _animator.IsCurrentAnimationFinished()))
+            {
+                EndAttack();
+            }
+        }
+
+        private void InternalApplyHit()
+        {
             if (!IsAttacking || _target == null || _animator == null) return;
-            if (_animator.GetCurrentState() != CharacterAnimationController.AnimState.Attack) return;
+            if (_animator.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack) return;
 
             if (_projectileSpawned || _animator.GetCurrentFrameIndex() < _attackTriggerFrame) return;
 
@@ -74,22 +79,27 @@ namespace Gameplay.AI.Strategies
         public bool CanStartAttack(Transform target)
         {
             if (IsAttacking || target == null) return false;
-            
-            // Dọn dẹp danh sách bom đã nổ (trở về pool)
             _activeBombs.RemoveAll(b => b == null || !b.activeInHierarchy);
 
-            // Kiểm tra cooldown và giới hạn số bom
             if (Time.time < _nextAttackTime) return false;
             if (_activeBombs.Count >= _maxActiveBombs) return false;
 
-            return Vector3.Distance(_selfTransform.position, target.position) <= _range;
+            return Vector2.Distance(_selfTransform.position, target.position) <= _range;
         }
 
         private void SpawnBomb()
         {
-            var direction = (_target.position - _selfTransform.position).normalized;
-            
-            // Nâng toạ độ Y lên một chút để khớp với miệng con cá (bạn có thể thay đổi số 1.2f thành số bạn thấy vừa mắt)
+            // [IMPROVEMENT] Target Prediction for Bomb
+            Vector3 predictedPos = _target.position;
+            var rb = _target.GetComponent<Rigidbody2D>();
+            if (rb != null && _spec != null && _spec.Speed > 0)
+            {
+                float distance = Vector2.Distance(_selfTransform.position, predictedPos);
+                float travelTime = distance / _spec.Speed;
+                predictedPos += (Vector3)rb.velocity * travelTime * 0.5f; // Conservative prediction for bombs
+            }
+
+            Vector3 direction = (predictedPos - _selfTransform.position).normalized;
             Vector3 mouthOffset = new Vector3(0f, 1.2f, 0f); 
             var spawnPos = _selfTransform.position + mouthOffset + (direction * 0.8f);
 
@@ -99,8 +109,14 @@ namespace Gameplay.AI.Strategies
                 var proj = go.GetComponent<IProjectile>();
                 if (proj != null)
                 {
-                    proj.Initialize(_spec, _selfTransform, _target);
+                    // Create temporary target at predicted position
+                    GameObject tempTarget = new GameObject("BombTarget");
+                    tempTarget.transform.position = predictedPos;
+                    
+                    proj.Initialize(_spec, _selfTransform, tempTarget.transform);
                     _activeBombs.Add(go);
+                    
+                    Object.Destroy(tempTarget, 0.1f);
                 }
             }
         }

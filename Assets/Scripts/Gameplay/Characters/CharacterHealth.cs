@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Core.Contracts.Equipment;
 using Core.Contracts.Combat;
 using System.Linq;
@@ -74,10 +74,6 @@ namespace Gameplay.Characters
             float currentDefense = TotalDefense;
             var finalDamage = Mathf.Max(0, amount - currentDefense);
             CurrentHealth = Mathf.Max(0, CurrentHealth - finalDamage);
-
-            Debug.Log($"[Health] {gameObject.name} nhận sát thương từ {(source != null ? source.name : "Unknown")}. " +
-                      $"Gốc: {originalDamage}, Sau Mod: {amount}, Giáp: {currentDefense} => Sát thương thực: {finalDamage}. " +
-                      $"Máu hiện tại: {CurrentHealth}/{MaxHealth}");
 
             OnDamaged?.Invoke();
             OnDamageTaken?.Invoke(finalDamage, source);

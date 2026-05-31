@@ -14,7 +14,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
         void Awake()
         {
-            //Debug.Log("Awake() on Script called.");
+            //
             m_textMeshPro = GetComponent<TMP_Text>();
             m_material = m_textMeshPro.fontSharedMaterial;
         }
@@ -36,3 +36,4 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         }
     }
 }
+

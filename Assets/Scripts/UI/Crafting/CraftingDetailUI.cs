@@ -1,4 +1,4 @@
-using Core.Contracts.Inventory;
+﻿using Core.Contracts.Inventory;
 using Data.Crafting;
 using Gameplay.Crafting;
 using Gameplay.Inventory;
@@ -99,12 +99,10 @@ namespace UI.Crafting
         {
             if (currentRecipe == null)
             {
-                Debug.LogWarning("currentRecipe bị Null!");
                 return;
             }
             if (_inventoryHolder == null || _inventoryHolder.Inventory == null)
             {
-                Debug.LogWarning("inventoryHolder hoặc Inventory bị Null!");
                 return;
             }
 
@@ -112,11 +110,9 @@ namespace UI.Crafting
             if (CraftingService.TryCraft(currentRecipe, _inventoryHolder.Inventory))
             {
                 UpdateDetails(currentRecipe);
-                Debug.Log("Chế tạo thành công!");
             }
             else
             {
-                Debug.LogWarning("Không đủ nguyên liệu hoặc không có chỗ trống trong túi đồ!");
             }
         }
     }

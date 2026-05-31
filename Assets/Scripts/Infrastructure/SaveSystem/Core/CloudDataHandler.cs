@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System;
@@ -21,14 +21,12 @@ namespace Infrastructure.SaveSystem.Core
         public GameData Load()
         {
             // Đồng bộ: Cloud Load cần được gọi qua LoadRoutine (Async)
-            Debug.Log("[CloudDataHandler] Đang tải dữ liệu từ Cloud (Sync call - returning null)...");
             return null; 
         }
 
         public void Save(GameData data)
         {
             // Đồng bộ: Cloud Save cần được gọi qua SaveRoutine (Async)
-            Debug.Log("[CloudDataHandler] Chuẩn bị gửi dữ liệu lên Cloud (Sync call)...");
         }
 
         // Helper cho SaveLoadManager gọi (Bất đồng bộ)
@@ -45,12 +43,10 @@ namespace Infrastructure.SaveSystem.Core
 
                 if (www.result != UnityWebRequest.Result.Success)
                 {
-                    Debug.LogError("Cloud Save Error: " + www.error);
                     callback?.Invoke(false);
                 }
                 else
                 {
-                    Debug.Log("Cloud Save Success!");
                     callback?.Invoke(true);
                 }
             }
@@ -64,7 +60,6 @@ namespace Infrastructure.SaveSystem.Core
 
                 if (www.result != UnityWebRequest.Result.Success)
                 {
-                    Debug.LogError("Cloud Load Error: " + www.error);
                     callback?.Invoke(null);
                 }
                 else

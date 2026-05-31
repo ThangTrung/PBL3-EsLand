@@ -1,4 +1,4 @@
-using Core.Contracts.Equipment;
+﻿using Core.Contracts.Equipment;
 using Core.Contracts.Shared;
 using UnityEngine;
 
@@ -67,17 +67,16 @@ namespace Gameplay.Characters
             screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
             Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
 
-            // Use OverlapCircleAll for a more forgiving hover area
             Collider2D[] colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             Environment.Highlight newHover = null;
 
             foreach (var col in colliders)
             {
-                if (col != null && col.TryGetComponent<Gameplay.Environment.Highlight>(out var highlight))
-                {
-                    newHover = highlight;
-                    break;
-                }
+                if (col == null) continue;
+                
+                // Tìm Highlight ở chính nó hoặc object cha (Hỗ trợ cấu hình InteractionZone là con)
+                newHover = col.GetComponent<Gameplay.Environment.Highlight>() ?? col.GetComponentInParent<Gameplay.Environment.Highlight>();
+                if (newHover != null) break;
             }
 
             if (newHover != _currentHover)
@@ -90,12 +89,16 @@ namespace Gameplay.Characters
 
         public void HandleInteractionClick(Vector3 mouseWorldPos)
         {
-            // Use OverlapCircleAll for a more forgiving click area
             var colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             
             foreach (var col in colliders)
             {
-                if (!col || !col.TryGetComponent<IInteractable>(out var target)) continue;
+                if (col == null) continue;
+
+                // Tìm IInteractable ở chính nó hoặc cha
+                var target = col.GetComponent<IInteractable>() ?? col.GetComponentInParent<IInteractable>();
+                if (target == null) continue;
+
                 InteractWithTarget(target, col.transform);
                 return;
             }
@@ -120,10 +123,8 @@ namespace Gameplay.Characters
 
         private System.Collections.IEnumerator ExecuteAttackSequence(IInteractable specificTarget)
         {
-            Debug.Log("[Combat] ExecuteAttackSequence started.");
             if (specificTarget == null) 
             {
-                Debug.Log("[Combat] specificTarget is null, aborting.");
                 yield break;
             }
 
@@ -131,13 +132,11 @@ namespace Gameplay.Characters
 
             if (!CanAttack()) 
             {
-                Debug.Log($"[Combat] CanAttack() is false (Dead or timer). _attackTimer={_attackTimer}, Health={(_facade?.Health?.CurrentHealth)}");
                 yield break;
             }
             
             if (!specificTarget.CanInteract(_facade))
             {
-                Debug.Log("[Combat] specificTarget.CanInteract returned false.");
                 yield break; 
             }
 
@@ -149,12 +148,10 @@ namespace Gameplay.Characters
             {
                 if (!_survival.TryConsumeStamina(staminaCost))
                 {
-                    Debug.Log($"[Combat] Not enough stamina. Cost: {staminaCost}, Current: {_survival.CurrentStamina}");
                     yield break;
                 }
             }
 
-            Debug.Log("[Combat] Triggering Attack Animation.");
             _attackTimer = baseAttackCooldown;
             TriggerInteractAnimation();
 
@@ -162,7 +159,6 @@ namespace Gameplay.Characters
 
             if (specificTarget != null)
             {
-                Debug.Log("[Combat] Delivering damage via specificTarget.Interact().");
                 specificTarget.Interact(_facade);
             }
         }

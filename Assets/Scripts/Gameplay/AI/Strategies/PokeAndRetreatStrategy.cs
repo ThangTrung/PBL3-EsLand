@@ -44,6 +44,15 @@ namespace Gameplay.AI.Strategies
 
         public void TryApplyHitIfReady()
         {
+            InternalApplyHit();
+            if (_animator != null && _animator.IsCurrentAnimationFinished())
+            {
+                EndAttack();
+            }
+        }
+
+        private void InternalApplyHit()
+        {
             if (!IsAttacking || _hitApplied || _target == null) return;
 
             if (Vector3.Distance(_selfTransform.position, _target.position) <= _range)

@@ -5,8 +5,6 @@ namespace Gameplay.AI.States
 {
     public class AttackState : IAIState
     {
-        private float _attackDuration;
-        private float _timer;
         private bool _attackFinished;
 
         public void Enter(EnemyBase enemy)
@@ -14,61 +12,47 @@ namespace Gameplay.AI.States
             enemy.StopMovement();
             enemy.FaceTarget();
             
-            _timer = 0f;
             _attackFinished = false;
-            
-            _attackDuration = 0.5f;
-            if (enemy.Animator != null && enemy.Animator.Config != null && enemy.Animator.Config.AttackFrames != null && enemy.Animator.Config.FrameRate > 0)
-            {
-                _attackDuration = (float)enemy.Animator.Config.AttackFrames.Length / enemy.Animator.Config.FrameRate;
-            }
-
             enemy.AttackStrategy?.BeginAttack(enemy.Target);
         }
 
         public void Execute(EnemyBase enemy)
         {
-            if (enemy.Target == null)
+            if (!enemy.HasValidTarget)
             {
                 enemy.ChangeState(new PatrolState());
                 return;
             }
 
+            // Let the strategy handle its internal logic (Windup, Attack, Recovery, Hit application)
             enemy.AttackStrategy?.TryApplyHitIfReady();
 
-            _timer += Time.deltaTime;
-            bool animFinished = enemy.Animator != null && enemy.Animator.IsCurrentAnimationFinished();
-
-            if (_timer >= _attackDuration || animFinished)
+            // SOLID: The state machine defers to the strategy to know when the attack sequence is fully complete.
+            if (enemy.AttackStrategy != null && !enemy.AttackStrategy.IsAttacking)
             {
                 if (!_attackFinished)
                 {
-                    enemy.AttackStrategy?.EndAttack();
                     _attackFinished = true;
                 }
 
-                if (enemy.AttackStrategy != null && enemy.AttackStrategy.CanStartAttack(enemy.Target))
+                // If cooldown is ready and target is in range, attack again.
+                if (enemy.AttackStrategy.CanStartAttack(enemy.Target))
                 {
                     enemy.AttackStrategy.BeginAttack(enemy.Target);
-                    _timer = 0f;
                     _attackFinished = false;
-                    _attackDuration = 0.5f;
-                    if (enemy.Animator != null && enemy.Animator.Config != null && enemy.Animator.Config.AttackFrames != null && enemy.Animator.Config.FrameRate > 0)
-                    {
-                        _attackDuration = (float)enemy.Animator.Config.AttackFrames.Length / enemy.Animator.Config.FrameRate;
-                    }
                     return;
                 }
 
+                // Otherwise, go back to chasing or observing
                 enemy.ChangeState(enemy.CreateChaseState());
             }
         }
 
         public void Exit(EnemyBase enemy)
         {
-            if (!_attackFinished)
+            if (enemy.AttackStrategy != null && enemy.AttackStrategy.IsAttacking)
             {
-                enemy.AttackStrategy?.EndAttack();
+                enemy.AttackStrategy.EndAttack();
             }
         }
     }

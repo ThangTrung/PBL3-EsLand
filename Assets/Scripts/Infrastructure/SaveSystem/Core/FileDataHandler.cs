@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
 using System;
 using System.Text;
@@ -43,9 +43,8 @@ namespace Infrastructure.SaveSystem.Core
                     // Chuyển JSON sang GameData
                     loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Debug.LogError("[FileDataHandler] Lỗi khi đọc file save: " + fullPath + "\n" + e);
                 }
             }
             return loadedData;
@@ -61,11 +60,10 @@ namespace Infrastructure.SaveSystem.Core
                 // Chuyển sang JSON (có format đẹp để debug)
                 string dataToStore = JsonUtility.ToJson(data, true);
                 
-                // Debug.Log($"[FileDataHandler] Chuỗi JSON sinh ra (Độ dài: {dataToStore.Length}):\n{dataToStore}");
+                //
 
                 if (string.IsNullOrEmpty(dataToStore) || dataToStore == "{}")
                 {
-                    Debug.LogWarning("[FileDataHandler] Cảnh báo: Chuỗi JSON rỗng hoặc không có dữ liệu!");
                 }
 
                 // MÃ HÓA XOR trước khi ghi
@@ -78,11 +76,9 @@ namespace Infrastructure.SaveSystem.Core
                         writer.Write(dataToStore);
                     }
                 }
-                Debug.Log($"[FileDataHandler] Đã ghi file save thành công vào: {fullPath}");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Debug.LogError("[FileDataHandler] Lỗi khi ghi file save: " + fullPath + "\n" + e);
             }
         }
 
@@ -97,4 +93,5 @@ namespace Infrastructure.SaveSystem.Core
         }
     }
 }
+
 

@@ -68,7 +68,6 @@ namespace Infrastructure.SaveSystem.Core
                 {
                     SaveGame();
                     _autoSaveTimer = 0f; // Reset lại đồng hồ sau khi lưu thành công
-                    Debug.Log("<color=yellow>[SaveLoadManager] HỆ THỐNG: Đã kích hoạt Auto-Save định kỳ!</color>");
                 }
             }
         }
@@ -100,7 +99,6 @@ namespace Infrastructure.SaveSystem.Core
         {
             if (this.gameData == null)
             {
-                Debug.Log("[SaveLoadManager] Không có dữ liệu save. Khởi tạo game mới.");
                 NewGame();
             }
 
@@ -111,9 +109,8 @@ namespace Infrastructure.SaveSystem.Core
                     saveableObj.LoadData(gameData);
                 }
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
-                Debug.LogError("<color=red>[SaveLoadManager] Có lỗi khi LoadData ở một object:</color> " + e.Message);
             }
             finally 
             {
@@ -135,13 +132,11 @@ namespace Infrastructure.SaveSystem.Core
             if (useCloudSave && dataHandler is CloudDataHandler cloudHandler)
             {
                 StartCoroutine(cloudHandler.SaveRoutine(gameData, (success) => {
-                    if(success) Debug.Log("<color=cyan>[SaveLoadManager] CLOUD SAVE HOÀN TẤT!</color>");
                 }));
             }
             else
             {
                 dataHandler.Save(gameData);
-                Debug.Log("<color=green>[SaveLoadManager] LOCAL SAVE HOÀN TẤT!</color>");
             }
         }
 
@@ -162,8 +157,8 @@ namespace Infrastructure.SaveSystem.Core
         // Hàm của Unity TỰ ĐỘNG chạy khi người chơi thoát game hoặc Dev bấm nút Stop
         private void OnApplicationQuit()
         {
-            Debug.Log("<color=orange>[SaveLoadManager] Phát hiện tắt game! Đang lưu khẩn cấp dữ liệu...</color>");
             SaveGame();
         }
     }
 }
+

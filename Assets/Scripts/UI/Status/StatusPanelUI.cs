@@ -1,4 +1,4 @@
-using Gameplay.Characters;
+﻿using Gameplay.Characters;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +31,6 @@ namespace UI.Status
         {
             if (player == null)
             {
-                Debug.LogError("[StatusUI] Initialize nhận vào Player bị NULL!");
                 return;
             }
 

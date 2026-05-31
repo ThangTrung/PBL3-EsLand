@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.U2D.Sprites;
 using System;
@@ -108,38 +108,44 @@ public class EnemyPrefabBuilderWindow : EditorWindow
 
     private void ProcessSingleEnemy(string sourcePath, string enemyName)
     {
-        string prefabFolderPath = "Assets/Prefabs/Characters/Enemies";
-        string prefabPath = $"{prefabFolderPath}/{enemyName}.prefab";
-        string resourcesAnimPath = $"Assets/Resources/Enemies/Animations/{enemyName}Anims.asset";
-        string resourcesConfigPath = $"Assets/Resources/Enemies/Configs/{enemyName}Config.asset";
+        Debug.Log("Processing: " + enemyName);
 
-        EnsureFolder(prefabFolderPath);
-        AutoSliceSprites(sourcePath);
+        // 1. Gather Sprites
+        string[] guids = AssetDatabase.FindAssets("t:Sprite", new[] { sourcePath });
+        Dictionary<string, List<Sprite>> spriteGroups = new Dictionary<string, List<Sprite>>()
+        {
+            { "Idle", new List<Sprite>() },
+            { "Run", new List<Sprite>() },
+            { "Walk", new List<Sprite>() },
+            { "Attack", new List<Sprite>() },
+            { "Die", new List<Sprite>() }
+        };
 
-        Dictionary<string, List<Sprite>> spriteGroups = new Dictionary<string, List<Sprite>>();
-        foreach (var keyword in actionKeywords) spriteGroups[keyword] = new List<Sprite>();
-
-        string[] guids = AssetDatabase.FindAssets("t:Texture", new[] { sourcePath });
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            UnityEngine.Object[] assets = AssetDatabase.LoadAllAssetsAtPath(path);
-            foreach (var asset in assets)
-            {
-                if (asset is Sprite sprite)
-                {
-                    foreach (var keyword in actionKeywords)
-                    {
-                        if (sprite.name.Contains(keyword)) { spriteGroups[keyword].Add(sprite); break; }
-                    }
-                }
-            }
+            Sprite sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+            string lowerName = sprite.name.ToLower();
+
+            if (lowerName.Contains("idle")) spriteGroups["Idle"].Add(sprite);
+            else if (lowerName.Contains("run")) spriteGroups["Run"].Add(sprite);
+            else if (lowerName.Contains("walk")) spriteGroups["Walk"].Add(sprite);
+            else if (lowerName.Contains("attack")) spriteGroups["Attack"].Add(sprite);
+            else if (lowerName.Contains("die") || lowerName.Contains("death")) spriteGroups["Die"].Add(sprite);
         }
 
-        foreach (var keyword in actionKeywords)
-            spriteGroups[keyword] = spriteGroups[keyword].OrderBy(s => s.name).ToList();
+        if (spriteGroups["Idle"].Count == 0)
+        {
+            Debug.LogWarning("Skipping " + enemyName + " - No Idle sprites found.");
+            return;
+        }
 
-        // 1. ScriptableObjects Setup
+        // 2. Create Configs
+        string resourcesConfigPath = $"Assets/Resources/Enemies/Configs/{enemyName}Config.asset";
+        string resourcesAnimPath = $"Assets/Resources/Enemies/Animations/{enemyName}Anims.asset";
+        EnsureFolder("Assets/Resources/Enemies/Configs");
+        EnsureFolder("Assets/Resources/Enemies/Animations");
+
         AnimationConfig animConfig = AssetDatabase.LoadAssetAtPath<AnimationConfig>(resourcesAnimPath);
         if (animConfig == null)
         {
@@ -147,7 +153,15 @@ public class EnemyPrefabBuilderWindow : EditorWindow
             AssetDatabase.CreateAsset(animConfig, resourcesAnimPath);
         }
         var runFrames = spriteGroups["Run"].Count > 0 ? spriteGroups["Run"] : spriteGroups["Walk"];
-        animConfig.Initialize(spriteGroups["Idle"].ToArray(), runFrames.ToArray(), spriteGroups["Attack"].ToArray(), spriteGroups["Die"].ToArray(), 12f, 2);
+        
+        var seqs = new System.Collections.Generic.List<Gameplay.AI.Animation.AnimationSequence>
+        {
+            new Gameplay.AI.Animation.AnimationSequence { stateName = "Idle", frames = spriteGroups["Idle"].ToArray(), isLooping = true, triggerFrame = -1 },
+            new Gameplay.AI.Animation.AnimationSequence { stateName = "Run", frames = runFrames.ToArray(), isLooping = true, triggerFrame = -1 },
+            new Gameplay.AI.Animation.AnimationSequence { stateName = "Attack", frames = spriteGroups["Attack"].ToArray(), isLooping = false, triggerFrame = 2 },
+            new Gameplay.AI.Animation.AnimationSequence { stateName = "Death", frames = spriteGroups["Die"].ToArray(), isLooping = false, triggerFrame = -1 }
+        };
+        animConfig.Initialize(seqs, 12f);
         EditorUtility.SetDirty(animConfig);
 
         SimpleEnemyConfig enemyConfig = AssetDatabase.LoadAssetAtPath<SimpleEnemyConfig>(resourcesConfigPath);
@@ -159,33 +173,54 @@ public class EnemyPrefabBuilderWindow : EditorWindow
         }
         EditorUtility.SetDirty(enemyConfig);
 
-        // 2. GameObject Setup
+        // 3. Create Prefab
+        string prefabPath = $"Assets/Prefabs/Enemies/{enemyName}.prefab";
+        EnsureFolder("Assets/Prefabs/Enemies");
+
         GameObject go = new GameObject(enemyName);
         go.tag = "Enemy";
-        go.layer = 10;
+        go.layer = 10; // Enemy
 
-        SpriteRenderer sr = go.AddComponent<SpriteRenderer>();
-        if (spriteGroups["Idle"].Count > 0) sr.sprite = spriteGroups["Idle"][0];
+        var spriteRenderer = go.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = spriteGroups["Idle"][0];
+        spriteRenderer.sortingOrder = 100;
 
-        Rigidbody2D rb = go.AddComponent<Rigidbody2D>();
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        var animator = go.AddComponent<Gameplay.AI.Animation.CharacterAnimationController>();
+        animator.SetConfig(animConfig);
+
+        var rb = go.AddComponent<Rigidbody2D>();
         rb.gravityScale = 0;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-        go.AddComponent<CharacterHealth>();
-        go.AddComponent<EnemyMovementController>();
-        var animCtrl = go.AddComponent<CharacterAnimationController>();
-        animCtrl.SetConfig(animConfig);
-        go.AddComponent<StatusEffectController>();
+        var collider = go.AddComponent<CapsuleCollider2D>();
+        collider.size = new Vector2(0.6f, 1f);
+        collider.offset = new Vector2(0, -0.2f);
 
-        // Collider Setup (Polygon for precision)
-        go.AddComponent<PolygonCollider2D>();
+        go.AddComponent<Gameplay.Characters.CharacterHealth>();
+        go.AddComponent<Gameplay.AI.Movement.EnemyMovementController>();
+        go.AddComponent<Gameplay.Combat.ContactDamage>();
+        go.AddComponent<Gameplay.Characters.Enemy>();
 
-        Type scriptType = FindType($"{enemyName}Enemy");
-        if (scriptType != null) go.AddComponent(scriptType);
+        // Hitbox
+        GameObject hitbox = new GameObject("Hitbox");
+        hitbox.transform.SetParent(go.transform);
+        hitbox.transform.localPosition = Vector3.zero;
+        hitbox.layer = 12; // EnemyHitbox
+        var hitCollider = hitbox.AddComponent<CapsuleCollider2D>();
+        hitCollider.isTrigger = true;
+        hitCollider.size = new Vector2(0.8f, 1.2f);
 
-        PrefabUtility.SaveAsPrefabAsset(go, prefabPath);
+        // Shadow
+        GameObject shadow = new GameObject("Shadow");
+        shadow.transform.SetParent(go.transform);
+        shadow.transform.localPosition = new Vector3(0, -0.6f, 0);
+        var shadowRenderer = shadow.AddComponent<SpriteRenderer>();
+        shadowRenderer.sprite = Resources.Load<Sprite>("Shadows/DropShadow");
+        shadowRenderer.sortingOrder = 1;
+        shadowRenderer.color = new Color(0, 0, 0, 0.4f);
+
+        PrefabUtility.SaveAsPrefabAssetAndConnect(go, prefabPath, InteractionMode.UserAction);
         DestroyImmediate(go);
     }
 

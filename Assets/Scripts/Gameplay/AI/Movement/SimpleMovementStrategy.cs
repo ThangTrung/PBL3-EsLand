@@ -1,6 +1,5 @@
 using Core.Contracts.AI;
 using Gameplay.AI.Animation;
-using Gameplay.Characters;
 using UnityEngine;
 
 namespace Gameplay.AI.Movement
@@ -18,34 +17,15 @@ namespace Gameplay.AI.Movement
             _statusEffectController = statusEffectController;
         }
 
-        public void Move(Vector3 direction)
+        public void Move(Vector3 destination)
         {
             if (_movementController == null) return;
-
-            if (_statusEffectController != null)
-            {
-                _movementController.SetSpeedMultiplier(_statusEffectController.SpeedMultiplier);
-            }
-
-            _movementController.Move(direction);
-            _animationController?.SetFacingByMove(direction);
-
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Attack &&
-                _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Death)
-            {
-                _animationController.PlayRun();
-            }
+            _movementController.SetTargetPosition(destination);
         }
 
         public void StopMovement()
         {
             _movementController?.StopMovement();
-
-            if (_animationController != null && _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Attack &&
-                _animationController.GetCurrentState() != CharacterAnimationController.AnimState.Death)
-            {
-                _animationController.PlayIdle();
-            }
         }
     }
 }

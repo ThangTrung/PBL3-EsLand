@@ -1,4 +1,4 @@
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Data.Combat;
 using Gameplay.AI.Animation;
 using Gameplay.Combat.Projectiles;
@@ -7,9 +7,6 @@ using UnityEngine;
 
 namespace Gameplay.AI.Strategies
 {
-    /// <summary>
-    /// Chiến thuật tấn công ném nhiều đạn cùng lúc theo hình nan quạt (Shotgun spread).
-    /// </summary>
     public class MultiProjectileAttackStrategy : IAttackStrategy
     {
         private readonly ProjectileSpec _spec;
@@ -19,8 +16,6 @@ namespace Gameplay.AI.Strategies
         private readonly Transform _selfTransform;
         private readonly float _cooldown;
         private readonly float _range;
-        
-        // Cấu hình nan quạt
         private readonly int _projectileCount;
         private readonly float _spreadAngle;
 
@@ -30,16 +25,8 @@ namespace Gameplay.AI.Strategies
 
         public bool IsAttacking { get; private set; }
 
-        public MultiProjectileAttackStrategy(
-            ProjectileSpec spec, 
-            Projectile2D projectilePrefab, 
-            CharacterAnimationController animator, 
-            int attackTriggerFrame, 
-            Transform selfTransform, 
-            float range, 
-            float cooldown,
-            int projectileCount = 3,
-            float spreadAngle = 30f)
+        public MultiProjectileAttackStrategy(ProjectileSpec spec, Projectile2D projectilePrefab, CharacterAnimationController animator, 
+            int attackTriggerFrame, Transform selfTransform, float range, float cooldown, int projectileCount = 3, float spreadAngle = 30f)
         {
             _spec = spec;
             _projectilePrefab = projectilePrefab;
@@ -48,7 +35,6 @@ namespace Gameplay.AI.Strategies
             _selfTransform = selfTransform;
             _range = range;
             _cooldown = cooldown;
-            
             _projectileCount = Mathf.Max(1, projectileCount);
             _spreadAngle = spreadAngle;
         }
@@ -56,24 +42,31 @@ namespace Gameplay.AI.Strategies
         public void BeginAttack(Transform target)
         {
             if (_animator == null || _spec == null) return;
-
             _target = target;
             _projectileSpawned = false;
             IsAttacking = true;
-
             _animator.PlayAttack();
         }
 
         public void TryApplyHitIfReady()
         {
+            InternalApplyHit();
+            if (_animator != null && _animator.IsCurrentAnimationFinished())
+            {
+                EndAttack();
+            }
+        }
+
+        private void InternalApplyHit()
+        {
             if (!IsAttacking || _target == null || _animator == null || _spec == null) return;
-            if (_animator.GetCurrentState() != CharacterAnimationController.AnimState.Attack) return;
+            if (_animator.GetCurrentState() != Gameplay.AI.Animation.AnimationStateNames.Attack) return;
 
             var currentFrame = _animator.GetCurrentFrameIndex();
             if (_projectileSpawned || currentFrame < _attackTriggerFrame) return;
 
-            var distance = Vector3.Distance(_selfTransform.position, _target.position);
-            if (distance > _range) return;
+            var distance = Vector2.Distance(_selfTransform.position, _target.position);
+            if (distance > _range + 1.0f) return;
 
             SpawnMultipleProjectiles();
             _projectileSpawned = true;
@@ -89,22 +82,26 @@ namespace Gameplay.AI.Strategies
 
         public bool CanStartAttack(Transform target)
         {
-            if (IsAttacking || target == null) return false;
-            if (Time.time < _nextAttackTime) return false;
-
-            var distance = Vector3.Distance(_selfTransform.position, target.position);
-            return distance <= _range;
+            if (IsAttacking || target == null || Time.time < _nextAttackTime) return false;
+            return Vector2.Distance(_selfTransform.position, target.position) <= _range;
         }
 
         private void SpawnMultipleProjectiles()
         {
-            if (_target == null) return;
+            // [IMPROVEMENT] Target Prediction
+            Vector3 predictedPos = _target.position;
+            var rb = _target.GetComponent<Rigidbody2D>();
+            if (rb != null && _spec != null && _spec.Speed > 0)
+            {
+                float distance = Vector2.Distance(_selfTransform.position, predictedPos);
+                float travelTime = distance / _spec.Speed;
+                predictedPos += (Vector3)rb.velocity * travelTime * 0.7f; // Slightly less prediction for spread weapons
+            }
 
-            Vector2 baseDirection = (_target.position - _selfTransform.position).normalized;
-            Vector3 spawnOffset = new Vector3(0f, 0.5f, 0f); // Nâng lên khớp với tay
+            Vector2 baseDirection = (predictedPos - _selfTransform.position).normalized;
+            Vector3 spawnOffset = new Vector3(0f, 0.5f, 0f);
             Vector3 spawnPos = _selfTransform.position + spawnOffset + (Vector3)baseDirection * 0.5f;
 
-            // Tính toán góc chia đều
             float startAngle = -_spreadAngle / 2f;
             float angleStep = _projectileCount > 1 ? _spreadAngle / (_projectileCount - 1) : 0f;
 
@@ -113,11 +110,6 @@ namespace Gameplay.AI.Strategies
                 float currentAngle = startAngle + (angleStep * i);
                 Vector2 spreadDirection = RotateVector(baseDirection, currentAngle);
 
-                // Tạo một Transform ảo (ảo để giả lập vị trí đích cho đạn tự tính góc)
-                // Projectile2D hiện tại yêu cầu Transform target, ta tạm thời truyền _target 
-                // nhưng sẽ phải override hướng bay trong Projectile2D nếu muốn nó bay chéo.
-                // Để tương thích với code Projectile2D hiện tại, ta sẽ tạo một GameObject tạm thời.
-                
                 GameObject tempTarget = new GameObject("TempTarget");
                 tempTarget.transform.position = spawnPos + (Vector3)spreadDirection * 10f;
 
@@ -133,11 +125,8 @@ namespace Gameplay.AI.Strategies
                     projectileInstance = go.AddComponent<Projectile2D>();
                 }
 
-                // Truyền điểm đích ảo vào
                 projectileInstance.Initialize(_spec, _selfTransform, tempTarget.transform);
-                
-                // Tự động hủy điểm đích ảo sau 2 giây (khi đạn đã bay xa)
-                Object.Destroy(tempTarget, 2f);
+                Object.Destroy(tempTarget, 1f);
             }
         }
 
@@ -146,10 +135,7 @@ namespace Gameplay.AI.Strategies
             float radians = degrees * Mathf.Deg2Rad;
             float cos = Mathf.Cos(radians);
             float sin = Mathf.Sin(radians);
-            return new Vector2(
-                v.x * cos - v.y * sin,
-                v.x * sin + v.y * cos
-            );
+            return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
         }
     }
 }

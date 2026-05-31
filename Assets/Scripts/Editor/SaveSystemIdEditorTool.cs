@@ -58,13 +58,11 @@ namespace Infrastructure.SaveSystem.EditorTools
             if (fixCount > 0)
             {
                 string tag = isAuto ? "TỰ ĐỘNG" : "THỦ CÔNG";
-                Debug.Log($"<color=cyan>[SaveSystem Tool] {tag} QUÉT: Đã sửa thành công {fixCount} object bị trùng/trống ID.</color>");
                 UnityEditor.SceneManagement.EditorSceneManager.MarkAllScenesDirty();
             }
             // 2. Nếu map đã sạch sẽ: Chỉ in log khi ông chủ động bấm tay (để biết tool có chạy), chạy tự động thì im lặng cho sạch sẽ
             else if (!isAuto)
             {
-                Debug.Log("<color=green>[SaveSystem Tool] THỦ CÔNG QUÉT: Tuyệt vời! Không phát hiện ID nào bị trùng hay trống.</color>");
             }
         }
     }

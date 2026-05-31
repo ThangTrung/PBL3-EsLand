@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c64984b00be5a4fb49bcd95217de90, type: 3}
   m_Name: CaveAnims
   m_EditorClassIdentifier: 
-  idleFrames:
-  - {fileID: 2816024428125677612, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
-  - {fileID: 4331430816559573607, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
-  - {fileID: -3307788535469131919, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
-  - {fileID: 1454187478189239187, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
-  - {fileID: 3347791324629599844, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
-  - {fileID: 505341420084167553, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
-  - {fileID: 3012887640130196403, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
-  - {fileID: 5430030575754938895, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
-  runFrames: []
-  attackFrames: []
-  deathFrames: []
+  animations:
+  - stateName: Idle
+    frames:
+    - {fileID: 2816024428125677612, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
+    - {fileID: 4331430816559573607, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
+    - {fileID: -3307788535469131919, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
+    - {fileID: 1454187478189239187, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
+    - {fileID: 3347791324629599844, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
+    - {fileID: 505341420084167553, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
+    - {fileID: 3012887640130196403, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
+    - {fileID: 5430030575754938895, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
+    isLooping: 1
+    multiTriggerFrames: 
+    triggerFrame: 0
   frameRate: 12
-  attackTriggerFrame: 2

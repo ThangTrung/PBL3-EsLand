@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -76,7 +76,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
                 yield return new WaitForSeconds(0.05f);
             }
 
-            //Debug.Log("Done revealing the text.");
+            //
         }
 
     }
