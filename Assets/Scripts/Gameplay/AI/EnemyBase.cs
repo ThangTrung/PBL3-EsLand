@@ -1,5 +1,4 @@
-﻿using Gameplay.World;
-using Core.Contracts.AI;
+﻿using Core.Contracts.AI;
 using Gameplay.AI.Animation;
 using Gameplay.AI.Movement;
 using Gameplay.AI.States;
@@ -303,7 +302,7 @@ namespace Gameplay.AI
                 if (agent.isOnNavMesh) agent.isStopped = true;
             }
 
-            if (AnimationController != null) { AnimationController.ResetAnimationLock(); AnimationController.PlayIdle(); }
+            if (AnimationController != null) AnimationController.PlayIdle();
         }
 
         public virtual void ResetStats() => ResetEnemy();
@@ -362,10 +361,6 @@ namespace Gameplay.AI
             // [CRITICAL] Stop everything
             StopMovement();
             
-            // [FIX] Ensure death animation is rendered at Order 5
-            var sr = GetComponent<SpriteRenderer>();
-            if (sr != null) sr.sortingOrder = 5;
-
             // Disable physics interaction but keep simulation for knockback settling
             var col = GetComponent<Collider2D>();
             if (col != null) col.enabled = false;
@@ -399,10 +394,6 @@ namespace Gameplay.AI
         {
             if (_lootDropped) return;
             _lootDropped = true;
-
-            // [RESTORED] Trigger visual loot drop
-            var spawner = GetComponent<LootSpawner>();
-            if (spawner != null) spawner.SpawnLoot();
 
             if (ConfigInternal != null && !string.IsNullOrEmpty(ConfigInternal.LootItemId))
             {
