@@ -13,15 +13,15 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
+  - Enemy
   - Resource
-  - 
-  - Land
-  - Mountain
-  - Entity
-  - Obstacle
   - Interactable
+  - Environment_Block
+  - Land
   - SpawnArea
-  - 
+  - Hitbox_Player
+  - Hitbox_Enemy
   - 
   - 
   - 
@@ -43,19 +43,19 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
+  - name: Water_Level
     uniqueID: 0
     locked: 0
-  - name: Terrain
+  - name: Elevation_A
     uniqueID: 0
     locked: 0
-  - name: Props
+  - name: Elevation_B
     uniqueID: 0
     locked: 0
-  - name: Entities
+  - name: Elevation_C
     uniqueID: 0
     locked: 0
-  - name: Elevated_Entities
+  - name: Elevation_D
     uniqueID: 0
     locked: 0
   - name: UI
