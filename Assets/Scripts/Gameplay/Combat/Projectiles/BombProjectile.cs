@@ -158,10 +158,17 @@ namespace Gameplay.Combat.Projectiles
                 var hit = _hitBuffer[i];
                 if (hit == null || hit.isTrigger) continue;
                 if (_owner != null && hit.transform.root == _owner.root) continue;
+                
+                // [FIX] Bombs fired by Enemies should ignore Environment/Resources
+                if (_owner != null && _owner.CompareTag("Enemy")) {
+                    if (hit.CompareTag("Untagged") || hit.gameObject.layer == LayerMask.NameToLayer("Interactable"))
+                        continue;
+                }
+
 
                 if (hit.TryGetComponent<IDamageable>(out var damageable))
                 {
-                    Character source = _owner != null ? _owner.GetComponent<Character>() : null;
+                    Character source = _owner != null ? _owner.GetComponentInParent<Character>() : null;
                     damageable.TakeDamage(_spec != null ? _spec.BaseDamage : 10f, source);
                 }
 

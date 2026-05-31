@@ -20,13 +20,14 @@ GameObject:
   - component: {fileID: 2975697917657495771}
   - component: {fileID: 8882123421098849723}
   - component: {fileID: 5949594152192884786}
-  m_Layer: 10
+  - component: {fileID: 4295061528787486476}
+  m_Layer: 12
   m_Name: Gnoll
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7481200048007413594
 Transform:
   m_ObjectHideFlags: 0
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 5
   m_Sprite: {fileID: -196405934202487797, guid: 1e9531b112690084f80c6ffb7e3e61c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -202,8 +203,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 0}
-  flashDuration: 0.15
-  knockbackForce: 5
+  flashDuration: 0.2
+  knockbackForce: 12
   knockbackDuration: 0.25
 --- !u!114 &2975697917657495771
 MonoBehaviour:
@@ -271,7 +272,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0034905076, y: -0.10405636}
+  m_Offset: {x: -0.09819174, y: -0.43169403}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -282,5 +283,81 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6754552, y: 0.7440562}
+  m_Size: {x: 0.47209072, y: 0.118896484}
   m_EdgeRadius: 0
+--- !u!60 &4295061528787486476
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517149262209526456}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3, y: 3}
+    newSize: {x: 3, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.796875, y: 0.078125}
+      - {x: 0.796875, y: 0.203125}
+      - {x: 0.71875, y: 0.265625}
+      - {x: 0.53125, y: 0.28125}
+      - {x: 0.46875, y: 0.21875}
+      - {x: 0.484375, y: 0.25}
+      - {x: 0.5, y: 0.515625}
+      - {x: 0.328125, y: 0.59375}
+      - {x: -0.171875, y: 0.59375}
+      - {x: -0.4375, y: 0.375}
+      - {x: -0.6875, y: 0.296875}
+      - {x: -0.75, y: 0.21875}
+      - {x: -0.75, y: 0.03125}
+      - {x: -0.671875, y: -0.125}
+      - {x: -0.421875, y: -0.171875}
+      - {x: -0.421875, y: -0.40625}
+      - {x: -0.296875, y: -0.5625}
+      - {x: 0.265625, y: -0.5625}
+      - {x: 0.296875, y: -0.546875}
+      - {x: 0.5, y: -0.453125}
+      - {x: 0.6875, y: 0.015625}
+    - - {x: 0.515625, y: 0.0625}
+      - {x: 0.484375, y: 0.09375}
+      - {x: 0.390625, y: -0.046875}
+      - {x: 0.40625, y: -0.0625}
+    - - {x: -0.46875, y: 0.09375}
+      - {x: -0.46875, y: 0.109375}
+      - {x: -0.4375, y: 0.171875}
+      - {x: -0.390625, y: 0.125}
+      - {x: -0.421875, y: 0.046875}
+      - {x: -0.421875, y: 0.0625}
+  m_UseDelaunayMesh: 0
