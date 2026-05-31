@@ -1,4 +1,4 @@
-﻿using Core.Contracts.Combat;
+using Core.Contracts.Combat;
 using Data.Combat;
 using Gameplay.Combat.StatusEffects;
 using Gameplay.Characters;
@@ -106,18 +106,12 @@ public void OnSpawn()
                 if (hit.isTrigger) continue; // Bỏ qua các trigger vô hình (như vùng nhìn thấy)
                 if (_owner != null && hit.transform.root == _owner.root) continue; // Bỏ qua chính bản thân người ném
 
-                // [FIX] Projectiles fired by Enemies should ignore Environment/Resources
-                if (_owner != null && _owner.CompareTag("Enemy")) {
-                    if (hit.CompareTag("Untagged") || hit.gameObject.layer == LayerMask.NameToLayer("Interactable"))
-                        continue;
-                }
-
                 if (hit.TryGetComponent<IDamageable>(out var damageable))
                 {
                     Character source = null;
                     if (_owner != null)
                     {
-                        source = _owner.GetComponentInParent<Character>();
+                        source = _owner.GetComponent<Character>();
                     }
 
                     damageable.TakeDamage(_spec.BaseDamage, source);

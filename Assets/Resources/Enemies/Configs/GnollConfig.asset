@@ -26,5 +26,5 @@ MonoBehaviour:
   horizontalAlignmentOffset: 0.8
   moveSpeed: 2.5
   tintColor: {r: 1, g: 1, b: 1, a: 1}
-  lootItemId: Gold_ore
-  lootQuantity: 2
+  lootItemId: Gold
+  lootQuantity: 1
