@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 6910032608303919774}
   - component: {fileID: 4239286625261723597}
   - component: {fileID: -2689982986266051781}
-  - component: {fileID: -4703560098660712833}
   m_Layer: 12
   m_Name: rock_2
   m_TagString: Untagged
@@ -223,19 +222,3 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!208 &-4703560098660712833
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4566310596956486315}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.4, y: 0.25, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.007, y: 0.15100001, z: 0}
-  m_TimeToStationary: 0.5
