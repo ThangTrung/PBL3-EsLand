@@ -44,20 +44,20 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Water_Level
-    uniqueID: 0
+    uniqueID: 1001
     locked: 0
   - name: Elevation_A
-    uniqueID: 0
+    uniqueID: 1002
     locked: 0
   - name: Elevation_B
-    uniqueID: 0
+    uniqueID: 1003
     locked: 0
   - name: Elevation_C
-    uniqueID: 0
+    uniqueID: 1004
     locked: 0
   - name: Elevation_D
-    uniqueID: 0
+    uniqueID: 1005
     locked: 0
   - name: UI
-    uniqueID: 0
+    uniqueID: 1006
     locked: 0
