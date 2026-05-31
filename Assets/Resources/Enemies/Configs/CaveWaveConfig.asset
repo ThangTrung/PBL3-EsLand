@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d71b3726548824bbdf7bfea8b4cb05, type: 3}
+  m_Name: CaveWaveConfig
+  m_EditorClassIdentifier: 
+  waveName: Cave Ambush
+  totalBudget: 30
+  spawnRate: 3
+  enemies:
+  - prefab: {fileID: 8933322250166544142, guid: 7fd37b1bfbd73744ab98d62f77229b72, type: 3}
+    config: {fileID: 11400000, guid: aca2157a912d39e46947faa440d937b9, type: 2}
+    animConfig: {fileID: 11400000, guid: 0f43ebc491e2fb341a69b8ce4f8ef27f, type: 2}
+    weight: 60
+    cost: 2
+  - prefab: {fileID: 8213560277518106578, guid: 04d3ba5bc40a12e41958fa51d320d117, type: 3}
+    config: {fileID: 11400000, guid: 6434a7172ba6f9e45b9f118a335042ea, type: 2}
+    animConfig: {fileID: 11400000, guid: 74b8a052eac1b1644b5920c5d20b63fc, type: 2}
+    weight: 30
+    cost: 3
+  - prefab: {fileID: 5123590242713121514, guid: 59a826f8fef1fe94990f2828a70381f1, type: 3}
+    config: {fileID: 11400000, guid: fc98c6288f481594a9d572186004f4d8, type: 2}
+    animConfig: {fileID: 11400000, guid: bf0e6f9d5b9231f41b5d085362c23dd7, type: 2}
+    weight: 10
+    cost: 1.5

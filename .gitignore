@@ -208,5 +208,6 @@ UpgradeLog.htm
 node_modules/
 BackendServer/node_modules/
 pbl3_esland_save.json
-pbl3_esland_save.json
-pbl3_esland_save.json
+
+# Exclude CodeGraph index directory
+.codegraph/

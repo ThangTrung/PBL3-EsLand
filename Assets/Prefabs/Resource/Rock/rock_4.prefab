@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3716692005768960541}
   - component: {fileID: 3758655694428244384}
   - component: {fileID: 3839255550434583446}
+  - component: {fileID: -1505608540223503400}
   m_Layer: 12
   m_Name: rock_4
   m_TagString: Untagged
@@ -226,3 +227,19 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!208 &-1505608540223503400
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4729747996088312968}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.4, y: 0.25, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.002, y: 0.24200001, z: 0}
+  m_TimeToStationary: 0.5
