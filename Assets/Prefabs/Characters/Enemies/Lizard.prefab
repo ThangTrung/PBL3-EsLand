@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: -4555106932396580809}
   - component: {fileID: 7360744931741093107}
   - component: {fileID: 567581863979197156}
+  - component: {fileID: 9164543561118323618}
   m_Layer: 10
   m_Name: Lizard
   m_TagString: Enemy
@@ -336,3 +337,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &9164543561118323618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775633859271432233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
+  lootTable: []
+  minDropForce: 4
+  maxDropForce: 8

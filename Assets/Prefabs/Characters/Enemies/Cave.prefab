@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: -4842219907759351064}
   - component: {fileID: 6385098747328691065}
   - component: {fileID: 134762663185589043}
+  - component: {fileID: 9060309197700065442}
   m_Layer: 10
   m_Name: Cave
   m_TagString: Enemy
@@ -275,3 +276,19 @@ MonoBehaviour:
     m_Bits: 0
   checkRadius: 0.5
   localWaveConfig: {fileID: 11400000, guid: c8fd68b6eb846374c80fb17f1594a60e, type: 2}
+--- !u!114 &9060309197700065442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863229811700202304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
+  lootTable: []
+  minDropForce: 4
+  maxDropForce: 8

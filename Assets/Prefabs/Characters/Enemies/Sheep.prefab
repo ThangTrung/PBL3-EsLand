@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8085896796666403685}
   - component: {fileID: 7019463130076121595}
   - component: {fileID: 8151794673035111820}
+  - component: {fileID: 3950253799074395209}
   m_Layer: 0
   m_Name: Sheep
   m_TagString: Untagged
@@ -215,6 +216,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3950253799074395209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523037889023085912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
+  lootTable: []
+  minDropForce: 4
+  maxDropForce: 8
 --- !u!1 &8309652017470249255
 GameObject:
   m_ObjectHideFlags: 0

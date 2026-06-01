@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2732729951756533664}
   - component: {fileID: 7320947694941834888}
   - component: {fileID: 6259252869163539712}
+  - component: {fileID: 5727369119352722840}
   m_Layer: 10
   m_Name: Boat
   m_TagString: Enemy
@@ -195,6 +196,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5727369119352722840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587228120769764782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
+  lootTable: []
+  minDropForce: 4
+  maxDropForce: 8
 --- !u!1 &5919192842233047069
 GameObject:
   m_ObjectHideFlags: 0

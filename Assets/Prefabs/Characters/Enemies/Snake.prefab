@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: -3449736070905693206}
   - component: {fileID: 8484876234910493185}
   - component: {fileID: 1636512717223257651}
+  - component: {fileID: 5857363203005640945}
   m_Layer: 10
   m_Name: Snake
   m_TagString: Enemy
@@ -318,3 +319,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5857363203005640945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5123590242713121514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
+  lootTable: []
+  minDropForce: 4
+  maxDropForce: 8

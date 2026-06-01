@@ -58,6 +58,11 @@ namespace Gameplay.World
             {
                 spriteRenderer.sortingLayerName = "Default";
                 spriteRenderer.sortingOrder = 100;
+                
+                if (item.Icon != null)
+                {
+                    spriteRenderer.sprite = item.Icon;
+                }
             }
 
             if (droppedObj.TryGetComponent<ItemPickup>(out var pickupScript))

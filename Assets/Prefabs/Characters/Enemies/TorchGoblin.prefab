@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 5157914967787058649}
   - component: {fileID: 2098692362538036593}
   - component: {fileID: 8341463576036319179}
+  - component: {fileID: 6114683798306081256}
   m_Layer: 12
   m_Name: TorchGoblin
   m_TagString: Enemy
@@ -391,3 +392,19 @@ PolygonCollider2D:
       - {x: -0.34375, y: -0.234375}
       - {x: -0.328125, y: -0.234375}
   m_UseDelaunayMesh: 0
+--- !u!114 &6114683798306081256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8933322250166544142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
+  lootTable: []
+  minDropForce: 4
+  maxDropForce: 8

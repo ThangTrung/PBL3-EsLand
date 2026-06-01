@@ -395,9 +395,8 @@ namespace Gameplay.AI
             {
                 if (ConfigInternal != null && !string.IsNullOrEmpty(ConfigInternal.LootItemId))
                 {
-                    // Dynamically load item data to ensure physics drops match config
-                    var itemData = Resources.Load<Data.Items.ItemData>($"Items/{ConfigInternal.LootItemId}");
-                    if (itemData == null) itemData = Resources.Load<Data.Items.ItemData>($"Data/Items/{ConfigInternal.LootItemId}");
+                    // Sử dụng Safe Lookup từ ItemRegistry thay vì Resources.Load trực tiếp
+                    var itemData = Data.Items.ItemRegistry.GetItem(ConfigInternal.LootItemId);
                     
                     if (itemData != null)
                     {
