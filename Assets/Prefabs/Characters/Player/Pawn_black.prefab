@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 1242101239882915100}
   - component: {fileID: 932970178783134121}
   - component: {fileID: 7445689375188464090}
+  - component: {fileID: 7325752597181233141}
   m_Layer: 6
   m_Name: Pawn_black
   m_TagString: Player
@@ -286,6 +287,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSortingLayer: Elevation_A
+--- !u!114 &7325752597181233141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
 --- !u!1 &1867301193532782682
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +668,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1002
-  m_SortingLayer: 0
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -5948806968594788206, guid: f06e2727e33304d9d86114733c00ba84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

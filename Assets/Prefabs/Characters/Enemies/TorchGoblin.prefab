@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 5157914967787058649}
   - component: {fileID: 2098692362538036593}
   - component: {fileID: 8341463576036319179}
+  - component: {fileID: 6580188744345035664}
+  - component: {fileID: 9172460580927255808}
   m_Layer: 12
   m_Name: TorchGoblin
   m_TagString: Enemy
@@ -359,3 +361,29 @@ PolygonCollider2D:
       - {x: -0.34375, y: -0.234375}
       - {x: -0.328125, y: -0.234375}
   m_UseDelaunayMesh: 0
+--- !u!114 &6580188744345035664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8933322250166544142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &9172460580927255808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8933322250166544142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 

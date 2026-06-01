@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 107824778251851378}
   - component: {fileID: 3921388577836144804}
   - component: {fileID: 7036019135599587360}
+  - component: {fileID: 7364913525607914031}
   m_Layer: 6
   m_Name: Pawn_red
   m_TagString: Player
@@ -339,6 +340,19 @@ MonoBehaviour:
   flashDuration: 0.15
   knockbackForce: 5
   knockbackDuration: 0.25
+--- !u!114 &7364913525607914031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860197315884376947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
 --- !u!1 &5813286098346229380
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +640,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1002
-  m_SortingLayer: 0
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

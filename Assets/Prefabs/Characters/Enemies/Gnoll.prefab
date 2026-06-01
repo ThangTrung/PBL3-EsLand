@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 8882123421098849723}
   - component: {fileID: 5949594152192884786}
   - component: {fileID: 4295061528787486476}
+  - component: {fileID: 8888445462513766167}
+  - component: {fileID: 8352841723843380047}
   m_Layer: 12
   m_Name: Gnoll
   m_TagString: Enemy
@@ -361,3 +363,29 @@ PolygonCollider2D:
       - {x: -0.421875, y: 0.046875}
       - {x: -0.421875, y: 0.0625}
   m_UseDelaunayMesh: 0
+--- !u!114 &8888445462513766167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517149262209526456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &8352841723843380047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517149262209526456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
