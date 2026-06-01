@@ -145,21 +145,6 @@ namespace Gameplay.AI
             }
         }
 
-        private void TryAutoInitialize()
-        {
-            string enemyName = gameObject.name.Replace(" (Clone)", "").Trim();
-            var configAsset = Resources.Load($"Enemies/Configs/{enemyName}Config");
-            var animConfig = Resources.Load<AnimationConfig>($"Enemies/Animations/{enemyName}Anims");
-
-            if (configAsset != null && animConfig != null)
-            {
-                IEnemyConfig config = configAsset as IEnemyConfig;
-                if (config != null)
-                {
-                    InitializeEnemy(config, animConfig, null, config.BaseAttackRange);
-                }
-            }
-        }
 
         private void FindTarget()
         {
