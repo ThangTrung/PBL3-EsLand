@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactRange: 3
   availableRecipes:
-  - {fileID: 11400000, guid: 24284a4438725ba4a8e6bfc08656c2d8, type: 2}
+  - {fileID: 11400000, guid: 65b76336a7ac87d438415fa7ee2a603d, type: 2}
 --- !u!212 &6742810181517856375
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1002
-  m_SortingLayer: 0
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3cbd575d4968745d3a7f79a654fae04a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
