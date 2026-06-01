@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactRange: 3
   availableRecipes:
-  - {fileID: 11400000, guid: 65b76336a7ac87d438415fa7ee2a603d, type: 2}
+  - {fileID: 11400000, guid: 746e6bf7eaa82ad429a27f9fc2f19129, type: 2}
 --- !u!212 &6742810181517856375
 SpriteRenderer:
   m_ObjectHideFlags: 0

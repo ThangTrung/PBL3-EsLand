@@ -35,6 +35,11 @@ namespace UI.Crafting
             if (icon != null && recipe != null && recipe.ResultItem != null)
             {
                 icon.sprite = recipe.ResultItem.Icon;
+                icon.enabled = true; // Đảm bảo icon luôn hiển thị khi có dữ liệu
+            }
+            else if (icon != null)
+            {
+                icon.enabled = false;
             }
 
             // Mặc định tắt viền highlight khi mới khởi tạo

@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bc0b2eb8b52c5e4f92a4a94b2c80b83, type: 3}
-  m_Name: New Cooking Recipe
+  m_Name: Cook_Meat
   m_EditorClassIdentifier: 
-  inputItem: {fileID: 0}
-  outputItem: {fileID: 0}
+  id: "N\u1EA5u th\u1ECBt"
+  inputItem: {fileID: 11400000, guid: f917d4d0f36417d4fae330aa63b9b11d, type: 2}
+  outputItem: {fileID: 11400000, guid: b95d393e052e1be4e82e2bd1ba714b7f, type: 2}
   cookingTime: 5

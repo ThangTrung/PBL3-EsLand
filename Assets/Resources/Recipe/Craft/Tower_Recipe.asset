@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dffbc0ac0332ce144a8bdbcc3196135e, type: 3}
-  m_Name: Spawn_House_Recipe
+  m_Name: Tower_Recipe
   m_EditorClassIdentifier: 
-  id: Spawn_House_Recipe
-  recipeName: "Nh\xE0 h\u1ED3i sinh"
+  id: Tower_Recipe
+  recipeName: "Nh\xE0 ch\u1EBF bi\u1EBFn"
   description: "M\xF4 t\u1EA3 c\xF4ng th\u1EE9c ch\u1EBF t\u1EA1o..."
   ingredients:
   - item: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
-    amount: 20
+    amount: 50
   - item: {fileID: 11400000, guid: da2fa8770a0181547926035d34fc7051, type: 2}
-    amount: 20
+    amount: 40
   - item: {fileID: 11400000, guid: 54e4f4c3d174ae74cb2df49ed02970f2, type: 2}
-    amount: 30
-  - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
-    amount: 5
-  resultItem: {fileID: 0}
-  resultPrefab: {fileID: 567004747014905352, guid: 4b13aa389ceaaa54ba802f3ee1e86519, type: 3}
+    amount: 40
+  resultItem: {fileID: 11400000, guid: dfff78f53e2543a449f9f47be12d629a, type: 2}
+  resultPrefab: {fileID: 2272323526859600819, guid: e1bdfda9d876aac4fb4102be3689191a, type: 3}
