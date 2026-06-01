@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 3347767766067737412}
   - component: {fileID: 7014860659196998922}
   - component: {fileID: 4987545557046811403}
+  - component: {fileID: 2139708187133021222}
+  - component: {fileID: 4016714975222467372}
   - component: {fileID: 2101145278396466624}
+  - component: {fileID: 5931269712492335853}
   - component: {fileID: -4842219907759351064}
-  - component: {fileID: 6385098747328691065}
-  - component: {fileID: 134762663185589043}
+  - component: {fileID: 5850347223246087765}
   m_Layer: 10
   m_Name: Cave
   m_TagString: Enemy
@@ -77,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 5
   m_Sprite: {fileID: 2816024428125677612, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -116,6 +118,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &2139708187133021222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863229811700202304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594a465c4f87f5e4f9b3892b1fa204d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  baseDefense: 5
+--- !u!114 &4016714975222467372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863229811700202304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c39727bd577c04fa670bd9d3c57917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMoveSpeed: 3
+  movementSmoothing: 10
+  pathUpdateCooldown: 0.5
+  destinationChangeThreshold: 0.5
 --- !u!114 &2101145278396466624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +161,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 1d6f7bebf2224b64ebce426f4423d588, type: 2}
+--- !u!114 &5931269712492335853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863229811700202304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714de8186c0a86447b62465bed3ca41e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!60 &-4842219907759351064
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -173,73 +217,62 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.25, y: -0.4375}
-      - {x: 1.25, y: -0.359375}
-      - {x: 1.15625, y: -0.21875}
-      - {x: 0.96875, y: -0.140625}
-      - {x: 0.78125, y: 0.15625}
-      - {x: 0.625, y: 0.359375}
-      - {x: 0.40625, y: 0.5}
-      - {x: 0.234375, y: 0.609375}
-      - {x: 0.046875, y: 0.75}
-      - {x: -0.09375, y: 0.75}
-      - {x: -0.21875, y: 0.640625}
-      - {x: -0.3125, y: 0.59375}
-      - {x: -0.515625, y: 0.578125}
-      - {x: -0.59375, y: 0.359375}
-      - {x: -0.59375, y: 0.3125}
-      - {x: -0.65625, y: 0.1875}
-      - {x: -0.796875, y: 0.078125}
-      - {x: -1.03125, y: -0.1875}
-      - {x: -1.09375, y: -0.28125}
-      - {x: -1.140625, y: -0.453125}
-      - {x: -1.140625, y: -0.609375}
-      - {x: -1.125, y: -0.71875}
-      - {x: -0.796875, y: -1.015625}
-      - {x: -0.53125, y: -0.96875}
-      - {x: -0.40625, y: -0.84375}
-      - {x: -0.3125, y: -1.03125}
-      - {x: -0.1875, y: -1.0625}
-      - {x: -0.078125, y: -1.078125}
-      - {x: 0, y: -1.140625}
-      - {x: 0.25, y: -1.140625}
-      - {x: 0.328125, y: -1.15625}
-      - {x: 0.53125, y: -1.15625}
-      - {x: 0.90625, y: -1.125}
-      - {x: 1.109375, y: -0.9375}
-      - {x: 1.140625, y: -0.765625}
-      - {x: 1.125, y: -0.625}
+    - - {x: 1.25, y: 1.0625}
+      - {x: 1.25, y: 1.140625}
+      - {x: 1.15625, y: 1.28125}
+      - {x: 0.96875, y: 1.359375}
+      - {x: 0.78125, y: 1.65625}
+      - {x: 0.625, y: 1.859375}
+      - {x: 0.40625, y: 2}
+      - {x: 0.234375, y: 2.109375}
+      - {x: 0.046875, y: 2.25}
+      - {x: -0.09375, y: 2.25}
+      - {x: -0.21875, y: 2.140625}
+      - {x: -0.3125, y: 2.09375}
+      - {x: -0.515625, y: 2.078125}
+      - {x: -0.59375, y: 1.859375}
+      - {x: -0.59375, y: 1.8125}
+      - {x: -0.65625, y: 1.6875}
+      - {x: -0.796875, y: 1.578125}
+      - {x: -1.03125, y: 1.3125}
+      - {x: -1.09375, y: 1.21875}
+      - {x: -1.140625, y: 1.046875}
+      - {x: -1.140625, y: 0.890625}
+      - {x: -1.125, y: 0.78125}
+      - {x: -0.796875, y: 0.484375}
+      - {x: -0.53125, y: 0.53125}
+      - {x: -0.40625, y: 0.65625}
+      - {x: -0.3125, y: 0.46875}
+      - {x: -0.1875, y: 0.4375}
+      - {x: -0.078125, y: 0.421875}
+      - {x: 0, y: 0.359375}
+      - {x: 0.25, y: 0.359375}
+      - {x: 0.328125, y: 0.34375}
+      - {x: 0.53125, y: 0.34375}
+      - {x: 0.90625, y: 0.375}
+      - {x: 1.109375, y: 0.5625}
+      - {x: 1.140625, y: 0.734375}
+      - {x: 1.125, y: 0.875}
   m_UseDelaunayMesh: 0
---- !u!114 &6385098747328691065
-MonoBehaviour:
+--- !u!195 &5850347223246087765
+NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6863229811700202304}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_OverrideArea: 1
-  m_Area: 1
-  m_IgnoreFromBuild: 0
-  m_AffectedAgents: ffffffff
---- !u!114 &134762663185589043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6863229811700202304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2009ad8b008745e4db94c4b17af5a608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  checkRadius: 0.5
-  localWaveConfig: {fileID: 11400000, guid: c8fd68b6eb846374c80fb17f1594a60e, type: 2}
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

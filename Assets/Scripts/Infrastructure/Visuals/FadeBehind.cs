@@ -23,6 +23,8 @@ namespace Infrastructure.Visuals
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            if (_spriteRenderer == null) _spriteRenderer = GetComponentInParent<SpriteRenderer>();
+
             if (_spriteRenderer != null)
                 _originalColor = _spriteRenderer.color;
         }
