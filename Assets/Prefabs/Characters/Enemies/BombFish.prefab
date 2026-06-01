@@ -20,6 +20,8 @@ GameObject:
   - component: {fileID: 6658563047954017149}
   - component: {fileID: 4904500479396448761}
   - component: {fileID: 617602535836230871}
+  - component: {fileID: 492015557659548767}
+  - component: {fileID: 6177583503732165645}
   m_Layer: 10
   m_Name: BombFish
   m_TagString: Enemy
@@ -284,3 +286,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.53086615, y: 0.69090354}
   m_EdgeRadius: 0
+--- !u!114 &492015557659548767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2956627331902871558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &6177583503732165645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2956627331902871558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 

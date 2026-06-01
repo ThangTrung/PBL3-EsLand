@@ -1,5 +1,6 @@
 ﻿using Core.Contracts.Equipment;
 using Core.Contracts.Shared;
+using Gameplay.Components;
 using UnityEngine;
 
 namespace Gameplay.Characters
@@ -24,7 +25,7 @@ namespace Gameplay.Characters
         private PlayerMovementController _movement;
         private PlayerSurvivalController _survival;
         private Camera _mainCamera;
-        private Environment.Highlight _currentHover;
+        private Highlight _currentHover;
 
         private void Awake()
         {
@@ -68,14 +69,14 @@ namespace Gameplay.Characters
             Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
 
             Collider2D[] colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
-            Environment.Highlight newHover = null;
+            Highlight newHover = null;
 
             foreach (var col in colliders)
             {
                 if (col == null) continue;
                 
                 // Tìm Highlight ở chính nó hoặc object cha (Hỗ trợ cấu hình InteractionZone là con)
-                newHover = col.GetComponent<Gameplay.Environment.Highlight>() ?? col.GetComponentInParent<Gameplay.Environment.Highlight>();
+                newHover = col.GetComponent<Highlight>() ?? col.GetComponentInParent<Highlight>();
                 if (newHover != null) break;
             }
 

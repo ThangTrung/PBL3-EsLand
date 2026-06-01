@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffbc0ac0332ce144a8bdbcc3196135e, type: 3}
+  m_Name: Knife_Recipe
+  m_EditorClassIdentifier: 
+  id: Knife_Recipe
+  recipeName: "Dao s\u1EAFt"
+  description: "M\xF4 t\u1EA3 c\xF4ng th\u1EE9c ch\u1EBF t\u1EA1o..."
+  ingredients:
+  - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: da2fa8770a0181547926035d34fc7051, type: 2}
+    amount: 5
+  - item: {fileID: 11400000, guid: 54e4f4c3d174ae74cb2df49ed02970f2, type: 2}
+    amount: 10
+  resultItem: {fileID: 11400000, guid: 88d44179360d37d44bcb549902ffd3c2, type: 2}
+  resultPrefab: {fileID: 1324405590968892952, guid: 0175b17df69272743a14f1985cde7881, type: 3}

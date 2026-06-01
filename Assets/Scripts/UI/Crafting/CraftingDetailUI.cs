@@ -1,7 +1,9 @@
 ﻿using Core.Contracts.Inventory;
 using Data.Crafting;
+using Data.Items;
 using Gameplay.Crafting;
 using Gameplay.Inventory;
+using Infrastructure.Pooling;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +20,7 @@ namespace UI.Crafting
 
         [Header("UI Elements")]
         [SerializeField] private TextMeshProUGUI recipeNameText;
-        [SerializeField] private Transform ingredientsContainer;
+        [SerializeField] private RectTransform ingredientsContainer;
         
         [Tooltip("Prefab chứa CraftingIngredientSlotUI (có Icon và Text)")]
         [SerializeField] private CraftingIngredientSlotUI ingredientSlotPrefab; 
@@ -63,28 +65,45 @@ namespace UI.Crafting
 
             if (recipeNameText) recipeNameText.text = recipe.RecipeName;
 
-            // 1. Xóa các UI nguyên liệu cũ
-            foreach (Transform child in ingredientsContainer)
-            {
-                Destroy(child.gameObject);
-            }
+            ClearIngredients();
+            PopulateIngredients(recipe);
+        }
 
-            // 2. Sinh UI nguyên liệu mới (có Icon)
+        private void ClearIngredients()
+        {
+            // 1. Thu hồi các UI nguyên liệu cũ về ObjectPool
+            for (int i = ingredientsContainer.childCount - 1; i >= 0; i--)
+            {
+                var child = ingredientsContainer.GetChild(i);
+                // Chỉ thu hồi những object đang active (tránh ném 1 object vào pool 2 lần)
+                if (child.gameObject.activeSelf)
+                {
+                    ObjectPoolManager.Instance.ReturnToPool(child.gameObject);
+                }
+            }
+        }
+
+        private void PopulateIngredients(CraftingRecipe recipe)
+        {
+            // 2. Sinh UI nguyên liệu mới từ ObjectPool
             bool canCraft = true;
             foreach (var ingredient in recipe.Ingredients)
             {
-                int have = 0;
-                if (_inventoryHolder != null && _inventoryHolder.Inventory != null)
-                {
-                    have = _inventoryHolder.Inventory.CountItem(ingredient.Item);
-                }
+                int have = GetInventoryItemCount(ingredient.Item);
                 
                 if (have < ingredient.Amount) canCraft = false;
 
-                CraftingIngredientSlotUI slotUI = Instantiate(ingredientSlotPrefab, ingredientsContainer);
-                if (slotUI != null)
+                if (ingredientSlotPrefab != null)
                 {
-                    slotUI.Setup(ingredient, have);
+                    GameObject slotGO = ObjectPoolManager.Instance.Get(ingredientSlotPrefab.gameObject, Vector3.zero);
+                    slotGO.transform.SetParent(ingredientsContainer, false);
+                    slotGO.transform.SetAsLastSibling(); // Xếp đúng thứ tự hiển thị từ trên xuống
+                    
+                    CraftingIngredientSlotUI slotUI = slotGO.GetComponent<CraftingIngredientSlotUI>();
+                    if (slotUI != null)
+                    {
+                        slotUI.Setup(ingredient, have);
+                    }
                 }
             }
 
@@ -93,6 +112,15 @@ namespace UI.Crafting
             {
                 craftButton.interactable = canCraft;
             }
+        }
+
+        private int GetInventoryItemCount(ItemData item)
+        {
+            if (_inventoryHolder != null && _inventoryHolder.Inventory != null)
+            {
+                return _inventoryHolder.Inventory.CountItem(item);
+            }
+            return 0;
         }
 
         public void OnCraftButtonClicked()
