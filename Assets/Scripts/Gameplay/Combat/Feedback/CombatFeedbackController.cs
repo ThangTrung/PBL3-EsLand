@@ -91,8 +91,6 @@ namespace Gameplay.Combat.Feedback
         private IEnumerator KnockbackRoutine(Vector2 direction)
         {
             _isKnockedBack = true;
-            var enemyMove = GetComponent<Gameplay.AI.Movement.EnemyMovementController>();
-            if (enemyMove != null) enemyMove.SetCanMove(false);
 
             _rb.velocity = Vector2.zero;
             _rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
@@ -100,7 +98,6 @@ namespace Gameplay.Combat.Feedback
             yield return new WaitForSeconds(knockbackDuration);
 
             // [ROBUSTNESS FIX] Actively slow down the object after knockback ends
-            // This prevents objects with 0 drag from flying forever.
             float brakeTime = 0.1f;
             float elapsed = 0f;
             Vector2 startVel = _rb.velocity;
@@ -108,13 +105,15 @@ namespace Gameplay.Combat.Feedback
             while (elapsed < brakeTime)
             {
                 elapsed += Time.deltaTime;
+                // Nếu bị knockback mới chèn vào, thoát routine cũ
+                if (!_isKnockedBack) yield break; 
+                
                 if (_rb != null) _rb.velocity = Vector2.Lerp(startVel, Vector2.zero, elapsed / brakeTime);
                 yield return null;
             }
 
             if (_rb != null) _rb.velocity = Vector2.zero;
 
-            if (enemyMove != null) enemyMove.SetCanMove(true);
             _isKnockedBack = false;
             _knockbackRoutine = null;
         }

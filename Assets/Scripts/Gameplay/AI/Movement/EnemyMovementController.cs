@@ -40,7 +40,7 @@ namespace Gameplay.AI.Movement
         {
             _rb = GetComponent<Rigidbody2D>();
             _facade = GetComponent<Gameplay.Characters.Character>();
-            _animController = GetComponent<Gameplay.AI.Animation.CharacterAnimationController>();
+            _animController = GetComponentInChildren<Gameplay.AI.Animation.CharacterAnimationController>();
             _myCollider = GetComponent<Collider2D>();
             _agent = GetComponent<NavMeshAgent>();
 
@@ -139,9 +139,10 @@ namespace Gameplay.AI.Movement
             if (Mathf.Abs(directionX) > MinFlippingThreshold && Time.time >= _lastFlipTime + FlipCooldown)      
             {
                 float targetScaleX = Mathf.Sign(directionX);
-                if (!Mathf.Approximately(transform.localScale.x, targetScaleX))
+                Transform targetTransform = _animController != null ? _animController.transform : transform;
+                if (!Mathf.Approximately(targetTransform.localScale.x, targetScaleX))
                 {
-                    transform.localScale = new Vector3(targetScaleX, 1, 1);
+                    targetTransform.localScale = new Vector3(targetScaleX, 1, 1);
                     _lastFlipTime = Time.time;
                 }
             }

@@ -49,12 +49,6 @@ namespace Gameplay.Characters
             _health = GetComponent<CharacterHealth>();
             _movement = GetComponent<PlayerMovementController>();
 
-            if (target == null && !string.IsNullOrWhiteSpace(targetTag))
-            {
-                var go = GameObject.FindGameObjectWithTag(targetTag);
-                if (go != null) target = go.transform;
-            }
-
             PickNewPatrolPoint();
         }
 
@@ -77,6 +71,11 @@ namespace Gameplay.Characters
         private void Update()
         {
             if (_health != null && _health.IsDead) return;
+
+            if (target == null && targetTag == "Player")
+            {
+                target = Gameplay.Characters.TargetTracker.PlayerTarget;
+            }
 
             if (_attackTimer > 0)
                 _attackTimer -= Time.deltaTime;

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9062141503497505449
+--- !u!1 &4309461494441103540
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,44 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6740174517417002508}
-  - component: {fileID: 6840341877431964036}
-  - component: {fileID: 308350302285383754}
-  - component: {fileID: 3879114835948044044}
-  - component: {fileID: 6265068816385019038}
-  - component: {fileID: 1214011985897999728}
-  - component: {fileID: 5610253490744758154}
-  - component: {fileID: 2972892316377833483}
-  - component: {fileID: 1850018356229948140}
-  m_Layer: 10
-  m_Name: Bomb
-  m_TagString: Enemy
+  - component: {fileID: 8377166369773108279}
+  - component: {fileID: 1686680416650842062}
+  - component: {fileID: 8453019993078591359}
+  m_Layer: 0
+  m_Name: Visual
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6740174517417002508
+--- !u!4 &8377166369773108279
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9062141503497505449}
+  m_GameObject: {fileID: 4309461494441103540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 6740174517417002508}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6840341877431964036
+--- !u!212 &1686680416650842062
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9062141503497505449}
+  m_GameObject: {fileID: 4309461494441103540}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -91,6 +85,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8453019993078591359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4309461494441103540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22275029f58e6a47bd2f01240ce761d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: ce81ffc566defcf45a2ba744d9ade36d, type: 2}
+--- !u!1 &9062141503497505449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6740174517417002508}
+  - component: {fileID: 308350302285383754}
+  - component: {fileID: 3879114835948044044}
+  - component: {fileID: 6265068816385019038}
+  - component: {fileID: 5610253490744758154}
+  - component: {fileID: 2972892316377833483}
+  - component: {fileID: 1850018356229948140}
+  m_Layer: 10
+  m_Name: Bomb
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6740174517417002508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9062141503497505449}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8377166369773108279}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &308350302285383754
 Rigidbody2D:
   serializedVersion: 4
@@ -148,19 +193,6 @@ MonoBehaviour:
   movementSmoothing: 10
   pathUpdateCooldown: 0.5
   destinationChangeThreshold: 0.5
---- !u!114 &1214011985897999728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9062141503497505449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a22275029f58e6a47bd2f01240ce761d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: ce81ffc566defcf45a2ba744d9ade36d, type: 2}
 --- !u!114 &5610253490744758154
 MonoBehaviour:
   m_ObjectHideFlags: 0

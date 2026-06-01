@@ -21,6 +21,14 @@ namespace Gameplay.World
             [Range(0, 1)] public float chance = 1f;
         }
 
+        public void SetLoot(ItemData item, int amount)
+        {
+            lootTable = new List<LootItem>
+            {
+                new LootItem { item = item, minAmount = amount, maxAmount = amount, chance = 1f }
+            };
+        }
+
         public void SpawnLoot()
         {
             if (!pickupPrefab || lootTable == null) return;
