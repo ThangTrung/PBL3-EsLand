@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a770e395a92ed40b12ec5d9862029f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
+  itemData: {fileID: 11400000, guid: da2fa8770a0181547926035d34fc7051, type: 2}
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
