@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c12e02f6a04564daeab3a6cd55c833, type: 3}
   m_Name: Knife
   m_EditorClassIdentifier: 
-  id: Knife
-  itemName: Knife
-  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
-    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
+  id: 62009bdd-b447-4ce2-ac42-2968d3d0dc88
+  itemName: "Dao g\u0103m"
+  description: "V\u0169 kh\xED c\u1EADn chi\u1EBFn linh ho\u1EA1t, th\xEDch h\u1EE3p
+    \u0111\u1EC3 t\u1EF1 v\u1EC7."
   icon: {fileID: -351778627, guid: f79e783d7d44f49c0a1cef17b11c736a, type: 3}
   maxStack: 1
   fuelTime: 0

@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 4462568749980856897}
   - component: {fileID: 69446949905879801}
   - component: {fileID: 883455499946073840}
+  - component: {fileID: 5482293042613248246}
   m_Layer: 11
   m_Name: Bush 4_0
   m_TagString: Untagged
@@ -212,3 +213,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!60 &5482293042613248246
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927465429055592996}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.4}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 2, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.28125, y: 0.528125}
+      - {x: 0.234375, y: 0.575}
+      - {x: 0.046875, y: 0.653125}
+      - {x: -0.125, y: 0.653125}
+      - {x: -0.3125, y: 0.528125}
+      - {x: -0.40625, y: 0.3875}
+      - {x: -0.40625, y: 0.21562499}
+      - {x: -0.21875, y: 0.012499988}
+      - {x: -0.140625, y: -0.034375012}
+      - {x: -0.015625, y: -0.034375012}
+      - {x: 0.203125, y: 0.012499988}
+      - {x: 0.375, y: 0.10624999}
+      - {x: 0.375, y: 0.41875}
+      - {x: 0.34375, y: 0.45}
+  m_UseDelaunayMesh: 0

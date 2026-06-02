@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aad646c0a7c2fa4380ba7c7e443ae82, type: 3}
   m_Name: Boat_Building
   m_EditorClassIdentifier: 
-  id: Boat_Building
+  id: f5447e35-6fab-4940-80e6-a445f93c984b
   buildingName: "Thuy\u1EC1n tho\xE1t hi\u1EC3m"
   description: "M\xF4 t\u1EA3 c\xF4ng tr\xECnh..."
   icon: {fileID: 21300000, guid: 2b1e4859ae710bc4b8031e0abb4de6af, type: 2}

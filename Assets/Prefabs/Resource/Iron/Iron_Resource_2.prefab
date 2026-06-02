@@ -244,13 +244,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1082177462837943797}
   - component: {fileID: 4926015673365954743}
+  - component: {fileID: 3003519889291221400}
   - component: {fileID: 7650710788756696176}
   - component: {fileID: 7203324445260733249}
   - component: {fileID: 8558946153150275336}
   - component: {fileID: 977128462990826437}
   - component: {fileID: 6469931505613310554}
   m_Layer: 8
-  m_Name: Rock_2
+  m_Name: Iron_Resource_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -315,7 +316,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2d196b47774d30d49bf07f2270e40684, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88ccb03e0d129524393ac9fafcfa8ccc, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -326,6 +327,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3003519889291221400
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7181517856733737800}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 689019f5eb32c434396d412ec9b8ae51, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &7650710788756696176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,9 +360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 7736379040642882417, guid: c00b5561ddfd5e543bfa71db9076b4a2, type: 3}
+  pickupPrefab: {fileID: 7995749434018099684, guid: 22080f3bbbeaabd42897b4a3081a093f, type: 3}
   lootTable:
-  - item: {fileID: 11400000, guid: 54e4f4c3d174ae74cb2df49ed02970f2, type: 2}
+  - item: {fileID: 11400000, guid: da2fa8770a0181547926035d34fc7051, type: 2}
     minAmount: 1
     maxAmount: 2
     chance: 1
@@ -423,7 +445,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5035919, y: 0.42456898}
+    pivot: {x: 0.5, y: 0.4}
     oldSize: {x: 2, y: 2}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5

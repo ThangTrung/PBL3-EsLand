@@ -53,9 +53,20 @@ namespace Gameplay.Characters
             if (_attackTimer > 0)
                 _attackTimer -= Time.deltaTime;
 
+            // Nếu đang trong chế độ xây dựng, không thực hiện các tương tác khác (Highlight, Click)
+            if (Gameplay.Building.BuildingPlacementManager.Instance != null && 
+                Gameplay.Building.BuildingPlacementManager.Instance.IsPlacing)
+            {
+                if (_currentHover != null)
+                {
+                    _currentHover.SetHighlight(false);
+                    _currentHover = null;
+                }
+                return;
+            }
+
             HandleHover();
         }
-
 
         private void HandleHover()
         {
@@ -87,6 +98,10 @@ namespace Gameplay.Characters
 
         public void HandleInteractionClick(Vector3 mouseWorldPos)
         {
+            // Ngăn tương tác click nếu đang xây dựng
+            if (Gameplay.Building.BuildingPlacementManager.Instance != null && 
+                Gameplay.Building.BuildingPlacementManager.Instance.IsPlacing) return;
+
             var colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             
             foreach (var col in colliders)

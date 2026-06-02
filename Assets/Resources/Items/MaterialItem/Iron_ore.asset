@@ -12,12 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b54fc8eb44b9e54391778cce2610373, type: 3}
   m_Name: Iron_ore
   m_EditorClassIdentifier: 
-  id: Iron_ore
+  id: f6e25401-c5f1-46e4-99e2-f652ce387452
   itemName: "Ph\xF4i s\u1EAFt"
-  description: 
+  description: "Qu\u1EB7ng s\u1EAFt th\xF4. Nguy\xEAn li\u1EC7u thi\u1EBFt y\u1EBFu
+    \u0111\u1EC3 r\xE8n v\u0169 kh\xED v\xE0 c\xF4ng c\u1EE5 b\u1EC1n b\u1EC9."
   icon: {fileID: 1756097733, guid: 9302797b0a2ffa647bb90dc3209a08a6, type: 3}
   maxStack: 64
   fuelTime: 0
-  canBeSmelted: 0
-  resultItem: {fileID: 0}
-  smeltTime: 5

@@ -19,16 +19,17 @@ namespace Data.Building
         [SerializeField] private float cookingTime = 5f;
 
         // Properties
-        public string ID => string.IsNullOrEmpty(id) ? name : id;
+        public string ID => id;
         public ItemData InputItem => inputItem;
         public ItemData OutputItem => outputItem;
         public float CookingTime => cookingTime;
 
         private void OnValidate()
         {
-            // Tự động đồng bộ ID với tên file Asset để dễ quản lý dữ liệu (UUID)
-            if (id == name) return;
-            id = name;
+            if (string.IsNullOrEmpty(id))
+            {
+                id = System.Guid.NewGuid().ToString();
+            }
                 
 #if UNITY_EDITOR
             // Đánh dấu asset đã thay đổi để Unity lưu lại

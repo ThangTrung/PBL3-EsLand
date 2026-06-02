@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3130891622987163899}
   - component: {fileID: 7343062198495751096}
   m_Layer: 8
-  m_Name: Gold_Resource_7
+  m_Name: Iron_Resource_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 5a4aa1c2f2ac84011bdacd0445d7cf5b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f479ba78097614c4197656efbd887354, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +103,7 @@ Animator:
   m_GameObject: {fileID: 3645800628817198686}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a0ab3b7c4e1e4f14c9f5df87178ce5b3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1a052897f9d00d143aecb4ac0f06c3ee, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 7995749434018099684, guid: 5a458576073442444860c8c0f456cd84, type: 3}
+  pickupPrefab: {fileID: 7995749434018099684, guid: 22080f3bbbeaabd42897b4a3081a093f, type: 3}
   lootTable:
-  - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
+  - item: {fileID: 11400000, guid: da2fa8770a0181547926035d34fc7051, type: 2}
     minAmount: 3
     maxAmount: 3
     chance: 1

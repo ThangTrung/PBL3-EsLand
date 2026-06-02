@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f20b9dc6be7a71468ece321a20c052d, type: 3}
   m_Name: Meat Well Done
   m_EditorClassIdentifier: 
-  id: Meat Well Done
+  id: 39326ea7-12eb-4415-96e1-a4f9488eb2b2
   itemName: "Th\u1ECBt c\u1EEBu ch\xEDn"
-  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
-    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
+  description: "Th\u1ECBt \u0111\xE3 \u0111\u01B0\u1EE3c n\u01B0\u1EDBng ch\xEDn.
+    R\u1EA5t th\u01A1m ngon v\xE0 b\u1ED5 d\u01B0\u1EE1ng, gi\xFAp h\u1ED3i ph\u1EE5c
+    \u0111\u1ED9 \u0111\xF3i hi\u1EC7u qu\u1EA3."
   icon: {fileID: 21300000, guid: 701bccc0b907127478612bd9864ce51e, type: 3}
   maxStack: 64
   fuelTime: 0
   healthRestore: 0
   hungerRestore: 60
   thirstRestore: 0
-  canBeCooked: 0
-  cookedResult: {fileID: 0}
-  cookingTime: 10

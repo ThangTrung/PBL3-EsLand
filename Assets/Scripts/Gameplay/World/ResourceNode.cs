@@ -194,9 +194,18 @@ namespace Gameplay.World
                 _animator.enabled = !IsDead;
             }
 
-            if (nodeCollider != null) 
+            // Tắt toàn bộ Collider trên root và các object con (như SolidBody, Fade)
+            Collider2D[] allColliders = GetComponentsInChildren<Collider2D>();
+            foreach (var col in allColliders)
             {
-                nodeCollider.enabled = !IsDead;
+                col.enabled = !IsDead;
+            }
+
+            // Tắt luôn NavMeshObstacle để AI có thể đi qua vùng này
+            var navObstacles = GetComponentsInChildren<UnityEngine.AI.NavMeshObstacle>();
+            foreach (var obs in navObstacles)
+            {
+                obs.enabled = !IsDead;
             }
         }
         

@@ -683,6 +683,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 912987927465728763, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+    - target: {fileID: 912987927465728763, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
     - target: {fileID: 936858143612964885, guid: 0ade2e31ae095f64b8fb1297fbc7b796, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2396,6 +2404,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6845579755687209101, guid: 6a57b7fb9be439646a46d0c7dcdc52c0, type: 3}
+      propertyPath: availableRecipes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b745887e018d3524e84cc071de97d63a, type: 2}
+    - target: {fileID: 6845579755687209101, guid: 6a57b7fb9be439646a46d0c7dcdc52c0, type: 3}
+      propertyPath: availableRecipes.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: e08876898c77ff8419722abcb5dc571a, type: 2}
+    - target: {fileID: 6845579755687209101, guid: 6a57b7fb9be439646a46d0c7dcdc52c0, type: 3}
+      propertyPath: availableRecipes.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 52e2f5c47304ccc46b91aab9237acee2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
