@@ -20,15 +20,17 @@ namespace Gameplay.Characters
 
         private Rigidbody2D _rb;
         private Character _facade;
-        private const float SpeedMultiplier = 1f;
         private Collider2D _myCollider;
+        private NavMeshAgent _agent;
 
         private bool _canMove = true;
         private Transform _followTarget;
         private float _stopDistance;
         private System.Action _onTargetReached;
 
-        private NavMeshAgent _agent;
+        private float _nextFlipTime;
+        private const float FlipCooldown = 0.15f;
+        private const float SpeedMultiplier = 1f;
 
         public bool IsFollowingTarget => _followTarget != null;
 
@@ -39,6 +41,11 @@ namespace Gameplay.Characters
             _myCollider = GetComponent<Collider2D>();
             _agent = GetComponent<NavMeshAgent>();
 
+            InitializeAgent();
+        }
+
+        private void InitializeAgent()
+        {
             if (_agent == null) return;
             _agent.updatePosition = false;
             _agent.updateRotation = false;
@@ -71,14 +78,16 @@ namespace Gameplay.Characters
                 return;
             }
 
+            MoveTowardsFollowTarget();
+        }
+
+        private void MoveTowardsFollowTarget()
+        {
             if (_agent != null && _agent.isOnNavMesh)
             {
                 _agent.nextPosition = transform.position;
-                
-                // 2. Handle Follow Target (Dynamic)
                 _agent.SetDestination(_followTarget.position);
 
-                // 3. Calculate Direction based on NavMesh steering target
                 Vector2 steeringPos = _agent.steeringTarget;
                 var distToSteering = Vector2.Distance(transform.position, steeringPos);
                     
@@ -89,13 +98,12 @@ namespace Gameplay.Characters
                 }
                 else
                 {
-                    // Prevent Rigidbody from sliding past the steering target and oscillating.
                     ApplyVelocity(Vector2.zero);
                 }
             }
             else
             {
-                // Fallback to straight-line movement if NavMeshAgent is unavailable or broken
+                // Fallback to straight-line movement
                 Vector2 direction = ((Vector2)_followTarget.position - (Vector2)transform.position).normalized;
                 ApplyVelocity(direction * GetMoveSpeed());
             }
@@ -106,16 +114,11 @@ namespace Gameplay.Characters
         /// </summary>
         public void Move(Vector3 direction)
         {
-            if (!_canMove)
-            {
-                // Removed StopMovement() to allow physical forces like Knockback to persist
-                return;
-            }
+            if (!_canMove) return;
 
-            // Manual input cancels any AI-driven movement
-            if (direction.sqrMagnitude > 0.01f)
+            if (direction.sqrMagnitude > 0.01f && _followTarget != null)
             {
-                if (_followTarget) CancelFollow();
+                CancelFollow();
             }
 
             ApplyVelocity(direction.normalized * GetMoveSpeed());
@@ -123,15 +126,19 @@ namespace Gameplay.Characters
 
         public void SetFollowTarget(Transform target, float stopDistance, System.Action onReached)
         {
+            if (target == null) return;
+            
             _followTarget = target;
             _stopDistance = stopDistance;
             _onTargetReached = onReached;
             _canMove = true;
 
             EnsureAgentOnNavMesh();
-            if (!_agent|| !_agent.isOnNavMesh) return;
-            _agent.isStopped = false;
-            _agent.SetDestination(target.position);
+            if (_agent != null && _agent.isOnNavMesh)
+            {
+                _agent.isStopped = false;
+                _agent.SetDestination(target.position);
+            }
         }
 
         public void SetCanMove(bool canMove)
@@ -144,7 +151,7 @@ namespace Gameplay.Characters
         {
             _followTarget = null;
             _onTargetReached = null;
-            if (_agent && _agent.isOnNavMesh) 
+            if (_agent != null && _agent.isOnNavMesh) 
                 _agent.isStopped = true;
         }
 
@@ -156,12 +163,29 @@ namespace Gameplay.Characters
             
             _rb.velocity = velocity;
             
-            var isMoving = velocity.sqrMagnitude > 0.01f;
-            if (_facade && _facade.Animator)
-                _facade.Animator.SetBool(IsMovingHash, isMoving);
+            UpdateAnimation(velocity);
+            UpdateFacing(velocity);
+        }
 
-            if (isMoving && Mathf.Abs(velocity.x) > 0.1f) 
-                transform.localScale = new Vector3(Mathf.Sign(velocity.x), 1, 1);
+        private void UpdateAnimation(Vector2 velocity)
+        {
+            if (_facade == null || _facade.Animator == null) return;
+            
+            bool isMoving = velocity.sqrMagnitude > 0.01f;
+            _facade.Animator.SetBool(IsMovingHash, isMoving);
+        }
+
+        private void UpdateFacing(Vector2 velocity)
+        {
+            if (Time.time < _nextFlipTime) return;
+            if (Mathf.Abs(velocity.x) < 0.1f) return;
+
+            float targetScaleX = Mathf.Sign(velocity.x);
+            if (!Mathf.Approximately(transform.localScale.x, targetScaleX))
+            {
+                transform.localScale = new Vector3(targetScaleX, 1, 1);
+                _nextFlipTime = Time.time + FlipCooldown;
+            }
         }
 
         private bool CheckReachedTarget()
@@ -212,7 +236,13 @@ namespace Gameplay.Characters
             if (_facade && _facade.EquipmentManager != null)
                 speed += _facade.EquipmentManager.GetTotalSpeedModifier();
             
-            return Mathf.Max(0.1f, speed * SpeedMultiplier);
+            float survivalMultiplier = 1f;
+            if (TryGetComponent<PlayerSurvivalController>(out var survival))
+            {
+                survivalMultiplier = survival.GetSpeedMultiplier();
+            }
+
+            return Mathf.Max(0.1f, speed * SpeedMultiplier * survivalMultiplier);
         }
 
         private void HandleDie()

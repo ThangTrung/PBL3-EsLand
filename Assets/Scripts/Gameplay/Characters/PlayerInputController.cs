@@ -9,21 +9,22 @@ namespace Gameplay.Characters
         private PlayerMovementController _movement;
         private PlayerInteractionController _interaction;
         private Player _playerFacade;
-        private Camera _mainCamera;
-        private Camera _camera;
+        private Camera _cachedCamera;
+
+        private Camera MainCamera
+        {
+            get
+            {
+                if (_cachedCamera == null) _cachedCamera = Camera.main;
+                return _cachedCamera;
+            }
+        }
 
         private void Awake()
         {
-            _camera = GetComponentInChildren<Camera>();
             _movement = GetComponent<PlayerMovementController>();
             _interaction = GetComponentInChildren<PlayerInteractionController>();
             _playerFacade = GetComponent<Player>();
-        }
-
-        private void Start()
-        {
-            _mainCamera = Camera.main;
-            if (_mainCamera == null) _mainCamera = _camera;
         }
 
         private void Update()
@@ -57,11 +58,11 @@ namespace Gameplay.Characters
 
         private void HandleActionInput()
         {
-            if (_interaction == null || _mainCamera == null) return;
+            if (_interaction == null || MainCamera == null) return;
 
             if (!Input.GetMouseButtonDown(0)) return;
             var screenPos = Input.mousePosition;
-            var mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
+            var mouseWorldPos = MainCamera.ScreenToWorldPoint(screenPos);
             _interaction.HandleInteractionClick(mouseWorldPos);
         }
 
