@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3489525831786398255}
   - component: {fileID: 8972475173541239161}
   - component: {fileID: -8687480485350004493}
-  - component: {fileID: 3827533925374141241}
   m_Layer: 12
   m_Name: rock_6
   m_TagString: Untagged
@@ -231,19 +230,3 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!208 &3827533925374141241
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 278722513737191556}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.4, y: 0.25, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.067, y: 0.37600002, z: 0}
-  m_TimeToStationary: 0.5
