@@ -53,9 +53,9 @@ namespace UI.Crafting
             
             panelRoot.SetActive(visible);
 
-            if (_inventoryHolder is Gameplay.Characters.Player player)
+            if (_inventoryHolder is Core.Contracts.Shared.IUIEventListener uiListener)
             {
-                player.SetCraftingState(visible);
+                uiListener.OnUIStateChanged("Crafting", visible);
             }
             
             if (visible)
