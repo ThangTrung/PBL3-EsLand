@@ -6,7 +6,6 @@ namespace Gameplay.Components
     /// Component xử lý hiển thị highlight (Outline) cho các đối tượng môi trường.
     /// Tách biệt hoàn toàn phần Hiển thị khỏi phần Logic tài nguyên.
     /// </summary>
-    [RequireComponent(typeof(Renderer))]
     public class Highlight : MonoBehaviour
     {
         private Renderer _renderer;
@@ -20,7 +19,7 @@ namespace Gameplay.Components
         {
             if (!_renderer)
             {
-                _renderer = GetComponent<Renderer>();
+                _renderer = GetComponent<Renderer>() ?? GetComponentInChildren<Renderer>();
             }
             _propBlock ??= new MaterialPropertyBlock();
 

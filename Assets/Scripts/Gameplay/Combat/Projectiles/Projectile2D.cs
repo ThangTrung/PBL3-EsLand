@@ -99,6 +99,8 @@ public void OnSpawn()
             }
 
             int hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, _spec.HitRadius, _hitBuffer);
+            int envMask = LayerMask.GetMask("Resource", "Environment_Block", "Interactable", "Default");
+            bool isEnemy = _owner != null && _owner.CompareTag("Enemy");
             for (int i = 0; i < hitCount; i++)
             {
                 var hit = _hitBuffer[i];
@@ -107,10 +109,7 @@ public void OnSpawn()
                 if (_owner != null && hit.transform.root == _owner.root) continue; // Bỏ qua chính bản thân người ném
 
                 // [FIX] Projectiles fired by Enemies should ignore Environment/Resources
-                if (_owner != null && _owner.CompareTag("Enemy")) {
-                    if (hit.CompareTag("Untagged") || hit.gameObject.layer == LayerMask.NameToLayer("Interactable"))
-                        continue;
-                }
+                if (isEnemy && ((1 << hit.gameObject.layer) & envMask) != 0) continue;
 
                 if (hit.TryGetComponent<IDamageable>(out var damageable))
                 {

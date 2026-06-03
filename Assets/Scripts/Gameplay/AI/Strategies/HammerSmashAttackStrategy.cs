@@ -132,11 +132,16 @@ namespace Gameplay.AI.Strategies
         {
             Vector3 smashPos = _selfTransform.position + (_selfTransform.localScale.x > 0 ? Vector3.right : Vector3.left) * 1.5f;
             
+            int envMask = LayerMask.GetMask("Resource", "Environment_Block", "Interactable", "Default");
+            bool isEnemy = _source != null && _source.CompareTag("Enemy");
+
             var colliders = Physics2D.OverlapCircleAll(smashPos, _aoeRadius);
             foreach (var col in colliders)
             {
                 if (col.transform.root == _selfTransform.root) continue;
                 
+                if (isEnemy && ((1 << col.gameObject.layer) & envMask) != 0) continue;
+
                 if (col.TryGetComponent<IDamageable>(out var victim))
                 {
                     victim.TakeDamage(_damage, _source);

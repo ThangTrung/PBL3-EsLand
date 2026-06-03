@@ -17,7 +17,6 @@ namespace Gameplay.AI
 {
     [RequireComponent(typeof(CharacterHealth))]
     [RequireComponent(typeof(EnemyMovementController))]
-    [RequireComponent(typeof(CharacterAnimationController))]
     public abstract class EnemyBase : Character, IPoolable, IResettable, IInteractable
     {
         private const float DefaultPatrolReachDistance = 0.3f;
@@ -100,7 +99,7 @@ namespace Gameplay.AI
             base.Awake();
             HealthInternal = GetComponent<CharacterHealth>();
             MovementController = GetComponent<EnemyMovementController>();
-            AnimationController = GetComponent<CharacterAnimationController>();
+            AnimationController = GetComponentInChildren<CharacterAnimationController>();
             StatusEffectController = GetComponent<Gameplay.Combat.StatusEffects.StatusEffectController>();     
 
             if (HealthInternal != null)
@@ -110,9 +109,6 @@ namespace Gameplay.AI
             }
 
             FindTarget();
-            // [SAFETY] Prevent 'Endless Flight' bug by ensuring minimum drag
-            var rb = GetComponent<Rigidbody2D>();
-            if (rb != null && rb.drag < 1.0f) rb.drag = 5f;
 
             // Global NavMesh Protection
             var agent = GetComponent<NavMeshAgent>();
@@ -121,11 +117,6 @@ namespace Gameplay.AI
                 agent.updateRotation = false;
                 agent.updatePosition = false;
                 agent.updateUpAxis = false;
-            }
-
-            if (ConfigInternal == null)
-            {
-                TryAutoInitialize();
             }
         }
 
@@ -154,27 +145,11 @@ namespace Gameplay.AI
             }
         }
 
-        private void TryAutoInitialize()
-        {
-            string enemyName = gameObject.name.Replace(" (Clone)", "").Trim();
-            var configAsset = Resources.Load($"Enemies/Configs/{enemyName}Config");
-            var animConfig = Resources.Load<AnimationConfig>($"Enemies/Animations/{enemyName}Anims");
-
-            if (configAsset != null && animConfig != null)
-            {
-                IEnemyConfig config = configAsset as IEnemyConfig;
-                if (config != null)
-                {
-                    InitializeEnemy(config, animConfig, null, config.BaseAttackRange);
-                }
-            }
-        }
 
         private void FindTarget()
         {
             if (_target != null) return;
-            var player = GameObject.FindGameObjectWithTag("Player");
-            _target = player != null ? player.transform : null;
+            _target = Gameplay.Characters.TargetTracker.PlayerTarget;
         }
 
         private void InitializeMovementStrategy()
@@ -192,15 +167,12 @@ namespace Gameplay.AI
 
         protected virtual void InitializeDefenseStrategy()
         {
-            if (ConfigInternal == null) return;
+            if (ConfigInternal == null || ConfigInternal.DefenseChance <= 0) return;
+            
             var blockMod = GetComponent<BlockDamageModifier>();
             if (blockMod == null) blockMod = gameObject.AddComponent<BlockDamageModifier>();
             
-            string enemyName = gameObject.name.Replace(" (Clone)", "").Trim();
-            if (enemyName.Contains("Turtle"))
-                _defenseStrategy = new TurtleDefenseStrategy(ConfigInternal.DefenseDuration, ConfigInternal.DefenseCooldown, blockMod);
-            else if (enemyName.Contains("Minotaur") || enemyName.Contains("Skull"))
-                _defenseStrategy = new StandardDefenseStrategy(ConfigInternal.DefenseDuration, ConfigInternal.DefenseCooldown, blockMod);
+            _defenseStrategy = new StandardDefenseStrategy(ConfigInternal.DefenseDuration, ConfigInternal.DefenseCooldown, blockMod);
         }
 
         protected virtual void OnDestroy()
@@ -221,9 +193,6 @@ namespace Gameplay.AI
             }
 
             if (_target == null) FindTarget();
-            // [SAFETY] Prevent 'Endless Flight' bug by ensuring minimum drag
-            var rb = GetComponent<Rigidbody2D>();
-            if (rb != null && rb.drag < 1.0f) rb.drag = 5f;
             
             if (StatusEffectController != null && MovementController != null)
             {
@@ -289,7 +258,7 @@ namespace Gameplay.AI
             if (HealthInternal != null) HealthInternal.SetMaxHealth(ConfigInternal?.MaxHealth ?? 100f, true);
             ChangeState(new PatrolState());
             if (StatusEffectController != null) StatusEffectController.ClearAllEffects();
-            var sr = GetComponent<SpriteRenderer>();
+            var sr = GetComponentInChildren<SpriteRenderer>();
             if (sr != null) sr.enabled = true;
             var col = GetComponent<Collider2D>();
             if (col != null) col.enabled = true;
@@ -363,7 +332,7 @@ namespace Gameplay.AI
             StopMovement();
             
             // [FIX] Ensure death animation is rendered at Order 5
-            var sr = GetComponent<SpriteRenderer>();
+            var sr = GetComponentInChildren<SpriteRenderer>();
             if (sr != null) sr.sortingOrder = 5;
 
             // Disable physics interaction but keep simulation for knockback settling
@@ -391,7 +360,13 @@ namespace Gameplay.AI
                 if (Random.value <= chance && _defenseStrategy.CanDefend(this))
                 {
                     ChangeState(new DefenseState());
+                    return;
                 }
+            }
+
+            if (_currentState != null && _currentState.GetType() != typeof(HitState))
+            {
+                ChangeState(new HitState());
             }
         }
 
@@ -400,18 +375,20 @@ namespace Gameplay.AI
             if (_lootDropped) return;
             _lootDropped = true;
 
-            // [RESTORED] Trigger visual loot drop
-            var spawner = GetComponent<LootSpawner>();
-            if (spawner != null) spawner.SpawnLoot();
-
-            if (ConfigInternal != null && !string.IsNullOrEmpty(ConfigInternal.LootItemId))
+            var spawner = GetComponent<Gameplay.World.LootSpawner>();
+            if (spawner != null)
             {
-                var lootData = new Data.Loot.LootDropData(
-                    ConfigInternal.LootItemId,
-                    ConfigInternal.LootQuantity,
-                    transform.position
-                );
-                Core.Events.GameEvents.InvokeEnemyDroppedLoot(lootData);
+                if (ConfigInternal != null && !string.IsNullOrEmpty(ConfigInternal.LootItemId))
+                {
+                    // Sử dụng Safe Lookup từ ItemRegistry thay vì Resources.Load trực tiếp
+                    var itemData = Data.Items.ItemRegistry.GetItem(ConfigInternal.LootItemId);
+                    
+                    if (itemData != null)
+                    {
+                        spawner.SetLoot(itemData, ConfigInternal.LootQuantity);
+                    }
+                }
+                spawner.SpawnLoot();
             }
         }
 
