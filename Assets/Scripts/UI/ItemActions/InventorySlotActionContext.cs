@@ -18,7 +18,7 @@ namespace UI.ItemActions
         }
 
         public string DisplayName => _slot?.ItemData?.ItemName ?? string.Empty;
-        public bool CanUse => _slot?.ItemData is ConsumableItem;
+        public bool CanUse => _slot?.ItemData is IItemUsable;
         public bool CanDrop => true;
         public bool CanEquip => _slot?.ItemData is IEquippable && !(_handler?.IsEquipped(_slot) ?? false);
         public bool CanUnequip => _slot?.ItemData is IEquippable && (_handler?.IsEquipped(_slot) ?? false);

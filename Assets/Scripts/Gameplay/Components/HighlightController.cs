@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Environment
+namespace Gameplay.Components
 {
     /// <summary>
     /// Component xử lý hiển thị highlight (Outline) cho các đối tượng môi trường.
@@ -17,27 +17,20 @@ namespace Gameplay.Environment
 
         private void EnsureInitialized()
         {
-            if (_renderer == null)
+            if (!_renderer)
             {
                 _renderer = GetComponent<Renderer>() ?? GetComponentInChildren<Renderer>();
             }
-            if (_propBlock == null)
-            {
-                _propBlock = new MaterialPropertyBlock();
-            }
+            _propBlock ??= new MaterialPropertyBlock();
 
             // Tự động kiểm tra xem shader hiện tại có hỗ trợ viền không
-            if (!_needsMaterialSwap && _renderer != null && _renderer.sharedMaterial != null)
+            if (_needsMaterialSwap || !_renderer || !_renderer.sharedMaterial) return;
+            if (_renderer.sharedMaterial.HasProperty(OutlineEnabledHash)) return;
+            _needsMaterialSwap = true;
+            if (!_fallbackHighlightMaterial)
             {
-                if (!_renderer.sharedMaterial.HasProperty(OutlineEnabledHash))
-                {
-                    _needsMaterialSwap = true;
-                    if (_fallbackHighlightMaterial == null)
-                    {
-                        // Tự động tải Material Highlight có viền từ thư mục Resources
-                        _fallbackHighlightMaterial = Resources.Load<Material>("Materials/Highlight");
-                    }
-                }
+                // Tự động tải Material Highlight có viền từ thư mục Resources
+                _fallbackHighlightMaterial = Resources.Load<Material>("Materials/Highlight");
             }
         }
 

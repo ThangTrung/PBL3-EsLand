@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffbc0ac0332ce144a8bdbcc3196135e, type: 3}
+  m_Name: Boat_Recipe
+  m_EditorClassIdentifier: 
+  id: Boat_Recipe
+  recipeName: "Thuy\u1EC1n tho\xE1t hi\u1EC3m"
+  description: "M\xF4 t\u1EA3 c\xF4ng th\u1EE9c ch\u1EBF t\u1EA1o..."
+  ingredients:
+  - item: {fileID: 11400000, guid: 66ce93e8ca7865f4aa05e1499b1ed03e, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 46a2282f224387242abaae5d7aa40f5f, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 9c918819363f5d0458752071cfe01b5b, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: eea875398b90e994390384ef82a5f5a4, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
+    amount: 10
+  - item: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
+    amount: 40
+  - item: {fileID: 11400000, guid: da2fa8770a0181547926035d34fc7051, type: 2}
+    amount: 20
+  resultItem: {fileID: 11400000, guid: f5ee1a6227fc7244b8c9dbe0e56b17b8, type: 2}
+  resultPrefab: {fileID: 329682701079764053, guid: a129d302fc91b7d429bd82e5e40b11c4, type: 3}

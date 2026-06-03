@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffbc0ac0332ce144a8bdbcc3196135e, type: 3}
+  m_Name: House_Recipe
+  m_EditorClassIdentifier: 
+  id: House_Recipe
+  recipeName: "Nh\xE0 h\u1ED3i sinh"
+  description: "M\xF4 t\u1EA3 c\xF4ng th\u1EE9c ch\u1EBF t\u1EA1o..."
+  ingredients:
+  - item: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
+    amount: 50
+  - item: {fileID: 11400000, guid: da2fa8770a0181547926035d34fc7051, type: 2}
+    amount: 40
+  - item: {fileID: 11400000, guid: 54e4f4c3d174ae74cb2df49ed02970f2, type: 2}
+    amount: 40
+  resultItem: {fileID: 11400000, guid: d5608552bd5bc264386fe46fd841818e, type: 2}
+  resultPrefab: {fileID: 567004747014905352, guid: 4b13aa389ceaaa54ba802f3ee1e86519, type: 3}
