@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 2669207030224147842}
   - component: {fileID: 5382923998154302203}
   - component: {fileID: 3607244925277118767}
-  - component: {fileID: 7072269533315072933}
   - component: {fileID: 5134286131893704598}
   - component: {fileID: 372164403223463846}
   - component: {fileID: 5874208161094479287}
@@ -45,7 +44,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6245373343603039339}
-  - {fileID: 6800159193192132130}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1693978706555743599
@@ -197,18 +195,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.54639626, y: 0.9860239}
   m_EdgeRadius: 0
---- !u!114 &7072269533315072933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1478829586205786322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5134286131893704598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +303,9 @@ GameObject:
   - component: {fileID: 6245373343603039339}
   - component: {fileID: 1594724537960101912}
   - component: {fileID: 2990625054570533051}
-  m_Layer: 0
+  - component: {fileID: 3763599444824152023}
+  - component: {fileID: 7971101160222207998}
+  m_Layer: 14
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,8 +365,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1002
+  m_SortingLayer: 2
   m_SortingOrder: 100
   m_Sprite: {fileID: -5274279815260803775, guid: 4b7bbed318ba1c24b8bb17352f193a3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -404,45 +392,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 1bbf3df6d8ccde847accba4ffee3cdcb, type: 2}
---- !u!1 &7164198093037617468
-GameObject:
+--- !u!114 &3763599444824152023
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6800159193192132130}
-  - component: {fileID: 7493619441791701711}
-  m_Layer: 14
-  m_Name: Hitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6800159193192132130
-Transform:
+  m_GameObject: {fileID: 5072303201851039414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &7971101160222207998
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7164198093037617468}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8365136099163661117}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &7493619441791701711
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7164198093037617468}
+  m_GameObject: {fileID: 5072303201851039414}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -468,7 +436,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012189865, y: 1.8927228}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -478,6 +446,41 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.54639626, y: 0.9860239}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.25, y: 1.421875}
+      - {x: 0.3125, y: 1.59375}
+      - {x: 0.453125, y: 1.78125}
+      - {x: 0.5, y: 1.90625}
+      - {x: 0.640625, y: 1.953125}
+      - {x: 0.6875, y: 2.0625}
+      - {x: 0.6875, y: 2.1875}
+      - {x: 0.609375, y: 2.203125}
+      - {x: 0.40625, y: 2.171875}
+      - {x: 0.375, y: 2.265625}
+      - {x: 0.1875, y: 2.40625}
+      - {x: 0.078125, y: 2.484375}
+      - {x: -0.234375, y: 2.40625}
+      - {x: -0.34375, y: 2.34375}
+      - {x: -0.421875, y: 2.75}
+      - {x: -0.5625, y: 3.25}
+      - {x: -0.671875, y: 3.25}
+      - {x: -0.75, y: 3.015625}
+      - {x: -0.75, y: 2.765625}
+      - {x: -0.46875, y: 2.15625}
+      - {x: -0.546875, y: 2.203125}
+      - {x: -0.671875, y: 2.1875}
+      - {x: -0.546875, y: 1.9375}
+      - {x: -0.4375, y: 1.90625}
+      - {x: -0.515625, y: 1.78125}
+      - {x: -0.328125, y: 1.640625}
+      - {x: -0.453125, y: 1.46875}
+      - {x: -0.46875, y: 1.40625}
+      - {x: -0.296875, y: 1.359375}
+      - {x: -0.203125, y: 1.234375}
+      - {x: -0.140625, y: 1.21875}
+      - {x: -0.03125, y: 1.21875}
+      - {x: 0, y: 1.25}
+      - {x: -0.015625, y: 1.375}
+      - {x: 0.21875, y: 1.390625}
+  m_UseDelaunayMesh: 0

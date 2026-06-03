@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3937764437979485252}
   - component: {fileID: 7379706557887249338}
   - component: {fileID: 4772872147039159577}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,9 +71,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingLayerID: 1002
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 2816024428125677612, guid: 1e6bfcb96913be74e9a3f3e6a2a19419, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -111,8 +111,8 @@ GameObject:
   - component: {fileID: -4842219907759351064}
   - component: {fileID: 6385098747328691065}
   - component: {fileID: 134762663185589043}
-  - component: {fileID: 8376344791311327820}
-  m_Layer: 10
+  - component: {fileID: 3592732275702027793}
+  m_Layer: 12
   m_Name: Cave
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -275,16 +275,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   checkRadius: 0.5
-  localWaveConfig: {fileID: 11400000, guid: c8fd68b6eb846374c80fb17f1594a60e, type: 2}
---- !u!114 &8376344791311327820
-MonoBehaviour:
+  localWaveConfig: {fileID: 11400000, guid: 94ce4986709564246abb3df6a5c7de5e, type: 2}
+--- !u!208 &3592732275702027793
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6863229811700202304}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9518c710380722441966d5537e4ed991, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.75, y: 0.75, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: -0.3, z: 0}
+  m_TimeToStationary: 0.5

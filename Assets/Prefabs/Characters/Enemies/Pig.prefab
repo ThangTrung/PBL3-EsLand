@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 9169153520649962830}
   - component: {fileID: 4552629993259398915}
   - component: {fileID: 2467093470542231052}
-  m_Layer: 0
+  - component: {fileID: 7976077677823527080}
+  - component: {fileID: 7679623914567781929}
+  m_Layer: 14
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1002
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7565204381512348054, guid: 1a48da3c7bc33d946b5ef6b20c58f06c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -98,45 +100,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 50f6367c4c8f34b4b82a811cd762cc22, type: 2}
---- !u!1 &999110296094409067
-GameObject:
+--- !u!114 &7976077677823527080
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2896896469322319974}
-  - component: {fileID: 7843667358144243406}
-  m_Layer: 14
-  m_Name: Hitbox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2896896469322319974
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999110296094409067}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8144070179395563623}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &7843667358144243406
+  m_GameObject: {fileID: 470652143604477145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99d7a837a52ed90428645b247ce2493d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &7679623914567781929
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999110296094409067}
+  m_GameObject: {fileID: 470652143604477145}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -232,7 +214,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9169153520649962830}
-  - {fileID: 2896896469322319974}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2592448349256437636

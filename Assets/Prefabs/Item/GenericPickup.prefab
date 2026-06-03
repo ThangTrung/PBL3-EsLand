@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7832713785090824598}
   - component: {fileID: 8839256394188592751}
   - component: {fileID: 6480485228157752376}
+  - component: {fileID: 8217013304682326953}
+  - component: {fileID: 2976913694317076406}
   m_Layer: 0
   m_Name: GenericPickup
   m_TagString: Loot
@@ -180,3 +182,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 
+--- !u!114 &8217013304682326953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392395142569534924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &2976913694317076406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392395142569534924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 

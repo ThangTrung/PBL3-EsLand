@@ -592,7 +592,7 @@ MonoBehaviour:
   interactionDelay: 0.4
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 5952
+    m_Bits: 22464
   baseDamage: 10
   baseAttackCooldown: 1
   interactionRange: 0.5
