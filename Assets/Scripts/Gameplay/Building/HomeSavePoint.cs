@@ -67,12 +67,17 @@ namespace Gameplay.Building
                 respawnCtrl.SetRespawnPoint(transform.position + respawnOffset);
             }
 
-            // 4. Save Game
+            // 4. Nhảy thời gian sang sáng hôm sau
+            if (Core.TimeManager.Instance != null)
+            {
+                Core.TimeManager.Instance.SkipToMorning();
+            }
+
+            // 5. Save Game
             if (SaveLoadManager.Instance != null)
             {
                 SaveLoadManager.Instance.SaveGame();
             }
-
         }
 
         private void OnDrawGizmosSelected()

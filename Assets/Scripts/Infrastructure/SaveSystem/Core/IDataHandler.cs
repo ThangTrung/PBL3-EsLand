@@ -6,5 +6,6 @@ namespace Infrastructure.SaveSystem.Core
     {
         GameData Load();
         void Save(GameData data);
+        void Delete();
     }
 }

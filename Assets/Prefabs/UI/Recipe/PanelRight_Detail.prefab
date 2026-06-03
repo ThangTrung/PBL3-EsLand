@@ -174,8 +174,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "T\xEAn C\xF4ng Th\u1EE9c"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5f5a79ea8aa61fc4884de82a113f8a26, type: 2}
+  m_sharedMaterial: {fileID: 2671835508474596857, guid: 5f5a79ea8aa61fc4884de82a113f8a26, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -481,8 +481,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "CH\u1EBE T\u1EA0O"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5f5a79ea8aa61fc4884de82a113f8a26, type: 2}
+  m_sharedMaterial: {fileID: 2671835508474596857, guid: 5f5a79ea8aa61fc4884de82a113f8a26, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

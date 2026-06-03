@@ -29,6 +29,17 @@ namespace Gameplay.World
 
         private void Start()
         {
+            // Validation
+            if (targetBossHealth == null && !_isUnlocked)
+            {
+                Debug.LogWarning($"<color=yellow>[MapGate]</color> Gate <b>{gateID}</b> has no Boss assigned! It will never open unless unlocked by save data.");
+            }
+
+            if (gateVisuals == null)
+            {
+                Debug.LogError($"<color=red>[MapGate]</color> Gate <b>{gateID}</b> has no <b>gateVisuals</b> assigned! There is nothing to block the path.");
+            }
+
             // Register for the boss death event if not already unlocked
             if (!_isUnlocked && targetBossHealth != null)
             {

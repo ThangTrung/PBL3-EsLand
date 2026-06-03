@@ -140,6 +140,16 @@ namespace Infrastructure.SaveSystem.Core
             }
         }
 
+        public void DeleteSaveData()
+        {
+            useAutoSave = false; // Ngăn chặn auto-save sau khi xóa file
+            if (dataHandler != null)
+            {
+                dataHandler.Delete();
+            }
+            gameData = null;
+        }
+
         private List<ISaveable> FindAllSaveableObjects()
         {
             IEnumerable<ISaveable> saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>();

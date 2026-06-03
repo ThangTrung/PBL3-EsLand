@@ -88,7 +88,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!95 &6609400901527620074
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   requiredTool: 1
-  staminaCostPerHit: 5
+  staminaCostPerHit: 25
   stumpSprite: {fileID: 0}
   nodeCollider: {fileID: 8431521978240490524}
 --- !u!1 &3453047647510105665

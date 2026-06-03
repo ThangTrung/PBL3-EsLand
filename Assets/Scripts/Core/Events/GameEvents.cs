@@ -34,5 +34,15 @@ namespace Core.Events
 
         // Sự kiện yêu cầu ngủ (để UIManager xử lý chuyển cảnh)
         public static Action<Gameplay.Building.HomeSavePoint, Gameplay.Characters.Player> OnSleepRequested;
+
+        /// <summary>
+        /// Phát ra khi người chơi chiến thắng trò chơi (thoát đảo).
+        /// </summary>
+        public static Action OnVictory;
+
+        public static void RaiseVictory()
+        {
+            OnVictory?.Invoke();
+        }
     }
 }

@@ -16,7 +16,7 @@ MonoBehaviour:
   buildingName: "Thuy\u1EC1n tho\xE1t hi\u1EC3m"
   description: "M\xF4 t\u1EA3 c\xF4ng tr\xECnh..."
   icon: {fileID: 21300000, guid: 2b1e4859ae710bc4b8031e0abb4de6af, type: 2}
-  type: 0
+  type: 2
   maxHealth: 10000
   interactRadius: 3
   buildingPrefab: {fileID: 329682701079764053, guid: a129d302fc91b7d429bd82e5e40b11c4, type: 3}
