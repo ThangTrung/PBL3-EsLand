@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Contracts.Equipment;
 using Core.Contracts.Combat;
+using Data.Equipment;
 using System.Linq;
 using UnityEngine;
 
@@ -55,8 +56,37 @@ namespace Gameplay.Characters
         private void Start()
         {
             _equipmentController = GetComponent<IEquipmentController>();
-            // Re-initialize to account for equipment modifiers if they are applied before/during Start
-            CurrentHealth = MaxHealth;
+            // REMOVED: CurrentHealth = MaxHealth; -> Để cho hệ thống Save/Load hoặc khởi tạo thủ công quyết định
+
+            // Đăng ký sự kiện thay đổi trang bị để cập nhật máu
+            if (_equipmentController != null)
+            {
+                _equipmentController.OnItemEquipped += HandleEquipmentChanged;
+                _equipmentController.OnItemUnequipped += HandleEquipmentChanged;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (_equipmentController != null)
+            {
+                _equipmentController.OnItemEquipped -= HandleEquipmentChanged;
+                _equipmentController.OnItemUnequipped -= HandleEquipmentChanged;
+            }
+        }
+
+        private void HandleEquipmentChanged(EquipSlot slot, IEquippable item)
+        {
+            // Khi tháo lắp đồ, MaxHealth tự động thay đổi nhờ vào Getter MaxHealth.
+            // Chúng ta chỉ cần đảm bảo CurrentHealth không bị tràn và cập nhật UI.
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, MaxHealth);
+            OnHealthChanged?.Invoke(CurrentHealth);
+        }
+
+        public void SetCurrentHealth(float value)
+        {
+            CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
+            OnHealthChanged?.Invoke(CurrentHealth);
         }
 
         public void RefreshModifiers()
