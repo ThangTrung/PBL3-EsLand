@@ -70,8 +70,8 @@ namespace UI.Inventory
                 canvasRoot.SetActive(visible);
             }
                 
-            if (_provider is Player player)
-                player.SetInventoryState(visible);
+            if (_provider is Core.Contracts.Shared.IUIEventListener uiListener)
+                uiListener.OnUIStateChanged("Inventory", visible);
 
             if (visible) return;
     

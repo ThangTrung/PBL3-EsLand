@@ -57,6 +57,7 @@ namespace Infrastructure.SaveSystem.Data
         [Header("World State")]
         public List<ResourceNodeSaveData> resourceNodes = new List<ResourceNodeSaveData>();
         public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
+        public List<string> openedGates = new List<string>();
         
         public List<string> destroyedEntityIDs = new List<string>(); 
 

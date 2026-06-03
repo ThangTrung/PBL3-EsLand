@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3db9a2bff53d4f8d15cf6040e637f, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
-  id: Attack
+  id: 71a63a87-2035-4f57-ae98-10f644262136
   itemName: "Vi\xEAn \u0110\xE1 Cu\u1ED3ng N\u1ED9"
-  description: "Ch\u1EE9a \u0111\u1EF1ng s\u1EE9c m\u1EA1nh c\u1EE7a ng\u1ECDn l\u1EEDa
-    v\u0129nh c\u1EEDu, gi\xFAp t\u0103ng c\u01B0\u1EDDng uy l\u1EF1c trong m\u1ED7i
-    \u0111\xF2n \u0111\xE1nh."
+  description: "T\u1ECFa ra s\u1EE9c m\u1EA1nh cu\u1ED3ng n\u1ED9, t\u0103ng s\xE1t
+    th\u01B0\u01A1ng v\u1EADt l\xFD khi trang b\u1ECB."
   icon: {fileID: 1873737236, guid: e0ebbc0d03fd42c4b9a1ac873d10394e, type: 3}
   maxStack: 1
   fuelTime: 0

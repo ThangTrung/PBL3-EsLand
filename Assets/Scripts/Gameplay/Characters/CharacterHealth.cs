@@ -43,11 +43,13 @@ namespace Gameplay.Characters
         public event Action OnDie;
 
         private IEquipmentController _equipmentController;
+        private IDamageModifier[] _cachedModifiers;
 
         private void Awake()
         {
             CurrentHealth = MaxHealth;
             IsDead = false;
+            RefreshModifiers();
         }
 
         private void Start()
@@ -57,18 +59,25 @@ namespace Gameplay.Characters
             CurrentHealth = MaxHealth;
         }
 
+        public void RefreshModifiers()
+        {
+            _cachedModifiers = GetComponents<IDamageModifier>().OrderBy(m => m.Priority).ToArray();
+        }
+
         public void TakeDamage(float amount, Character source = null)
         {
             if (IsDead) return;
 
             float originalDamage = amount;
 
-            // Apply Damage Modifiers
-            var modifiers = GetComponents<IDamageModifier>().OrderBy(m => m.Priority);
-            foreach (var modifier in modifiers)
+            // Apply Damage Modifiers using cached list
+            if (_cachedModifiers != null)
             {
-                amount = modifier.ModifyDamage(amount, source);
-                if (amount <= 0) break;
+                foreach (var modifier in _cachedModifiers)
+                {
+                    amount = modifier.ModifyDamage(amount, source);
+                    if (amount <= 0) break;
+                }
             }
 
             float currentDefense = TotalDefense;

@@ -68,13 +68,10 @@ namespace Gameplay.Equipment
                 Unequip(slot);
             }
 
-            // 2. Quét sạch thư mục Resources/Items để tìm file cấu hình của món đồ
-            ItemData[] allItemsInResources = Resources.LoadAll<ItemData>("Items");
-
-            // 3. Đắp đồ từ file save vào lại cho nhân vật
+            // 2. Đắp đồ từ file save vào lại cho nhân vật bằng ItemDatabase
             foreach (var equipData in data.equippedItems)
             {
-                ItemData foundItem = allItemsInResources.FirstOrDefault(i => i.name == equipData.itemID);
+                ItemData foundItem = ItemDatabase.Instance.GetItemByID(equipData.itemID);
                 
                 if (foundItem != null && foundItem is IEquippable equippableItem)
                 {

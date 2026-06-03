@@ -11,12 +11,16 @@ namespace Gameplay.Building
         public static BuildingPlacementManager Instance { get; private set; }
 
         [Header("Settings")]
-        [Tooltip("Layer của vật cản (cây, đá, quái, nước) để check va chạm khi đặt nhà")]
+        [Tooltip("Layer của vật cản (cây, đá, quái, công trình khác) để check va chạm khi đặt nhà")]
         [SerializeField] private LayerMask obstacleLayer; 
+        [SerializeField] private LayerMask waterLayer;
+        [SerializeField] private LayerMask landLayer;
         [SerializeField] private Color validColor = new Color(0, 1, 0, 0.5f);
         [SerializeField] private Color invalidColor = new Color(1, 0, 0, 0.5f);
 
         private bool isPlacing = false;
+        public bool IsPlacing => isPlacing;
+
         private PlaceableItem currentItemToPlace; // Bản vẽ item đang được cầm
         private GameObject ghostBuilding; // Bóng mờ
         private SpriteRenderer[] ghostRenderers;
@@ -103,23 +107,36 @@ namespace Gameplay.Building
 
         private bool CheckPlacementValid(Vector2 position)
         {
+            if (currentItemToPlace == null || currentItemToPlace.TargetBuilding == null) return false;
+
+            BuildingType type = currentItemToPlace.TargetBuilding.Type;
+            bool isOnCorrectTerrain = false;
+
+            // 1. Kiểm tra địa hình phù hợp (Water cho Thuyền, Land cho công trình khác)
+            if (type == BuildingType.EscapeVehicle)
+            {
+                // Thuyền: Phải chạm vào lớp Nước
+                isOnCorrectTerrain = Physics2D.OverlapPoint(position, waterLayer);
+            }
+            else
+            {
+                // Công trình khác: Phải chạm vào lớp Đất
+                isOnCorrectTerrain = Physics2D.OverlapPoint(position, landLayer);
+            }
+
+            if (!isOnCorrectTerrain) return false;
+
+            // 2. Kiểm tra không đè lên vật cản (Cây, đá, nhà khác)
             if (ghostCollider != null)
             {
-                // Tính toán box cast dựa trên kích thước thật của công trình
-                Vector2 boxSize = ghostCollider.size;
-                Vector2 offset = ghostCollider.offset;
-                Vector2 checkPosition = position + offset;
-                
-                // Thu nhỏ bounds lại 1 chút (khoảng 5-10%) để tránh viền collider chạm nhẹ vào nhau cũng bị tính là lỗi
-                boxSize *= 0.9f;
-
+                Vector2 boxSize = ghostCollider.size * 0.9f;
+                Vector2 checkPosition = position + ghostCollider.offset;
                 Collider2D hit = Physics2D.OverlapBox(checkPosition, boxSize, 0f, obstacleLayer);
                 return hit == null;
             }
             else
             {
-                // Fallback: nếu không có collider thì dùng hình tròn bán kính 0.5
-                Collider2D hit = Physics2D.OverlapCircle(position, 0.5f, obstacleLayer);
+                Collider2D hit = Physics2D.OverlapCircle(position, 0.45f, obstacleLayer);
                 return hit == null;
             }
         }

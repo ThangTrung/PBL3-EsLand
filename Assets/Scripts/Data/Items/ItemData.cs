@@ -19,7 +19,7 @@ namespace Data.Items
         [Header("Cooking Settings")]
         [SerializeField] private float fuelTime = 0f;
 
-        public string ID => string.IsNullOrEmpty(id) ? name : id;
+        public string ID => id;
         public string ItemName => itemName;
         public string Description => description;
         public Sprite Icon => icon;
@@ -28,12 +28,12 @@ namespace Data.Items
 
         private void OnValidate()
         {
-            // Nếu ô id khác với tên file Asset, tự động lấy tên file gán vào luôn
-            if (id == name) return;
-            id = name;
+            if (string.IsNullOrEmpty(id))
+            {
+                id = System.Guid.NewGuid().ToString();
+            }
                 
 #if UNITY_EDITOR
-            // Báo cho Unity biết là file này đã bị thay đổi để nó lưu lại code mới sinh
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }

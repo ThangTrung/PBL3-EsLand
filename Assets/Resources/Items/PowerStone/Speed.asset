@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3db9a2bff53d4f8d15cf6040e637f, type: 3}
   m_Name: Speed
   m_EditorClassIdentifier: 
-  id: Speed
+  id: 4d06c2eb-0866-435a-a248-a8cb426a1a00
   itemName: "Vi\xEAn \u0110\xE1 T\u1EADt Phong"
-  description: "Nh\u1EB9 nh\xE0ng nh\u01B0 nh\u1EEFng c\u01A1n gi\xF3 ph\u01B0\u01A1ng
-    B\u1EAFc, gi\xFAp c\u01A1 th\u1EC3 tr\u1EDF n\xEAn linh ho\u1EA1t v\xE0 nhanh
-    nh\u1EB9n h\u01A1n bao gi\u1EDD h\u1EBFt."
+  description: "Gi\xF3 th\u1ED5i quanh vi\xEAn \u0111\xE1 n\xE0y, gi\xFAp b\u1EA1n
+    di chuy\u1EC3n v\xE0 thao t\xE1c nhanh nh\u1EB9n h\u01A1n."
   icon: {fileID: 1177542737, guid: ac7da059228fdd84ca27604f6dee6c00, type: 3}
   maxStack: 1
   fuelTime: 0

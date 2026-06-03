@@ -174,15 +174,11 @@ namespace Gameplay.Inventory
             InitializeSlots();
             Clear();
 
-            // 1. Dùng LoadAll để gom toàn bộ file ItemData trong thư mục Items (và cả các thư mục con)
-            ItemData[] allItems = Resources.LoadAll<ItemData>("Items");
-
             foreach (var slotData in myData.slots)
             {
                 if (slotData.slotIndex >= 0 && slotData.slotIndex < _slots.Length)
                 {
-                    // 2. Tìm file vật phẩm có ID trùng khớp với mã ID đã lưu trong JSON
-                    ItemData item = System.Array.Find(allItems, i => i.ID == slotData.itemID);
+                    ItemData item = ItemDatabase.Instance.GetItemByID(slotData.itemID);
             
                     if (item != null)
                     {

@@ -19,10 +19,23 @@ namespace Gameplay.Characters
         [SerializeField] private float thirstDrainRate = 7.0f;
         [SerializeField] private float staminaRegenRate = 5.0f;
 
+        [Header("Debuff Settings")]
+        [SerializeField] private float thresholdPercentage = 0.1f; // 10%
+        [SerializeField] private float slowMultiplier = 0.5f;
+        [SerializeField] private float damageMultiplier = 0.5f;
+        [SerializeField] private float healthLossInterval = 5f;
+        [SerializeField] private float healthLossAmount = 1f;
+
         [Header("Runtime Stats")]
         [SerializeField] private float currentHunger;
         [SerializeField] private float currentThirst;
         [SerializeField] private float currentStamina;
+
+        private static readonly int HitHash = Animator.StringToHash("Hit");
+        private float _healthLossTimer;
+        private CharacterHealth _health;
+        private Character _facade;
+        private bool _hasHitParameter;
 
         public float MaxHunger => maxHunger;
         public float MaxThirst => maxThirst;
@@ -31,6 +44,12 @@ namespace Gameplay.Characters
         public float CurrentHunger => currentHunger;
         public float CurrentThirst => currentThirst;
         public float CurrentStamina => currentStamina;
+
+        public bool IsStarving => currentHunger <= 0;
+        public bool IsDehydrated => currentThirst <= 0;
+        public bool IsHungryCritical => (currentHunger / maxHunger) < thresholdPercentage;
+        public bool IsThirstyCritical => (currentThirst / maxThirst) < thresholdPercentage;
+        public bool NeedsPenalty => IsHungryCritical || IsThirstyCritical;
 
         public event Action<float> OnHungerChanged;
         public event Action<float> OnThirstChanged;
@@ -41,6 +60,15 @@ namespace Gameplay.Characters
             currentHunger = maxHunger;
             currentThirst = maxThirst;
             currentStamina = maxStamina;
+
+            _health = GetComponent<CharacterHealth>();
+            _facade = GetComponent<Character>();
+        }
+
+        private void Start()
+        {
+            if (_facade != null && _facade.Animator != null)
+                _hasHitParameter = HasParameter(_facade.Animator, HitHash);
         }
 
         private void Update()
@@ -53,7 +81,47 @@ namespace Gameplay.Characters
             {
                 ModifyStamina(staminaRegenRate * Time.deltaTime);
             }
+
+            HandleStarvation();
         }
+
+        private void HandleStarvation()
+        {
+            if (IsStarving || IsDehydrated)
+            {
+                _healthLossTimer += Time.deltaTime;
+                if (_healthLossTimer >= healthLossInterval)
+                {
+                    _healthLossTimer = 0f;
+                    if (_health != null && !_health.IsDead)
+                    {
+                        // Gây sát thương do đói/khát (không có source)
+                        _health.TakeDamage(healthLossAmount, null);
+                        
+                        // Kích hoạt hoạt ảnh bị thương nếu có
+                        if (_facade != null && _facade.Animator != null && _hasHitParameter)
+                        {
+                            _facade.Animator.SetTrigger(HitHash);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                _healthLossTimer = 0f;
+            }
+        }
+
+        private bool HasParameter(Animator animator, int paramHash)
+        {
+            if (animator == null) return false;
+            foreach (var param in animator.parameters)
+                if (param.nameHash == paramHash) return true;
+            return false;
+        }
+
+        public float GetSpeedMultiplier() => NeedsPenalty ? slowMultiplier : 1f;
+        public float GetDamageMultiplier() => NeedsPenalty ? damageMultiplier : 1f;
 
         public void ModifyHunger(float delta)
         {

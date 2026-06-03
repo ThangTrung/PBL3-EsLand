@@ -24,7 +24,7 @@ namespace Data.Crafting
         [Tooltip("Prefab vật lý để spawn ra thế giới khi chế tạo thành công")]
         [SerializeField] private GameObject resultPrefab;
 
-        public string ID => string.IsNullOrEmpty(id) ? name : id;
+        public string ID => id;
         public string RecipeName => recipeName;
         public string Description => description;
         
@@ -36,12 +36,12 @@ namespace Data.Crafting
 
         private void OnValidate()
         {
-            // Nếu ô id khác với tên file Asset, tự động lấy tên file gán vào luôn
-            if (id == name) return;
-            id = name;
+            if (string.IsNullOrEmpty(id))
+            {
+                id = System.Guid.NewGuid().ToString();
+            }
                 
 #if UNITY_EDITOR
-            // Báo cho Unity biết là file này đã bị thay đổi để nó lưu lại code mới sinh
             UnityEditor.EditorUtility.SetDirty(this);
 #endif
         }

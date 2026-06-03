@@ -24,19 +24,21 @@ namespace Gameplay.Characters
         private Character _facade;
         private PlayerMovementController _movement;
         private PlayerSurvivalController _survival;
-        private Camera _mainCamera;
         private Highlight _currentHover;
+        private Camera _cachedCamera;
+
+        private Camera MainCamera
+        {
+            get
+            {
+                if (_cachedCamera == null) _cachedCamera = Camera.main;
+                return _cachedCamera;
+            }
+        }
 
         private void Awake()
         {
             InitializeReferences();
-        }
-
-        private void Start()
-        {
-            InitializeReferences();
-            _mainCamera = Camera.main;
-            if (_mainCamera == null) _mainCamera = GetComponentInChildren<Camera>();
         }
 
         private void InitializeReferences()
@@ -44,11 +46,6 @@ namespace Gameplay.Characters
             if (!_facade) _facade = GetComponentInParent<Character>();
             if (!_movement) _movement = GetComponentInParent<PlayerMovementController>();
             if (!_survival) _survival = GetComponentInParent<PlayerSurvivalController>();
-            
-            // Fallback for detached prefabs
-            if (!_facade && !transform.parent) _facade = transform.parent.GetComponent<Character>();
-            if (!_movement && !transform.parent) _movement = transform.parent.GetComponent<PlayerMovementController>();
-            if (!_survival && !transform.parent) _survival = transform.parent.GetComponent<PlayerSurvivalController>();
         }
 
         private void Update()
@@ -56,17 +53,28 @@ namespace Gameplay.Characters
             if (_attackTimer > 0)
                 _attackTimer -= Time.deltaTime;
 
+            // Nếu đang trong chế độ xây dựng, không thực hiện các tương tác khác (Highlight, Click)
+            if (Gameplay.Building.BuildingPlacementManager.Instance != null && 
+                Gameplay.Building.BuildingPlacementManager.Instance.IsPlacing)
+            {
+                if (_currentHover != null)
+                {
+                    _currentHover.SetHighlight(false);
+                    _currentHover = null;
+                }
+                return;
+            }
+
             HandleHover();
         }
 
         private void HandleHover()
         {
-            if (_mainCamera == null) _mainCamera = Camera.main;
-            if (_mainCamera == null) return;
+            if (MainCamera == null) return;
 
             var screenPos = Input.mousePosition;
-            screenPos.z = Mathf.Abs(_mainCamera.transform.position.z);
-            Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(screenPos);
+            screenPos.z = Mathf.Abs(MainCamera.transform.position.z);
+            Vector2 mouseWorldPos = MainCamera.ScreenToWorldPoint(screenPos);
 
             Collider2D[] colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             Highlight newHover = null;
@@ -90,6 +98,10 @@ namespace Gameplay.Characters
 
         public void HandleInteractionClick(Vector3 mouseWorldPos)
         {
+            // Ngăn tương tác click nếu đang xây dựng
+            if (Gameplay.Building.BuildingPlacementManager.Instance != null && 
+                Gameplay.Building.BuildingPlacementManager.Instance.IsPlacing) return;
+
             var colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             
             foreach (var col in colliders)
@@ -187,6 +199,11 @@ namespace Gameplay.Characters
             float total = baseDamage;
             if (_facade != null && _facade.EquipmentManager != null)
                 total += _facade.EquipmentManager.GetTotalDamageModifier();
+
+            if (_survival != null)
+            {
+                total *= _survival.GetDamageMultiplier();
+            }
             return total;
         }
     }

@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3db9a2bff53d4f8d15cf6040e637f, type: 3}
   m_Name: Health
   m_EditorClassIdentifier: 
-  id: Health
+  id: 15537697-6c63-4d5e-876f-56b42f22c706
   itemName: "Vi\xEAn \u0110\xE1 Sinh M\u1EC7nh"
-  description: "H\xE0o quang xanh l\u1EE5c t\u1ECFa ra t\u1EEB b\xEAn trong gi\xFAp
-    ph\u1EE5c h\u1ED3i v\xE0 m\u1EDF r\u1ED9ng gi\u1EDBi h\u1EA1n s\u1EE9c s\u1ED1ng
-    c\u1EE7a c\u01A1 th\u1EC3."
+  description: "T\u0103ng c\u01B0\u1EDDng l\u01B0\u1EE3ng m\xE1u t\u1ED1i \u0111a,
+    gi\xFAp b\u1EA1n dai s\u1EE9c h\u01A1n trong chi\u1EBFn \u0111\u1EA5u."
   icon: {fileID: -722892414, guid: fe6d0bcf9f6f7034d92062752518e2ed, type: 3}
   maxStack: 1
   fuelTime: 0

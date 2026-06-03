@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b54fc8eb44b9e54391778cce2610373, type: 3}
   m_Name: Gold_ore
   m_EditorClassIdentifier: 
-  id: Gold_ore
+  id: 47b2f240-21a1-40c4-a58f-b934566aeb9d
   itemName: "Ph\xF4i V\xE0ng"
-  description: "Nguy\xEAn li\u1EC7u v\xE0ng qu\xFD gi\xE1."
+  description: "Qu\u1EB7ng v\xE0ng l\u1EA5p l\xE1nh. Nguy\xEAn li\u1EC7u qu\xFD hi\u1EBFm
+    d\xF9ng \u0111\u1EC3 ch\u1EBF t\u1EA1o c\xE1c trang b\u1ECB cao c\u1EA5p."
   icon: {fileID: 1756097733, guid: 8ea2ea1f28e7447ac943714f1ef7fae9, type: 3}
   maxStack: 64
-  canBeSmelted: 0
-  resultItem: {fileID: 0}
-  smeltTime: 5
+  fuelTime: 0

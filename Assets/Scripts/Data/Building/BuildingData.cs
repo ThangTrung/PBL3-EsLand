@@ -37,7 +37,7 @@ namespace Data.Building
         [SerializeField] private GameObject buildingPrefab;
 
         // Properties (Tính đóng gói)
-        public string ID => string.IsNullOrEmpty(id) ? name : id;
+        public string ID => id;
         public string BuildingName => buildingName;
         public string Description => description;
         public Sprite Icon => icon;
@@ -48,9 +48,10 @@ namespace Data.Building
 
         private void OnValidate()
         {
-            // Tự động đồng bộ ID với tên file Asset để chuẩn hóa
-            if (id == name) return;
-            id = name;
+            if (string.IsNullOrEmpty(id))
+            {
+                id = System.Guid.NewGuid().ToString();
+            }
                 
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
