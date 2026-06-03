@@ -96,6 +96,14 @@ namespace Gameplay.Characters
             OnDie?.Invoke();
         }
 
+        public void SetCurrentHealth(float value)
+        {
+            CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
+            IsDead = CurrentHealth <= 0;
+            OnHealthChanged?.Invoke(CurrentHealth);
+            if (IsDead) OnDie?.Invoke();
+        }
+
         public void SetMaxHealth(float value, bool resetCurrent = true)
         {
             maxHealth = value;

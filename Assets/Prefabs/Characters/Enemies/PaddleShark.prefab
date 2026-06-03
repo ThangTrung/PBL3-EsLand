@@ -17,7 +17,11 @@ GameObject:
   - component: {fileID: 1826851300441829426}
   - component: {fileID: 3058916808851912809}
   - component: {fileID: 5349966895209761153}
-  m_Layer: 10
+  - component: {fileID: 1134043992462803145}
+  - component: {fileID: 2434016081081114259}
+  - component: {fileID: 2208881814540503055}
+  - component: {fileID: 3455663736332191169}
+  m_Layer: 7
   m_Name: PaddleShark
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -38,6 +42,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7780243927174307879}
+  - {fileID: 6444503547110813036}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2065810846347831604
@@ -231,6 +236,161 @@ MonoBehaviour:
   lootTable: []
   minDropForce: 4
   maxDropForce: 8
+--- !u!114 &1134043992462803145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210266348712898137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f08a5e862059c4498d2c09d9ecae148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+--- !u!114 &2434016081081114259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210266348712898137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1524ab91021112946860a2f05fb6158f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isStaticBoss: 0
+--- !u!114 &2208881814540503055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210266348712898137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &3455663736332191169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210266348712898137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
+--- !u!1 &4233857750806224808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6444503547110813036}
+  - component: {fileID: 5784713826772996268}
+  m_Layer: 14
+  m_Name: Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6444503547110813036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4233857750806224808}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2619434416182242278}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &5784713826772996268
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4233857750806224808}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 3, y: 3}
+    newSize: {x: 3, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.828125, y: 1.390625}
+      - {x: 1.015625, y: 1.53125}
+      - {x: 1.015625, y: 1.671875}
+      - {x: 1, y: 1.75}
+      - {x: 0.90625, y: 1.84375}
+      - {x: 0.78125, y: 1.859375}
+      - {x: 0.546875, y: 1.734375}
+      - {x: 0.53125, y: 1.84375}
+      - {x: 0.421875, y: 1.953125}
+      - {x: 0.109375, y: 2.046875}
+      - {x: -0.203125, y: 2.046875}
+      - {x: -0.390625, y: 1.90625}
+      - {x: -0.65625, y: 1.75}
+      - {x: -0.65625, y: 1.40625}
+      - {x: -0.546875, y: 1.21875}
+      - {x: -0.578125, y: 1.078125}
+      - {x: -0.484375, y: 0.875}
+      - {x: -0.265625, y: 0.875}
+      - {x: -0.140625, y: 0.921875}
+      - {x: 0.078125, y: 0.953125}
+      - {x: 0.296875, y: 1.078125}
+      - {x: 0.5625, y: 1.265625}
+    - - {x: 0.34375, y: 1.578125}
+      - {x: 0.359375, y: 1.59375}
+      - {x: 0.328125, y: 1.546875}
+      - {x: 0.34375, y: 1.546875}
+  m_UseDelaunayMesh: 0
 --- !u!1 &4522687341143710912
 GameObject:
   m_ObjectHideFlags: 0
