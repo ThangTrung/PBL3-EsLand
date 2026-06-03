@@ -117,6 +117,20 @@ namespace Gameplay.Characters
             OnDamaged?.Invoke();
             OnDamageTaken?.Invoke(finalDamage, source);
             OnHealthChanged?.Invoke(CurrentHealth);
+
+            // [NEW] Trigger Camera Shake and Effects
+            if (finalDamage > 0)
+            {
+                if (CompareTag("Player"))
+                {
+                    if (Gameplay.World.CameraShake.Instance != null)
+                        Gameplay.World.CameraShake.Instance.Shake(0.2f, 0.1f);
+                }
+                
+                if (Gameplay.World.EffectManager.Instance != null)
+                    Gameplay.World.EffectManager.Instance.PlayHitEffect(transform.position);
+            }
+
             if (CurrentHealth <= 0)
                 Die();
         }
@@ -132,6 +146,11 @@ namespace Gameplay.Characters
         {
             if (IsDead) return;
             IsDead = true;
+
+            // [NEW] Trigger Death Effect
+            if (Gameplay.World.EffectManager.Instance != null)
+                Gameplay.World.EffectManager.Instance.PlayDeathEffect(transform.position);
+
             OnDie?.Invoke();
         }
 

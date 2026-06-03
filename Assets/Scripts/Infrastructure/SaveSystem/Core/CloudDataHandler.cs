@@ -29,6 +29,11 @@ namespace Infrastructure.SaveSystem.Core
             // Đồng bộ: Cloud Save cần được gọi qua SaveRoutine (Async)
         }
 
+        public void Delete()
+        {
+            // Placeholder cho Cloud Delete
+        }
+
         // Helper cho SaveLoadManager gọi (Bất đồng bộ)
         public IEnumerator SaveRoutine(GameData data, Action<bool> callback)
         {

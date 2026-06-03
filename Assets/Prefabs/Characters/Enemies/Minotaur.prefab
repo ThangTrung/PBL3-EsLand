@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8888075146448694127}
   - component: {fileID: 2687073743924649246}
   - component: {fileID: 9206990142529410759}
+  - component: {fileID: 5039101206063366631}
   m_Layer: 10
   m_Name: Minotaur
   m_TagString: Enemy
@@ -312,3 +313,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &5039101206063366631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323278217092068097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 1607458218896910784, guid: 620e07b97291be0449f8a4e7169de669, type: 3}
+  lootTable:
+  - item: {fileID: 11400000, guid: eea875398b90e994390384ef82a5f5a4, type: 2}
+    minAmount: 1
+    maxAmount: 1
+    chance: 1
+  minDropForce: 2
+  maxDropForce: 5

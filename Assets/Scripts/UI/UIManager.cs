@@ -22,6 +22,7 @@ namespace UI
         [SerializeField] private ItemActionMenu actionMenu;
         [SerializeField] private StatusPanelUI statusUI;
         [SerializeField] private CookingTowerUI cookingUI;
+        [SerializeField] private VictoryPanelUI victoryUI;
         [SerializeField] private UI.Transition.CloudTransitionUI cloudTransitionUI;
 
         private IInventory _playerInventory;
@@ -31,6 +32,7 @@ namespace UI
         {
             GameEvents.OnPlayerReady += HandlePlayerReady;
             GameEvents.OnSleepRequested += HandleSleepRequested;
+            GameEvents.OnVictory += HandleVictory;
             Gameplay.Building.CookingTower.OnTowerInteracted += HandleTowerInteracted;
 
             if (cookingUI != null)
@@ -43,6 +45,7 @@ namespace UI
         {
             GameEvents.OnPlayerReady -= HandlePlayerReady;
             GameEvents.OnSleepRequested -= HandleSleepRequested;
+            GameEvents.OnVictory -= HandleVictory;
             Gameplay.Building.CookingTower.OnTowerInteracted -= HandleTowerInteracted;
             
             if (inventoryUI != null)
@@ -199,6 +202,16 @@ namespace UI
             {
                 actionMenu.ShowMenu(context, pos);
             }
+        }
+
+        private void HandleVictory()
+        {
+            // Khi thắng cuộc, đóng tất cả các Panel UI khác đang mở để tập trung vào màn hình chiến thắng
+            if (inventoryUI != null) inventoryUI.SetVisible(false);
+            if (equipmentUI != null) equipmentUI.SetVisible(false);
+            if (craftingUI != null) craftingUI.SetVisible(false);
+            if (cookingUI != null) cookingUI.ClosePanel();
+            if (actionMenu != null) actionMenu.HideMenu();
         }
 
         private void HandleSleepRequested(Gameplay.Building.HomeSavePoint house, Player player)

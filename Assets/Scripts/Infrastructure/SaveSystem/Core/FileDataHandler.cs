@@ -82,6 +82,15 @@ namespace Infrastructure.SaveSystem.Core
             }
         }
 
+        public void Delete()
+        {
+            string fullPath = Path.Combine(dataDirPath, dataFileName);
+            if (File.Exists(fullPath))
+            {
+                File.Delete(fullPath);
+            }
+        }
+
         private string EncryptDecrypt(string data)
         {
             StringBuilder sb = new StringBuilder();

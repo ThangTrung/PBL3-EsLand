@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 567581863979197156}
   - component: {fileID: 8142785992513970684}
   - component: {fileID: 449420346932636725}
+  - component: {fileID: 3110985406183958450}
   m_Layer: 10
   m_Name: Lizard
   m_TagString: Enemy
@@ -332,3 +333,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &3110985406183958450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775633859271432233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 4634665239845342496, guid: ba43089bdddfa004c92d035940846e5f, type: 3}
+  lootTable:
+  - item: {fileID: 11400000, guid: 9c918819363f5d0458752071cfe01b5b, type: 2}
+    minAmount: 1
+    maxAmount: 1
+    chance: 1
+  minDropForce: 2
+  maxDropForce: 5

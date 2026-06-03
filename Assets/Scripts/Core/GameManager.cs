@@ -4,7 +4,7 @@ namespace Core
 {
     public class GameManager : MonoBehaviour
     {
-        private static GameManager Instance { get; set; }
+        public static GameManager Instance { get; private set; }
 
         private void Awake()
         {
@@ -17,6 +17,18 @@ namespace Core
             {
                 Destroy(gameObject);
             }
+        }
+
+        public void HandleVictory()
+        {
+            // Dừng thời gian
+            Time.timeScale = 0;
+            
+            // Tìm và hiển thị UI chiến thắng (Sẽ thực hiện ở Task sau)
+            Debug.Log("<color=gold>[VICTORY]</color> Chúc mừng! Bạn đã chiến thắng trò chơi!");
+            
+            // Phát sự kiện chiến thắng nếu cần
+            Core.Events.GameEvents.RaiseVictory();
         }
     }
 }

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 7124402393413495942}
   - component: {fileID: 2267887521275989592}
   - component: {fileID: 3627241236357039113}
+  - component: {fileID: 1210223791410214178}
   m_Layer: 10
   m_Name: OgreBoss
   m_TagString: Enemy
@@ -320,3 +321,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &1210223791410214178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8090337708008702255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 1917307119445734615, guid: 8cf877d3b031d4e419ee56f7b15ecbd1, type: 3}
+  lootTable:
+  - item: {fileID: 11400000, guid: 66ce93e8ca7865f4aa05e1499b1ed03e, type: 2}
+    minAmount: 1
+    maxAmount: 1
+    chance: 1
+  minDropForce: 2
+  maxDropForce: 5

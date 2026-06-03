@@ -94,7 +94,6 @@ MonoBehaviour:
   canvasRoot: {fileID: 5902385503942940225}
   slotsContainer: {fileID: 1873458643481669858}
   slotPrefab: {fileID: 4324002469762958207, guid: 626bf751060466644b8bf94c8d874779, type: 3}
-  columns: 8
 --- !u!1 &8382828155106558453
 GameObject:
   m_ObjectHideFlags: 0
