@@ -46,6 +46,16 @@ namespace Infrastructure.SaveSystem.Data
     }
 
     [System.Serializable]
+    public class EnemySaveData
+    {
+        public string enemyID;       // Dành cho quái tĩnh (GUID)
+        public string configID;      // Tên file ScriptableObject Config (để fallback)
+        public float currentHP;      // Máu hiện tại lúc thoát game
+        public Vector3 position;     // Vị trí đang đứng
+        public bool isStaticBoss;    // Đánh dấu đây là quái tĩnh
+    }
+
+    [System.Serializable]
     public class GameData
     {
         [Header("Inventory Systems")]
@@ -60,6 +70,9 @@ namespace Infrastructure.SaveSystem.Data
         public List<string> openedGates = new List<string>();
         
         public List<string> destroyedEntityIDs = new List<string>(); 
+        
+        [Header("Enemy States")]
+        public List<EnemySaveData> activeEnemies = new List<EnemySaveData>();
 
         [Header("Player Stats")]
         public float playerHealth;

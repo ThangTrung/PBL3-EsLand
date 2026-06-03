@@ -54,10 +54,10 @@ namespace Gameplay.AI.Strategies
         {
             if (!IsAttacking || _hitApplied) return;
 
-            var player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null && Vector3.Distance(_selfTransform.position, player.transform.position) <= _range)
+            var playerTransform = Gameplay.Characters.TargetTracker.PlayerTarget;
+            if (playerTransform != null && Vector3.Distance(_selfTransform.position, playerTransform.position) <= _range)
             {
-                if (player.TryGetComponent<Core.Contracts.Combat.IDamageable>(out var damageable))
+                if (playerTransform.TryGetComponent<Core.Contracts.Combat.IDamageable>(out var damageable))
                 {
                     damageable.TakeDamage(_damage, _source);
                     _hitApplied = true;

@@ -152,6 +152,8 @@ namespace Gameplay.Combat.Projectiles
 
             // AoE Damage
             int hitCount = Physics2D.OverlapCircleNonAlloc(transform.position, explosionRadius, _hitBuffer);
+            int envMask = LayerMask.GetMask("Resource", "Environment_Block", "Interactable", "Default");
+            bool isEnemy = _owner != null && _owner.CompareTag("Enemy");
             
             for (int i = 0; i < hitCount; i++)
             {
@@ -159,11 +161,8 @@ namespace Gameplay.Combat.Projectiles
                 if (hit == null || hit.isTrigger) continue;
                 if (_owner != null && hit.transform.root == _owner.root) continue;
                 
-                // [FIX] Bombs fired by Enemies should ignore Environment/Resources
-                if (_owner != null && _owner.CompareTag("Enemy")) {
-                    if (hit.CompareTag("Untagged") || hit.gameObject.layer == LayerMask.NameToLayer("Interactable"))
-                        continue;
-                }
+                // [FIX] Enemies should ignore Environment/Resources
+                if (isEnemy && ((1 << hit.gameObject.layer) & envMask) != 0) continue;
 
 
                 if (hit.TryGetComponent<IDamageable>(out var damageable))

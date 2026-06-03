@@ -63,8 +63,7 @@ namespace Gameplay.Spawning
         {
             if (playerTransform == null)
             {
-                var player = GameObject.FindGameObjectWithTag("Player");
-                if (player != null) playerTransform = player.transform;
+                playerTransform = Gameplay.Characters.TargetTracker.PlayerTarget;
             }
 
             StartCoroutine(LazyTickRoutine());
@@ -72,6 +71,12 @@ namespace Gameplay.Spawning
 
         private void Update()
         {
+            // Update playerTransform reference dynamically in case it wasn't available at Start
+            if (playerTransform == null)
+            {
+                playerTransform = Gameplay.Characters.TargetTracker.PlayerTarget;
+            }
+
             if (playerTransform == null) return;
 
             _spawnTimer += Time.deltaTime;
