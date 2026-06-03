@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1992eb94d8bb642885395ea8b66457, type: 3}
   m_Name: Tower_Place
   m_EditorClassIdentifier: 
-  id: Tower_Place
+  id: 46745d3a-1f41-4a0a-a5e8-03fdaa3467b9
   itemName: "B\u1EA3n v\u1EBD nh\xE0 ch\u1EBF bi\u1EBFn"
-  description: 
+  description: "M\u1ED9t tr\u1EA1m ch\u1EBF bi\u1EBFn th\u1EE9c \u0103n \u0111\u1EC3
+    sinh t\u1ED3n l\xE2u d\xE0i."
   icon: {fileID: 21300000, guid: 3cbd575d4968745d3a7f79a654fae04a, type: 3}
   maxStack: 1
   fuelTime: 0

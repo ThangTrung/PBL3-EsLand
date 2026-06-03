@@ -63,8 +63,8 @@ namespace UI.Equipment
         {
             if (equipmentPanel) equipmentPanel.SetActive(visible);
             
-            if (_provider is Player player)
-                player.SetEquipmentState(visible);
+            if (_provider is IUIEventListener uiListener)
+                uiListener.OnUIStateChanged("Equipment", visible);
 
             if (visible) return;
     

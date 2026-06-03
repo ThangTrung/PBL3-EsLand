@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c12e02f6a04564daeab3a6cd55c833, type: 3}
   m_Name: Hammer
   m_EditorClassIdentifier: 
-  id: Hammer
-  itemName: Hammer
-  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
-    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
+  id: d0d2685f-196e-425b-bf69-85db5388deee
+  itemName: "B\xFAa g\u1ED7"
+  description: "D\xF9ng \u0111\u1EC3 x\xE2y d\u1EF1ng ho\u1EB7c ph\xE1 d\u1EE1 c\xF4ng
+    tr\xECnh."
   icon: {fileID: 1937014442, guid: 07c89957128bc4ba0a41c65084c2a7aa, type: 3}
   maxStack: 1
   fuelTime: 0

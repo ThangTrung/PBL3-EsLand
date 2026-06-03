@@ -51,11 +51,10 @@ namespace Infrastructure.SaveSystem.Handlers
             if (invData == null) return;
 
             inventory.Clear();
-            ItemData[] allItems = Resources.LoadAll<ItemData>("Data/Items");
 
             foreach (var savedItem in invData.slots)
             {
-                ItemData itemAsset = System.Array.Find(allItems, i => i.name == savedItem.itemID);
+                ItemData itemAsset = ItemDatabase.Instance.GetItemByID(savedItem.itemID);
                 if (itemAsset != null)
                 {
                     // Giả định AddItem có thể nhận durability (cần check InventoryController)

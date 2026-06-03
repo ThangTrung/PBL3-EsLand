@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1992eb94d8bb642885395ea8b66457, type: 3}
   m_Name: House_Place
   m_EditorClassIdentifier: 
-  id: House_Place
+  id: 193e92e2-1e4c-4bef-a605-a25237c1894f
   itemName: "B\u1EA3n v\u1EBD nh\xE0 h\u1ED3i sinh"
-  description: 
+  description: "Cung c\u1EA5p m\u1ED9t n\u01A1i an to\xE0n \u0111\u1EC3 l\u01B0u
+    game v\xE0 h\u1ED3i sinh khi g\u1EE5c ng\xE3."
   icon: {fileID: 21300000, guid: 8e0b9a78c772b411fbc9b82e02303336, type: 3}
   maxStack: 64
   fuelTime: 0

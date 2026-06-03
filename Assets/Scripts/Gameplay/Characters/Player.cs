@@ -11,12 +11,12 @@ namespace Gameplay.Characters
     [RequireComponent(typeof(PlayerMovementController))]
     [RequireComponent(typeof(PlayerInputController))]
     [RequireComponent(typeof(PlayerSurvivalController))]
-    public class Player : Character
+    public class Player : Character, Core.Contracts.Shared.IUIEventListener
     {
         public event Action OnToggleInventory;
         public event Action OnToggleEquipment;
         public event Action OnToggleCrafting;
-        public event Action<bool> OnUIStateChanged;
+        public event Action<bool> OnAnyUIStateChanged;
 
         private bool _isInventoryOpen;
         private bool _isEquipmentOpen;
@@ -46,14 +46,24 @@ namespace Gameplay.Characters
 
         public void SetCanMove(bool state) => _movement?.SetCanMove(state);
 
-        public void SetInventoryState(bool isOpen) => SetUIState(isOpen, ref _isInventoryOpen);
-        public void SetEquipmentState(bool isOpen) => SetUIState(isOpen, ref _isEquipmentOpen);
-        public void SetCraftingState(bool isOpen) => SetUIState(isOpen, ref _isCraftingOpen);
+        public void OnUIStateChanged(string uiName, bool isOpen)
+        {
+            switch (uiName)
+            {
+                case "Inventory": SetUIState(isOpen, ref _isInventoryOpen); break;
+                case "Equipment": SetUIState(isOpen, ref _isEquipmentOpen); break;
+                case "Crafting": SetUIState(isOpen, ref _isCraftingOpen); break;
+            }
+        }
+
+        public void SetInventoryState(bool isOpen) => OnUIStateChanged("Inventory", isOpen);
+        public void SetEquipmentState(bool isOpen) => OnUIStateChanged("Equipment", isOpen);
+        public void SetCraftingState(bool isOpen) => OnUIStateChanged("Crafting", isOpen);
 
         private void SetUIState(bool newState, ref bool targetField)
         {
             targetField = newState;
-            OnUIStateChanged?.Invoke(IsAnyUIOpen);
+            OnAnyUIStateChanged?.Invoke(IsAnyUIOpen);
             
             // Prevent movement when UI is open
             if (IsAnyUIOpen && _movement != null)

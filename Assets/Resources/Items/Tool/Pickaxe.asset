@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c12e02f6a04564daeab3a6cd55c833, type: 3}
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  id: Pickaxe
-  itemName: Pickaxe
-  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
-    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
+  id: 9eb9b424-2209-4986-9e35-b187f09ebd52
+  itemName: "Cu\u1ED1c s\u1EAFt"
+  description: "C\u1EA7n thi\u1EBFt \u0111\u1EC3 ph\xE1 \u0111\xE1 v\xE0 khai th\xE1c
+    qu\u1EB7ng m\u1ECF."
   icon: {fileID: 2045266528, guid: c3ff625e78b1145eaa2ebed586379354, type: 3}
   maxStack: 1
   fuelTime: 0

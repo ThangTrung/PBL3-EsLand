@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c12e02f6a04564daeab3a6cd55c833, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  id: Axe
-  itemName: Axe
-  description: "M\u1ED9t v\u1EADt ph\u1EA9m h\u1EEFu \xEDch cho h\xE0nh tr\xECnh
-    sinh t\u1ED3n c\u1EE7a b\u1EA1n."
+  id: 21f476cc-59d7-40a6-a536-7a0924e539c3
+  itemName: "R\xECu s\u1EAFt"
+  description: "Chuy\xEAn d\xF9ng \u0111\u1EC3 \u0111\u1ED1n g\u1ED7 nhanh ch\xF3ng."
   icon: {fileID: 803085355, guid: 49df2e0fb77954f0aa56465bfe992c16, type: 3}
   maxStack: 1
   fuelTime: 0
