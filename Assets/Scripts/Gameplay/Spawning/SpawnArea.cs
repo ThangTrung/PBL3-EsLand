@@ -62,8 +62,9 @@ namespace Gameplay.Spawning
 
                 if (!_collider.OverlapPoint(randomPoint)) continue;
 
+                // [FIX] Bỏ qua các Trigger (như chính SpawnArea này) hoặc các vật thể không phải cản trở vật lý.
                 Collider2D hit = Physics2D.OverlapCircle(randomPoint, checkRadius, obstacleLayer);
-                if (hit == null) return randomPoint;
+                if (hit == null || hit.isTrigger || hit.gameObject == gameObject) return randomPoint;
             }
 
             return Vector3.zero;

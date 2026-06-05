@@ -147,7 +147,10 @@ namespace Gameplay.Spawning
             {
                 if (col.TryGetComponent<SpawnArea>(out var area))
                 {
-                    float distSqr = (area.transform.position - playerPos).sqrMagnitude;
+                    // [FIX] Tính khoảng cách từ ranh giới của SpawnArea tới Player thay vì lấy tâm.
+                    // Ngăn chặn lỗi quái không sinh ra khi Player đứng trong một SpawnArea khổng lồ.
+                    Vector3 closestPoint = col.ClosestPoint(playerPos);
+                    float distSqr = (closestPoint - playerPos).sqrMagnitude;
                     
                     // Lọc: Không sinh quá gần Player
                     if (distSqr >= DeadZoneRadiusSqr)
