@@ -21,6 +21,18 @@ namespace Gameplay.World
             [Range(0, 1)] public float chance = 1f;
         }
 
+        public void ClearLoot()
+        {
+            if (lootTable == null) lootTable = new List<LootItem>();
+            else lootTable.Clear();
+        }
+
+        public void AddLoot(ItemData item, int min, int max, float chance)
+        {
+            if (lootTable == null) lootTable = new List<LootItem>();
+            lootTable.Add(new LootItem { item = item, minAmount = min, maxAmount = max, chance = chance });
+        }
+
         public void SetLoot(ItemData item, int amount)
         {
             lootTable = new List<LootItem>

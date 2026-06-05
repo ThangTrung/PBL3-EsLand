@@ -376,18 +376,21 @@ namespace Gameplay.AI
             _lootDropped = true;
 
             var spawner = GetComponent<Gameplay.World.LootSpawner>();
-            if (spawner != null)
+            if (spawner != null && ConfigInternal != null)
             {
-                if (ConfigInternal != null && !string.IsNullOrEmpty(ConfigInternal.LootItemId))
+                spawner.ClearLoot(); // Chuẩn bị nhận đồ mới
+
+                if (ConfigInternal.LootDrops != null)
                 {
-                    // Sử dụng Safe Lookup từ ItemRegistry thay vì Resources.Load trực tiếp
-                    var itemData = Data.Items.ItemRegistry.GetItem(ConfigInternal.LootItemId);
-                    
-                    if (itemData != null)
+                    foreach (var drop in ConfigInternal.LootDrops)
                     {
-                        spawner.SetLoot(itemData, ConfigInternal.LootQuantity);
+                        if (drop.item != null)
+                        {
+                            spawner.AddLoot(drop.item, drop.minQuantity, drop.maxQuantity, drop.dropChance);
+                        }
                     }
                 }
+
                 spawner.SpawnLoot();
             }
         }

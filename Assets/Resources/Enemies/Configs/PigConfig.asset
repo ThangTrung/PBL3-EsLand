@@ -19,5 +19,15 @@ MonoBehaviour:
   detectionRange: 12
   patrolRadius: 5
   attackCooldown: 1.2
+  defenseCooldown: 5
+  defenseDuration: 2
+  defenseChance: 0.3
+  verticalAlignmentOffset: 0
+  horizontalAlignmentOffset: 0.8
   moveSpeed: 2.8
   tintColor: {r: 1, g: 1, b: 1, a: 1}
+  lootDrops:
+  - item: {fileID: 11400000, guid: f917d4d0f36417d4fae330aa63b9b11d, type: 2}
+    minQuantity: 2
+    maxQuantity: 4
+    dropChance: 1

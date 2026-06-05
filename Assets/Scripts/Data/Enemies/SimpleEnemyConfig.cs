@@ -26,8 +26,7 @@ namespace Data.Enemies
         [SerializeField] private Color tintColor = Color.white;
         
         [Header("Loot Configuration")]
-        [SerializeField] private string lootItemId = "Gold";
-        [SerializeField] private int lootQuantity = 1;
+        [SerializeField] private System.Collections.Generic.List<EnemyDropConfig> lootDrops = new System.Collections.Generic.List<EnemyDropConfig>();
 
         public string EnemyType => enemyType;
         public float MaxHealth => maxHealth;
@@ -45,10 +44,9 @@ namespace Data.Enemies
         public float HorizontalAlignmentOffset => horizontalAlignmentOffset;
         public float MoveSpeed => moveSpeed;
         public Color TintColor => tintColor;
-        public string LootItemId => lootItemId;
-        public int LootQuantity => lootQuantity;
+        public System.Collections.Generic.List<EnemyDropConfig> LootDrops => lootDrops;
 
-        public void Initialize(string type, float health, float damage, float attackRange, float detection, float patrol, float cooldown, float speed, Color tint, string itemId = "Gold", int quantity = 1, float horizontalOffset = 0.8f)
+        public void Initialize(string type, float health, float damage, float attackRange, float detection, float patrol, float cooldown, float speed, Color tint, float horizontalOffset = 0.8f)
         {
             enemyType = type;
             maxHealth = health;
@@ -59,8 +57,6 @@ namespace Data.Enemies
             attackCooldown = cooldown;
             moveSpeed = speed;
             tintColor = tint;
-            lootItemId = itemId;
-            lootQuantity = quantity;
             horizontalAlignmentOffset = horizontalOffset;
         }
     }
