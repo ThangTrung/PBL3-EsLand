@@ -272,7 +272,7 @@ namespace LevelDesign
 
                 var spawner = arena.AddComponent<Gameplay.Spawning.BossArenaSpawner>();
                 var saveable = arena.AddComponent<Infrastructure.SaveSystem.Core.SaveableEntity>();
-                saveable.GenerateId();
+                saveable.GenerateGuid();
 
                 if (bossNames[i] == "Ogre Boss")
                 {

@@ -43,7 +43,7 @@ namespace Gameplay.AI.Enemies
             // 2. Spawn Mounted Spear Goblin
             if (mountedSpearGoblinPrefab != null && mountedGoblinConfig is IEnemyConfig cfg)
             {
-                EnemyFactory.Instance.CreateEnemy(mountedSpearGoblinPrefab, cfg, mountedGoblinAnimConfig, null, spawnPos);
+                EnemyFactory.Instance.CreateEnemy(mountedSpearGoblinPrefab, cfg, mountedGoblinAnimConfig, null, spawnPos, transform.parent);
             }
         }
     }

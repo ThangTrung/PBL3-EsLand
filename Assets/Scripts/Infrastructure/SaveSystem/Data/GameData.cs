@@ -58,21 +58,27 @@ namespace Infrastructure.SaveSystem.Data
     [System.Serializable]
     public class GameData
     {
-        [Header("Inventory Systems")]
-        public List<InventorySaveData> inventories = new List<InventorySaveData>();
+        // Sử dụng backup fields và properties để đảm bảo danh sách không bao giờ null (Lazy Initialization)
+        [SerializeField] private List<InventorySaveData> _inventories = new List<InventorySaveData>();
+        public List<InventorySaveData> inventories { get => _inventories ??= new List<InventorySaveData>(); set => _inventories = value; }
 
-        // 🔥 MỚI THÊM: Sổ ghi chép đồ đang mặc trên người
-        public List<EquippedItemSaveData> equippedItems = new List<EquippedItemSaveData>();
+        [SerializeField] private List<EquippedItemSaveData> _equippedItems = new List<EquippedItemSaveData>();
+        public List<EquippedItemSaveData> equippedItems { get => _equippedItems ??= new List<EquippedItemSaveData>(); set => _equippedItems = value; }
 
-        [Header("World State")]
-        public List<ResourceNodeSaveData> resourceNodes = new List<ResourceNodeSaveData>();
-        public List<DroppedItemSaveData> droppedItems = new List<DroppedItemSaveData>();
-        public List<string> openedGates = new List<string>();
+        [SerializeField] private List<ResourceNodeSaveData> _resourceNodes = new List<ResourceNodeSaveData>();
+        public List<ResourceNodeSaveData> resourceNodes { get => _resourceNodes ??= new List<ResourceNodeSaveData>(); set => _resourceNodes = value; }
+
+        [SerializeField] private List<DroppedItemSaveData> _droppedItems = new List<DroppedItemSaveData>();
+        public List<DroppedItemSaveData> droppedItems { get => _droppedItems ??= new List<DroppedItemSaveData>(); set => _droppedItems = value; }
+
+        [SerializeField] private List<string> _openedGates = new List<string>();
+        public List<string> openedGates { get => _openedGates ??= new List<string>(); set => _openedGates = value; }
         
-        public List<string> destroyedEntityIDs = new List<string>(); 
+        [SerializeField] private List<string> _destroyedEntityIDs = new List<string>(); 
+        public List<string> destroyedEntityIDs { get => _destroyedEntityIDs ??= new List<string>(); set => _destroyedEntityIDs = value; }
         
-        [Header("Enemy States")]
-        public List<EnemySaveData> activeEnemies = new List<EnemySaveData>();
+        [SerializeField] private List<EnemySaveData> _activeEnemies = new List<EnemySaveData>();
+        public List<EnemySaveData> activeEnemies { get => _activeEnemies ??= new List<EnemySaveData>(); set => _activeEnemies = value; }
 
         [Header("Player Stats")]
         public float playerHealth;
@@ -81,6 +87,7 @@ namespace Infrastructure.SaveSystem.Data
 
         public GameData()
         {
+            // Khởi tạo mặc định
             playerHealth = 100f;
             playerPosition = Vector3.zero;
             respawnPoint = Vector3.zero;

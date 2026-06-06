@@ -116,7 +116,8 @@ namespace Gameplay.AI.Strategies
                 Projectile2D projectileInstance;
                 if (_projectilePrefab != null)
                 {
-                    projectileInstance = ObjectPoolManager.Instance.Get(_projectilePrefab.gameObject, spawnPos, Quaternion.identity).GetComponent<Projectile2D>();
+                    // [FIX] Truyền parent để hỗ trợ kế thừa Elevation Layer cho Projectile
+                    projectileInstance = ObjectPoolManager.Instance.Get(_projectilePrefab.gameObject, spawnPos, Quaternion.identity, _selfTransform.parent).GetComponent<Projectile2D>();
                 }
                 else
                 {

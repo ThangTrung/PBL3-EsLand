@@ -1,6 +1,7 @@
 using UnityEngine;
 using Core.Contracts.Spawning;
 using Gameplay.AI;
+using Gameplay.AI.Factories;
 using Data.Spawning;
 using Infrastructure.SaveSystem.Core;
 using Infrastructure.SaveSystem.Data;
@@ -88,7 +89,8 @@ namespace Gameplay.Spawning
                 bossData.config,
                 bossData.animConfig,
                 null,
-                pos
+                pos,
+                transform.parent // [FIX] Truyền parent để hỗ trợ kế thừa Elevation Layer
             );
 
             if (_activeBoss != null)

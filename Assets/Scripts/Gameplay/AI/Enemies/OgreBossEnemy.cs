@@ -92,7 +92,7 @@ namespace Gameplay.AI.Enemies
                 Vector2 offset = Random.insideUnitCircle * 3f;
                 Vector3 spawnPos = transform.position + new Vector3(offset.x, offset.y, 0);
                 
-                var minion = EnemyFactory.Instance.CreateEnemy(minionPrefab, (IEnemyConfig)minionConfig, minionAnimConfig, null, spawnPos);
+                var minion = EnemyFactory.Instance.CreateEnemy(minionPrefab, (IEnemyConfig)minionConfig, minionAnimConfig, null, spawnPos, transform.parent);
                 if (minion != null)
                 {
                     _activeMinions.Add(minion);
@@ -193,7 +193,7 @@ namespace Gameplay.AI.Enemies
         {
             if (clubPart1Prefab != null)
             {
-                var part1 = ObjectPoolManager.Instance.Get(clubPart1Prefab, transform.position, Quaternion.identity);
+                var part1 = ObjectPoolManager.Instance.Get(clubPart1Prefab, transform.position, Quaternion.identity, transform.parent);
                 if (part1 != null && part1.TryGetComponent<Rigidbody2D>(out var rb1))
                 {
                     rb1.velocity = new Vector2(Random.Range(-3f, -1f), Random.Range(2f, 5f));
@@ -203,7 +203,7 @@ namespace Gameplay.AI.Enemies
 
             if (clubPart2Prefab != null)
             {
-                var part2 = ObjectPoolManager.Instance.Get(clubPart2Prefab, transform.position, Quaternion.identity);
+                var part2 = ObjectPoolManager.Instance.Get(clubPart2Prefab, transform.position, Quaternion.identity, transform.parent);
                 if (part2 != null && part2.TryGetComponent<Rigidbody2D>(out var rb2))
                 {
                     rb2.velocity = new Vector2(Random.Range(1f, 3f), Random.Range(2f, 5f));

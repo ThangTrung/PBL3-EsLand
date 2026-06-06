@@ -84,7 +84,8 @@ namespace Gameplay.AI.Strategies
 
             if (_projectilePrefab != null)
             {
-                var go = ObjectPoolManager.Instance.Get(_projectilePrefab, spawnPos, Quaternion.identity);
+                // [FIX] Truyền parent để hỗ trợ kế thừa Elevation Layer cho Projectile
+                var go = ObjectPoolManager.Instance.Get(_projectilePrefab, spawnPos, Quaternion.identity, _selfTransform.parent);
                 var proj = go.GetComponent<IProjectile>();
                 if (proj != null) proj.Initialize(_spec, _selfTransform, _target);
             }
