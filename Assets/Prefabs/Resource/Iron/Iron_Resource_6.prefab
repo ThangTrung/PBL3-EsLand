@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 6244246766652862840}
   - component: {fileID: 3130891622987163899}
   - component: {fileID: 7343062198495751096}
+  - component: {fileID: 9008597142191780011}
+  - component: {fileID: -3587378247326267690}
   m_Layer: 8
   m_Name: Iron_Resource_6
   m_TagString: Untagged
@@ -236,6 +238,32 @@ PolygonCollider2D:
       - {x: 0.546875, y: 0.24374998}
       - {x: 0.578125, y: 0.43124998}
   m_UseDelaunayMesh: 0
+--- !u!114 &9008597142191780011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &-3587378247326267690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
 --- !u!1 &3660921096609175517
 GameObject:
   m_ObjectHideFlags: 0

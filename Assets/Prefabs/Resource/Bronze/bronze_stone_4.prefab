@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 147266688702983829}
   - component: {fileID: -5410168265883739285}
   - component: {fileID: -7670056060975121613}
+  - component: {fileID: -5946426138875705682}
+  - component: {fileID: 7331849798499128082}
   m_Layer: 8
   m_Name: bronze_stone_4
   m_TagString: Untagged
@@ -232,6 +234,32 @@ PolygonCollider2D:
       - {x: 0.40629578, y: 0.07499999}
       - {x: 0.4181919, y: 0.18659514}
   m_UseDelaunayMesh: 0
+--- !u!114 &-5946426138875705682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2840739768765920498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &7331849798499128082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2840739768765920498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
 --- !u!1 &6336642149624832231
 GameObject:
   m_ObjectHideFlags: 0

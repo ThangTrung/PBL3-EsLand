@@ -67,6 +67,26 @@ namespace Gameplay.World
                 pickupScript.itemData = item;
             }
 
+            // [FIX] Đồng bộ Elevation Layer từ nguồn rớt (Boss/Cây/Đá) sang vật phẩm rớt ra
+            var sourceElevation = GetComponent<Gameplay.Environment.ElevationAgent>();
+            if (sourceElevation != null)
+            {
+                var droppedElevation = droppedObj.GetComponent<Gameplay.Environment.ElevationAgent>();
+                if (droppedElevation != null)
+                {
+                    droppedElevation.ChangeElevation(sourceElevation.CurrentElevation);
+                }
+                else
+                {
+                    var layerAssigner = droppedObj.GetComponent<Layer.AutoAssignSortingLayer>();
+                    if (layerAssigner != null)
+                    {
+                        layerAssigner.targetSortingLayer = sourceElevation.CurrentElevation;
+                        layerAssigner.ApplyLayer();
+                    }
+                }
+            }
+
             if (!droppedObj.TryGetComponent<Rigidbody2D>(out var rb)) 
                 return;
             var randomDir = Random.insideUnitCircle.normalized;

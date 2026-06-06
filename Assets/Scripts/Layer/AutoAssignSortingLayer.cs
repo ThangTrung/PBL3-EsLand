@@ -7,6 +7,12 @@ namespace Layer
         [Tooltip("Nhập tên Sorting Layer bạn muốn gán cho tất cả object con. Ví dụ: Elevation_A")]
         public string targetSortingLayer = "Elevation_A";
 
+        private void Start()
+        {
+            // Luôn đảm bảo layer được áp dụng ngay khi object sinh ra trong game
+            ApplyLayer();
+        }
+
         // Nút chức năng sẽ hiện ra khi bạn click chuột phải vào script trong Unity
         [ContextMenu("Apply Layer To All Children")]
         public void ApplyLayer()

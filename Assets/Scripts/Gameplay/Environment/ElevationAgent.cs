@@ -28,15 +28,11 @@ namespace Gameplay.Environment
         /// <param name="newElevationLayer">Tên Sorting Layer mới (VD: Elevation_B)</param>
         public void ChangeElevation(string newElevationLayer)
         {
-            if (currentElevation == newElevationLayer) return;
-
             currentElevation = newElevationLayer;
             _layerAssigner.targetSortingLayer = newElevationLayer;
             
             // Cập nhật ngay lập tức hình ảnh của toàn bộ object con
             _layerAssigner.ApplyLayer();
-
-            Debug.Log($"<color=cyan>[Elevation]</color> {gameObject.name} đã chuyển sang tầng: <b>{newElevationLayer}</b>");
         }
     }
 

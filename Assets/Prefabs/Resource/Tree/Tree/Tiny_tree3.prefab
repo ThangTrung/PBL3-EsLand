@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 5757048837065118818}
   - component: {fileID: -8626881089399010074}
   - component: {fileID: -1357340379226188914}
+  - component: {fileID: -6777114178566168201}
+  - component: {fileID: -8591498124495276044}
   m_Layer: 8
   m_Name: Tiny_tree3
   m_TagString: Untagged
@@ -362,6 +364,32 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.0067756176, y: 0.21312374, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-6777114178566168201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969613125201948552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &-8591498124495276044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969613125201948552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
 --- !u!1 &8304682029907607579
 GameObject:
   m_ObjectHideFlags: 0

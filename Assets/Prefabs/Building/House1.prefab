@@ -91,6 +91,8 @@ GameObject:
   - component: {fileID: 6393825998631179821}
   - component: {fileID: 3239938160924870683}
   - component: {fileID: 2613129606099612139}
+  - component: {fileID: 4276758225660443403}
+  - component: {fileID: -3564562350005729686}
   m_Layer: 9
   m_Name: House1
   m_TagString: Untagged
@@ -180,7 +182,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1002
-  m_SortingLayer: 0
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8e0b9a78c772b411fbc9b82e02303336, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -279,6 +281,32 @@ PolygonCollider2D:
       - {x: -0.140625, y: 0.0031249523}
       - {x: 0.203125, y: -0.059375048}
   m_UseDelaunayMesh: 0
+--- !u!114 &4276758225660443403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567004747014905352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &-3564562350005729686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567004747014905352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
 --- !u!1 &5626516188690685922
 GameObject:
   m_ObjectHideFlags: 0

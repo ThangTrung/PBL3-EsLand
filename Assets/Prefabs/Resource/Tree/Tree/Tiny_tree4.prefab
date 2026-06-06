@@ -98,6 +98,9 @@ GameObject:
   - component: {fileID: 3162113061686147016}
   - component: {fileID: 6372743887539443568}
   - component: {fileID: 3499694365946974100}
+  - component: {fileID: 3441049324567059213}
+  - component: {fileID: 6292858969212675526}
+  - component: {fileID: 2227657623687870637}
   m_Layer: 8
   m_Name: Tiny_tree4
   m_TagString: Untagged
@@ -115,7 +118,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.17, y: -2.23, z: -0.01}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95984894, y: 0.95984894, z: 0.95984894}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7527750607102106982}
@@ -159,8 +162,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1003
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 2052243219, guid: 7649734177ed34f78a801612ab90a3a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -434,3 +437,42 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.023363113, y: 0.2133255, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &3441049324567059213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165492886914547607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &6292858969212675526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165492886914547607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
+--- !u!114 &2227657623687870637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165492886914547607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A

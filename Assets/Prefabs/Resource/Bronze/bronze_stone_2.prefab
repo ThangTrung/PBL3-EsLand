@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 6787258310009729322}
   - component: {fileID: 1953812049304591900}
   - component: {fileID: -5889937165047318223}
+  - component: {fileID: 753512086180476238}
+  - component: {fileID: -9053416595810970597}
   m_Layer: 8
   m_Name: bronze_stone_2
   m_TagString: Untagged
@@ -226,6 +228,32 @@ MonoBehaviour:
   staminaCostPerHit: 25
   stumpSprite: {fileID: 0}
   nodeCollider: {fileID: 8431521978240490524}
+--- !u!114 &753512086180476238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028701691389015080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &-9053416595810970597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028701691389015080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 
 --- !u!1 &3453047647510105665
 GameObject:
   m_ObjectHideFlags: 0
