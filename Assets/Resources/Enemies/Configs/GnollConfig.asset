@@ -26,5 +26,8 @@ MonoBehaviour:
   horizontalAlignmentOffset: 0.8
   moveSpeed: 2.5
   tintColor: {r: 1, g: 1, b: 1, a: 1}
-  lootItemId: Gold_ore
-  lootQuantity: 2
+  lootDrops:
+  - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
+    minQuantity: 1
+    maxQuantity: 3
+    dropChance: 1

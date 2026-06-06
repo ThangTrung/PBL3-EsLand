@@ -1,7 +1,16 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Core.Contracts.AI
 {
+    [System.Serializable]
+    public struct EnemyDropConfig
+    {
+        public Data.Items.ItemData item;
+        public int minQuantity;
+        public int maxQuantity;
+        [Range(0, 1)] public float dropChance;
+    }
+
     public interface IEnemyConfig
     {
         string EnemyType { get; }
@@ -11,18 +20,17 @@ namespace Core.Contracts.AI
         float DetectionRange { get; }
         float PatrolRadius { get; }
         float AttackCooldown { get; }
-        
+
         // Defense Configuration
         float DefenseCooldown { get; }
         float DefenseDuration { get; }
         float DefenseChance { get; }
-        
+
         float VerticalAlignmentOffset { get; }
         float HorizontalAlignmentOffset { get; }
         float MoveSpeed { get; }
         Color TintColor { get; }
-        string LootItemId { get; }
-        int LootQuantity { get; }
+        System.Collections.Generic.List<EnemyDropConfig> LootDrops { get; }
 
     }
 }
