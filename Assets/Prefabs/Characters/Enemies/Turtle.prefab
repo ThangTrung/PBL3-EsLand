@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 2590614348922943867}
   - component: {fileID: 553653926409114538}
   - component: {fileID: 7819522142507419277}
+  - component: {fileID: 6184308731924889230}
   m_Layer: 7
   m_Name: Turtle
   m_TagString: Enemy
@@ -464,3 +465,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &6184308731924889230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7312311907942346121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

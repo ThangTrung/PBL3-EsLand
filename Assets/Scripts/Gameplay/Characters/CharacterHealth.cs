@@ -83,12 +83,6 @@ namespace Gameplay.Characters
             OnHealthChanged?.Invoke(CurrentHealth);
         }
 
-        public void SetCurrentHealth(float value)
-        {
-            CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
-            OnHealthChanged?.Invoke(CurrentHealth);
-        }
-
         public void RefreshModifiers()
         {
             _cachedModifiers = GetComponents<IDamageModifier>().OrderBy(m => m.Priority).ToArray();

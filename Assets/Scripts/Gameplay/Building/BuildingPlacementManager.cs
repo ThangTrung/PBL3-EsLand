@@ -143,8 +143,20 @@ namespace Gameplay.Building
 
         private void PlaceBuilding(Vector2 position)
         {
+            // [FIX] Tìm Parent (Elevation Layer) phù hợp tại vị trí đặt
+            Transform parent = null;
+            BuildingType type = currentItemToPlace.TargetBuilding.Type;
+            LayerMask targetLayer = (type == BuildingType.EscapeVehicle) ? waterLayer : landLayer;
+            
+            Collider2D hit = Physics2D.OverlapPoint(position, targetLayer);
+            if (hit != null)
+            {
+                // Thường Tilemap sẽ là con của Elevation_A/B/C
+                parent = hit.transform.parent;
+            }
+
             // A. Đặt công trình thật
-            Instantiate(currentItemToPlace.TargetBuilding.BuildingPrefab, position, Quaternion.identity);
+            Instantiate(currentItemToPlace.TargetBuilding.BuildingPrefab, position, Quaternion.identity, parent);
 
             // B. Trừ Item bản vẽ khỏi túi đồ người chơi
             var inventoryHolder = playerCharacter.GetComponentInChildren<IInventoryHolder>();

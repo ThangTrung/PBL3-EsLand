@@ -30,6 +30,8 @@ namespace Gameplay.Environment
             // 1. Sinh ra cái gốc xịn của ông
             if (stumpPrefab != null)
             {
+                // [GLOBAL FIX] Instantiate với parent là transform.parent (thường là Elevation_A/B/C)
+                // Việc này giúp script AutoAssignSortingLayer trên gốc cây tự động kế thừa đúng layer.
                 Instantiate(stumpPrefab, transform.position, transform.rotation, transform.parent);
             }
 

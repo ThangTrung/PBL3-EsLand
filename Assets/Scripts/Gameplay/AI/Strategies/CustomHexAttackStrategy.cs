@@ -79,7 +79,8 @@ namespace Gameplay.AI.Strategies
         {
             if (_projectilePrefab == null) return;
 
-            var obj = ObjectPoolManager.Instance.Get(_projectilePrefab.gameObject, _selfTransform.position, Quaternion.identity);
+            // [FIX] Truyền parent để hỗ trợ kế thừa Elevation Layer cho Projectile
+            var obj = ObjectPoolManager.Instance.Get(_projectilePrefab.gameObject, _selfTransform.position, Quaternion.identity, _selfTransform.parent);
             if (obj.TryGetComponent<HexProjectile>(out var proj))
             {
                 proj.Initialize(_selfTransform, _target);

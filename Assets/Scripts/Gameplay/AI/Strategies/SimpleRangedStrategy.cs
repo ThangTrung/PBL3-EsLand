@@ -59,7 +59,8 @@ namespace Gameplay.AI.Strategies
             var direction = (_target.position - _self.position).normalized;
             if (_projectilePrefab != null)
             {
-                var go = ObjectPoolManager.Instance.Get(_projectilePrefab.gameObject, _self.position + direction * 0.5f, Quaternion.identity);
+                // [FIX] Truyền parent để hỗ trợ kế thừa Elevation Layer cho Projectile
+                var go = ObjectPoolManager.Instance.Get(_projectilePrefab.gameObject, _self.position + direction * 0.5f, Quaternion.identity, _self.parent);
                 var proj = go.GetComponent<Projectile2D>();
                 if (proj != null) proj.Initialize(_spec, _self, _target);
             }

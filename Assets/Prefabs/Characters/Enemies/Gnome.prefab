@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 1178371359773266498}
   - component: {fileID: 8689063551072923102}
   - component: {fileID: 3691331024568513839}
+  - component: {fileID: -2631853313439801070}
   m_Layer: 7
   m_Name: Gnome
   m_TagString: Enemy
@@ -296,6 +297,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &-2631853313439801070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318722705901189585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6627264232348762506
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,7 +384,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1002
   m_SortingLayer: 2
-  m_SortingOrder: 100
+  m_SortingOrder: 0
   m_Sprite: {fileID: 1007295932235086194, guid: bfcc0af4d7f910544bd91b7d88d6e525, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

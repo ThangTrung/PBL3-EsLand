@@ -61,9 +61,10 @@ namespace Gameplay.World
         {
             if (!item) return;
 
-            var droppedObj = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
+            // [GLOBAL FIX] Instantiate với parent là transform.parent (thường là Elevation_A/B/C)
+            // Việc này giúp script AutoAssignSortingLayer trên vật phẩm tự động kế thừa đúng layer.
+            var droppedObj = Instantiate(pickupPrefab, transform.position, Quaternion.identity, transform.parent);
             
-            // [FIX] Sử dụng cơ chế ElevationAgent trên Prefab gốc để định vị Layer
             // Chỉ cần gán Sprite đúng với Icon của ItemData
             var spriteRenderer = droppedObj.GetComponent<SpriteRenderer>() ?? droppedObj.GetComponentInChildren<SpriteRenderer>();
             if (spriteRenderer != null)

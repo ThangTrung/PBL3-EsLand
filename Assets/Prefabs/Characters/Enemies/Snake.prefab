@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 5874355765955246400}
   - component: {fileID: 8096731812625433514}
   - component: {fileID: 5269347856304849132}
+  - component: {fileID: -8473174286096245060}
   m_Layer: 7
   m_Name: Snake
   m_TagString: Enemy
@@ -480,3 +481,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &-8473174286096245060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5123590242713121514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

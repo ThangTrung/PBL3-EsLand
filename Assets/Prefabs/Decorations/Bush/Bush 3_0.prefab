@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 1353722405307913852}
   - component: {fileID: 2775056886397786141}
   - component: {fileID: -6735585676209148075}
+  - component: {fileID: 2314981890859688063}
+  - component: {fileID: -3203920671420247909}
   m_Layer: 11
   m_Name: Bush 3_0
   m_TagString: Untagged
@@ -168,7 +170,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1002
   m_SortingLayer: 2
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: -2074510547, guid: 72dc8fc77fc8f43bb9ce7f50bbf11d67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -289,3 +291,29 @@ PolygonCollider2D:
       - {x: 0.0625, y: 0.425}
       - {x: 0.046875, y: 0.409375}
   m_UseDelaunayMesh: 0
+--- !u!114 &2314981890859688063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7778760337109482189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSortingLayer: Elevation_A
+--- !u!114 &-3203920671420247909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7778760337109482189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentElevation: 

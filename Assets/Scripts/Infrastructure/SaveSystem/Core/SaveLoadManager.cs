@@ -24,6 +24,8 @@ namespace Infrastructure.SaveSystem.Core
         private List<ISaveable> saveableObjects;
         private IDataHandler dataHandler;
 
+        private bool _isQuitting = false;
+
         private void Awake()
         {
             if (Instance != null)
@@ -120,9 +122,12 @@ namespace Infrastructure.SaveSystem.Core
 
         public void SaveGame()
         {
-            if (IsLoading) return;
+            if (IsLoading || dataHandler == null || gameData == null || _isQuitting) return;
 
-            saveableObjects.RemoveAll(s => s is Object obj && obj == null);
+            if (saveableObjects == null) saveableObjects = FindAllSaveableObjects();
+            
+            // Lọc bỏ các đối tượng đã bị hủy
+            saveableObjects.RemoveAll(s => s == null || (s is Object obj && obj == null));
 
             foreach (ISaveable saveableObj in saveableObjects)
             {
@@ -152,8 +157,19 @@ namespace Infrastructure.SaveSystem.Core
 
         private List<ISaveable> FindAllSaveableObjects()
         {
-            IEnumerable<ISaveable> saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>();
-            return new List<ISaveable>(saveables);
+            var saveables = new List<ISaveable>();
+            var allMonoBehaviours = FindObjectsOfType<MonoBehaviour>(true);
+            
+            if (allMonoBehaviours == null) return saveables;
+
+            foreach (var mono in allMonoBehaviours)
+            {
+                if (mono is ISaveable saveable)
+                {
+                    saveables.Add(saveable);
+                }
+            }
+            return saveables;
         }
         
         public void RegisterDestroyedEntity(string id)
@@ -167,6 +183,7 @@ namespace Infrastructure.SaveSystem.Core
         // Hàm của Unity TỰ ĐỘNG chạy khi người chơi thoát game hoặc Dev bấm nút Stop
         private void OnApplicationQuit()
         {
+            _isQuitting = true;
             SaveGame();
         }
     }

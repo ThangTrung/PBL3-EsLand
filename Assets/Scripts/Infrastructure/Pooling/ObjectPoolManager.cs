@@ -67,12 +67,12 @@ namespace Infrastructure.Pooling
             }
         }
 
-        public GameObject Get(GameObject prefab, Vector3 position)
+        public GameObject Get(GameObject prefab, Vector3 position, Transform parent = null)
         {
-            return Get(prefab, position, Quaternion.identity);
+            return Get(prefab, position, Quaternion.identity, parent);
         }
 
-        public GameObject Get(GameObject prefab, Vector3 position, Quaternion rotation)
+        public GameObject Get(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
         {
             if (prefab == null) return null;
 
@@ -82,6 +82,10 @@ namespace Infrastructure.Pooling
             }
 
             var obj = _pools[prefab].Get();
+            
+            // [FIX] Cập nhật parent để hỗ trợ kế thừa Elevation Layer
+            obj.transform.SetParent(parent);
+            
             obj.transform.position = position;
             obj.transform.rotation = rotation;
             return obj;
