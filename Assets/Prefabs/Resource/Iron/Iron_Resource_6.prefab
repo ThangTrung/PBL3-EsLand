@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7343062198495751096}
   - component: {fileID: 9008597142191780011}
   - component: {fileID: -3587378247326267690}
+  - component: {fileID: 5444451964910222983}
   m_Layer: 8
   m_Name: Iron_Resource_6
   m_TagString: Untagged
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f479ba78097614c4197656efbd887354, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -264,6 +265,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &5444451964910222983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645800628817198686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3660921096609175517
 GameObject:
   m_ObjectHideFlags: 0

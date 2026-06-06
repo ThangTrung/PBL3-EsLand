@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 3592732275702027793}
   - component: {fileID: 4512419530944578696}
   - component: {fileID: 243103622908005836}
+  - component: {fileID: 4348470507412712319}
   m_Layer: 12
   m_Name: Cave
   m_TagString: Enemy
@@ -320,3 +321,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &4348470507412712319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863229811700202304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

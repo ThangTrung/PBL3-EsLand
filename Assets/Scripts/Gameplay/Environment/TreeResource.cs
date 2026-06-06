@@ -30,28 +30,9 @@ namespace Gameplay.Environment
             // 1. Sinh ra cái gốc xịn của ông
             if (stumpPrefab != null)
             {
-                GameObject stump = Instantiate(stumpPrefab, transform.position, transform.rotation, transform.parent);
-                
-                // Đồng bộ Elevation Layer từ Cây sang Gốc
-                var sourceElevation = GetComponent<ElevationAgent>();
-                if (sourceElevation != null)
-                {
-                    var stumpElevation = stump.GetComponent<ElevationAgent>();
-                    if (stumpElevation != null)
-                    {
-                        stumpElevation.ChangeElevation(sourceElevation.CurrentElevation);
-                    }
-                    else
-                    {
-                        // Nếu Stump không có ElevationAgent, thử ép thẳng Sorting Layer
-                        var layerAssigner = stump.GetComponent<Layer.AutoAssignSortingLayer>();
-                        if (layerAssigner != null)
-                        {
-                            layerAssigner.targetSortingLayer = sourceElevation.CurrentElevation;
-                            layerAssigner.ApplyLayer();
-                        }
-                    }
-                }
+                // [GLOBAL FIX] Instantiate với parent là transform.parent (thường là Elevation_A/B/C)
+                // Việc này giúp script AutoAssignSortingLayer trên gốc cây tự động kế thừa đúng layer.
+                Instantiate(stumpPrefab, transform.position, transform.rotation, transform.parent);
             }
 
             // 2. Tắt hiển thị của cái xác cây cũ (tránh lớp cha tráo hình đè lên)

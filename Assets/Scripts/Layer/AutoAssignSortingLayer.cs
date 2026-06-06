@@ -9,8 +9,25 @@ namespace Layer
 
         private void Start()
         {
+            // [GLOBAL FIX] Luôn ưu tiên lấy layer từ cha (cho vật phẩm rớt, quái spawn...)
+            // Việc này đảm bảo tính kế thừa đúng theo phân cấp thư mục/object trong Scene
+            InheritFromParent();
+            
             // Luôn đảm bảo layer được áp dụng ngay khi object sinh ra trong game
             ApplyLayer();
+        }
+
+        private void InheritFromParent()
+        {
+            if (transform.parent == null) return;
+            
+            // Tìm script AutoAssignSortingLayer ở bất kỳ cấp cha nào phía trên
+            var parentAssigner = transform.parent.GetComponentInParent<AutoAssignSortingLayer>();
+            if (parentAssigner != null && parentAssigner != this)
+            {
+                targetSortingLayer = parentAssigner.targetSortingLayer;
+                // Debug.Log($"[LayerFix] {name} kế thừa layer '{targetSortingLayer}' từ {parentAssigner.name}");
+            }
         }
 
         // Nút chức năng sẽ hiện ra khi bạn click chuột phải vào script trong Unity

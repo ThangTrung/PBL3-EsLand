@@ -61,9 +61,10 @@ namespace Gameplay.World
         {
             if (!item) return;
 
-            var droppedObj = Instantiate(pickupPrefab, transform.position, Quaternion.identity);
+            // [GLOBAL FIX] Instantiate với parent là transform.parent (thường là Elevation_A/B/C)
+            // Việc này giúp script AutoAssignSortingLayer trên vật phẩm tự động kế thừa đúng layer.
+            var droppedObj = Instantiate(pickupPrefab, transform.position, Quaternion.identity, transform.parent);
             
-            // [FIX] Sử dụng cơ chế ElevationAgent trên Prefab gốc để định vị Layer
             // Chỉ cần gán Sprite đúng với Icon của ItemData
             var spriteRenderer = droppedObj.GetComponent<SpriteRenderer>() ?? droppedObj.GetComponentInChildren<SpriteRenderer>();
             if (spriteRenderer != null)
@@ -77,26 +78,6 @@ namespace Gameplay.World
             if (droppedObj.TryGetComponent<ItemPickup>(out var pickupScript))
             {
                 pickupScript.itemData = item;
-            }
-
-            // [FIX] Đồng bộ Elevation Layer từ nguồn rớt (Boss/Cây/Đá) sang vật phẩm rớt ra
-            var sourceElevation = GetComponent<Gameplay.Environment.ElevationAgent>();
-            if (sourceElevation != null)
-            {
-                var droppedElevation = droppedObj.GetComponent<Gameplay.Environment.ElevationAgent>();
-                if (droppedElevation != null)
-                {
-                    droppedElevation.ChangeElevation(sourceElevation.CurrentElevation);
-                }
-                else
-                {
-                    var layerAssigner = droppedObj.GetComponent<Layer.AutoAssignSortingLayer>();
-                    if (layerAssigner != null)
-                    {
-                        layerAssigner.targetSortingLayer = sourceElevation.CurrentElevation;
-                        layerAssigner.ApplyLayer();
-                    }
-                }
             }
 
             if (!droppedObj.TryGetComponent<Rigidbody2D>(out var rb)) 

@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 3441049324567059213}
   - component: {fileID: 6292858969212675526}
   - component: {fileID: 2227657623687870637}
+  - component: {fileID: -8638283224616163899}
   m_Layer: 8
   m_Name: Tiny_tree4
   m_TagString: Untagged
@@ -476,3 +477,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetSortingLayer: Elevation_A
+--- !u!114 &-8638283224616163899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3165492886914547607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

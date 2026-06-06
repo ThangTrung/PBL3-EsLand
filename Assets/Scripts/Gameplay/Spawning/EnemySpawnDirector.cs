@@ -116,7 +116,8 @@ namespace Gameplay.Spawning
                 spawnData.config, 
                 spawnData.animConfig, 
                 null, 
-                spawnPos
+                spawnPos,
+                area.transform // [FIX] Truyền parent để hỗ trợ kế thừa Elevation Layer
             );
 
             if (enemy != null)

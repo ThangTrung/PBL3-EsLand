@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 9182409385965426817}
   - component: {fileID: 966943088217218637}
   - component: {fileID: 8151150655015846922}
+  - component: {fileID: -8940934099855418700}
   m_Layer: 8
   m_Name: Iron_Resource_1
   m_TagString: Untagged
@@ -491,3 +492,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &-8940934099855418700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839264656145223238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

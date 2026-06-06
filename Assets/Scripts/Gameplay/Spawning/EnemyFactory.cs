@@ -28,12 +28,12 @@ namespace Gameplay.AI.Factories
         /// <summary>
         /// Sinh quái từ EnemySpawnData (Dùng cho Smart Spawner).
         /// </summary>
-        public EnemyBase CreateEnemy(Data.Spawning.EnemySpawnData data, Vector3 position)
+        public EnemyBase CreateEnemy(Data.Spawning.EnemySpawnData data, Vector3 position, Transform parent = null)
         {
             if (data == null || data.prefab == null) return null;
 
             // 1. Lấy từ Pool (Sử dụng prefab của quái vật)
-            GameObject enemyObj = ObjectPoolManager.Instance.Get(data.prefab.gameObject, position);
+            GameObject enemyObj = ObjectPoolManager.Instance.Get(data.prefab.gameObject, position, parent);
             
             EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
             if (enemy != null)
@@ -52,11 +52,11 @@ namespace Gameplay.AI.Factories
             return enemy;
         }
 
-        public EnemyBase CreateEnemy(GameObject prefab, IEnemyConfig config, AnimationConfig animConfig, IAttackStrategy attackStrategy, Vector3 position)
+        public EnemyBase CreateEnemy(GameObject prefab, IEnemyConfig config, AnimationConfig animConfig, IAttackStrategy attackStrategy, Vector3 position, Transform parent = null)
         {
             if (prefab == null) return null;
 
-            GameObject enemyObj = ObjectPoolManager.Instance.Get(prefab, position, Quaternion.identity);
+            GameObject enemyObj = ObjectPoolManager.Instance.Get(prefab, position, Quaternion.identity, parent);
             
             EnemyBase enemy = enemyObj.GetComponent<EnemyBase>();
             if (enemy != null)

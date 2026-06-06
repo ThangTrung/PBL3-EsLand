@@ -225,6 +225,8 @@ GameObject:
   - component: {fileID: 8896312631914810951}
   - component: {fileID: 7921317988579308614}
   - component: {fileID: 2908760923440454337}
+  - component: {fileID: 1210223791410214178}
+  - component: {fileID: 2440197402482405847}
   m_Layer: 7
   m_Name: OgreBoss
   m_TagString: Enemy
@@ -509,3 +511,15 @@ MonoBehaviour:
     chance: 1
   minDropForce: 2
   maxDropForce: 5
+--- !u!114 &2440197402482405847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8090337708008702255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
