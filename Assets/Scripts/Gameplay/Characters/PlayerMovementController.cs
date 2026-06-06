@@ -33,6 +33,7 @@ namespace Gameplay.Characters
         private const float SpeedMultiplier = 1f;
 
         public bool IsFollowingTarget => _followTarget != null;
+        public bool IsKnockedBack { get; set; } // [NEW] Track knockback state externally
 
         private void Awake()
         {
@@ -177,6 +178,7 @@ namespace Gameplay.Characters
 
         private void UpdateFacing(Vector2 velocity)
         {
+            if (IsKnockedBack) return; // [FIX] Don't update facing during knockback to prevent unintended flipping
             if (Time.time < _nextFlipTime) return;
             if (Mathf.Abs(velocity.x) < 0.1f) return;
 

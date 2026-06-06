@@ -84,7 +84,12 @@ namespace Infrastructure.Pooling
             var obj = _pools[prefab].Get();
             
             // [FIX] Cập nhật parent để hỗ trợ kế thừa Elevation Layer
-            obj.transform.SetParent(parent);
+            // [FIX UI SHRINK] Sử dụng worldPositionStays = false để tránh việc Unity tự tính toán lại scale
+            // gây ra lỗi tích tụ khiến UI bị thu nhỏ dần mỗi lần lấy từ Pool.
+            obj.transform.SetParent(parent, false);
+            
+            // Đảm bảo scale luôn là 1 (hoặc theo prefab) khi lấy ra khỏi pool
+            obj.transform.localScale = Vector3.one;
             
             obj.transform.position = position;
             obj.transform.rotation = rotation;

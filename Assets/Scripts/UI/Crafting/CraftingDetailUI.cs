@@ -95,8 +95,9 @@ namespace UI.Crafting
 
                 if (ingredientSlotPrefab != null)
                 {
-                    GameObject slotGO = ObjectPoolManager.Instance.Get(ingredientSlotPrefab.gameObject, Vector3.zero);
-                    slotGO.transform.SetParent(ingredientsContainer, false);
+                    // [FIX UI SHRINK] Truyền trực tiếp parent vào Get và ObjectPoolManager sẽ lo phần reset scale/parent an toàn.
+                    GameObject slotGO = ObjectPoolManager.Instance.Get(ingredientSlotPrefab.gameObject, Vector3.zero, Quaternion.identity, ingredientsContainer);
+                    slotGO.transform.localPosition = Vector3.zero; // Đảm bảo vị trí local chuẩn trong Layout Group
                     slotGO.transform.SetAsLastSibling(); // Xếp đúng thứ tự hiển thị từ trên xuống
                     
                     CraftingIngredientSlotUI slotUI = slotGO.GetComponent<CraftingIngredientSlotUI>();
