@@ -1,47 +1,35 @@
-# Spec: Project Cleanup & Configuration Sync
+# Spec: Project Code Review and Cleanup
 
 ## Objective
-Dọn dẹp và đồng bộ hóa toàn diện giữa Code và Unity Editor để đảm bảo hệ thống vận hành ổn định. Trọng tâm là sửa lỗi kế thừa trong code, hoàn thiện cấu hình Prefab cho toàn bộ tài nguyên (Cây & Đá), và chuẩn hóa hệ thống Layer tương tác.
+Làm sạch, đơn giản hóa và tối ưu hóa toàn bộ mã nguồn của dự án PBL3-EsLand. Chuyển đổi từ mã nguồn được sinh ra bởi AI (có thể rời rạc và dư thừa) thành một hệ thống đồng nhất, tuân thủ các tiêu chuẩn kỹ thuật phần mềm cao cấp, dễ bảo trì và mở rộng.
 
-## Tech Stack
-- Unity 2022.3.62f3 (C#)
-- Unity Editor Scripting (Custom Utilities)
-- Hệ thống Component-based (SOLID)
+## Tiêu chuẩn Làm sạch (Cleanup Standards)
 
-## Commands
-- **Run Cleanup Utility:** `MenuItem > PBL3 > Resource > Setup All Resources` (Sẽ nâng cấp từ script cũ).
-- **Check Compilation:** `mcp_unityMCP_read_console` (Đảm bảo không còn lỗi CS0114).
-- **Verify Prefabs:** `mcp_unityMCP_manage_asset` (Kiểm tra sự tồn tại của components).
+### 1. Naming Conventions (Quy tắc đặt tên)
+- **Class/Struct:** PascalCase (vd: `PlayerController`).
+- **Interface:** Bắt đầu bằng chữ `I` (vd: `ISaveable`).
+- **Private Field:** CamelCase với dấu gạch dưới (vd: `_health`).
+- **Public Property/Method:** PascalCase (vd: `CurrentHealth`).
+- **Local Variable:** CamelCase (vd: `distanceSqr`).
 
-## Project Structure
-- `Assets/Scripts/Gameplay/Characters/Enemy.cs` → Cần sửa logic `Awake`.
-- `Assets/Scripts/Editor/ResourceSetupUtility.cs` → Nâng cấp để xử lý cả Đá (Rock) và gán Layer.
-- `Assets/Prefabs/` → Đối tượng kiểm tra (Player, Tree, Rock).
+### 2. Architectural Boundaries (Ranh giới Kiến trúc)
+- **Logic vs View:** Tuyệt đối không để logic tính toán (VD: tính damage) nằm trong các script UI.
+- **Service Pattern:** Sử dụng các Service tập trung (VD: `InventoryService`, `SaveLoadManager`) thay vì để các đối tượng tự quản lý logic phức tạp.
+- **Contract-based:** Ưu tiên giao tiếp giữa các module qua Interface thay vì tham chiếu trực tiếp class cụ thể.
 
-## Code Style
-- Sử dụng `protected override` cho các hàm khởi tạo trong class kế thừa.
-- Editor Script phải sử dụng hệ thống `Undo` và `EditorUtility.SetDirty`.
-- Tránh hardcode string; ưu tiên sử dụng hằng số cho Layer Name nếu có thể.
+### 3. Simplification Rules (Nguyên tắc Đơn giản hóa)
+- **DRY (Don't Repeat Yourself):** Hợp nhất các hàm hoặc class thực hiện chức năng tương tự.
+- **KISS (Keep It Simple, Stupid):** Loại bỏ các Design Pattern không cần thiết (Over-engineering). Nếu một biến đơn giản có thể giải quyết vấn đề, không dùng hệ thống Event phức tạp.
+- **Dead Code Removal:** Xóa bỏ toàn bộ các biến, hàm, và file không còn sử dụng.
+- **Comment Policy:** Sử dụng comment tiếng Việt súc tích cho logic phức tạp. Xóa các comment AI thừa thải (VD: "This method updates the health").
 
-## Testing Strategy
-1. **Code Audit:** Kiểm tra file `Enemy.cs` qua MCP để xác nhận đã gọi `base.Awake()`.
-2. **Utility Test:** 
-   - Chạy script Setup mới.
-   - Kiểm tra Prefab `Rock_1`: Phải có `ResourceNode`, `ResourceVisualEffects`, và Layer chuyển thành 12.
-3. **Hierarchy Check:** Đảm bảo `Pawn_black` có `EquipmentManager`.
-
-## Boundaries
-- **Always do:** Sử dụng `Undo.AddComponent` để User có thể rollback.
-- **Ask first:** Nếu muốn thay đổi chỉ số máu mặc định của tài nguyên.
-- **Never do:** Sửa trực tiếp file `.prefab` bằng text editor; luôn dùng MCP Tool hoặc Editor Script.
+### 4. Unity Optimization (Tối ưu hóa Unity)
+- **GetComponent:** Hạn chế gọi trong `Update`. Sử dụng caching ở `Awake/Start`.
+- **String References:** Sử dụng `Animator.StringToHash` và `Shader.PropertyToID`.
+- **Object Pooling:** Đảm bảo toàn bộ các vật thể sinh/hủy nhiều (quái, loot, vfx) đều đi qua `ObjectPoolManager`.
 
 ## Success Criteria
-- [ ] `Enemy.cs` không còn cảnh báo ẩn member (`CS0114`).
-- [ ] Prefab `Pawn_black` (Player) chứa component `EquipmentManager`.
-- [ ] Toàn bộ Cây và Đá trong Scene/Prefabs đều thuộc Layer 12 (`Interactable`).
-- [ ] Toàn bộ Đá (`Rock`) có đủ logic nhận sát thương và hiệu ứng rung.
-- [ ] Script `ResourceSetupUtility` xử lý được cả Cây và Đá chỉ bằng 1 click.
-
-## Open Questions
-1. Bạn muốn thiết lập lượng máu (Max Health) mặc định cho Đá là bao nhiêu? (Ví dụ: Cây đang là 3, Đá có thể là 5).
-2. Có cần tự động gán một `AnimatorController` mặc định cho các hòn Đá không? (Vì hiện tại chúng đang thiếu cả Animator).
+- Mã nguồn dễ đọc, không cần giải thích vẫn hiểu được luồng đi.
+- Số lượng file script giảm xuống nhưng chức năng không đổi.
+- Hiệu năng (FPS) ổn định, không có Spike lag do logic Update dư thừa.
+- Không còn lỗi Warning hoặc Error trên Console.

@@ -9,22 +9,15 @@ using UnityEngine.UI;
 
 namespace UI.Inventory
 {
-    public class InventorySlotUI : MonoBehaviour,
-        IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public class InventorySlotUI : SlotUIBase, IPointerClickHandler
     {
-        [Header("References")]
-        [SerializeField] public Image icon;
-        [SerializeField] public TextMeshProUGUI amountText;
-        [SerializeField] public Image durabilityBar;
-        [SerializeField] public Image highlightImage;
-        [SerializeField] public Image equippedOverlay;
-        [SerializeField] public GameObject tooltipRoot;
-        [SerializeField] public TextMeshProUGUI tooltipName;
-        [SerializeField] public TextMeshProUGUI tooltipDesc;
+        [Header("Inventory Specific")]
+        [SerializeField] private Image durabilityBar;
+        [SerializeField] private Image equippedOverlay;
 
         private IInventorySlot _slotData;
         private IItemActionHandler _actionHandler;
-        private Image _image;
+        private Image _slotFrame;
         private int SlotIndex { get; set; }
 
         public event Action<IActionableItem, Vector3> OnRightClicked;
@@ -34,25 +27,29 @@ namespace UI.Inventory
         {
             SlotIndex = index;
             _actionHandler = actionHandler;
-            _image = GetComponent<Image>();
+            _slotFrame = GetComponent<Image>();
         }
 
         public void Refresh(IInventorySlot slotData)
         {
             _slotData = slotData;
 
-            if (_image)
-                _image.enabled = true;
+            if (_slotFrame) _slotFrame.enabled = true;
+            
             if (_slotData == null || _slotData.IsEmpty)
             {
                 ClearVisuals();
                 return;
             }
 
-            if (icon)
+            _hasData = true;
+            _cachedTitle = _slotData.ItemData.ItemName;
+            _cachedContent = _slotData.ItemData.Description;
+
+            if (iconImage)
             {
-                icon.sprite = _slotData.ItemData.Icon;
-                icon.enabled = _slotData.ItemData.Icon;
+                iconImage.sprite = _slotData.ItemData.Icon;
+                iconImage.enabled = _slotData.ItemData.Icon;
             }
 
             if (amountText)
@@ -70,23 +67,18 @@ namespace UI.Inventory
                     durabilityBar.fillAmount = _slotData.DurabilityPercent;
             }
 
-            if (!equippedOverlay) return;
-            var isEquipped = _actionHandler?.IsEquipped(_slotData) ?? false;
-            equippedOverlay.enabled = isEquipped;
+            if (equippedOverlay)
+            {
+                var isEquipped = _actionHandler?.IsEquipped(_slotData) ?? false;
+                equippedOverlay.enabled = isEquipped;
+            }
         }
 
-        private void ClearVisuals()
+        protected override void ClearVisuals()
         {
-            if (icon)
-            {
-                icon.sprite = null;
-                icon.enabled = false;
-            }
-            
-            if (amountText) amountText.enabled = false;
+            base.ClearVisuals();
             if (durabilityBar) durabilityBar.gameObject.SetActive(false);
             if (equippedOverlay) equippedOverlay.enabled = false;
-            HideTooltip();
         }
 
         public void OnPointerClick(PointerEventData eventData)  
@@ -101,53 +93,20 @@ namespace UI.Inventory
                     break;
                 case PointerEventData.InputButton.Right:
                 {
-                    HideTooltip();
+                    if (GlobalTooltipUI.Instance != null) GlobalTooltipUI.Instance.Hide();
+                    
                     if (_slotData == null || _slotData.IsEmpty) return;
                     var context = new InventorySlotActionContext(_slotData, _actionHandler);
                     OnRightClicked?.Invoke(context, eventData.position);
                     break;
                 }
-                case PointerEventData.InputButton.Middle:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
             }
-        }
-
-        public void SetHighlight(bool active)
-        {
-            highlightImage.enabled = active;
-        }
-
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            SetHighlight(true);
-            if (_slotData is { IsEmpty: false }) ShowTooltip();
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            SetHighlight(false);
-            HideTooltip();
-        }
-
-        private void ShowTooltip()
-        {
-            if (tooltipRoot == null || _slotData == null) return;
-            tooltipRoot.SetActive(true);
-            if (tooltipName != null) tooltipName.text = _slotData.ItemData.ItemName;
-            if (tooltipDesc != null) tooltipDesc.text = _slotData.ItemData.Description;
-        }
-
-        private void HideTooltip()
-        {
-            if (tooltipRoot) tooltipRoot.SetActive(false);
         }
 
         public void ResetState()
         {
             SetHighlight(false);
-            HideTooltip();
+            if (GlobalTooltipUI.Instance != null) GlobalTooltipUI.Instance.Hide();
         }
     }
 }

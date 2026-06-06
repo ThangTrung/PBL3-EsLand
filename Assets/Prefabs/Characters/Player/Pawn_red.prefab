@@ -65,6 +65,9 @@ MonoBehaviour:
   baseDamage: 10
   baseAttackCooldown: 1
   interactionRange: 0.5
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!58 &735117720413122054
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -119,7 +122,6 @@ GameObject:
   - component: {fileID: 7635483091134736461}
   - component: {fileID: 6876314136484932384}
   - component: {fileID: 107824778251851378}
-  - component: {fileID: 3921388577836144804}
   - component: {fileID: 7036019135599587360}
   - component: {fileID: 7364913525607914031}
   m_Layer: 6
@@ -254,6 +256,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMoveSpeed: 5
+  flipCooldown: 0.15
+  minFlippingThreshold: 0.1
 --- !u!114 &8512865456201169465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,12 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0937d729bc33384ea19403ec0b45dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHunger: 100
-  maxThirst: 100
-  maxStamina: 100
-  hungerDrainRate: 5
-  thirstDrainRate: 7
-  staminaRegenRate: 10
+  settings: {fileID: 11400000, guid: ed6c71693e5b7784baa2aee754371a57, type: 2}
   currentHunger: 0
   currentThirst: 0
   currentStamina: 0
@@ -310,18 +309,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f8d1c120957c4b0db704789753ed8f92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3921388577836144804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860197315884376947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46a8029b292d126459aeb51f4cf771b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7036019135599587360

@@ -147,26 +147,7 @@ namespace UI
             if (cookingUI == null || !cookingUI.IsVisible || cookingUI.CurrentTower == null) return;
             if (slot == null || slot.IsEmpty || _playerInventory == null) return;
 
-            var item = slot.ItemData;
-            bool added = false;
-
-            // Áp dụng Logic Định Tuyến Nghiêm Ngặt (Strict Routing) dựa trên Type:
-            // Ưu tiên Fuel vào Slot 1. Các item khác vào Slot 0.
-            if (item is MaterialItem material && material.FuelTime > 0)
-            {
-                added = cookingUI.CurrentTower.TryAddItem(1, item, 1);
-                // Nếu Slot 1 đầy, hoặc item này cũng là nguyên liệu nấu, có thể thử thêm vào slot 0
-                if (!added)
-                {
-                    added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
-                }
-            }
-            else
-            {
-                added = cookingUI.CurrentTower.TryAddItem(0, item, 1);
-            }
-
-            if (added)
+            if (cookingUI.CurrentTower.SmartAddItem(slot.ItemData, 1))
             {
                 _playerInventory.ConsumeSlot(slot, 1);
             }

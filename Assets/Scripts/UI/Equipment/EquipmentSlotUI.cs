@@ -9,31 +9,25 @@ using UnityEngine.UI;
 
 namespace UI.Equipment
 {
-    public class EquipmentSlotUI : MonoBehaviour,
-        IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public class EquipmentSlotUI : SlotUIBase, IPointerClickHandler
     {
         [Header("Slot Config")]
         [SerializeField] private EquipSlot slotType;
         public EquipSlot SlotType => slotType;
 
-        [Header("References")]
-        [SerializeField] private Image icon;
-        [SerializeField] private Image highlightImage;
-
         public event Action<IActionableItem, Vector3> OnRightClicked;
 
         private IEquippable _currentItem;
-                private IEquipmentController _equipmentManager;
         private IItemActionHandler _actionHandler;
         private Sprite _defaultSprite;
         private Color _defaultColor;
 
         private void Awake()
         {
-            if (icon != null)
+            if (iconImage != null)
             {
-                _defaultSprite = icon.sprite;
-                _defaultColor = icon.color;
+                _defaultSprite = iconImage.sprite;
+                _defaultColor = iconImage.color;
             }
             SetHighlight(false); 
             if (_currentItem == null)
@@ -42,30 +36,34 @@ namespace UI.Equipment
             }
         }
 
-        public void SetEquipmentManager(IEquipmentController manager) => _equipmentManager = manager;
+        public void SetEquipmentManager(IEquipmentController manager) { }
 
         public void SetActionHandler(IItemActionHandler handler) => _actionHandler = handler;
-
 
         public void SetItem(IEquippable item, Sprite itemSprite)
         {
             _currentItem = item;
-            if (icon == null) return;
+            if (iconImage == null) return;
             
             if (item != null)
             {
-                // Cập nhật icon cho mọi loại trang bị nếu có sprite
+                _hasData = true;
+                if (item is Data.Equipment.Equipment data)
+                {
+                    _cachedTitle = data.ItemName;
+                    _cachedContent = data.Description;
+                }
+
                 if (itemSprite != null)
                 {
                     if (slotType == EquipSlot.MainHand)
                     {
-                        icon.sprite = itemSprite;
+                        iconImage.sprite = itemSprite;
                     }
-                    icon.enabled = true;
+                    iconImage.enabled = true;
                 }
                 
-                // Luôn set alpha lên 1 khi có đồ
-                icon.color = Color.white;
+                iconImage.color = Color.white;
             }
             else 
             {
@@ -73,47 +71,39 @@ namespace UI.Equipment
             }
         }
         
-
         public void ClearItem()
         {
             _currentItem = null;
             ClearVisuals();
         }
 
-        private void ClearVisuals()
+        protected override void ClearVisuals()
         {
-            if (icon == null) return;
+            base.ClearVisuals();
+            if (iconImage == null) return;
             
-            icon.sprite = _defaultSprite;
+            iconImage.sprite = _defaultSprite;
             
-            // Nếu là MainHand và không có default sprite thì ẩn luôn image
             if (slotType == EquipSlot.MainHand && _defaultSprite == null)
             {
-                icon.enabled = false;
+                iconImage.enabled = false;
             }
             else
             {
-                icon.enabled = _defaultSprite != null;
-                // Sử dụng bản sao để không ghi đè vào field _defaultColor
+                iconImage.enabled = _defaultSprite != null;
                 Color c = _defaultColor;
                 c.a = slotType == EquipSlot.MainHand ? 0f : 0.2f;
-                icon.color = c;
+                iconImage.color = c;
             }
-        }
-
-        public void SetHighlight(bool isHighlighted)
-        {
-            if (highlightImage) highlightImage.enabled = isHighlighted;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Right || _currentItem == null) return;
+            if (GlobalTooltipUI.Instance != null) GlobalTooltipUI.Instance.Hide();
+            
             var context = new EquipmentSlotActionContext(_actionHandler, slotType, _currentItem);
             OnRightClicked?.Invoke(context, eventData.position);
         }
-
-        public void OnPointerEnter(PointerEventData eventData) => SetHighlight(true);
-        public void OnPointerExit(PointerEventData eventData) => SetHighlight(false);
     }
 }

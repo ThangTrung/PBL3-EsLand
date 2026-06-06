@@ -199,5 +199,23 @@ namespace Gameplay.Building
             Slots[slotIndex].SetItem(item, amount);
             OnStateChanged?.Invoke();
         }
+
+        /// <summary>
+        /// Tự động định tuyến vật phẩm vào đúng slot (Củi vs Nguyên liệu).
+        /// Giải phóng logic này khỏi UIManager.
+        /// </summary>
+        public bool SmartAddItem(ItemData item, int amount)
+        {
+            if (item == null) return false;
+
+            // 1. Ưu tiên Fuel (nếu item có chỉ số cháy)
+            if (item.FuelTime > 0)
+            {
+                if (TryAddItem(1, item, amount)) return true;
+            }
+
+            // 2. Nếu không phải củi hoặc slot củi đầy, thử bỏ vào slot nguyên liệu
+            return TryAddItem(0, item, amount);
+        }
     }
 }

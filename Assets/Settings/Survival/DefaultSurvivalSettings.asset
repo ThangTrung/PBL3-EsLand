@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ca15da75379c24f9d2fc6fd8ac81ca, type: 3}
+  m_Name: DefaultSurvivalSettings
+  m_EditorClassIdentifier: 
+  maxHunger: 100
+  maxThirst: 100
+  maxStamina: 100
+  hungerDrainRate: 1
+  thirstDrainRate: 1.2
+  staminaRegenRate: 5
+  thirstRestorePerDrink: 20
+  hungerRestorePerMeat: 30
+  penaltyThreshold: 0.1
+  slowMultiplier: 0.5
+  damageMultiplier: 0.5
+  healthLossInterval: 5
+  healthLossAmount: 1

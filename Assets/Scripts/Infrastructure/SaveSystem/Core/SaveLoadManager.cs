@@ -6,9 +6,15 @@ using Infrastructure.SaveSystem.Core;
 
 namespace Infrastructure.SaveSystem.Core
 {
+    /// <summary>
+    /// Trung tâm điều phối hệ thống Lưu và Tải game (Persistence).
+    /// Áp dụng cơ chế Singleton và hỗ trợ cả lưu trữ File cục bộ lẫn Cloud.
+    /// </summary>
     public class SaveLoadManager : MonoBehaviour
     {
         public static SaveLoadManager Instance { get; private set; }
+        
+        /// <summary> Cờ đánh dấu hệ thống đang trong quá trình tải dữ liệu </summary>
         public bool IsLoading { get; private set; } = false;
 
         [Header("Cấu hình Lưu Trữ")]
@@ -74,11 +80,13 @@ namespace Infrastructure.SaveSystem.Core
             }
         }
 
+        /// <summary> Khởi tạo một đối tượng dữ liệu game mới hoàn toàn (New Game) </summary>
         public void NewGame()
         {
             gameData = new GameData();
         }
 
+        /// <summary> Thực hiện việc tải dữ liệu từ bộ nhớ (File/Cloud) vào game </summary>
         public void LoadGame()
         {
             IsLoading = true;
@@ -120,6 +128,7 @@ namespace Infrastructure.SaveSystem.Core
             }
         }
 
+        /// <summary> Thu thập dữ liệu từ tất cả các đối tượng ISaveable và ghi vào bộ nhớ bền vững </summary>
         public void SaveGame()
         {
             if (IsLoading || dataHandler == null || gameData == null || _isQuitting) return;
@@ -145,6 +154,7 @@ namespace Infrastructure.SaveSystem.Core
             }
         }
 
+        /// <summary> Xóa vĩnh viễn file lưu hiện tại và reset trạng thái game </summary>
         public void DeleteSaveData()
         {
             useAutoSave = false; // Ngăn chặn auto-save sau khi xóa file
@@ -172,6 +182,7 @@ namespace Infrastructure.SaveSystem.Core
             return saveables;
         }
         
+        /// <summary> Đăng ký một Entity đã bị tiêu diệt vĩnh viễn để không hồi sinh khi Load game </summary>
         public void RegisterDestroyedEntity(string id)
         {
             if (gameData != null && !gameData.destroyedEntityIDs.Contains(id))

@@ -47,31 +47,24 @@ namespace Gameplay.Spawning
         private HashSet<SpawnArea> _registeredAreas = new HashSet<SpawnArea>();
         #endregion
 
+        private List<SpawnArea> _activeAreas = new List<SpawnArea>();
         private float _spawnTimer;
 
-        private void OnEnable()
+        public void SetAreaActive(SpawnArea area, bool isActive)
         {
-            GameEvents.OnEnemyDied += HandleEnemyDied;
-        }
-
-        private void OnDisable()
-        {
-            GameEvents.OnEnemyDied -= HandleEnemyDied;
-        }
-
-        private void Start()
-        {
-            if (playerTransform == null)
+            if (isActive)
             {
-                playerTransform = Gameplay.Characters.TargetTracker.PlayerTarget;
+                if (!_activeAreas.Contains(area)) _activeAreas.Add(area);
             }
-
-            StartCoroutine(LazyTickRoutine());
+            else
+            {
+                _activeAreas.Remove(area);
+            }
         }
 
         private void Update()
         {
-            // Update playerTransform reference dynamically in case it wasn't available at Start
+            // Update playerTransform reference dynamically
             if (playerTransform == null)
             {
                 playerTransform = Gameplay.Characters.TargetTracker.PlayerTarget;
@@ -81,8 +74,8 @@ namespace Gameplay.Spawning
 
             _spawnTimer += Time.deltaTime;
             
-            // Lấy WaveConfig hiện tại (ưu tiên Area gần nhất, nếu không dùng Default)
-            SpawnArea currentArea = FindActiveSpawnArea();
+            // Lấy WaveConfig hiện tại (Ưu tiên Area cuối cùng được kích hoạt, nếu không dùng Default)
+            SpawnArea currentArea = _activeAreas.Count > 0 ? _activeAreas[_activeAreas.Count - 1] : null;
             WaveConfig targetWave = (currentArea != null && currentArea.LocalWaveConfig != null) 
                                     ? currentArea.LocalWaveConfig 
                                     : defaultWave;
@@ -104,8 +97,12 @@ namespace Gameplay.Spawning
             EnemySpawnData spawnData = wave.GetRandomEnemy();
             if (spawnData == null) return;
 
-            // Nếu chưa tìm được Area từ Update, tìm lại
-            if (area == null) area = FindActiveSpawnArea();
+            // Nếu không có Area được báo cáo, tìm Area gần nhất (fallback)
+            if (area == null)
+            {
+                area = GetFallbackArea();
+            }
+            
             if (area == null) return;
 
             Vector3 spawnPos = area.GetValidSpawnPoint();
@@ -117,7 +114,7 @@ namespace Gameplay.Spawning
                 spawnData.animConfig, 
                 null, 
                 spawnPos,
-                area.transform // [FIX] Truyền parent để hỗ trợ kế thừa Elevation Layer
+                area.transform
             );
 
             if (enemy != null)
@@ -126,45 +123,16 @@ namespace Gameplay.Spawning
             }
         }
 
-        /// <summary>
-        /// Tìm kiếm vùng sinh quái hiệu quả cao bằng Physics Overlap (Spatial Partitioning).
-        /// Cực nhanh ngay cả khi Map có hàng nghìn Area.
-        /// </summary>
-        private SpawnArea FindActiveSpawnArea()
+        private SpawnArea GetFallbackArea()
         {
-            if (playerTransform == null) return null;
-
-            // Tìm tất cả Area trong bán kính sinh hoạt động (12m - 40m)
-            // Lưu ý: Chúng ta dùng bán kính lớn để lấy list, sau đó lọc DeadZone
-            float searchRadius = 40f;
-            Collider2D[] hitAreas = Physics2D.OverlapCircleAll(playerTransform.position, searchRadius, spawnAreaLayer);
-
-            if (hitAreas == null || hitAreas.Length == 0) return null;
-
-            List<SpawnArea> candidates = new List<SpawnArea>();
-            Vector3 playerPos = playerTransform.position;
-
-            foreach (var col in hitAreas)
+            // Fallback cực nhanh nếu không có trigger nào trúng
+            foreach (var area in _registeredAreas)
             {
-                if (col.TryGetComponent<SpawnArea>(out var area))
-                {
-                    // [FIX] Tính khoảng cách từ ranh giới của SpawnArea tới Player thay vì lấy tâm.
-                    // Ngăn chặn lỗi quái không sinh ra khi Player đứng trong một SpawnArea khổng lồ.
-                    Vector3 closestPoint = col.ClosestPoint(playerPos);
-                    float distSqr = (closestPoint - playerPos).sqrMagnitude;
-                    
-                    // Lọc: Không sinh quá gần Player
-                    if (distSqr >= DeadZoneRadiusSqr)
-                    {
-                        candidates.Add(area);
-                    }
-                }
+                if (area == null) continue;
+                float distSqr = (area.transform.position - playerTransform.position).sqrMagnitude;
+                if (distSqr < DespawnRadiusSqr) return area;
             }
-
-            if (candidates.Count == 0) return null;
-            
-            // Trả về Area ngẫu nhiên trong danh sách hợp lệ gần Player
-            return candidates[Random.Range(0, candidates.Count)];
+            return null;
         }
 
         private void RegisterEnemy(EnemyBase enemy, float cost)

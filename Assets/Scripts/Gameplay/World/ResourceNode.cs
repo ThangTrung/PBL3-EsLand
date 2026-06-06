@@ -176,10 +176,15 @@ namespace Gameplay.World
             IsDead = true;
             OnDie?.Invoke();
             
+            // 1. Sinh Loot
             if (TryGetComponent<LootSpawner>(out var spawner))
                 spawner.SpawnLoot();
             
+            // 2. Cập nhật hình ảnh và tắt va chạm ngay lập tức
             UpdateVisuals();
+            
+            // 3. Tắt script này (Giải phóng CPU, không cần chạy logic gì nữa)
+            this.enabled = false;
         }
 
         private void UpdateVisuals()

@@ -28,21 +28,19 @@ namespace Gameplay.Spawning
             _collider.isTrigger = true;
         }
 
-        private void OnEnable()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            // Tự động đăng ký khi được kích hoạt trong Scene
-            if (EnemySpawnDirector.Instance != null)
+            if (other.CompareTag("Player") && EnemySpawnDirector.Instance != null)
             {
-                EnemySpawnDirector.Instance.ManualRegisterSpawnArea(this);
+                EnemySpawnDirector.Instance.SetAreaActive(this, true);
             }
         }
 
-        private void OnDisable()
+        private void OnTriggerExit2D(Collider2D other)
         {
-            // Tự động hủy đăng ký khi bị tắt/xóa
-            if (EnemySpawnDirector.Instance != null)
+            if (other.CompareTag("Player") && EnemySpawnDirector.Instance != null)
             {
-                EnemySpawnDirector.Instance.UnregisterSpawnArea(this);
+                EnemySpawnDirector.Instance.SetAreaActive(this, false);
             }
         }
 

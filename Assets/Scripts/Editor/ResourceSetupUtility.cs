@@ -54,7 +54,7 @@ namespace Editor.Utilities
 
         private static void ProcessResource(GameObject go, bool isTree)
         {
-            // 1. Standardize Layer
+            // 1. Standardize Layer (Layer 12: Interactable)
             Undo.RecordObject(go, "Change Layer");
             go.layer = INTERACTABLE_LAYER;
 
@@ -65,22 +65,40 @@ namespace Editor.Utilities
             {
                 EnsureComponent<TreeResource>(go);
             }
+            else
+            {
+                // Rocks use RockResource if available
+                EnsureComponent<RockResource>(go);
+            }
 
-            // 3. Configure Health via SerializedObject
+            // 3. Configure via SerializedObject (Safe Editing)
             if (node != null)
             {
                 SerializedObject so = new SerializedObject(node);
+                
+                // A. Configure Health
                 SerializedProperty hpProp = so.FindProperty("maxHealth");
                 if (hpProp != null)
                 {
                     float targetHp = isTree ? TREE_MAX_HEALTH : ROCK_MAX_HEALTH;
-                    // We only set it if it's the default or 0 to avoid overwriting custom values
-                    if (hpProp.floatValue <= 0 || hpProp.floatValue == 3f || hpProp.floatValue == 1f) 
+                    hpProp.floatValue = targetHp;
+                }
+
+                // B. Animator Check (Required for Trees, optional/no-op for Rocks)
+                if (isTree)
+                {
+                    SerializedProperty animProp = so.FindProperty("animator");
+                    if (animProp != null && animProp.objectReferenceValue == null)
                     {
-                        hpProp.floatValue = targetHp;
-                        so.ApplyModifiedProperties();
+                        var animator = go.GetComponent<Animator>() ?? go.GetComponentInChildren<Animator>();
+                        if (animator != null)
+                        {
+                            animProp.objectReferenceValue = animator;
+                        }
                     }
                 }
+                
+                so.ApplyModifiedProperties();
             }
             
             EditorUtility.SetDirty(go);

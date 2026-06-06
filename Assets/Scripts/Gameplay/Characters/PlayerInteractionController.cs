@@ -19,6 +19,7 @@ namespace Gameplay.Characters
         [SerializeField] private float baseDamage = 10f;
         [SerializeField] private float baseAttackCooldown = 1f;
         [SerializeField] private float interactionRange = 0.5f;
+        [SerializeField] private LayerMask waterLayer;
 
         private float _attackTimer;
         private Character _facade;
@@ -102,6 +103,7 @@ namespace Gameplay.Characters
             if (Gameplay.Building.BuildingPlacementManager.Instance != null && 
                 Gameplay.Building.BuildingPlacementManager.Instance.IsPlacing) return;
 
+            // 1. Kiểm tra các vật thể có thể tương tác (Cây, Đá, Item...)
             var colliders = Physics2D.OverlapCircleAll(mouseWorldPos, 0.2f, interactableLayer);
             
             foreach (var col in colliders)
@@ -114,6 +116,44 @@ namespace Gameplay.Characters
 
                 InteractWithTarget(target, col.transform);
                 return;
+            }
+
+            // 2. Nếu không trúng vật thể, kiểm tra xem có click vào NƯỚC không
+            if (Physics2D.OverlapPoint(mouseWorldPos, waterLayer))
+            {
+                MoveToAndDrink(mouseWorldPos);
+            }
+        }
+
+        private void MoveToAndDrink(Vector3 targetPos)
+        {
+            InitializeReferences();
+            if (!_movement) return;
+
+            _movement.SetTargetPosition(targetPos, interactionRange, () =>
+            {
+                FaceTarget(targetPos);
+                StartCoroutine(ExecuteDrinkSequence());
+            });
+        }
+
+        private System.Collections.IEnumerator ExecuteDrinkSequence()
+        {
+            while (_attackTimer > 0) yield return null;
+            
+            if (!CanAttack()) yield break;
+
+            _attackTimer = baseAttackCooldown;
+            TriggerInteractAnimation();
+
+            Debug.Log("<color=cyan>[Survival]</color> Đang uống nước...");
+            yield return new WaitForSeconds(interactionDelay);
+
+            if (_survival != null && _survival.Settings != null)
+            {
+                float amount = _survival.Settings.thirstRestorePerDrink;
+                _survival.AddThirst(amount);
+                Debug.Log($"<color=cyan>[Survival]</color> Đã uống nước. Hồi phục {amount} Thirst.");
             }
         }
 

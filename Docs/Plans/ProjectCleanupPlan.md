@@ -1,33 +1,51 @@
-# Implementation Plan - Project Cleanup & Sync
+# Plan: Project Code Cleanup and Simplification
 
-Dọn dẹp và đồng bộ cấu hình Player và Tài nguyên (Trees & Rocks). 
-*Lưu ý: Không can thiệp vào Enemy theo yêu cầu.*
+## Overview
+Dự án sẽ được "đại tu" qua 6 giai đoạn, đi từ hạ tầng đến ngọn, nhằm loại bỏ các dấu vết của mã nguồn AI rời rạc và thay thế bằng kiến trúc chuyên nghiệp.
 
-## 1. Thành phần thực hiện (Implementation Components)
-- **Player Prefab Sync:** Gán `EquipmentManager` cho `Pawn_black.prefab` và đảm bảo các tham chiếu nội bộ chuẩn xác.
-- **Enhanced ResourceSetupUtility:** 
-    - Mở rộng logic tìm kiếm: Xử lý cả "Tiny_tree" và "Rock".
-    - Chuẩn hóa Layer: Tự động đưa về Layer 12 (`Interactable`).
-    - Cấu hình chỉ số: Đá mặc định 10 máu, Cây mặc định 3 máu.
-    - Xử lý Animator: Chỉ gán/kiểm tra Animator cho Cây, bỏ qua đối với Đá.
+---
 
-## 2. Thứ tự thực hiện (Implementation Order)
-1. **Cập nhật Player Prefab:** Sử dụng MCP để add component vào file `.prefab` gốc.
-2. **Nâng cấp ResourceSetupUtility.cs:** 
-    - Thêm hằng số `INTERACTABLE_LAYER = 12`.
-    - Thêm mảng nhận diện tên (`"Tiny_tree"`, `"Rock"`).
-    - Cập nhật hàm `ProcessResource` để phân biệt loại tài nguyên nhằm gán máu phù hợp.
-3. **Thực thi Utility:** Chạy script trong Editor để quét và fix toàn bộ Scene hiện tại.
+## Phase 1: Directory & Architectural Alignment
+- **Mục tiêu:** Sắp xếp lại file, xóa file rác, đảm bảo thư mục dự án sạch sẽ.
+- [ ] Task 1.1: Quét và xóa các file script "mồ côi" (không được gán vào đâu).
+- [ ] Task 1.2: Hợp nhất các thư mục `Core`, `Infrastructure` và `Gameplay` nếu có sự chồng chéo.
+- [ ] Task 1.3: Review file `.meta` và các asset bị mất reference.
 
-## 3. Rủi ro và Giải pháp (Risks & Mitigation)
-- **Rủi ro:** Gán nhầm Layer cho các object không phải tài nguyên nhưng có tên tương tự.
-- **Giải pháp:** Kiểm tra sự tồn tại của `Collider2D` hoặc `SpriteRenderer` trước khi xử lý, hoặc chỉ quét các object có chứa chính xác từ khóa trong tên.
-- **Rủi ro:** Ghi đè chỉ số máu mà User đã dày công chỉnh sửa thủ công.
-- **Giải pháp:** Chỉ gán giá trị mặc định (10 cho Đá) nếu component `ResourceNode` vừa mới được add vào (New component). Nếu đã có sẵn, giữ nguyên giá trị cũ.
+## Phase 2: Core Contracts & Data Simplification
+- **Mục tiêu:** Làm sạch các Interface và ScriptableObjects.
+- [ ] Task 2.1: Hợp nhất các Interface trùng lặp trong `Core.Contracts`.
+- [ ] Task 2.2: Tối ưu hóa các lớp `ItemData`, `BuildingData` (Xóa các biến "có thể dùng sau này" nhưng hiện tại không dùng).
+- [ ] Task 2.3: Đơn giản hóa `GameData` cho hệ thống Save.
 
-## 4. Điểm kiểm chứng (Verification Checkpoints)
-- [ ] Prefab `Pawn_black` có component `EquipmentManager`.
-- [ ] Chạy "Setup All Resources" báo cáo số lượng object đã xử lý (Green log).
-- [ ] Click vào 1 hòn Đá trong Scene: Kiểm tra Layer là 12, có script `ResourceNode` với Max Health = 10.
-- [ ] Click vào 1 cái Cây trong Scene: Kiểm tra Layer là 12, có script `TreeResource`.
-- [ ] Kiểm tra Console: Không có lỗi biên dịch.
+## Phase 3: Character & AI Refactoring
+- **Mục tiêu:** Đơn giản hóa Player và Quái vật.
+- [ ] Task 3.1: Refactor `CharacterHealth.cs` thành một component "dumb" chỉ giữ số liệu, đẩy logic xử lý ra Service hoặc Controller.
+- [ ] Task 3.2: Hợp nhất logic di chuyển giữa `PlayerMovementController` và `EnemyMovementController` nếu có thể (Shared Base).
+- [ ] Task 3.3: Review lại AI State Machine, loại bỏ các State dư thừa hoặc không hoạt động.
+
+## Phase 4: World & Spawning Optimization
+- **Mục tiêu:** Làm mượt logic sinh sản và tương tác môi trường.
+- [ ] Task 4.1: Tối ưu hóa `EnemySpawnDirector` và `SpawnArea` (Giảm bớt sự phụ thuộc lẫn nhau).
+- [ ] Task 4.2: Hợp nhất `ResourceNode`, `TreeResource`, `RockResource` thành một hệ thống linh hoạt hơn, ít code lặp hơn.
+- [ ] Task 4.3: Review lại `ElevationAgent` và hệ thống Layer.
+
+## Phase 5: UI & UX Consistency
+- **Mục tiêu:** Tách biệt Logic khỏi UI hoàn toàn.
+- [ ] Task 5.1: Review `UIManager`, đảm bảo nó chỉ điều phối các Panel, không chứa logic gameplay.
+- [ ] Task 5.2: Tối ưu hóa các Slot UI và hệ thống Tooltip.
+- [ ] Task 5.3: Hợp nhất các hệ thống Crafting UI và Inventory UI dùng chung component.
+
+## Phase 6: Final Polish & Documentation
+- **Mục tiêu:** "Đóng gói" dự án.
+- [ ] Task 6.1: Xóa bỏ toàn bộ Log debug thừa thải.
+- [ ] Task 6.2: Viết comment chuẩn cho các hàm API quan trọng.
+- [ ] Task 6.3: Kiểm tra lần cuối các lỗi Performance (Lag, Memory Leak).
+
+---
+
+## Risks & Mitigations
+| Risk | Impact | Mitigation |
+|------|--------|------------|
+| Mất liên kết (Missing Reference) trong Inspector | Cao | Thực hiện lệnh Save Assets thường xuyên, kiểm tra Reference sau mỗi lần refactor. |
+| Phá vỡ hệ thống Save (GameData change) | Trung bình | Tích hợp cơ chế Versioning cho file Save hoặc xóa file save cũ sau khi đổi cấu trúc. |
+| Logic game bị thay đổi ngoài ý muốn | Cao | Chạy test manual cho mỗi task hoàn thành. |

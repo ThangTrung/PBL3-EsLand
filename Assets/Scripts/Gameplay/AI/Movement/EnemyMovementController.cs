@@ -1,67 +1,30 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI;
+using Core.Contracts.AI;
 
 namespace Gameplay.AI.Movement
 {
+    using Gameplay.Characters;
+
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(NavMeshAgent))]
-    public class EnemyMovementController : MonoBehaviour
+    public class EnemyMovementController : MovementControllerBase
     {
-        private static readonly int IsMovingHash = Animator.StringToHash("isMoving");
-
-        [Header("Movement Settings")]
-        [SerializeField] private float baseMoveSpeed = 3f;
+        [Header("AI Specific Settings")]
         [SerializeField] private float movementSmoothing = 12f;
-        private float _speedMultiplier = 1f;
-
-        private Rigidbody2D _rb;
-        private Gameplay.Characters.Character _facade;
+        [SerializeField] private float pathUpdateCooldown = 0.3f;
+        [SerializeField] private float destinationChangeThreshold = 0.3f;
+        
         private Gameplay.AI.Animation.CharacterAnimationController _animController;
-        private Collider2D _myCollider;
-        private NavMeshAgent _agent;
-
-        private bool _canMove = true;
-        private Transform _followTarget;
-        private Vector3? _targetPosition;
-        private float _stopDistance = 0.5f;
-        private System.Action _onTargetReached;
-
+        private float _speedMultiplier = 1f;
         private bool _isNavigating;
         private Vector3 _lastPathDestination = Vector3.positiveInfinity;
         private float _pathCooldownTimer;
-        [SerializeField] private float pathUpdateCooldown = 0.3f;
-        [SerializeField] private float destinationChangeThreshold = 0.3f;
 
-        private float _lastFlipTime;
-        private const float FlipCooldown = 0.2f;
-        private const float MinFlippingThreshold = 0.15f;
-
-        private void Awake()
+        protected override void Awake()
         {
-            _rb = GetComponent<Rigidbody2D>();
-            _facade = GetComponent<Gameplay.Characters.Character>();
+            base.Awake();
             _animController = GetComponentInChildren<Gameplay.AI.Animation.CharacterAnimationController>();
-            _myCollider = GetComponent<Collider2D>();
-            _agent = GetComponent<NavMeshAgent>();
-
-            if (_agent == null) return;
-            _agent.updatePosition = false;
-            _agent.updateRotation = false;
-            _agent.updateUpAxis = false;
-        }
-
-        private void Start()
-        {
-            if (_facade != null && _facade.Health != null)
-                _facade.Health.OnDie += HandleDie;
-
-            EnsureAgentOnNavMesh();
-        }
-
-        private void OnDestroy()
-        {
-            if (_facade != null && _facade.Health != null)
-                _facade.Health.OnDie -= HandleDie;
         }
 
         private void FixedUpdate()
@@ -103,8 +66,7 @@ namespace Gameplay.AI.Movement
 
                 if (targetDir.sqrMagnitude > 0.01f)
                 {
-                    UpdateFacing(targetDir.x);
-                    ApplyVelocity(targetDir * GetCurrentMoveSpeed());
+                    ApplyVelocity(targetDir * GetMoveSpeed());
                 }
                 else
                 {
@@ -114,8 +76,7 @@ namespace Gameplay.AI.Movement
             else
             {
                 Vector2 direction = ((Vector2)destination - (Vector2)transform.position).normalized;
-                UpdateFacing(direction.x);
-                ApplyVelocity(direction * GetCurrentMoveSpeed());
+                ApplyVelocity(direction * GetMoveSpeed());
             }
         }
 
@@ -127,24 +88,24 @@ namespace Gameplay.AI.Movement
             {
                 _isNavigating = false;
                 if (_agent && _agent.isOnNavMesh) _agent.isStopped = true;
-                UpdateFacing(direction.x);
             }
 
-            float speed = speedOverride > 0 ? speedOverride : GetCurrentMoveSpeed();
+            float speed = speedOverride > 0 ? speedOverride : GetMoveSpeed();
             ApplyVelocity(direction.normalized * speed);
         }
 
-        private void UpdateFacing(float directionX)
+        protected override void UpdateFacing(float directionX)
         {
-            if (Mathf.Abs(directionX) > MinFlippingThreshold && Time.time >= _lastFlipTime + FlipCooldown)      
+            if (Time.time < _nextFlipTime) return;
+            if (Mathf.Abs(directionX) < minFlippingThreshold) return;
+
+            float targetScaleX = Mathf.Sign(directionX);
+            Transform targetTransform = _animController != null ? _animController.transform : transform;
+            
+            if (!Mathf.Approximately(targetTransform.localScale.x, targetScaleX))
             {
-                float targetScaleX = Mathf.Sign(directionX);
-                Transform targetTransform = _animController != null ? _animController.transform : transform;
-                if (!Mathf.Approximately(targetTransform.localScale.x, targetScaleX))
-                {
-                    targetTransform.localScale = new Vector3(targetScaleX, 1, 1);
-                    _lastFlipTime = Time.time;
-                }
+                targetTransform.localScale = new Vector3(targetScaleX, 1, 1);
+                _nextFlipTime = Time.time + flipCooldown;
             }
         }
 
@@ -170,73 +131,22 @@ namespace Gameplay.AI.Movement
             if (_agent && _agent.isOnNavMesh) _agent.isStopped = false;
         }
 
-        public void StopMovement()
+        public override void StopMovement()
         {
             _isNavigating = false;
-            _followTarget = null;
-            _targetPosition = null;
-            _onTargetReached = null;
-            if (_agent && _agent.isOnNavMesh) _agent.isStopped = true;
-            ApplyVelocity(Vector2.zero);
+            base.StopMovement();
         }
 
-        public void SetCanMove(bool canMove)
-        {
-            _canMove = canMove;
-            if (!canMove) StopMovement();
-        }
-
-        private void CompleteFollow()
-        {
-            var callback = _onTargetReached;
-            StopMovement();
-            callback?.Invoke();
-        }
-
-        private void ApplyVelocity(Vector2 targetVelocity)
+        protected override void ApplyVelocity(Vector2 targetVelocity)
         {
             if (!_rb) return;
             _rb.velocity = Vector2.Lerp(_rb.velocity, targetVelocity, Time.fixedDeltaTime * movementSmoothing); 
-            bool isMoving = _rb.velocity.sqrMagnitude > 0.1f;
-            if (_facade != null && _facade.Animator != null)
-                _facade.Animator.SetBool(IsMovingHash, isMoving);
+            UpdateAnimation(_rb.velocity);
+            UpdateFacing(_rb.velocity.x);
         }
 
-        private bool CheckReachedTarget(Vector3 destination)
-        {
-            if (_followTarget != null)
-            {
-                var targetCollider = _followTarget.GetComponent<Collider2D>();
-                if (targetCollider && _myCollider)
-                {
-                    if (_myCollider.IsTouching(targetCollider)) return true;
-                    var result = Physics2D.Distance(_myCollider, targetCollider);
-                    if (result.distance <= _stopDistance) return true;
-                }
-            }
-            float dist = Vector2.Distance(transform.position, destination);
-            if (dist <= _stopDistance) return true;
-            return false;
-        }
-
-        private void EnsureAgentOnNavMesh()
-        {
-            if (!_agent) return;
-            if (_agent.isOnNavMesh) return;
-            if (NavMesh.SamplePosition(transform.position, out var hit, 5f, NavMesh.AllAreas))
-            {
-                _agent.Warp(hit.position);
-            }
-        }
-
-        private void HandleDie()
-        {
-            _canMove = false;
-            StopMovement();
-        }
-
+        protected override float GetMoveSpeed() => Mathf.Max(0.1f, baseMoveSpeed * _speedMultiplier);
         public void SetBaseMoveSpeed(float speed) => baseMoveSpeed = speed;
         public void SetSpeedMultiplier(float multiplier) => _speedMultiplier = multiplier;
-        public float GetCurrentMoveSpeed() => Mathf.Max(0.1f, baseMoveSpeed * _speedMultiplier);
     }
 }

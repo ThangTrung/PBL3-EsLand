@@ -1,32 +1,24 @@
-﻿using Core.Contracts.Combat;
-using Gameplay.Characters;
 using UnityEngine;
+using Core.Contracts.Combat;
+using Gameplay.Characters;
 
 namespace Gameplay.AI.Strategies.Modifiers
 {
+    /// <summary>
+    /// Phản sát thương khi bị tấn công (Spike Counter).
+    /// </summary>
     public class SpikeCounterModifier : MonoBehaviour, IDamageModifier
     {
-        [SerializeField] private float reflectionPercent = 0.25f;
-        [SerializeField] private float reflectionMaxRange = 3f;
+        [SerializeField] private float counterDamageMultiplier = 0.2f;
+        public int Priority => 20;
 
-        public int Priority => 20; // Runs after reduction
-
-        public float ModifyDamage(float incomingDamage, Character source)
+        public float ModifyDamage(float damage, Character attacker)
         {
-            if (source != null && incomingDamage > 0)
+            if (attacker != null && attacker.Health != null)
             {
-                float distance = Vector3.Distance(transform.position, source.transform.position);
-                if (distance <= reflectionMaxRange)
-                {
-                    float reflectedDamage = incomingDamage * reflectionPercent;
-                    if (source.TryGetComponent<IDamageable>(out var victim))
-                    {
-                        // Pass null as source to prevent infinite recursion
-                        victim.TakeDamage(reflectedDamage, null);
-                    }
-                }
+                attacker.Health.TakeDamage(damage * counterDamageMultiplier, GetComponent<Character>());
             }
-            return incomingDamage;
+            return damage;
         }
     }
 }

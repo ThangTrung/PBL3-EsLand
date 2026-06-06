@@ -10,13 +10,8 @@ namespace UI.Crafting
     /// Gắn lên từng Button (Ô công thức) ở Bảng Trái.
     /// Hierarchy: Button (RecipeSlot) -> Image (Icon), Image (Highlight)
     /// </summary>
-    [RequireComponent(typeof(Button))]
-    public class CraftingRecipeSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class CraftingRecipeSlotUI : SlotUIBase
     {
-        [SerializeField] private Image icon;
-        [Tooltip("Hình ảnh viền/background sáng lên khi đưa chuột vào")]
-        [SerializeField] private Image highlightImage;
-        
         private CraftingRecipe currentRecipe;
         private Button button;
 
@@ -32,21 +27,22 @@ namespace UI.Crafting
         public void Init(CraftingRecipe recipe)
         {
             currentRecipe = recipe;
-            if (icon != null && recipe != null && recipe.ResultItem != null)
+            if (iconImage != null && recipe != null && recipe.ResultItem != null)
             {
-                icon.sprite = recipe.ResultItem.Icon;
-                icon.enabled = true; // Đảm bảo icon luôn hiển thị khi có dữ liệu
+                _hasData = true;
+                _cachedTitle = recipe.ResultItem.ItemName;
+                _cachedContent = recipe.ResultItem.Description;
+                
+                iconImage.sprite = recipe.ResultItem.Icon;
+                iconImage.enabled = true; // Đảm bảo icon luôn hiển thị khi có dữ liệu
             }
-            else if (icon != null)
+            else
             {
-                icon.enabled = false;
+                ClearVisuals();
             }
 
             // Mặc định tắt viền highlight khi mới khởi tạo
-            if (highlightImage != null)
-            {
-                highlightImage.enabled = false;
-            }
+            SetHighlight(false);
         }
 
         private void HandleClick()
@@ -54,24 +50,6 @@ namespace UI.Crafting
             if (currentRecipe != null)
             {
                 OnRecipeSelected?.Invoke(currentRecipe);
-            }
-        }
-
-        // Bật viền khi đưa chuột vào
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            if (highlightImage != null)
-            {
-                highlightImage.enabled = true;
-            }
-        }
-
-        // Tắt viền khi rút chuột ra
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            if (highlightImage != null)
-            {
-                highlightImage.enabled = false;
             }
         }
     }
