@@ -2,6 +2,7 @@ using Core.Contracts.Inventory;
 using Data.Building;
 using Data.Items;
 using Gameplay.Characters;
+using UI.Cursor;
 using UnityEngine;
 
 namespace Gameplay.Building
@@ -114,6 +115,14 @@ namespace Gameplay.Building
 
             // 3. Check vị trí hợp lệ
             bool isValid = CheckPlacementValid(mousePos);
+            
+            // Cập nhật Cursor dựa trên tính hợp lệ của vị trí đặt
+            if (CursorManager.Instance != null)
+            {
+                if (isValid) CursorManager.Instance.SetNormalCursor();
+                else CursorManager.Instance.SetForbiddenCursor();
+            }
+
             if (ghostRenderers != null)
             {
                 foreach (var r in ghostRenderers)
@@ -210,6 +219,12 @@ namespace Gameplay.Building
             if (ghostBuilding != null)
             {
                 Destroy(ghostBuilding);
+            }
+
+            // Reset cursor khi thoát chế độ xây dựng
+            if (CursorManager.Instance != null)
+            {
+                CursorManager.Instance.SetNormalCursor();
             }
         }
     }

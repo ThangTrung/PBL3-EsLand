@@ -712,6 +712,7 @@ GameObject:
   - component: {fileID: 4298102640937595745}
   - component: {fileID: 327335200679751691}
   - component: {fileID: 1208127920741092947}
+  - component: {fileID: 6404744937678496903}
   m_Layer: 5
   m_Name: Btn_Craft
   m_TagString: Untagged
@@ -821,3 +822,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6404744937678496903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9179290130606053987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
