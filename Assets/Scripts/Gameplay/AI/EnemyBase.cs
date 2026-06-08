@@ -70,6 +70,12 @@ namespace Gameplay.AI
             return new ChaseState();
         }
 
+        public void SetTarget(Transform newTarget)
+        {
+            _target = newTarget;
+        }
+
+
         protected virtual void SetInitialState()
         {
             if (_currentState == null)

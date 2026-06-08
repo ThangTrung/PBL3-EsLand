@@ -45,7 +45,7 @@ namespace Gameplay.Spawning
             {
                 if (CanSpawnBoss(other.transform))
                 {
-                    SpawnBoss();
+                    SpawnBoss(other.transform);
                 }
                 else
                 {
@@ -74,7 +74,7 @@ namespace Gameplay.Spawning
             return true;
         }
 
-        private void SpawnBoss()
+        private void SpawnBoss(Transform playerTransform)
         {
             if (bossData == null || bossData.prefab == null)
             {
@@ -95,6 +95,7 @@ namespace Gameplay.Spawning
 
             if (_activeBoss != null)
             {
+                _activeBoss.SetTarget(playerTransform);
                 _isSpawned = true;
                 
                 // Đăng ký lắng nghe sự kiện chết của Boss
