@@ -1,4 +1,4 @@
-﻿using Gameplay.World;
+using Gameplay.World;
 using Core.Contracts.AI;
 using Gameplay.AI.Animation;
 using Gameplay.AI.Movement;
@@ -70,6 +70,15 @@ namespace Gameplay.AI
             return new ChaseState();
         }
 
+        protected virtual void SetInitialState()
+        {
+            if (_currentState == null)
+            {
+                ChangeState(new PatrolState());
+            }
+        }
+
+
         public virtual bool CanInteract(Character interactor)
         {
             return !IsDeadInternal;
@@ -139,10 +148,7 @@ namespace Gameplay.AI
                 }
             }
 
-            if (_currentState == null)
-            {
-                ChangeState(new PatrolState());
-            }
+            SetInitialState();
         }
 
 
@@ -244,7 +250,7 @@ namespace Gameplay.AI
             InitializeMovementStrategy();
             InitializeDefenseStrategy();
             
-            if (_currentState == null) ChangeState(new PatrolState());
+            SetInitialState();
         }
 
         public virtual void OnSpawn() { IsDeadInternal = false; }
@@ -256,7 +262,9 @@ namespace Gameplay.AI
             _deathStartTime = 0f;
             _isSwappingEntities = false;
             if (HealthInternal != null) HealthInternal.SetMaxHealth(ConfigInternal?.MaxHealth ?? 100f, true);
-            ChangeState(new PatrolState());
+            
+            SetInitialState();
+            
             if (StatusEffectController != null) StatusEffectController.ClearAllEffects();
             var sr = GetComponentInChildren<SpriteRenderer>();
             if (sr != null) sr.enabled = true;
