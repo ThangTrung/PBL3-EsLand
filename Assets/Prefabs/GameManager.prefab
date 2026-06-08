@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 813557673546638490}
   - component: {fileID: 7999857338729208832}
   - component: {fileID: 2383916834073469810}
+  - component: {fileID: 8995315539690610824}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -61,3 +62,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98836a3cae2bf5a4394bc2c68aa2f1d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8995315539690610824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232591920100833636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4187bb43c0f0dd44a7521ce2689e7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 16
+  landLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  validColor: {r: 0, g: 1, b: 0, a: 0.5}
+  invalidColor: {r: 1, g: 0, b: 0, a: 0.5}
