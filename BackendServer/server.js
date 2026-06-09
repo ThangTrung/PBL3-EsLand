@@ -19,7 +19,7 @@ const dbConfig = {
     }
 };
 
-// API POST: Đăng nhập hoặc Đăng ký tự động
+// API POST: Đăng nhập
 app.post('/api/auth/login', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -41,17 +41,41 @@ app.post('/api/auth/login', async (req, res) => {
                 res.status(401).send({ success: false, message: "Sai mật khẩu!" });
             }
         } else {
-            // Tự động đăng ký nếu chưa có
-            let insertResult = await pool.request()
-                .input('Username', sql.NVarChar, username)
-                .input('Password', sql.NVarChar, password)
-                .query('INSERT INTO Users (Username, Password) OUTPUT INSERTED.ID VALUES (@Username, @Password)');
-            
-            const newUserID = insertResult.recordset[0].ID;
-            res.status(201).send({ success: true, userID: newUserID, message: "Tài khoản mới đã được tạo!" });
+            // Không tự động đăng ký nữa, trả về lỗi 404
+            res.status(404).send({ success: false, message: "Tài khoản không tồn tại!" });
         }
     } catch (err) {
         console.error("Lỗi Auth Server:", err.message);
+        res.status(500).send({ success: false, message: "Lỗi Server: " + err.message });
+    }
+});
+
+// API POST: Đăng ký
+app.post('/api/auth/register', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        console.log("Yêu cầu đăng ký mới:", username);
+
+        const pool = await sql.connect(dbConfig);
+
+        // Kiểm tra user đã tồn tại chưa (phòng trường hợp race condition)
+        let userCheck = await pool.request()
+            .input('Username', sql.NVarChar, username)
+            .query('SELECT 1 FROM Users WHERE Username = @Username');
+
+        if (userCheck.recordset.length > 0) {
+            return res.status(409).send({ success: false, message: "Tài khoản đã tồn tại!" });
+        }
+        
+        let insertResult = await pool.request()
+            .input('Username', sql.NVarChar, username)
+            .input('Password', sql.NVarChar, password)
+            .query('INSERT INTO Users (Username, Password) OUTPUT INSERTED.ID VALUES (@Username, @Password)');
+        
+        const newUserID = insertResult.recordset[0].ID;
+        res.status(201).send({ success: true, userID: newUserID, message: "Tài khoản mới đã được tạo!" });
+    } catch (err) {
+        console.error("Lỗi Đăng ký:", err.message);
         res.status(500).send({ success: false, message: "Lỗi Server: " + err.message });
     }
 });

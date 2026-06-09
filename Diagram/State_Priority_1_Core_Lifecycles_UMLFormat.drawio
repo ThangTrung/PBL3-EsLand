@@ -1,0 +1,776 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="P1.1 Enemy AI Lifecycle" id="uml_state_9a050dd177">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Enemy AI Lifecycle" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="patrol" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Patrol" vertex="1">
+          <mxGeometry as="geometry" x="160" y="180" width="170" height="74" />
+        </mxCell>
+        <mxCell id="chase" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Chase" vertex="1">
+          <mxGeometry as="geometry" x="420" y="180" width="170" height="74" />
+        </mxCell>
+        <mxCell id="attack" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Attack" vertex="1">
+          <mxGeometry as="geometry" x="680" y="180" width="170" height="74" />
+        </mxCell>
+        <mxCell id="keep" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Keep&lt;br&gt;Distance" vertex="1">
+          <mxGeometry as="geometry" x="420" y="385" width="170" height="74" />
+        </mxCell>
+        <mxCell id="defense" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Defense" vertex="1">
+          <mxGeometry as="geometry" x="680" y="385" width="170" height="74" />
+        </mxCell>
+        <mxCell id="hit" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Hit" vertex="1">
+          <mxGeometry as="geometry" x="420" y="610" width="170" height="74" />
+        </mxCell>
+        <mxCell id="transition" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Boss&lt;br&gt;Transition" vertex="1">
+          <mxGeometry as="geometry" x="680" y="610" width="170" height="74" />
+        </mxCell>
+        <mxCell id="dead" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Dead" vertex="1">
+          <mxGeometry as="geometry" x="910" y="385" width="170" height="74" />
+        </mxCell>
+        <mxCell id="pool" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Returned&lt;br&gt;To Pool" vertex="1">
+          <mxGeometry as="geometry" x="910" y="610" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="patrol" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="patrol" target="chase" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[targetInDetectionRange] / chase">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="patrol" target="patrol" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[patrolPointReached] / pickNewPoint">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="chase" target="patrol" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[targetLost || outOfDetection] / patrol">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="chase" target="attack" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[attackReady] / attack">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="chase" target="keep" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[rangedEnemy] / keepDistance">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="keep" target="attack" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[idealRange] / attack">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="keep" target="patrol" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[targetLost] / patrol">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="attack" target="attack" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[attackReadyAgain] / repeat">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="attack" target="chase" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[attackFinished] / chase">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="chase" target="defense" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[defenseChanceSucceeded] / defend">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="defense" target="chase" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[defenseFinished] / chase">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="chase" target="hit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[damageTaken &amp;&amp; noSuperArmor] / stun">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="hit" target="chase" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[stunEnded &amp;&amp; hasTarget] / chase">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="hit" target="patrol" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[stunEnded &amp;&amp; !hasTarget] / patrol">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="chase" target="dead" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[healthZero] / die">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="attack" target="dead" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[healthZero] / die">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="defense" target="dead" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[healthZero] / die">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="dead" target="pool" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[deathAnimationFinished] / returnToPool">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="transition" target="chase" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[phaseTransitionComplete] / chase">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="pool" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.2 Ogre Boss Phase" id="uml_state_f9d68a0b81">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Ogre Boss Phase Progression" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="p1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Phase 1" vertex="1">
+          <mxGeometry as="geometry" x="180" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="t2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Transition&lt;br&gt;To Phase 2" vertex="1">
+          <mxGeometry as="geometry" x="430" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Phase 2" vertex="1">
+          <mxGeometry as="geometry" x="700" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="t3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Transition&lt;br&gt;To Phase 3" vertex="1">
+          <mxGeometry as="geometry" x="430" y="450" width="170" height="74" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Phase 3" vertex="1">
+          <mxGeometry as="geometry" x="700" y="450" width="170" height="74" />
+        </mxCell>
+        <mxCell id="defeated" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Defeated" vertex="1">
+          <mxGeometry as="geometry" x="700" y="720" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="p1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="p1" target="t2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[hp &lt;= 66%] / triggerTransition">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="t2" target="p2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[animationFinished] / enterPhase2">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="p2" target="t3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[hp &lt;= 33%] / triggerTransition">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="t3" target="p3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[animationFinished] / enterPhase3">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="p2" target="p2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[spawnIntervalElapsed] / spawnMinions">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="p3" target="p3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[spawnIntervalElapsed] / spawnMinions">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="p1" target="defeated" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[healthZero] / defeat">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="p2" target="defeated" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[healthZero] / defeat">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="p3" target="defeated" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[healthZero] / defeat">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="defeated" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.3 Hybrid Save Manager" id="uml_state_fb104c55c9">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Hybrid Save Manager" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="uninit" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Uninitialized" vertex="1">
+          <mxGeometry as="geometry" x="150" y="170" width="170" height="74" />
+        </mxCell>
+        <mxCell id="local" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Local&lt;br&gt;Ready" vertex="1">
+          <mxGeometry as="geometry" x="405" y="170" width="170" height="74" />
+        </mxCell>
+        <mxCell id="cloud" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Cloud&lt;br&gt;Enabled" vertex="1">
+          <mxGeometry as="geometry" x="660" y="170" width="170" height="74" />
+        </mxCell>
+        <mxCell id="loadCloud" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Loading&lt;br&gt;Cloud" vertex="1">
+          <mxGeometry as="geometry" x="660" y="385" width="170" height="74" />
+        </mxCell>
+        <mxCell id="loadLocal" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Loading&lt;br&gt;Local" vertex="1">
+          <mxGeometry as="geometry" x="405" y="385" width="170" height="74" />
+        </mxCell>
+        <mxCell id="ready" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Ready" vertex="1">
+          <mxGeometry as="geometry" x="405" y="620" width="170" height="74" />
+        </mxCell>
+        <mxCell id="saveLocal" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Saving&lt;br&gt;Local" vertex="1">
+          <mxGeometry as="geometry" x="150" y="620" width="170" height="74" />
+        </mxCell>
+        <mxCell id="saveCloud" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Saving&lt;br&gt;Cloud" vertex="1">
+          <mxGeometry as="geometry" x="660" y="620" width="170" height="74" />
+        </mxCell>
+        <mxCell id="deleted" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Deleted" vertex="1">
+          <mxGeometry as="geometry" x="150" y="850" width="170" height="74" />
+        </mxCell>
+        <mxCell id="quitting" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Quitting" vertex="1">
+          <mxGeometry as="geometry" x="660" y="850" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="uninit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="uninit" target="local" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[Start()] / createFileHandler">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="local" target="cloud" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[EnableCloudMode()] / createCloudHandler">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="cloud" target="loadCloud" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[LoadGameFromCloud()] / load">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="local" target="loadLocal" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[LoadGame() &amp;&amp; !cloud] / loadLocal">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="loadCloud" target="ready" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[cloudLoaded] / processData">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="loadCloud" target="loadLocal" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[cloudFailed] / fallback">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="loadLocal" target="ready" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[localLoaded] / processData">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="ready" target="saveLocal" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[SaveGame()] / gatherSaveables">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="saveLocal" target="saveCloud" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[cloudEnabled] / syncCloud">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="saveLocal" target="ready" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[localSaved] / ready">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="saveCloud" target="ready" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[cloudSaved] / ready">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="ready" target="deleted" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[DeleteSaveData()] / delete">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="ready" target="quitting" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[OnApplicationQuit()] / quit">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="quitting" target="saveLocal" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[hasGameData] / saveBeforeExit">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="quitting" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.4 Player Death Respawn" id="uml_state_e7157c98e0">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Player Death And Respawn" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="alive" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Alive" vertex="1">
+          <mxGeometry as="geometry" x="180" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="damaged" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Damaged" vertex="1">
+          <mxGeometry as="geometry" x="430" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="dead" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Dead" vertex="1">
+          <mxGeometry as="geometry" x="680" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="deathAnim" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Death&lt;br&gt;Animation" vertex="1">
+          <mxGeometry as="geometry" x="680" y="430" width="170" height="74" />
+        </mxCell>
+        <mxCell id="respawning" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Respawning" vertex="1">
+          <mxGeometry as="geometry" x="430" y="430" width="170" height="74" />
+        </mxCell>
+        <mxCell id="respawned" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Respawned" vertex="1">
+          <mxGeometry as="geometry" x="180" y="430" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="alive" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="alive" target="damaged" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[takeDamage] / reduceHealth">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="damaged" target="alive" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[health &gt; 0] / continue">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="damaged" target="dead" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[health &lt;= 0] / die">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="dead" target="deathAnim" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[OnDie] / lockControls">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="deathAnim" target="respawning" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[deathAnimDone] / teleport">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="respawning" target="respawned" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[healthReset] / playRespawn">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="respawned" target="alive" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[respawnAnimDone] / unlockControls">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="alive" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.5 Building Placement" id="uml_state_4df4bf2adf">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Building Placement Mode" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="idle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Idle" vertex="1">
+          <mxGeometry as="geometry" x="170" y="185" width="170" height="74" />
+        </mxCell>
+        <mxCell id="starting" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Starting&lt;br&gt;Placement" vertex="1">
+          <mxGeometry as="geometry" x="430" y="185" width="170" height="74" />
+        </mxCell>
+        <mxCell id="failed" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Failed&lt;br&gt;Start" vertex="1">
+          <mxGeometry as="geometry" x="700" y="185" width="170" height="74" />
+        </mxCell>
+        <mxCell id="valid" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Placing&lt;br&gt;Valid" vertex="1">
+          <mxGeometry as="geometry" x="430" y="420" width="170" height="74" />
+        </mxCell>
+        <mxCell id="invalid" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Placing&lt;br&gt;Invalid" vertex="1">
+          <mxGeometry as="geometry" x="700" y="420" width="170" height="74" />
+        </mxCell>
+        <mxCell id="placed" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Placed" vertex="1">
+          <mxGeometry as="geometry" x="430" y="680" width="170" height="74" />
+        </mxCell>
+        <mxCell id="cancelled" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Cancelled" vertex="1">
+          <mxGeometry as="geometry" x="700" y="680" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="idle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="idle" target="starting" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[PlaceableItem.Use()] / startPlacement">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="starting" target="failed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[missingData] / abort">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="failed" target="idle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[logged] / idle">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="starting" target="valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[ghostCreated &amp;&amp; validPosition] / showValid">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="starting" target="invalid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[ghostCreated &amp;&amp; !validPosition] / showInvalid">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="valid" target="invalid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[positionInvalid] / setForbiddenCursor">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="invalid" target="valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[positionValid] / setNormalCursor">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="valid" target="placed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[leftClick] / instantiateBuilding">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="valid" target="cancelled" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[rightClick] / cancel">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="invalid" target="cancelled" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[rightClick] / cancel">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="placed" target="idle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[cleanupDone] / idle">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="cancelled" target="idle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[cleanupDone] / idle">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="idle" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.6 Cooking Tower" id="uml_state_6001cd0549">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Cooking Tower Processing" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="idle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Idle" vertex="1">
+          <mxGeometry as="geometry" x="155" y="170" width="170" height="74" />
+        </mxCell>
+        <mxCell id="input" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Input&lt;br&gt;Inserted" vertex="1">
+          <mxGeometry as="geometry" x="405" y="170" width="170" height="74" />
+        </mxCell>
+        <mxCell id="noRecipe" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="No Valid&lt;br&gt;Recipe" vertex="1">
+          <mxGeometry as="geometry" x="660" y="170" width="170" height="74" />
+        </mxCell>
+        <mxCell id="waitFuel" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Waiting&lt;br&gt;For Fuel" vertex="1">
+          <mxGeometry as="geometry" x="405" y="385" width="170" height="74" />
+        </mxCell>
+        <mxCell id="cooking" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Cooking" vertex="1">
+          <mxGeometry as="geometry" x="660" y="385" width="170" height="74" />
+        </mxCell>
+        <mxCell id="fuelIdle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Fuel&lt;br&gt;Burning Idle" vertex="1">
+          <mxGeometry as="geometry" x="155" y="385" width="170" height="74" />
+        </mxCell>
+        <mxCell id="output" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Output&lt;br&gt;Ready" vertex="1">
+          <mxGeometry as="geometry" x="660" y="640" width="170" height="74" />
+        </mxCell>
+        <mxCell id="blocked" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Output&lt;br&gt;Blocked" vertex="1">
+          <mxGeometry as="geometry" x="405" y="640" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="idle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="idle" target="input" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[slot0Added] / inspectRecipe">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="input" target="noRecipe" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[recipeMissing] / resetProgress">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="noRecipe" target="idle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[inputRemoved] / idle">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="input" target="blocked" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[outputCannotFit] / block">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="input" target="waitFuel" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[recipeValid] / waitFuel">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="waitFuel" target="cooking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[fuelAvailable] / consumeFuel">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="cooking" target="output" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[progress &gt;= cookTime] / createOutput">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="cooking" target="waitFuel" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[fuelEmpty] / waitFuel">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="output" target="input" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[moreInput] / continue">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="output" target="idle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[inputEmpty] / idle">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="cooking" target="fuelIdle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[inputInvalid &amp;&amp; fuel &gt; 0] / burnFuel">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="fuelIdle" target="cooking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[validInputInserted] / cook">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="fuelIdle" target="idle" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[fuelEmpty] / idle">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="blocked" target="waitFuel" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[outputWithdrawn] / resume">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="idle" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.7 Boss Arena" id="uml_state_3ef06ef056">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Boss Arena Lifecycle" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="waiting" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Waiting&lt;br&gt;For Player" vertex="1">
+          <mxGeometry as="geometry" x="170" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="rejected" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Condition&lt;br&gt;Rejected" vertex="1">
+          <mxGeometry as="geometry" x="430" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="spawned" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Boss&lt;br&gt;Spawned" vertex="1">
+          <mxGeometry as="geometry" x="430" y="430" width="170" height="74" />
+        </mxCell>
+        <mxCell id="active" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Boss&lt;br&gt;Active" vertex="1">
+          <mxGeometry as="geometry" x="700" y="430" width="170" height="74" />
+        </mxCell>
+        <mxCell id="defeated" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Boss&lt;br&gt;Defeated" vertex="1">
+          <mxGeometry as="geometry" x="700" y="670" width="170" height="74" />
+        </mxCell>
+        <mxCell id="persisted" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Persisted&lt;br&gt;Cleared" vertex="1">
+          <mxGeometry as="geometry" x="430" y="670" width="170" height="74" />
+        </mxCell>
+        <mxCell id="disabled" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Disabled&lt;br&gt;From Save" vertex="1">
+          <mxGeometry as="geometry" x="170" y="670" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="waiting" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="waiting" target="rejected" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[playerEntered &amp;&amp; !conditionsMet] / showFeedback">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="rejected" target="waiting" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[conditionsMayChange] / wait">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="waiting" target="spawned" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[conditionsMet] / spawnBoss">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="spawned" target="active" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[healthSubscribed] / activate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="active" target="defeated" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[boss.OnDie] / markDefeated">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="defeated" target="persisted" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[SaveData] / saveArenaId">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="persisted" target="disabled" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[LoadData] / disableTrigger">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="waiting" target="disabled" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[loadedDestroyedId] / disable">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="disabled" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.8 Resource Node" id="uml_state_6c95a1c9ef">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Resource Node Depletion" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="available" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Available" vertex="1">
+          <mxGeometry as="geometry" x="180" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="damaged" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Damaged" vertex="1">
+          <mxGeometry as="geometry" x="430" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="stump" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Depleted&lt;br&gt;Stump" vertex="1">
+          <mxGeometry as="geometry" x="700" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="saved" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Saved&lt;br&gt;Partial State" vertex="1">
+          <mxGeometry as="geometry" x="430" y="440" width="170" height="74" />
+        </mxCell>
+        <mxCell id="loaded" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Restored&lt;br&gt;From Save" vertex="1">
+          <mxGeometry as="geometry" x="700" y="440" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="available" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="available" target="damaged" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[validToolHit] / takeDamage">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="damaged" target="damaged" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[hp &gt; 0] / continue">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="damaged" target="stump" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[hp &lt;= 0] / die">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="available" target="stump" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[singleHitDepletes] / die">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="damaged" target="saved" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[SaveData] / persistHP">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="stump" target="saved" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[SaveData] / persistStump">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="saved" target="loaded" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[LoadData] / restore">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="loaded" target="available" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[!isStump] / showResource">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="loaded" target="stump" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[isStump] / showStump">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="stump" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.9 Map Gate" id="uml_state_6dfbe509be">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="frame" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="40" y="35" width="1100" height="1180" />
+        </mxCell>
+        <mxCell id="headerText" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=14;fontColor=#000000;" value="&lt;b&gt;state machine&lt;/b&gt; Map Gate Unlock" vertex="1">
+          <mxGeometry as="geometry" x="55" y="42" width="520" height="28" />
+        </mxCell>
+        <mxCell id="headerLine" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeColor=#000000;" value="">
+          <mxGeometry as="geometry" relative="1">
+            <mxPoint x="40" y="78" as="sourcePoint" />
+            <mxPoint x="1140" y="78" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="initial" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="105" width="30" height="30" />
+        </mxCell>
+        <mxCell id="locked" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Locked" vertex="1">
+          <mxGeometry as="geometry" x="180" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="subscribed" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Subscribed&lt;br&gt;To Boss Death" vertex="1">
+          <mxGeometry as="geometry" x="430" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="unlocking" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Unlocking" vertex="1">
+          <mxGeometry as="geometry" x="700" y="190" width="170" height="74" />
+        </mxCell>
+        <mxCell id="unlocked" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Unlocked" vertex="1">
+          <mxGeometry as="geometry" x="700" y="440" width="170" height="74" />
+        </mxCell>
+        <mxCell id="persisted" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Persisted" vertex="1">
+          <mxGeometry as="geometry" x="430" y="440" width="170" height="74" />
+        </mxCell>
+        <mxCell id="loaded" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;arcSize=12;absoluteArcSize=1;spacing=8;" value="Loaded&lt;br&gt;Unlocked" vertex="1">
+          <mxGeometry as="geometry" x="180" y="440" width="170" height="74" />
+        </mxCell>
+        <mxCell id="e_initial" edge="1" parent="1" source="initial" target="locked" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[initialized] / create">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="locked" target="subscribed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[Start &amp;&amp; bossAssigned] / subscribe">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="subscribed" target="unlocking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[boss.OnDie] / unlockGate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="unlocking" target="unlocked" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[UpdateGateState] / hideGate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="unlocked" target="persisted" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[SaveData] / addGateId">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="persisted" target="loaded" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[LoadData] / restoreUnlocked">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="locked" target="loaded" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[openedGatesContainsId] / loadUnlocked">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="final" parent="1" style="ellipse;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="590" y="1085" width="30" height="30" />
+        </mxCell>
+        <mxCell id="e_final" edge="1" parent="1" source="unlocked" target="final" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;endFill=1;strokeColor=#000000;fontColor=#000000;labelBackgroundColor=#ffffff;" value="[complete] / terminate">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

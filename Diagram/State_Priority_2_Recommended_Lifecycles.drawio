@@ -1,0 +1,386 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="P2.1 Hammer Smash Attack" id="state_ab4231bc87">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.1 - Hammer Smash Attack Phase State Diagram" vertex="1">
+          <mxGeometry as="geometry" x="50" y="30" width="1000" height="40" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="70" y="115" width="30" height="30" />
+        </mxCell>
+        <mxCell id="none" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;None&lt;/b&gt;&lt;br&gt;Not attacking" vertex="1">
+          <mxGeometry as="geometry" x="180" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="windup" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Windup&lt;/b&gt;&lt;br&gt;Play Windup if configured" vertex="1">
+          <mxGeometry as="geometry" x="430" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="attack" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Attack&lt;/b&gt;&lt;br&gt;Play Attack&lt;br&gt;Apply AOE on trigger frames" vertex="1">
+          <mxGeometry as="geometry" x="680" y="120" width="210" height="70" />
+        </mxCell>
+        <mxCell id="recovery" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Recovery&lt;/b&gt;&lt;br&gt;Play Recovery if configured" vertex="1">
+          <mxGeometry as="geometry" x="680" y="350" width="170" height="70" />
+        </mxCell>
+        <mxCell id="cooldown" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;Cooldown Waiting&lt;/b&gt;&lt;br&gt;Time.time &amp;lt; nextAttackTime" vertex="1">
+          <mxGeometry as="geometry" x="430" y="350" width="170" height="70" />
+        </mxCell>
+        <mxCell id="e_start" edge="1" parent="1" source="start" target="none" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Start">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="none" target="windup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="BeginAttack and Windup exists">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="none" target="attack" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="BeginAttack and no Windup">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="windup" target="attack" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Windup finished">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="attack" target="attack" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Trigger frame reached / ApplyAOEDamage">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="attack" target="recovery" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Attack finished and Recovery exists">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="attack" target="cooldown" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Attack finished and no Recovery">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="recovery" target="cooldown" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Recovery finished">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="cooldown" target="none" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="EndAttack()">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="none" target="attack" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=0;dashed=1;strokeColor=#666666;" value="CanStartAttack true after cooldown">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="This strategy has an explicit AttackPhase enum: None, Windup, Attack, Recovery." vertex="1">
+          <mxGeometry as="geometry" x="160" y="580" width="760" height="70" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.2 Turtle Defense" id="state_4761365834">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.2 - Turtle Defense Phase State Diagram" vertex="1">
+          <mxGeometry as="geometry" x="50" y="30" width="1000" height="40" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="70" y="115" width="30" height="30" />
+        </mxCell>
+        <mxCell id="finished" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Finished&lt;/b&gt;&lt;br&gt;Not defending" vertex="1">
+          <mxGeometry as="geometry" x="180" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="entering" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Entering&lt;/b&gt;&lt;br&gt;Defense_1 animation&lt;br&gt;Block active" vertex="1">
+          <mxGeometry as="geometry" x="430" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="holding" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Holding&lt;/b&gt;&lt;br&gt;Hold until duration elapsed" vertex="1">
+          <mxGeometry as="geometry" x="680" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="exiting" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Exiting&lt;/b&gt;&lt;br&gt;Defense_2 animation" vertex="1">
+          <mxGeometry as="geometry" x="680" y="350" width="170" height="70" />
+        </mxCell>
+        <mxCell id="cooldown" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;Cooldown Waiting&lt;/b&gt;&lt;br&gt;nextDefenseTime" vertex="1">
+          <mxGeometry as="geometry" x="430" y="350" width="170" height="70" />
+        </mxCell>
+        <mxCell id="e_start" edge="1" parent="1" source="start" target="finished" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Start">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="finished" target="entering" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="CanDefend and BeginDefense">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="entering" target="holding" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Enter animation finished">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="holding" target="exiting" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Defense duration elapsed">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="exiting" target="cooldown" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Exit animation finished / EndDefense">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="cooldown" target="finished" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Cooldown elapsed">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="entering" target="finished" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=0;dashed=1;strokeColor=#666666;" value="Interrupted / EndDefense">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="holding" target="finished" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=0;dashed=1;strokeColor=#666666;" value="Interrupted / EndDefense">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="exiting" target="finished" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=0;dashed=1;strokeColor=#666666;" value="Interrupted / EndDefense">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="TurtleDefenseStrategy has an explicit DefensePhase enum and toggles BlockDamageModifier during defense." vertex="1">
+          <mxGeometry as="geometry" x="150" y="580" width="780" height="70" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.3 Home Save Point Sleep" id="state_ee26d98026">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.3 - Home Save Point Sleep and Recovery State Diagram" vertex="1">
+          <mxGeometry as="geometry" x="50" y="30" width="1000" height="40" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="70" y="115" width="30" height="30" />
+        </mxCell>
+        <mxCell id="available" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Available&lt;/b&gt;&lt;br&gt;CanInteract == true" vertex="1">
+          <mxGeometry as="geometry" x="180" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="locked" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Sleeping Locked&lt;/b&gt;&lt;br&gt;_isSleeping = true" vertex="1">
+          <mxGeometry as="geometry" x="430" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="fadeOut" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;Transition Out&lt;/b&gt;&lt;br&gt;Cloud/Fade covers screen" vertex="1">
+          <mxGeometry as="geometry" x="680" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="effects" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Apply Sleep Effects&lt;/b&gt;&lt;br&gt;Heal, stamina, respawn point, morning, save" vertex="1">
+          <mxGeometry as="geometry" x="680" y="350" width="230" height="100" />
+        </mxCell>
+        <mxCell id="fadeIn" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;Transition In&lt;/b&gt;&lt;br&gt;Reveal scene" vertex="1">
+          <mxGeometry as="geometry" x="430" y="350" width="170" height="70" />
+        </mxCell>
+        <mxCell id="ready" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Available Again&lt;/b&gt;&lt;br&gt;_isSleeping = false" vertex="1">
+          <mxGeometry as="geometry" x="180" y="350" width="170" height="70" />
+        </mxCell>
+        <mxCell id="e_start" edge="1" parent="1" source="start" target="available" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Start">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="available" target="locked" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Player interacts with HomeSavePoint">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="locked" target="fadeOut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="GameEvents.OnSleepRequested">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="fadeOut" target="effects" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="FadeOut complete">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="effects" target="fadeIn" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="ExecuteSleepLogic complete">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="fadeIn" target="ready" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="FadeIn complete / movement unlock">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="ready" target="available" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="WaitForSecondsRealtime guard ends">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="Sleep is a lifecycle because it locks interaction, coordinates UI transition, changes player stats/time and saves game." vertex="1">
+          <mxGeometry as="geometry" x="130" y="580" width="820" height="75" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.4 Item Pickup" id="state_9de3908a94">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.4 - Dropped Item Pickup Lifecycle State Diagram" vertex="1">
+          <mxGeometry as="geometry" x="50" y="30" width="1000" height="40" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="70" y="115" width="30" height="30" />
+        </mxCell>
+        <mxCell id="spawned" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Spawned&lt;/b&gt;&lt;br&gt;OnEnable resets ID and flags" vertex="1">
+          <mxGeometry as="geometry" x="170" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="delay" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Pickup Delay&lt;/b&gt;&lt;br&gt;Ignore pickup until delay elapsed" vertex="1">
+          <mxGeometry as="geometry" x="430" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="ground" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Idle On Ground&lt;/b&gt;&lt;br&gt;Waiting for player pickup trigger" vertex="1">
+          <mxGeometry as="geometry" x="700" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="flying" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Flying To Player&lt;/b&gt;&lt;br&gt;Accelerated movement" vertex="1">
+          <mxGeometry as="geometry" x="700" y="340" width="170" height="70" />
+        </mxCell>
+        <mxCell id="collected" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Collected&lt;/b&gt;&lt;br&gt;Inventory.AddItem success&lt;br&gt;Register destroyed ID" vertex="1">
+          <mxGeometry as="geometry" x="430" y="340" width="220" height="95" />
+        </mxCell>
+        <mxCell id="full" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;Rejected Inventory Full&lt;/b&gt;&lt;br&gt;Stop flying" vertex="1">
+          <mxGeometry as="geometry" x="170" y="340" width="170" height="70" />
+        </mxCell>
+        <mxCell id="pooled" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Returned To Pool&lt;/b&gt;&lt;br&gt;Inactive pooled object" vertex="1">
+          <mxGeometry as="geometry" x="430" y="570" width="170" height="70" />
+        </mxCell>
+        <mxCell id="destroyedSave" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;Destroyed From Save&lt;/b&gt;&lt;br&gt;ID found in destroyedEntityIDs" vertex="1">
+          <mxGeometry as="geometry" x="700" y="570" width="220" height="70" />
+        </mxCell>
+        <mxCell id="e_start" edge="1" parent="1" source="start" target="spawned" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Start">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="spawned" target="delay" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="OnEnable / spawnTime recorded">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="delay" target="ground" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="pickupDelay elapsed">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="ground" target="flying" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="StartFlyingTowards(player)">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="flying" target="collected" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Distance &lt; pickupDistance and inventory has space">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="flying" target="full" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Inventory.AddItem fails">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="full" target="ground" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="_isFlying = false">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="collected" target="pooled" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="ObjectPoolManager.ReturnToPool">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="spawned" target="destroyedSave" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=0;dashed=1;strokeColor=#666666;" value="LoadData finds destroyed ID">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="destroyedSave" target="pooled" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="ReturnToPool">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="Pickup lifecycle links loot, inventory capacity, object pooling and save-system destroyed IDs." vertex="1">
+          <mxGeometry as="geometry" x="130" y="780" width="820" height="70" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.5 Authentication Session" id="state_61dadc3008">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.5 - User Authentication Session State Diagram" vertex="1">
+          <mxGeometry as="geometry" x="50" y="30" width="1000" height="40" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="70" y="115" width="30" height="30" />
+        </mxCell>
+        <mxCell id="loggedOut" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Logged Out&lt;/b&gt;&lt;br&gt;CurrentUserID = null" vertex="1">
+          <mxGeometry as="geometry" x="180" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="authing" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;Authenticating&lt;/b&gt;&lt;br&gt;POST /api/auth/login" vertex="1">
+          <mxGeometry as="geometry" x="430" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="failed" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;Auth Failed&lt;/b&gt;&lt;br&gt;Network/server/password error" vertex="1">
+          <mxGeometry as="geometry" x="700" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="loggedIn" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Logged In&lt;/b&gt;&lt;br&gt;CurrentUserID set" vertex="1">
+          <mxGeometry as="geometry" x="430" y="340" width="170" height="70" />
+        </mxCell>
+        <mxCell id="bootstrap" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="&lt;b&gt;Cloud Bootstrapping&lt;/b&gt;&lt;br&gt;EnableCloudMode + initial cloud load" vertex="1">
+          <mxGeometry as="geometry" x="700" y="340" width="230" height="70" />
+        </mxCell>
+        <mxCell id="active" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Session Active&lt;/b&gt;&lt;br&gt;MainMenu / gameplay" vertex="1">
+          <mxGeometry as="geometry" x="430" y="560" width="170" height="70" />
+        </mxCell>
+        <mxCell id="loggingOut" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Logging Out&lt;/b&gt;&lt;br&gt;Sync save, Logout, delete local data" vertex="1">
+          <mxGeometry as="geometry" x="700" y="560" width="230" height="70" />
+        </mxCell>
+        <mxCell id="e_start" edge="1" parent="1" source="start" target="loggedOut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Start">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="loggedOut" target="authing" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Login button clicked with valid fields">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="authing" target="failed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Connection error or success=false">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="failed" target="loggedOut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Re-enable login button">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="authing" target="loggedIn" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="HTTP success and response.success">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="loggedIn" target="bootstrap" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="SaveLoadManager.EnableCloudMode">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="bootstrap" target="active" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Cloud load success or warning completes">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="active" target="loggingOut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Settings LogOut action">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="loggingOut" target="loggedOut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="CloudAuthService.Logout">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="This session state is stored in CloudAuthService.CurrentUserID; no database Status field exists." vertex="1">
+          <mxGeometry as="geometry" x="150" y="780" width="760" height="70" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.6 Status Effect" id="state_8737a714d8">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.6 - Combat Status Effect Lifecycle State Diagram" vertex="1">
+          <mxGeometry as="geometry" x="50" y="30" width="1000" height="40" />
+        </mxCell>
+        <mxCell id="start" parent="1" style="ellipse;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry as="geometry" x="70" y="115" width="30" height="30" />
+        </mxCell>
+        <mxCell id="none" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;No Effect&lt;/b&gt;&lt;br&gt;Effect list empty" vertex="1">
+          <mxGeometry as="geometry" x="180" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="applied" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Effect Applied&lt;/b&gt;&lt;br&gt;OnApply(gameObject)" vertex="1">
+          <mxGeometry as="geometry" x="430" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="ticking" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Ticking&lt;/b&gt;&lt;br&gt;Tick(deltaTime)" vertex="1">
+          <mxGeometry as="geometry" x="700" y="120" width="170" height="70" />
+        </mxCell>
+        <mxCell id="replaced" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="&lt;b&gt;Replaced By Same Type&lt;/b&gt;&lt;br&gt;Old OnRemove then new OnApply" vertex="1">
+          <mxGeometry as="geometry" x="430" y="340" width="230" height="70" />
+        </mxCell>
+        <mxCell id="expired" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;Expired&lt;/b&gt;&lt;br&gt;IsFinished == true" vertex="1">
+          <mxGeometry as="geometry" x="700" y="340" width="170" height="70" />
+        </mxCell>
+        <mxCell id="removed" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Removed&lt;/b&gt;&lt;br&gt;OnRemove and list removal" vertex="1">
+          <mxGeometry as="geometry" x="430" y="560" width="170" height="70" />
+        </mxCell>
+        <mxCell id="cleared" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Cleared&lt;/b&gt;&lt;br&gt;ClearAllEffects()" vertex="1">
+          <mxGeometry as="geometry" x="700" y="560" width="170" height="70" />
+        </mxCell>
+        <mxCell id="e_start" edge="1" parent="1" source="start" target="none" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Start">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="none" target="applied" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="ApplyEffect(effect)">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="applied" target="ticking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Added to _effects">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="ticking" target="ticking" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Each Update while !IsFinished">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="ticking" target="expired" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="IsFinished">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="expired" target="removed" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="OnRemove and remove from list">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="ticking" target="replaced" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Apply same effect type again">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="replaced" target="applied" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="New effect applied">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="ticking" target="cleared" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="ClearAllEffects()">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="removed" target="none" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="No active effects remain">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="cleared" target="none" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;endFill=1;strokeColor=#b85450;fillColor=#f8cecc;" value="List cleared">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="StatusEffectController manages a collection lifecycle; individual effects expose Tick, IsFinished, OnApply and OnRemove." vertex="1">
+          <mxGeometry as="geometry" x="130" y="780" width="820" height="70" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

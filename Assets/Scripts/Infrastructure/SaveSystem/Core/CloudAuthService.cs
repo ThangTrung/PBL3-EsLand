@@ -12,9 +12,13 @@ namespace Infrastructure.SaveSystem.Core
     /// </summary>
     public class CloudAuthService
     {
-        private static string authUrl => NetworkSettings.Instance != null 
+        private static string loginUrl => NetworkSettings.Instance != null 
             ? NetworkSettings.Instance.LoginUrl 
             : "http://localhost:3000/api/auth/login";
+
+        private static string registerUrl => NetworkSettings.Instance != null 
+            ? NetworkSettings.Instance.RegisterUrl 
+            : "http://localhost:3000/api/auth/register";
         
         public static string CurrentUserID { get; private set; }
         public static bool IsLoggedIn => !string.IsNullOrEmpty(CurrentUserID);
@@ -36,10 +40,20 @@ namespace Infrastructure.SaveSystem.Core
 
         public static IEnumerator Login(string username, string password, Action<bool, string> callback)
         {
+            return PostAuth(loginUrl, username, password, callback);
+        }
+
+        public static IEnumerator Register(string username, string password, Action<bool, string> callback)
+        {
+            return PostAuth(registerUrl, username, password, callback);
+        }
+
+        private static IEnumerator PostAuth(string url, string username, string password, Action<bool, string> callback)
+        {
             AuthRequest requestData = new AuthRequest { username = username, password = password };
             string json = JsonUtility.ToJson(requestData);
 
-            using (UnityWebRequest www = new UnityWebRequest(authUrl, "POST"))
+            using (UnityWebRequest www = new UnityWebRequest(url, "POST"))
             {
                 byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
                 www.uploadHandler = new UploadHandlerRaw(bodyRaw);
@@ -60,7 +74,7 @@ namespace Infrastructure.SaveSystem.Core
                         string responseText = www.downloadHandler.text;
                         AuthResponse response = JsonUtility.FromJson<AuthResponse>(responseText);
                         
-                        if (www.result == UnityWebRequest.Result.Success && response != null && response.success)
+                        if ((www.result == UnityWebRequest.Result.Success || www.responseCode == 201) && response != null && response.success)
                         {
                             CurrentUserID = response.userID.ToString();
                             callback?.Invoke(true, response.message);
