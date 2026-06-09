@@ -175,8 +175,9 @@ GameObject:
   - component: {fileID: -5389484277551309107}
   - component: {fileID: -6404521360225375242}
   - component: {fileID: 409466423494414330}
+  - component: {fileID: 5029346716853186221}
   m_Layer: 8
-  m_Name: Rock_4
+  m_Name: rock_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -264,7 +265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 7736379040642882417, guid: c00b5561ddfd5e543bfa71db9076b4a2, type: 3}
   lootTable:
   - item: {fileID: 11400000, guid: 54e4f4c3d174ae74cb2df49ed02970f2, type: 2}
     minAmount: 2
@@ -272,6 +272,7 @@ MonoBehaviour:
     chance: 1
   minDropForce: 4
   maxDropForce: 8
+  spawnSpread: 0.5
 --- !u!114 &8354681815464185614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +411,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5029346716853186221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882028134375564628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c4c41648a38fc4d89da5b073ec9dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourceNode: {fileID: 7732772884204581995}
+  _hitSound: {fileID: 11400000, guid: 65bfeaadf9d58754ba869e393ec44651, type: 2}
 --- !u!1 &5557217746279613627
 GameObject:
   m_ObjectHideFlags: 0

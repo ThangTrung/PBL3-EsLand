@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6182529625574859805}
   - component: {fileID: 417208085827002732}
   - component: {fileID: 1932931518189715122}
+  - component: {fileID: 8616882334951893525}
   m_Layer: 5
   m_Name: SubBtn_1 (1)
   m_TagString: Untagged
@@ -142,6 +143,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8616882334951893525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32263878151035491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10957eb5310b3a0439c4be6e72791136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clickSound: {fileID: 11400000, guid: b8e7b28c751349d479f7195a0ac5b66b, type: 2}
+  _hoverSound: {fileID: 0}
 --- !u!1 &327692821162542388
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +170,7 @@ GameObject:
   - component: {fileID: 8080464551300664725}
   - component: {fileID: 7241853139679862493}
   - component: {fileID: 3384731275128589894}
+  - component: {fileID: 5854242833675292127}
   m_Layer: 5
   m_Name: SubBtn_1
   m_TagString: Untagged
@@ -284,6 +300,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &5854242833675292127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327692821162542388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10957eb5310b3a0439c4be6e72791136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clickSound: {fileID: 11400000, guid: b8e7b28c751349d479f7195a0ac5b66b, type: 2}
+  _hoverSound: {fileID: 0}
 --- !u!1 &544048575844230102
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +461,7 @@ GameObject:
   - component: {fileID: 6705499829633873264}
   - component: {fileID: 7050222842081931300}
   - component: {fileID: 1279459564471944588}
+  - component: {fileID: 8371913309027832035}
   m_Layer: 5
   m_Name: SubBtn_1 (2)
   m_TagString: Untagged
@@ -560,6 +591,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8371913309027832035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809250115754104106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10957eb5310b3a0439c4be6e72791136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clickSound: {fileID: 11400000, guid: b8e7b28c751349d479f7195a0ac5b66b, type: 2}
+  _hoverSound: {fileID: 0}
 --- !u!1 &3908229167341942027
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ namespace UI.Inventory
         [Header("Audio")]
         [SerializeField] private AudioData _openSound;
         [SerializeField] private AudioData _closeSound;
+        [SerializeField] private AudioData _slotClickSound; // <--- Thêm dòng này
 
         private readonly List<InventorySlotUI> _slotUIs = new List<InventorySlotUI>();
         private const int SelectedSlotIndex = -1;
@@ -54,7 +55,12 @@ namespace UI.Inventory
 
         private void Awake()
         {
-            if (canvasRoot == null) canvasRoot = transform.Find("CanvasRoot")?.gameObject;
+            if (canvasRoot == null)
+            {
+                // Tìm kiếm linh hoạt hơn để tránh lỗi đặt tên sai trong Inspector
+                canvasRoot = transform.Find("CanvasRoot")?.gameObject;
+                if (canvasRoot == null) canvasRoot = transform.Find("MainContain")?.gameObject;
+            }
         }
 
         private void Start()
@@ -64,20 +70,23 @@ namespace UI.Inventory
 
         public void ToggleUI()
         {
-            var currentState = canvasRoot && canvasRoot.activeSelf;
-            SetVisible(!currentState);
+            // Sử dụng IsVisible để đồng nhất trạng thái
+            SetVisible(!IsVisible);
         }
 
         public void SetVisible(bool visible)
         {
+            if (canvasRoot == null)
+            {
+                Debug.LogWarning($"InventoryPanelUI on {gameObject.name} has no canvasRoot assigned and couldn't find 'CanvasRoot' or 'MainContain' child.");
+                return;
+            }
+
             // Tránh phát âm thanh khi khởi tạo hoặc nếu trạng thái không đổi
             bool stateChanged = IsVisible != visible;
             
             IsVisible = visible;
-            if (canvasRoot)
-            {
-                canvasRoot.SetActive(visible);
-            }
+            canvasRoot.SetActive(visible);
                 
             if (_provider is Core.Contracts.Shared.IUIEventListener uiListener)
                 uiListener.OnUIStateChanged("Inventory", visible);
@@ -150,9 +159,23 @@ namespace UI.Inventory
                 if (!slotUI) continue;
                 slotUI.Init(index, _inventory.ActionHandler);
                 
-                slotUI.OnLeftClicked += (idx, data) => OnSlotLeftClicked?.Invoke(idx, data);
+                slotUI.OnLeftClicked += (idx, data) => 
+                {
+                    if (_slotClickSound != null && AudioManager.Instance != null)
+                    {
+                        AudioManager.Instance.PlaySFX(_slotClickSound);
+                    }
+                    OnSlotLeftClicked?.Invoke(idx, data);
+                };
                 slotUI.OnRightClicked += HandleSlotRightClicked;
-                slotUI.OnRightClicked += (context, pos) => OnSlotRightClickedEvent?.Invoke(index, _inventory.Slots[index]);
+                slotUI.OnRightClicked += (context, pos) => 
+                {
+                    if (_slotClickSound != null && AudioManager.Instance != null)
+                    {
+                        AudioManager.Instance.PlaySFX(_slotClickSound);
+                    }
+                    OnSlotRightClickedEvent?.Invoke(index, _inventory.Slots[index]);
+                };
                 _slotUIs.Add(slotUI);
             }
         }

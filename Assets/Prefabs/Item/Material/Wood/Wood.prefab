@@ -167,10 +167,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
+  quantity: 1
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
   pickupDelay: 0.75
+  pickupSound: {fileID: 11400000, guid: 255437d19a0966f48a10f1aa15ea1067, type: 2}
 --- !u!114 &7048552720646528586
 MonoBehaviour:
   m_ObjectHideFlags: 0

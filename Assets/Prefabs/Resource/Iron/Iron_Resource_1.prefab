@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 966943088217218637}
   - component: {fileID: 8151150655015846922}
   - component: {fileID: -8940934099855418700}
+  - component: {fileID: 2693470131156104983}
   m_Layer: 8
   m_Name: Iron_Resource_1
   m_TagString: Untagged
@@ -380,7 +381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 7995749434018099684, guid: 22080f3bbbeaabd42897b4a3081a093f, type: 3}
   lootTable:
   - item: {fileID: 11400000, guid: da2fa8770a0181547926035d34fc7051, type: 2}
     minAmount: 1
@@ -388,6 +388,7 @@ MonoBehaviour:
     chance: 1
   minDropForce: 4
   maxDropForce: 8
+  spawnSpread: 0.5
 --- !u!114 &7916282334037001050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,3 +505,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2693470131156104983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839264656145223238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c4c41648a38fc4d89da5b073ec9dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourceNode: {fileID: 6568871964572381267}
+  _hitSound: {fileID: 11400000, guid: 65bfeaadf9d58754ba869e393ec44651, type: 2}

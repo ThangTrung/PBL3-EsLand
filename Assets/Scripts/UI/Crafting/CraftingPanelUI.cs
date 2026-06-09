@@ -27,6 +27,15 @@ namespace UI.Crafting
 
         private IInventoryHolder _inventoryHolder;
 
+        private void Awake()
+        {
+            if (panelRoot == null)
+            {
+                panelRoot = transform.Find("PanelRoot")?.gameObject;
+                if (panelRoot == null) panelRoot = transform.Find("MainContain")?.gameObject;
+            }
+        }
+
         public void Initialize(IInventoryHolder inventoryHolder)
         {
             _inventoryHolder = inventoryHolder;

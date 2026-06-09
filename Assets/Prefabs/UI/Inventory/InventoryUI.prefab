@@ -96,6 +96,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 4324002469762958207, guid: 626bf751060466644b8bf94c8d874779, type: 3}
   _openSound: {fileID: 11400000, guid: b8e7b28c751349d479f7195a0ac5b66b, type: 2}
   _closeSound: {fileID: 11400000, guid: b8e7b28c751349d479f7195a0ac5b66b, type: 2}
+  _slotClickSound: {fileID: 11400000, guid: b8e7b28c751349d479f7195a0ac5b66b, type: 2}
 --- !u!1 &8382828155106558453
 GameObject:
   m_ObjectHideFlags: 0

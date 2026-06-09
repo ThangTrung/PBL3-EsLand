@@ -77,6 +77,8 @@ namespace UI
 
         private void HandlePlayerReady(IInventoryHolder inventoryHolder)
         {
+            Debug.Log($"UIManager: HandlePlayerReady received for {((inventoryHolder is MonoBehaviour mb) ? mb.name : "unknown")}");
+            
             if (inventoryHolder != null)
             {
                 _playerInventory = inventoryHolder.Inventory;
