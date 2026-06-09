@@ -87,7 +87,7 @@ namespace Gameplay.SaveSystem
                     // Phục hồi máu
                     if (_health != null)
                     {
-                        _health.SetCurrentHealth(savedData.currentHP);
+                        _health.InternalSetHealth(savedData.currentHP);
                     }
                 }
             }

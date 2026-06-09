@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
+using EsLand.Data.Audio;
+using EsLand.Infrastructure.Audio;
 using Gameplay.Characters;
 using UI.ItemActions;
 using UnityEngine;
@@ -23,6 +25,10 @@ namespace UI.Inventory
         [SerializeField] private GameObject canvasRoot;
         [SerializeField] private Transform slotsContainer;
         [SerializeField] private GameObject slotPrefab;
+
+        [Header("Audio")]
+        [SerializeField] private AudioData _openSound;
+        [SerializeField] private AudioData _closeSound;
 
         private readonly List<InventorySlotUI> _slotUIs = new List<InventorySlotUI>();
         private const int SelectedSlotIndex = -1;
@@ -64,6 +70,9 @@ namespace UI.Inventory
 
         public void SetVisible(bool visible)
         {
+            // Tránh phát âm thanh khi khởi tạo hoặc nếu trạng thái không đổi
+            bool stateChanged = IsVisible != visible;
+            
             IsVisible = visible;
             if (canvasRoot)
             {
@@ -72,6 +81,16 @@ namespace UI.Inventory
                 
             if (_provider is Core.Contracts.Shared.IUIEventListener uiListener)
                 uiListener.OnUIStateChanged("Inventory", visible);
+
+            // Phát âm thanh
+            if (stateChanged && AudioManager.Instance != null)
+            {
+                var soundToPlay = visible ? _openSound : _closeSound;
+                if (soundToPlay != null)
+                {
+                    AudioManager.Instance.PlaySFX(soundToPlay);
+                }
+            }
 
             if (visible) return;
     

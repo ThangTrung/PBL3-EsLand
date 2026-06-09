@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 932970178783134121}
   - component: {fileID: 7445689375188464090}
   - component: {fileID: 7325752597181233141}
+  - component: {fileID: -1529173501678560173}
   m_Layer: 6
   m_Name: Pawn_black
   m_TagString: Player
@@ -148,6 +149,11 @@ MonoBehaviour:
   hungerDrainRate: 5
   thirstDrainRate: 7
   staminaRegenRate: 10
+  thresholdPercentage: 0.1
+  slowMultiplier: 0.5
+  damageMultiplier: 0.5
+  healthLossInterval: 5
+  healthLossAmount: 1
   currentHunger: 0
   currentThirst: 0
   currentStamina: 0
@@ -300,6 +306,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
+--- !u!114 &-1529173501678560173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673750509214528949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627eeb44de2c7c648a660476d9f37f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 5157322470952279880}
+  _hitSound: {fileID: 11400000, guid: d0dc0826d0e6d8a4ab89ef45a0a84527, type: 2}
+  _deathSound: {fileID: 11400000, guid: 0b875613155abf045b587ae360a524f8, type: 2}
 --- !u!1 &1867301193532782682
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 218905328219117343}
   - component: {fileID: 9160958479474560045}
   - component: {fileID: 8062125266272169657}
+  - component: {fileID: -5280472154338680203}
   m_Layer: 0
   m_Name: Speed
   m_TagString: Loot
@@ -234,3 +235,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-5280472154338680203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4634665239845342496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3160189fdf5b0894dad932aa95175177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pickupSound: {fileID: 11400000, guid: 255437d19a0966f48a10f1aa15ea1067, type: 2}
