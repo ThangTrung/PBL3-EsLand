@@ -15,10 +15,49 @@ namespace UI.Settings
             switch (action.actionType)
             {
                 case SettingsActionType.Save:
-                    // TODO: Gọi hàm lưu game sau này
+                    if (Infrastructure.SaveSystem.Core.SaveLoadManager.Instance != null)
+                    {
+                        Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.SyncToCloudManual((success, msg) => {
+                            if (success) Debug.Log($"[Settings] Đã lưu game thành công: {msg}");
+                            else Debug.LogWarning($"[Settings] Lỗi khi lưu game: {msg}");
+                        });
+                    }
+                    else
+                    {
+                        Debug.LogWarning("[Settings] Không tìm thấy SaveLoadManager để lưu game.");
+                    }
                     break;
                 case SettingsActionType.Exit:
-                    // TODO: Gọi hàm thoát game sau này
+                    Debug.Log("[Settings] Đang thoát game...");
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#else
+                    Application.Quit();
+#endif
+                    break;
+                case SettingsActionType.LogOut:
+                    if (Infrastructure.SaveSystem.Core.SaveLoadManager.Instance != null)
+                    {
+                        // 1. Lưu game lên cloud
+                        Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.SyncToCloudManual((success, msg) => {
+                            Debug.Log($"[Settings] Đã lưu tiến trình trước khi đăng xuất: {msg}");
+                            
+                            // 2. Xóa thông tin đăng nhập
+                            Infrastructure.SaveSystem.Core.CloudAuthService.Logout();
+                            
+                            // 3. Xóa dữ liệu tạm và hủy đối tượng quản lý để khởi tạo lại khi về Login
+                            Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.DeleteSaveData();
+                            Destroy(Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.gameObject);
+                            
+                            // 4. Chuyển về màn hình Login
+                            Core.SceneManagement.SceneLoader.Load("Login");
+                        });
+                    }
+                    else
+                    {
+                        Infrastructure.SaveSystem.Core.CloudAuthService.Logout();
+                        Core.SceneManagement.SceneLoader.Load("Login");
+                    }
                     break;
                 case SettingsActionType.Custom:
                     // TODO: Xử lý các nút tùy chỉnh sau này (ví dụ: Đăng xuất)

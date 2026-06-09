@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6e1c0852a8e8f4bb4d2c8c992b7d0c, type: 3}
   m_Name: StartSceneConfig
   m_EditorClassIdentifier: 
-  sceneName: Test
+  sceneName: Login
   actions:
   - label: "Tho\xE1t Game"
     icon: {fileID: 21300000, guid: 74195b8c61865492fb1d0a56e808bec3, type: 3}

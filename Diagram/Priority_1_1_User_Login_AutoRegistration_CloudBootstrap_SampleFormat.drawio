@@ -1,0 +1,256 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="P1.1 Login AutoRegistration Cloud Bootstrap" id="seq_9f922ae2c4d6">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2040" pageHeight="1780" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};participant=umlActor;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="User" vertex="1">
+          <mxGeometry x="40.0" width="120.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" parent="p1" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="55.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="LoginController" vertex="1">
+          <mxGeometry x="210.0" width="140.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" parent="p2" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="65.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="CloudAuthService" vertex="1">
+          <mxGeometry x="390.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" parent="p3" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Express Auth API&lt;br&gt;POST /api/auth/login" vertex="1">
+          <mxGeometry x="590.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" parent="p4" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="SQL Server&lt;br&gt;Users" vertex="1">
+          <mxGeometry x="790.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" parent="p5" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="SaveLoadManager" vertex="1">
+          <mxGeometry x="990.0" width="160.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" parent="p6" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="75.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p7" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="CloudDataHandler" vertex="1">
+          <mxGeometry x="1190.0" width="160.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a7" parent="p7" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="75.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p8" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Express Load API&lt;br&gt;GET /api/loadgame/:userID" vertex="1">
+          <mxGeometry x="1390.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a8" parent="p8" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p9" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="SQL Server&lt;br&gt;PlayerSaves" vertex="1">
+          <mxGeometry x="1580.0" width="170.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a9" parent="p9" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="80.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p10" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="SceneLoader /&lt;br&gt;LoadingManager" vertex="1">
+          <mxGeometry x="1810.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a10" parent="p10" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" parent="1" style="shape=umlFrame;html=1;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=light-dark(#000000,#1F2020);height=20;width=30;fillColor=light-dark(#eeeeee,#1f2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="alt" vertex="1">
+          <mxGeometry x="570.0" y="305.0" width="395.0" height="175.0" as="geometry" />
+        </mxCell>
+        <mxCell id="f1_txt" parent="f1" style="text;strokeColor=light-dark(#000000,#1F2020);fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;labelBackgroundColor=default;" value="[authentication result]" vertex="1">
+          <mxGeometry x="30" width="355.0" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="f1_sep" parent="f1" style="shape=line;dashed=1;whiteSpace=wrap;verticalAlign=top;labelPosition=center;verticalLabelPosition=middle;align=center;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry y="98" width="395.0" height="4" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" parent="1" style="shape=umlFrame;html=1;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=light-dark(#000000,#1F2020);height=20;width=30;fillColor=light-dark(#eeeeee,#1f2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="opt" vertex="1">
+          <mxGeometry x="205.0" y="520.0" width="385.0" height="70.0" as="geometry" />
+        </mxCell>
+        <mxCell id="f2_txt" parent="f2" style="text;strokeColor=light-dark(#000000,#1F2020);fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;labelBackgroundColor=default;" value="[login failure]" vertex="1">
+          <mxGeometry x="30" width="345.0" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" parent="1" style="shape=umlFrame;html=1;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=light-dark(#000000,#1F2020);height=20;width=30;fillColor=light-dark(#eeeeee,#1f2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="alt" vertex="1">
+          <mxGeometry x="1380.0" y="825.0" width="390.0" height="90.0" as="geometry" />
+        </mxCell>
+        <mxCell id="f3_txt" parent="f3" style="text;strokeColor=light-dark(#000000,#1F2020);fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;labelBackgroundColor=default;" value="[cloud save lookup]" vertex="1">
+          <mxGeometry x="30" width="350.0" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);" value="Note: Backend route combines login and registration. If username is missing, it auto-creates a new Users record and returns the generated userID." vertex="1">
+          <mxGeometry x="40.0" y="1240.0" width="560.0" height="70.0" as="geometry" />
+        </mxCell>
+        <mxCell id="note2" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);" value="Note: LoginController navigates to MainMenu after cloud setup callback. A cloud-load warning is logged, but navigation still proceeds." vertex="1">
+          <mxGeometry x="630.0" y="1240.0" width="560.0" height="70.0" as="geometry" />
+        </mxCell>
+        <mxCell id="note3" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);" value="Source code anchors: LoginController.OnLoginClicked, CloudAuthService.Login, SaveLoadManager.EnableCloudMode, CloudDataHandler.LoadRoutine, server.js /api/auth/login and /api/loadgame/:userID." vertex="1">
+          <mxGeometry x="1220.0" y="1240.0" width="660.0" height="70.0" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" edge="1" parent="1" source="a1" target="a2" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Click Login(username, password)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" source="a2" target="a3" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Login(username, password, callback)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="372" y="205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" source="a3" target="a4" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="POST /api/auth/login&lt;br&gt;JSON credentials">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="565" y="245" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" source="a4" target="a5" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="SELECT ID, Password&lt;br&gt;WHERE Username = @Username">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="765" y="285" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" source="a5" target="a4" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="user row / no rows">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="765" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" source="a4" target="a5" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="INSERT username/password&lt;br&gt;OUTPUT INSERTED.ID">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="765" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" source="a5" target="a4" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="new userID">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="765" y="445" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" source="a4" target="a3" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="HTTP response&lt;br&gt;200 / 201 success or 401 failure">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="565" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" source="a3" target="a2" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="callback(false, message)&lt;br&gt;status red; loginButton enabled">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="372" y="555" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" edge="1" parent="1" source="a3" target="a2" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Parse success; set CurrentUserID">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="372" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" edge="1" parent="1" source="a2" target="a6" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="EnableCloudMode(userID, serverIp, onComplete)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="645" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m12" edge="1" parent="1" source="a6" target="a7" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="new CloudDataHandler(serverIp, userID)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1170" y="685" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m13" edge="1" parent="1" source="a6" target="a7" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="LoadRoutine(callback)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1170" y="725" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m14" edge="1" parent="1" source="a7" target="a8" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="GET /api/loadgame/{userID}">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1368" y="765" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m15" edge="1" parent="1" source="a8" target="a9" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="SELECT InventoryJSON&lt;br&gt;WHERE UserID = @UserID">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1565" y="805" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m16" edge="1" parent="1" source="a9" target="a8" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="saved JSON / no rows">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1565" y="845" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m17" edge="1" parent="1" source="a8" target="a7" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="200 GameData JSON">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1368" y="930" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m18" edge="1" parent="1" source="a7" target="a6" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="callback(GameData, cloud message)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1170" y="970" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m19" edge="1" parent="1" source="a6" target="a6" style="curved=1;html=1;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="ProcessLoadedData()&lt;br&gt;apply GameData to ISaveable objects">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1150" y="1010" />
+              <mxPoint x="1150" y="1040" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m20" edge="1" parent="1" source="a6" target="a2" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="onComplete(success or warning)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="1080" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m21" edge="1" parent="1" source="a2" target="a10" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="GoToMainMenu(): Load(&quot;MainMenu&quot;)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1082" y="1120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m22" edge="1" parent="1" source="a10" target="a10" style="curved=1;html=1;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Set TargetSceneName=MainMenu;&lt;br&gt;load Loading scene then async MainMenu">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1805" y="1160" />
+              <mxPoint x="1805" y="1190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
