@@ -8,16 +8,13 @@ using Infrastructure.SaveSystem.Core;
 namespace Infrastructure.SaveSystem.Core
 {
     /// <summary>
-    /// Trái tim của hệ thống lưu trữ. Đã được nâng cấp để hỗ trợ "Hybrid Save" (Lưu Local + Đồng bộ Cloud).
+    /// Trái tim của hệ thống lưu trữ. Đã được chuyển đổi sang 100% Cloud Save (Duy nhất Server MASTER).
     /// </summary>
     public class SaveLoadManager : MonoBehaviour
     {
         public static SaveLoadManager Instance { get; private set; }
         public bool IsLoading { get; private set; } = false;
 
-        [Header("Cấu hình Lưu Trữ Cục Bộ (Local)")]
-        [SerializeField] private string fileName = "pbl3_esland_save.json";
-        
         [Header("Cấu hình Cloud (Bật/Tắt tự động)")]
         [SerializeField] private bool useCloudSave = false; 
 
@@ -29,7 +26,6 @@ namespace Infrastructure.SaveSystem.Core
         private GameData gameData;
         private List<ISaveable> saveableObjects;
         
-        private IDataHandler _localDataHandler;
         private CloudDataHandler _cloudDataHandler;
 
         private bool _isQuitting = false;
@@ -45,21 +41,47 @@ namespace Infrastructure.SaveSystem.Core
             DontDestroyOnLoad(gameObject);
         }
 
+        private void OnEnable()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
         private void Start()
         {
-            // 1. Luôn khởi tạo Local Save làm gốc rễ an toàn
-            string projectRootPath = Application.dataPath + "/..";
-            _localDataHandler = new FileDataHandler(projectRootPath, fileName);
-
-            // 2. Chỉ tự động Load nếu KHÔNG ở màn hình khởi đầu (Login/MainMenu)
+            // Không khởi tạo local save nữa. Gốc rễ dữ liệu là Cloud.
+            
+            // Chỉ tự động Load nếu KHÔNG ở màn hình khởi đầu (Login/MainMenu)
             string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            if (sceneName != "Login" && sceneName != "MainMenu")
+            if (sceneName != "Login" && sceneName != "MainMenu" && sceneName != "Loading")
             {
-                saveableObjects = FindAllSaveableObjects();
-                LoadGame();
+                RefreshAndLoad();
             }
             
             _autoSaveTimer = 0f;
+        }
+
+        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+        {
+            // Khi load sang map gameplay, tự động nạp dữ liệu từ bộ nhớ vào các ISaveable
+            if (scene.name != "Login" && scene.name != "MainMenu" && scene.name != "Loading")
+            {
+                Debug.Log($"[SaveSystem] Scene '{scene.name}' loaded. Refreshing data...");
+                RefreshAndLoad();
+            }
+        }
+
+        private void RefreshAndLoad()
+        {
+            saveableObjects = FindAllSaveableObjects();
+            if (gameData != null)
+            {
+                ProcessLoadedData();
+            }
         }
 
         /// <summary>
@@ -70,7 +92,7 @@ namespace Infrastructure.SaveSystem.Core
             useCloudSave = true;
             _cloudDataHandler = new CloudDataHandler(serverIp, userId);
             
-            // Lập tức thử tải dữ liệu từ mây về
+            // Lập tức thử tải dữ liệu từ mây về bộ nhớ tạm (gameData)
             LoadGameFromCloud(onComplete);
         }
 
@@ -87,8 +109,8 @@ namespace Infrastructure.SaveSystem.Core
             if (Input.GetKeyDown(KeyCode.K)) { SaveGame(); }
             if (Input.GetKeyDown(KeyCode.L)) { LoadGame(); }
 
-            // Auto-Save: Chạy ngầm định kỳ
-            if (useAutoSave && !IsLoading)
+            // Auto-Save: Chạy ngầm định kỳ (Chỉ lên Cloud)
+            if (useAutoSave && useCloudSave && !IsLoading)
             {
                 _autoSaveTimer += Time.deltaTime;
                 if (_autoSaveTimer >= autoSaveInterval)
@@ -105,32 +127,23 @@ namespace Infrastructure.SaveSystem.Core
         }
 
         /// <summary>
-        /// Tải game. Ưu tiên lấy từ Cloud trước, nếu lỗi hoặc không bật Cloud thì lấy từ Local.
+        /// Tải game từ Cloud.
         /// </summary>
         public void LoadGame()
         {
-            IsLoading = true;
-            
-            if (useCloudSave && _cloudDataHandler != null)
+            if (!useCloudSave || _cloudDataHandler == null)
             {
-                LoadGameFromCloud((success, msg) => {
-                    if (!success)
-                    {
-                        Debug.LogWarning($"[SaveSystem] Cloud Load failed ({msg}). Fallback to Local Load.");
-                        LoadGameFromLocal();
-                    }
-                });
+                Debug.LogWarning("[SaveSystem] Cloud Save is not enabled. Cannot load.");
+                return;
             }
-            else
-            {
-                LoadGameFromLocal();
-            }
-        }
 
-        private void LoadGameFromLocal()
-        {
-            this.gameData = _localDataHandler.Load();
-            ProcessLoadedData();
+            IsLoading = true;
+            LoadGameFromCloud((success, msg) => {
+                if (!success)
+                {
+                    Debug.LogError($"[SaveSystem] Cloud Load failed: {msg}");
+                }
+            });
         }
 
         private void LoadGameFromCloud(Action<bool, string> onComplete = null)
@@ -159,7 +172,11 @@ namespace Infrastructure.SaveSystem.Core
 
         private void ProcessLoadedData()
         {
-            if (this.gameData == null) NewGame();
+            if (this.gameData == null) 
+            {
+                IsLoading = false;
+                return;
+            }
 
             if (saveableObjects == null) saveableObjects = FindAllSaveableObjects();
 
@@ -167,8 +184,10 @@ namespace Infrastructure.SaveSystem.Core
             {
                 foreach (ISaveable saveableObj in saveableObjects)
                 {
-                    saveableObj.LoadData(gameData);
+                    if (saveableObj != null)
+                        saveableObj.LoadData(gameData);
                 }
+                Debug.Log("[SaveSystem] Data processed successfully to all objects.");
             }
             catch (Exception e) { Debug.LogError($"[SaveSystem] Error processing data: {e.Message}"); }
             finally { IsLoading = false; }
@@ -176,14 +195,13 @@ namespace Infrastructure.SaveSystem.Core
 
         public void SaveGame()
         {
-            if (IsLoading || _localDataHandler == null || gameData == null || _isQuitting) return;
+            if (IsLoading || gameData == null || _isQuitting || !useCloudSave) return;
 
             GatherDataToSave();
             
-            _localDataHandler.Save(gameData);
-
-            if (useCloudSave && _cloudDataHandler != null)
+            if (_cloudDataHandler != null)
             {
+                Debug.Log("[SaveSystem] Saving game to cloud...");
                 StartCoroutine(_cloudDataHandler.SaveRoutine(gameData, null)); 
             }
         }
@@ -196,17 +214,15 @@ namespace Infrastructure.SaveSystem.Core
                 return;
             }
 
-            GatherDataToSave();
-            _localDataHandler.Save(gameData);
+            if (!useCloudSave || _cloudDataHandler == null)
+            {
+                onComplete?.Invoke(false, "Cloud Save is not enabled.");
+                return;
+            }
 
-            if (useCloudSave && _cloudDataHandler != null)
-            {
-                StartCoroutine(_cloudDataHandler.SaveRoutine(gameData, onComplete));
-            }
-            else
-            {
-                onComplete?.Invoke(false, "Cloud Save is not enabled or configured.");
-            }
+            GatherDataToSave();
+
+            StartCoroutine(_cloudDataHandler.SaveRoutine(gameData, onComplete));
         }
 
         private void GatherDataToSave()
@@ -220,11 +236,24 @@ namespace Infrastructure.SaveSystem.Core
             }
         }
 
+        /// <summary>
+        /// Reset hệ thống về trạng thái ban đầu (Khi Logout).
+        /// </summary>
+        public void ResetSystem()
+        {
+            gameData = null;
+            saveableObjects?.Clear();
+            useCloudSave = false;
+            _cloudDataHandler = null;
+            Debug.Log("[SaveSystem] System reset completed.");
+        }
+
         public void DeleteSaveData()
         {
+            // Với Cloud Save, xóa data có nghĩa là Reset bộ nhớ và có thể gửi yêu cầu xóa lên Server (Tùy nhu cầu)
             useAutoSave = false; 
-            if (_localDataHandler != null) _localDataHandler.Delete();
             gameData = null;
+            Debug.LogWarning("[SaveSystem] Local GameData memory cleared.");
         }
 
         private List<ISaveable> FindAllSaveableObjects()
@@ -251,7 +280,12 @@ namespace Infrastructure.SaveSystem.Core
         private void OnApplicationQuit()
         {
             _isQuitting = true;
-            SaveGame();
+            if (useCloudSave)
+            {
+                // Lưu ý: Coroutine có thể không kịp chạy xong khi Quit trên Editor.
+                // Một hệ thống Production sẽ dùng WebRequest đồng bộ hoặc chờ.
+                SaveGame();
+            }
         }
     }
 }
