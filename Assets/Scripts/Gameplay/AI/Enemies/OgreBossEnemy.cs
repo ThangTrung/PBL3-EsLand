@@ -68,6 +68,12 @@ namespace Gameplay.AI.Enemies
             ClearMinions();
         }
 
+        protected override void SetInitialState()
+        {
+            ChangeState(CreateChaseState());
+        }
+
+
         protected override void Update()
         {
             base.Update();

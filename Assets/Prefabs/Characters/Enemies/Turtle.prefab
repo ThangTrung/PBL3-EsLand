@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 2
   movementSmoothing: 12
+  steeringSmoothing: 10
   pathUpdateCooldown: 0.3
   destinationChangeThreshold: 0.3
 --- !u!114 &7758849800700304245
@@ -438,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1524ab91021112946860a2f05fb6158f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStaticBoss: 0
+  isStaticBoss: 1
 --- !u!114 &553653926409114538
 MonoBehaviour:
   m_ObjectHideFlags: 0

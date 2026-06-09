@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
   movementSmoothing: 12
+  steeringSmoothing: 10
   pathUpdateCooldown: 0.3
   destinationChangeThreshold: 0.3
 --- !u!114 &5607521988273956109
@@ -282,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1524ab91021112946860a2f05fb6158f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStaticBoss: 0
+  isStaticBoss: 1
 --- !u!114 &1098228011518154909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSortingLayer: Elevation_A
+  targetSortingLayer: Elevation_C
 --- !u!114 &2682255355899221472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,8 +395,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1002
-  m_SortingLayer: 2
+  m_SortingLayerID: 1004
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 6527623753779468337, guid: 458512ab22cc7a84d867283cd57f456c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

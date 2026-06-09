@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Infrastructure.SaveSystem.Core;
 using Infrastructure.SaveSystem.Data;
+using Infrastructure.Pooling;
 
 namespace Gameplay.World
 {
@@ -12,6 +13,7 @@ namespace Gameplay.World
     {
         [Header("Data Items")]
         public ItemData itemData;
+        public int quantity = 1;
 
         [Header("Settings")]
         [SerializeField] private float flySpeed = 5f; 
@@ -36,6 +38,21 @@ namespace Gameplay.World
             }
         }
 
+        private void OnEnable()
+        {
+            _spawnTime = Time.time;
+            _isFlying = false;
+            _playerTransform = null;
+            quantity = 1;
+
+            // [CRITICAL] Refresh ID for pooled entities to avoid GUID collision with previously destroyed items
+            if (TryGetComponent<SaveableEntity>(out var saveable))
+            {
+                saveable.ForceNewId();
+                _uniqueInstanceID = saveable.Id;
+            }
+        }
+
         public void StartFlyingTowards(Transform target)
         {
             if (Time.time < _spawnTime + pickupDelay) return;
@@ -56,13 +73,19 @@ namespace Gameplay.World
                 PickUp();
         }
 
+        public void SetItem(ItemData data, int qty)
+        {
+            itemData = data;
+            quantity = qty;
+        }
+
         private void PickUp()
         {
             if (!itemData || !_playerTransform) return;
             if (!_playerTransform.TryGetComponent<IInventoryHolder>(out var holder) || holder.Inventory == null)
                 return;
         
-            var success = holder.Inventory.AddItem(itemData, 1);
+            var success = holder.Inventory.AddItem(itemData, quantity);
             if (success)
             {
                 // 🔥 ĐÚNG CHUẨN SRP: Chỉ báo cáo trạng thái vào RAM, giao phó việc lưu ổ cứng cho SaveLoadManager
@@ -71,7 +94,7 @@ namespace Gameplay.World
                     SaveLoadManager.Instance.RegisterDestroyedEntity(_uniqueInstanceID);
                 }
 
-                Destroy(gameObject);
+                ObjectPoolManager.Instance.ReturnToPool(gameObject);
             }
             else
             {
@@ -83,7 +106,7 @@ namespace Gameplay.World
         {
             if (data != null && data.destroyedEntityIDs != null && data.destroyedEntityIDs.Contains(_uniqueInstanceID))
             {
-                Destroy(gameObject);
+                ObjectPoolManager.Instance.ReturnToPool(gameObject);
             }
         }
 

@@ -225,7 +225,6 @@ GameObject:
   - component: {fileID: 8896312631914810951}
   - component: {fileID: 7921317988579308614}
   - component: {fileID: 2908760923440454337}
-  - component: {fileID: 1210223791410214178}
   - component: {fileID: 2440197402482405847}
   m_Layer: 7
   m_Name: OgreBoss
@@ -305,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
   movementSmoothing: 12
+  steeringSmoothing: 10
   pathUpdateCooldown: 0.3
   destinationChangeThreshold: 0.3
 --- !u!114 &489026410705133401
@@ -336,7 +336,7 @@ MonoBehaviour:
   clubPart2Prefab: {fileID: 0}
   bossName: Ogre Warlord
   hammerAOERadius: 2.5
-  minionPrefab: {fileID: 0}
+  minionPrefab: {fileID: 8933322250166544142, guid: 7fd37b1bfbd73744ab98d62f77229b72, type: 3}
   minionConfig: {fileID: 11400000, guid: aca2157a912d39e46947faa440d937b9, type: 2}
   minionAnimConfig: {fileID: 11400000, guid: 0f43ebc491e2fb341a69b8ce4f8ef27f, type: 2}
   maxActiveMinions: 6
@@ -435,10 +435,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
   lootTable: []
   minDropForce: 4
   maxDropForce: 8
+  spawnSpread: 0.5
 --- !u!114 &7167033628583495576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1524ab91021112946860a2f05fb6158f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStaticBoss: 0
+  isStaticBoss: 1
 --- !u!114 &7921317988579308614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,26 +491,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentElevation: 
---- !u!114 &1210223791410214178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8090337708008702255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 1917307119445734615, guid: 8cf877d3b031d4e419ee56f7b15ecbd1, type: 3}
-  lootTable:
-  - item: {fileID: 11400000, guid: 66ce93e8ca7865f4aa05e1499b1ed03e, type: 2}
-    minAmount: 1
-    maxAmount: 1
-    chance: 1
-  minDropForce: 2
-  maxDropForce: 5
 --- !u!114 &2440197402482405847
 MonoBehaviour:
   m_ObjectHideFlags: 0
