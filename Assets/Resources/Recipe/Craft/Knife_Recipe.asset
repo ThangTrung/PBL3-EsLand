@@ -15,6 +15,7 @@ MonoBehaviour:
   id: Knife_Recipe
   recipeName: "Dao s\u1EAFt"
   description: "M\xF4 t\u1EA3 c\xF4ng th\u1EE9c ch\u1EBF t\u1EA1o..."
+  requiredTool: 0
   ingredients:
   - item: {fileID: 11400000, guid: a58f688f201410f40a4b7434dba1fc44, type: 2}
     amount: 1

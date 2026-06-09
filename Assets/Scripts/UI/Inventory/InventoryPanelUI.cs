@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Contracts.Inventory;
 using Core.Contracts.Shared;
+using EsLand.Data.Audio;
+using EsLand.Infrastructure.Audio;
 using Gameplay.Characters;
 using UI.ItemActions;
 using UnityEngine;
@@ -23,6 +25,11 @@ namespace UI.Inventory
         [SerializeField] private GameObject canvasRoot;
         [SerializeField] private Transform slotsContainer;
         [SerializeField] private GameObject slotPrefab;
+
+        [Header("Audio")]
+        [SerializeField] private AudioData _openSound;
+        [SerializeField] private AudioData _closeSound;
+        [SerializeField] private AudioData _slotClickSound; // <--- Thêm dòng này
 
         private readonly List<InventorySlotUI> _slotUIs = new List<InventorySlotUI>();
         private const int SelectedSlotIndex = -1;
@@ -48,7 +55,12 @@ namespace UI.Inventory
 
         private void Awake()
         {
-            if (canvasRoot == null) canvasRoot = transform.Find("CanvasRoot")?.gameObject;
+            if (canvasRoot == null)
+            {
+                // Tìm kiếm linh hoạt hơn để tránh lỗi đặt tên sai trong Inspector
+                canvasRoot = transform.Find("CanvasRoot")?.gameObject;
+                if (canvasRoot == null) canvasRoot = transform.Find("MainContain")?.gameObject;
+            }
         }
 
         private void Start()
@@ -58,20 +70,36 @@ namespace UI.Inventory
 
         public void ToggleUI()
         {
-            var currentState = canvasRoot && canvasRoot.activeSelf;
-            SetVisible(!currentState);
+            // Sử dụng IsVisible để đồng nhất trạng thái
+            SetVisible(!IsVisible);
         }
 
         public void SetVisible(bool visible)
         {
-            IsVisible = visible;
-            if (canvasRoot)
+            if (canvasRoot == null)
             {
-                canvasRoot.SetActive(visible);
+                Debug.LogWarning($"InventoryPanelUI on {gameObject.name} has no canvasRoot assigned and couldn't find 'CanvasRoot' or 'MainContain' child.");
+                return;
             }
+
+            // Tránh phát âm thanh khi khởi tạo hoặc nếu trạng thái không đổi
+            bool stateChanged = IsVisible != visible;
+            
+            IsVisible = visible;
+            canvasRoot.SetActive(visible);
                 
             if (_provider is Core.Contracts.Shared.IUIEventListener uiListener)
                 uiListener.OnUIStateChanged("Inventory", visible);
+
+            // Phát âm thanh
+            if (stateChanged && AudioManager.Instance != null)
+            {
+                var soundToPlay = visible ? _openSound : _closeSound;
+                if (soundToPlay != null)
+                {
+                    AudioManager.Instance.PlaySFX(soundToPlay);
+                }
+            }
 
             if (visible) return;
     
@@ -126,13 +154,28 @@ namespace UI.Inventory
             {
                 var index = i;
                 var go = Instantiate(slotPrefab, slotsContainer);
+                go.transform.localScale = Vector3.one;
                 var slotUI = go.GetComponent<InventorySlotUI>();
                 if (!slotUI) continue;
                 slotUI.Init(index, _inventory.ActionHandler);
                 
-                slotUI.OnLeftClicked += (idx, data) => OnSlotLeftClicked?.Invoke(idx, data);
+                slotUI.OnLeftClicked += (idx, data) => 
+                {
+                    if (_slotClickSound != null && AudioManager.Instance != null)
+                    {
+                        AudioManager.Instance.PlaySFX(_slotClickSound);
+                    }
+                    OnSlotLeftClicked?.Invoke(idx, data);
+                };
                 slotUI.OnRightClicked += HandleSlotRightClicked;
-                slotUI.OnRightClicked += (context, pos) => OnSlotRightClickedEvent?.Invoke(index, _inventory.Slots[index]);
+                slotUI.OnRightClicked += (context, pos) => 
+                {
+                    if (_slotClickSound != null && AudioManager.Instance != null)
+                    {
+                        AudioManager.Instance.PlaySFX(_slotClickSound);
+                    }
+                    OnSlotRightClickedEvent?.Invoke(index, _inventory.Slots[index]);
+                };
                 _slotUIs.Add(slotUI);
             }
         }

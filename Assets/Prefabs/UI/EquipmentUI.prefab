@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 990036131002896715}
   - component: {fileID: 3478497526872972770}
   - component: {fileID: 1249038562094632891}
+  - component: {fileID: 3764163393123271070}
   m_Layer: 5
   m_Name: HealthStone
   m_TagString: Untagged
@@ -310,6 +311,19 @@ MonoBehaviour:
   slotType: 1
   icon: {fileID: 7838274712437713681}
   highlightImage: {fileID: 3987338897926566936}
+--- !u!114 &3764163393123271070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853347667059025252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &2856300600081952607
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,6 +336,7 @@ GameObject:
   - component: {fileID: 1768740120706769885}
   - component: {fileID: 8385660719083718393}
   - component: {fileID: 7370757973624840096}
+  - component: {fileID: 5678995447866172622}
   m_Layer: 5
   m_Name: SpeedStone
   m_TagString: Untagged
@@ -403,6 +418,19 @@ MonoBehaviour:
   slotType: 2
   icon: {fileID: 622853905799614448}
   highlightImage: {fileID: 3146126988705191195}
+--- !u!114 &5678995447866172622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2856300600081952607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &2985851752102787919
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +443,7 @@ GameObject:
   - component: {fileID: 5719438561021413302}
   - component: {fileID: 7446059748136608996}
   - component: {fileID: 3203337687556497157}
+  - component: {fileID: 834381698346167886}
   m_Layer: 5
   m_Name: AttackStone
   m_TagString: Untagged
@@ -496,6 +525,19 @@ MonoBehaviour:
   slotType: 0
   icon: {fileID: 3162207885313806653}
   highlightImage: {fileID: 5920539645063743105}
+--- !u!114 &834381698346167886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2985851752102787919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &3281724878142576182
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1150,7 @@ GameObject:
   - component: {fileID: 8805525834590241433}
   - component: {fileID: 4629170430091060062}
   - component: {fileID: 7754404487973096256}
+  - component: {fileID: 6769266029883146760}
   m_Layer: 5
   m_Name: DefenseStone
   m_TagString: Untagged
@@ -1189,6 +1232,19 @@ MonoBehaviour:
   slotType: 3
   icon: {fileID: 4878482880730113528}
   highlightImage: {fileID: 2766229739130003190}
+--- !u!114 &6769266029883146760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7305369695857342030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &7768735720694713025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,6 +1332,7 @@ GameObject:
   - component: {fileID: 4730442066541556513}
   - component: {fileID: 3218403931254561039}
   - component: {fileID: 6858738859631664675}
+  - component: {fileID: 2434828115956462252}
   m_Layer: 5
   m_Name: MainHand
   m_TagString: Untagged
@@ -1357,3 +1414,16 @@ MonoBehaviour:
   slotType: 4
   icon: {fileID: 3775485417812711382}
   highlightImage: {fileID: 2102994652042856238}
+--- !u!114 &2434828115956462252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8317894353216905370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1

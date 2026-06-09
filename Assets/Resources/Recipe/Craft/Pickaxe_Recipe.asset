@@ -15,6 +15,7 @@ MonoBehaviour:
   id: Pickaxe_Recipe
   recipeName: "Cu\u1ED1c s\u1EAFt"
   description: "M\xF4 t\u1EA3 c\xF4ng th\u1EE9c ch\u1EBF t\u1EA1o..."
+  requiredTool: 0
   ingredients:
   - item: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
     amount: 10

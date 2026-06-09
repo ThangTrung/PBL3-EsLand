@@ -27,6 +27,15 @@ namespace UI.Crafting
 
         private IInventoryHolder _inventoryHolder;
 
+        private void Awake()
+        {
+            if (panelRoot == null)
+            {
+                panelRoot = transform.Find("PanelRoot")?.gameObject;
+                if (panelRoot == null) panelRoot = transform.Find("MainContain")?.gameObject;
+            }
+        }
+
         public void Initialize(IInventoryHolder inventoryHolder)
         {
             _inventoryHolder = inventoryHolder;
@@ -88,6 +97,7 @@ namespace UI.Crafting
 
                 // Sinh ra Slot mới
                 CraftingRecipeSlotUI slot = Instantiate(recipeSlotPrefab, recipeListContainer);
+                slot.transform.localScale = Vector3.one;
                 slot.Init(recipe);
                 
                 // Đăng ký sự kiện: Khi slot này bị click, truyền dữ liệu qua DetailUI

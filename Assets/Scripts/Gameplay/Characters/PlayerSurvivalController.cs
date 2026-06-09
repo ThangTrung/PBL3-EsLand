@@ -5,18 +5,16 @@ namespace Gameplay.Characters
 {
     /// <summary>
     /// Manages survival-related stats for the player character.
-    /// Handles Hunger, Thirst, and Stamina logic and drain.
+    /// Handles Hunger and Stamina logic and drain.
     /// </summary>
     public class PlayerSurvivalController : MonoBehaviour
     {
         [Header("Survival Settings")]
         [SerializeField] private float maxHunger = 100f;
-        [SerializeField] private float maxThirst = 100f;
         [SerializeField] private float maxStamina = 100f;
         
         [Header("Drain Rates (units/sec)")]
         [SerializeField] private float hungerDrainRate = 5.0f;
-        [SerializeField] private float thirstDrainRate = 7.0f;
         [SerializeField] private float staminaRegenRate = 5.0f;
 
         [Header("Debuff Settings")]
@@ -28,7 +26,6 @@ namespace Gameplay.Characters
 
         [Header("Runtime Stats")]
         [SerializeField] private float currentHunger;
-        [SerializeField] private float currentThirst;
         [SerializeField] private float currentStamina;
 
         private static readonly int HitHash = Animator.StringToHash("Hit");
@@ -38,27 +35,21 @@ namespace Gameplay.Characters
         private bool _hasHitParameter;
 
         public float MaxHunger => maxHunger;
-        public float MaxThirst => maxThirst;
         public float MaxStamina => maxStamina;
 
         public float CurrentHunger => currentHunger;
-        public float CurrentThirst => currentThirst;
         public float CurrentStamina => currentStamina;
 
         public bool IsStarving => currentHunger <= 0;
-        public bool IsDehydrated => currentThirst <= 0;
         public bool IsHungryCritical => (currentHunger / maxHunger) < thresholdPercentage;
-        public bool IsThirstyCritical => (currentThirst / maxThirst) < thresholdPercentage;
-        public bool NeedsPenalty => IsHungryCritical || IsThirstyCritical;
+        public bool NeedsPenalty => IsHungryCritical;
 
         public event Action<float> OnHungerChanged;
-        public event Action<float> OnThirstChanged;
         public event Action<float> OnStaminaChanged;
 
         private void Awake()
         {
             currentHunger = maxHunger;
-            currentThirst = maxThirst;
             currentStamina = maxStamina;
 
             _health = GetComponent<CharacterHealth>();
@@ -74,7 +65,6 @@ namespace Gameplay.Characters
         private void Update()
         {
             ModifyHunger(-hungerDrainRate * Time.deltaTime);
-            ModifyThirst(-thirstDrainRate * Time.deltaTime);
             
             // Hồi phục thể lực theo thời gian nếu chưa đầy
             if (currentStamina < maxStamina)
@@ -87,7 +77,7 @@ namespace Gameplay.Characters
 
         private void HandleStarvation()
         {
-            if (IsStarving || IsDehydrated)
+            if (IsStarving)
             {
                 _healthLossTimer += Time.deltaTime;
                 if (_healthLossTimer >= healthLossInterval)
@@ -95,7 +85,7 @@ namespace Gameplay.Characters
                     _healthLossTimer = 0f;
                     if (_health != null && !_health.IsDead)
                     {
-                        // Gây sát thương do đói/khát (không có source)
+                        // Gây sát thương do đói (không có source)
                         _health.TakeDamage(healthLossAmount, null);
                         
                         // Kích hoạt hoạt ảnh bị thương nếu có
@@ -129,12 +119,6 @@ namespace Gameplay.Characters
             OnHungerChanged?.Invoke(currentHunger);
         }
 
-        public void ModifyThirst(float delta)
-        {
-            currentThirst = Mathf.Clamp(currentThirst + delta, 0, maxThirst);
-            OnThirstChanged?.Invoke(currentThirst);
-        }
-
         public void ModifyStamina(float delta)
         {
             currentStamina = Mathf.Clamp(currentStamina + delta, 0, maxStamina);
@@ -142,9 +126,7 @@ namespace Gameplay.Characters
         }
 
         public void ConsumeHunger(float amount) => ModifyHunger(-amount);
-        public void ConsumeThirst(float amount) => ModifyThirst(-amount);
         public void AddHunger(float amount) => ModifyHunger(amount);
-        public void AddThirst(float amount) => ModifyThirst(amount);
         
         public bool HasEnoughStamina(float amount) => currentStamina >= amount;
         

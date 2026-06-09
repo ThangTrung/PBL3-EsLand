@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7321669670066477398}
   - component: {fileID: 5930046885054456149}
   - component: {fileID: -2484086897539930849}
+  - component: {fileID: 6021691496790147206}
   m_Layer: 0
   m_Name: Wood
   m_TagString: Loot
@@ -166,10 +167,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 2e527f40184cfb64eb437fae187f6189, type: 2}
+  quantity: 1
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
   pickupDelay: 0.75
+  pickupSound: {fileID: 11400000, guid: 255437d19a0966f48a10f1aa15ea1067, type: 2}
 --- !u!114 &7048552720646528586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,3 +224,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6021691496790147206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729092896824613032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3160189fdf5b0894dad932aa95175177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pickupSound: {fileID: 11400000, guid: 255437d19a0966f48a10f1aa15ea1067, type: 2}

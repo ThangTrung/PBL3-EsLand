@@ -5,6 +5,8 @@ using System.Linq;
 using Infrastructure.SaveSystem.Core;
 using Infrastructure.SaveSystem.Data;
 using Infrastructure.Pooling;
+using EsLand.Data.Audio;
+using EsLand.Infrastructure.Audio;
 
 namespace Gameplay.World
 {
@@ -20,6 +22,9 @@ namespace Gameplay.World
         [SerializeField] private float acceleration = 20f;
         [SerializeField] private float pickupDistance = 0.5f; 
         [SerializeField] private float pickupDelay = 0.5f;
+
+        [Header("Audio")]
+        [SerializeField] private AudioData pickupSound;
 
         private Transform _playerTransform;
         private bool _isFlying;
@@ -88,6 +93,12 @@ namespace Gameplay.World
             var success = holder.Inventory.AddItem(itemData, quantity);
             if (success)
             {
+                // Phát âm thanh nhặt đồ
+                if (AudioManager.Instance != null && pickupSound != null)
+                {
+                    AudioManager.Instance.PlaySFX(pickupSound, transform.position);
+                }
+
                 // 🔥 ĐÚNG CHUẨN SRP: Chỉ báo cáo trạng thái vào RAM, giao phó việc lưu ổ cứng cho SaveLoadManager
                 if (SaveLoadManager.Instance != null)
                 {

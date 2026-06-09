@@ -148,7 +148,7 @@ namespace Gameplay.Characters
             OnDie?.Invoke();
         }
 
-        public void SetCurrentHealth(float value)
+        public void InternalSetHealth(float value)
         {
             CurrentHealth = Mathf.Clamp(value, 0, MaxHealth);
             IsDead = CurrentHealth <= 0;

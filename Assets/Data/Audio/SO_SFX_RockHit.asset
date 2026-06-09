@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a55dce9ccb918a47bbccd8b1ce106f0, type: 3}
+  m_Name: SO_SFX_RockHit
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: b303a83b7cedb7d4997a3cb7b9b1e1c7, type: 3}
+  _mixerGroup: {fileID: -3475562173549838738, guid: 7519a6ef6fa2bf9438664d0149cea81f, type: 2}
+  _volume: 0.8
+  _pitch: 1
+  _pitchRandomRange: 0
+  _loop: 0

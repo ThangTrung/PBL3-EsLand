@@ -2,6 +2,7 @@ using Core.Contracts.Inventory;
 using Data.Building;
 using Data.Items;
 using Gameplay.Characters;
+using UI.Cursor;
 using UnityEngine;
 
 namespace Gameplay.Building
@@ -24,14 +25,17 @@ namespace Gameplay.Building
         private PlaceableItem currentItemToPlace; // Bản vẽ item đang được cầm
         private GameObject ghostBuilding; // Bóng mờ
         private SpriteRenderer[] ghostRenderers;
-        private BoxCollider2D ghostCollider; // Dùng BoxCollider2D đại diện cho kích thước chiếm chỗ
+        private Collider2D ghostCollider; // Dùng Collider2D đại diện cho kích thước chiếm chỗ
         
         private Character playerCharacter; 
+        private Camera _mainCamera;
 
         private void Awake()
         {
             if (Instance == null) Instance = this;
             else Destroy(gameObject);
+
+            _mainCamera = Camera.main;
         }
 
         /// <summary>
@@ -39,6 +43,12 @@ namespace Gameplay.Building
         /// </summary>
         public void StartPlacement(PlaceableItem itemToPlace, Character user)
         {
+            if (itemToPlace == null || itemToPlace.TargetBuilding == null)
+            {
+                Debug.LogError("[PlacementManager] StartPlacement failed: itemToPlace or targetBuilding is null.");
+                return;
+            }
+
             if (isPlacing) CancelPlacement();
 
             isPlacing = true;
@@ -52,27 +62,38 @@ namespace Gameplay.Building
             if (targetBuilding.BuildingPrefab != null)
             {
                 ghostBuilding = Instantiate(targetBuilding.BuildingPrefab);
+                ghostBuilding.name = "Ghost_" + targetBuilding.BuildingName;
                 
-                // Lấy ra BoxCollider2D gốc để làm khuôn check va chạm
-                ghostCollider = ghostBuilding.GetComponent<BoxCollider2D>();
+                // [FIX] Tìm Collider2D bất kỳ ở Root để làm khuôn check va chạm (thay vì chỉ ép kiểu BoxCollider2D)
+                ghostCollider = ghostBuilding.GetComponent<Collider2D>();
                 if (ghostCollider == null)
                 {
-                    Debug.LogWarning($"[PlacementManager] {targetBuilding.BuildingPrefab.name} không có BoxCollider2D ở Root. Việc check va chạm sẽ dùng kích thước mặc định (1x1).");
+                    Debug.LogWarning($"[PlacementManager] {targetBuilding.BuildingPrefab.name} không có Collider2D ở Root. Việc check va chạm sẽ dùng bán kính mặc định (0.5).");
                 }
 
-                // Tắt Collider để bóng mờ không chặn đường đi
+                // 1. Tắt Collider để bóng mờ không chặn đường đi
                 var colliders = ghostBuilding.GetComponentsInChildren<Collider2D>();
-                foreach (var col in colliders) col.enabled = false;
+                foreach (var col in colliders) if (col != null) col.enabled = false;
                 
-                // Tắt các script logic (VD: CookingTower) trên bóng mờ
+                // 2. Tắt vật lý để tránh bóng mờ rơi hoặc va chạm
+                var rbs = ghostBuilding.GetComponentsInChildren<Rigidbody2D>();
+                foreach (var rb in rbs) if (rb != null) rb.simulated = false;
+
+                // 3. Vô hiệu hóa logic nhưng giữ lại các script hỗ trợ hiển thị
                 var scripts = ghostBuilding.GetComponentsInChildren<MonoBehaviour>();
-                foreach (var script in scripts) Destroy(script);
+                foreach (var script in scripts)
+                {
+                    if (script == null || script == this) continue;
+                    if (script is Layer.AutoAssignSortingLayer) continue;
+                    script.enabled = false;
+                }
 
                 ghostRenderers = ghostBuilding.GetComponentsInChildren<SpriteRenderer>();
             }
             else
             {
                 Debug.LogError($"[PlacementManager] THẤT BẠI: File BuildingData '{targetBuilding.name}' chưa được gán BuildingPrefab ở Inspector!");
+                isPlacing = false;
             }
         }
 
@@ -81,15 +102,33 @@ namespace Gameplay.Building
             if (!isPlacing || ghostBuilding == null) return;
 
             // 2. Bóng mờ bám theo chuột
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (_mainCamera == null) _mainCamera = Camera.main;
+            if (_mainCamera == null)
+            {
+                Debug.LogWarning("[PlacementManager] Main Camera not found! Cannot place building.");
+                return;
+            }
+
+            Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0f; // Bắt buộc z = 0 để tránh việc bóng mờ bị khuất sau Camera 2D
             ghostBuilding.transform.position = mousePos;
 
             // 3. Check vị trí hợp lệ
             bool isValid = CheckPlacementValid(mousePos);
-            foreach (var r in ghostRenderers)
+            
+            // Cập nhật Cursor dựa trên tính hợp lệ của vị trí đặt
+            if (CursorManager.Instance != null)
             {
-                r.color = isValid ? validColor : invalidColor;
+                if (isValid) CursorManager.Instance.SetNormalCursor();
+                else CursorManager.Instance.SetForbiddenCursor();
+            }
+
+            if (ghostRenderers != null)
+            {
+                foreach (var r in ghostRenderers)
+                {
+                    if (r != null) r.color = isValid ? validColor : invalidColor;
+                }
             }
 
             // 4. Đặt công trình
@@ -112,27 +151,29 @@ namespace Gameplay.Building
             BuildingType type = currentItemToPlace.TargetBuilding.Type;
             bool isOnCorrectTerrain = false;
 
-            // 1. Kiểm tra địa hình phù hợp (Water cho Thuyền, Land cho công trình khác)
-            if (type == BuildingType.EscapeVehicle)
-            {
-                // Thuyền: Phải chạm vào lớp Nước
-                isOnCorrectTerrain = Physics2D.OverlapPoint(position, waterLayer);
-            }
-            else
-            {
-                // Công trình khác: Phải chạm vào lớp Đất
-                isOnCorrectTerrain = Physics2D.OverlapPoint(position, landLayer);
-            }
+            // 1. Kiểm tra địa hình phù hợp (Sử dụng OverlapCircle mượt hơn cho Tilemap)
+            LayerMask targetTerrainLayer = (type == BuildingType.EscapeVehicle) ? waterLayer : landLayer;
+            isOnCorrectTerrain = Physics2D.OverlapCircle(position, 0.1f, targetTerrainLayer);
 
             if (!isOnCorrectTerrain) return false;
 
             // 2. Kiểm tra không đè lên vật cản (Cây, đá, nhà khác)
             if (ghostCollider != null)
             {
-                Vector2 boxSize = ghostCollider.size * 0.9f;
-                Vector2 checkPosition = position + ghostCollider.offset;
-                Collider2D hit = Physics2D.OverlapBox(checkPosition, boxSize, 0f, obstacleLayer);
-                return hit == null;
+                if (ghostCollider is BoxCollider2D box)
+                {
+                    Vector2 boxSize = box.size * 0.9f;
+                    Vector2 checkPosition = position + box.offset;
+                    Collider2D hit = Physics2D.OverlapBox(checkPosition, boxSize, 0f, obstacleLayer);
+                    return hit == null;
+                }
+                else
+                {
+                    // Fallback dùng Bounds nếu không phải BoxCollider
+                    Vector2 boundsSize = ghostCollider.bounds.size * 0.9f;
+                    Collider2D hit = Physics2D.OverlapBox(position, boundsSize, 0f, obstacleLayer);
+                    return hit == null;
+                }
             }
             else
             {
@@ -148,7 +189,8 @@ namespace Gameplay.Building
             BuildingType type = currentItemToPlace.TargetBuilding.Type;
             LayerMask targetLayer = (type == BuildingType.EscapeVehicle) ? waterLayer : landLayer;
             
-            Collider2D hit = Physics2D.OverlapPoint(position, targetLayer);
+            // Tìm collider của địa hình tại vị trí đặt để lấy Parent
+            Collider2D hit = Physics2D.OverlapCircle(position, 0.1f, targetLayer);
             if (hit != null)
             {
                 // Thường Tilemap sẽ là con của Elevation_A/B/C
@@ -177,6 +219,12 @@ namespace Gameplay.Building
             if (ghostBuilding != null)
             {
                 Destroy(ghostBuilding);
+            }
+
+            // Reset cursor khi thoát chế độ xây dựng
+            if (CursorManager.Instance != null)
+            {
+                CursorManager.Instance.SetNormalCursor();
             }
         }
     }

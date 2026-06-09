@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1642475609549052009}
   - component: {fileID: 5480138717762173728}
   - component: {fileID: -7919405243780028202}
+  - component: {fileID: 5699083897354791216}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Loot
@@ -152,10 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 88d44179360d37d44bcb549902ffd3c2, type: 2}
+  quantity: 1
   flySpeed: 5
   acceleration: 20
   pickupDistance: 0.5
   pickupDelay: 0.5
+  pickupSound: {fileID: 11400000, guid: 255437d19a0966f48a10f1aa15ea1067, type: 2}
 --- !u!114 &2422288821586320220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,3 +210,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5699083897354791216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324405590968892952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3160189fdf5b0894dad932aa95175177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pickupSound: {fileID: 11400000, guid: 255437d19a0966f48a10f1aa15ea1067, type: 2}

@@ -96,6 +96,10 @@ namespace Gameplay.Combat.Feedback
         private IEnumerator KnockbackRoutine(Vector2 direction)
         {
             _isKnockedBack = true;
+            
+            // [NEW] Thông báo cho MovementController để ngắt việc quay mặt nhân vật nhầm hướng
+            var playerMove = GetComponent<Gameplay.Characters.PlayerMovementController>();
+            if (playerMove != null) playerMove.IsKnockedBack = true;
 
             // Xử lý Super Armor cho Boss (Khối lượng quá lớn)
             if (_hasSuperArmor)
@@ -131,6 +135,8 @@ namespace Gameplay.Combat.Feedback
             if (_rb != null) _rb.velocity = Vector2.zero;
 
             _isKnockedBack = false;
+            if (playerMove != null) playerMove.IsKnockedBack = false;
+            
             _knockbackRoutine = null;
         }
     }

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: -1207487650770413628}
   - component: {fileID: 4237190506899381134}
   - component: {fileID: 8089824031694588989}
+  - component: {fileID: -1228071429877808765}
   m_Layer: 8
   m_Name: Tiny_tree2
   m_TagString: Untagged
@@ -426,6 +427,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1228071429877808765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017968451425224053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c4c41648a38fc4d89da5b073ec9dce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resourceNode: {fileID: 9068418433492522344}
+  _hitSound: {fileID: 11400000, guid: 81083698a46a22e408ec128bc6414dfa, type: 2}
 --- !u!1 &7605498166008313623
 GameObject:
   m_ObjectHideFlags: 0

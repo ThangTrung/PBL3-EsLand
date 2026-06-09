@@ -13,7 +13,6 @@ namespace UI.Status
         [Header("UI Elements")]
         [SerializeField] private Image healthImage;
         [SerializeField] private Image hungerImage;
-        [SerializeField] private Image thirstImage;
         [SerializeField] private Image staminaImage;
 
         private CharacterHealth _playerHealth;
@@ -24,7 +23,6 @@ namespace UI.Status
 
         private float _targetHealth;
         private float _targetHunger;
-        private float _targetThirst;
         private float _targetStamina;
 
         public void Initialize(Player player)
@@ -51,10 +49,6 @@ namespace UI.Status
                 if (hungerImage != null) hungerImage.fillAmount = _targetHunger;
                 _playerSurvival.OnHungerChanged += HandleHungerChanged;
 
-                _targetThirst = _playerSurvival.CurrentThirst / _playerSurvival.MaxThirst;
-                if (thirstImage != null) thirstImage.fillAmount = _targetThirst;
-                _playerSurvival.OnThirstChanged += HandleThirstChanged;
-
                 _targetStamina = _playerSurvival.CurrentStamina / _playerSurvival.MaxStamina;
                 if (staminaImage != null) staminaImage.fillAmount = _targetStamina;
                 _playerSurvival.OnStaminaChanged += HandleStaminaChanged;
@@ -63,7 +57,6 @@ namespace UI.Status
 
         private void HandleHealthChanged(float val) => _targetHealth = val / _playerHealth.MaxHealth;
         private void HandleHungerChanged(float val) => _targetHunger = val / _playerSurvival.MaxHunger;
-        private void HandleThirstChanged(float val) => _targetThirst = val / _playerSurvival.MaxThirst;
         private void HandleStaminaChanged(float val) 
         {
             _targetStamina = val / _playerSurvival.MaxStamina;
@@ -82,9 +75,6 @@ namespace UI.Status
             if (hungerImage != null)
                 hungerImage.fillAmount = Mathf.Lerp(hungerImage.fillAmount, _targetHunger, Time.deltaTime * lerpSpeed);
             
-            if (thirstImage != null)
-                thirstImage.fillAmount = Mathf.Lerp(thirstImage.fillAmount, _targetThirst, Time.deltaTime * lerpSpeed);
-            
             if (staminaImage != null)
             {
                 staminaImage.fillAmount = Mathf.Lerp(staminaImage.fillAmount, _targetStamina, Time.deltaTime * lerpSpeed);
@@ -101,7 +91,6 @@ namespace UI.Status
             if (_playerSurvival != null)
             {
                 _playerSurvival.OnHungerChanged -= HandleHungerChanged;
-                _playerSurvival.OnThirstChanged -= HandleThirstChanged;
                 _playerSurvival.OnStaminaChanged -= HandleStaminaChanged;
             }
         }

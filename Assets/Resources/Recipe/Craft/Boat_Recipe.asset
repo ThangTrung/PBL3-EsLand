@@ -15,6 +15,7 @@ MonoBehaviour:
   id: Boat_Recipe
   recipeName: "Thuy\u1EC1n tho\xE1t hi\u1EC3m"
   description: "M\xF4 t\u1EA3 c\xF4ng th\u1EE9c ch\u1EBF t\u1EA1o..."
+  requiredTool: 0
   ingredients:
   - item: {fileID: 11400000, guid: 66ce93e8ca7865f4aa05e1499b1ed03e, type: 2}
     amount: 1
