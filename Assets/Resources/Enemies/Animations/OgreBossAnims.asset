@@ -68,7 +68,7 @@ MonoBehaviour:
     - {fileID: 2108167781, guid: 30fe9048b950ebb44a9868ab3b2ed613, type: 3}
     - {fileID: -1280039081, guid: 30fe9048b950ebb44a9868ab3b2ed613, type: 3}
     isLooping: 0
-    multiTriggerFrames: 
+    multiTriggerFrames: 07000000
     triggerFrame: 0
   - stateName: Windup
     frames:

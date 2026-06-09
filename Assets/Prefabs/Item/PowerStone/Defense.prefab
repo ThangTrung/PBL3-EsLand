@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 2730087159377919534}
   - component: {fileID: 3353795528390743507}
   - component: {fileID: -6845638438561545327}
+  - component: {fileID: 3313456679803995171}
   m_Layer: 0
   m_Name: Defense
   m_TagString: Loot
@@ -289,3 +290,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3313456679803995171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607458218896910784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3160189fdf5b0894dad932aa95175177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pickupSound: {fileID: 11400000, guid: 255437d19a0966f48a10f1aa15ea1067, type: 2}

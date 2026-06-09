@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 813557673546638490}
   - component: {fileID: 7999857338729208832}
   - component: {fileID: 2383916834073469810}
-  - component: {fileID: 8995315539690610824}
+  - component: {fileID: 3198088254119310884}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: pbl3_esland_save.json
-  useCloudSave: 1
+  useCloudSave: 0
   useAutoSave: 1
   autoSaveInterval: 60
 --- !u!114 &2383916834073469810
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98836a3cae2bf5a4394bc2c68aa2f1d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8995315539690610824
+--- !u!114 &3198088254119310884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,17 +71,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5232591920100833636}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4187bb43c0f0dd44a7521ce2689e7bd, type: 3}
+  m_Script: {fileID: 11500000, guid: d1c05700b476ec548a41bba7de20fd1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  waterLayer:
-    serializedVersion: 2
-    m_Bits: 16
-  landLayer:
-    serializedVersion: 2
-    m_Bits: 2048
-  validColor: {r: 0, g: 1, b: 0, a: 0.5}
-  invalidColor: {r: 1, g: 0, b: 0, a: 0.5}
+  genericPickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}

@@ -4,6 +4,9 @@ using UnityEngine;
 using System.Linq;
 using Infrastructure.SaveSystem.Core;
 using Infrastructure.SaveSystem.Data;
+using Infrastructure.Pooling;
+using EsLand.Data.Audio;
+using EsLand.Infrastructure.Audio;
 
 namespace Gameplay.World
 {
@@ -12,12 +15,16 @@ namespace Gameplay.World
     {
         [Header("Data Items")]
         public ItemData itemData;
+        public int quantity = 1;
 
         [Header("Settings")]
         [SerializeField] private float flySpeed = 5f; 
         [SerializeField] private float acceleration = 20f;
         [SerializeField] private float pickupDistance = 0.5f; 
         [SerializeField] private float pickupDelay = 0.5f;
+
+        [Header("Audio")]
+        [SerializeField] private AudioData pickupSound;
 
         private Transform _playerTransform;
         private bool _isFlying;
@@ -32,6 +39,21 @@ namespace Gameplay.World
             
             if (TryGetComponent<SaveableEntity>(out var saveable))
             {
+                _uniqueInstanceID = saveable.Id;
+            }
+        }
+
+        private void OnEnable()
+        {
+            _spawnTime = Time.time;
+            _isFlying = false;
+            _playerTransform = null;
+            quantity = 1;
+
+            // [CRITICAL] Refresh ID for pooled entities to avoid GUID collision with previously destroyed items
+            if (TryGetComponent<SaveableEntity>(out var saveable))
+            {
+                saveable.ForceNewId();
                 _uniqueInstanceID = saveable.Id;
             }
         }
@@ -56,22 +78,34 @@ namespace Gameplay.World
                 PickUp();
         }
 
+        public void SetItem(ItemData data, int qty)
+        {
+            itemData = data;
+            quantity = qty;
+        }
+
         private void PickUp()
         {
             if (!itemData || !_playerTransform) return;
             if (!_playerTransform.TryGetComponent<IInventoryHolder>(out var holder) || holder.Inventory == null)
                 return;
         
-            var success = holder.Inventory.AddItem(itemData, 1);
+            var success = holder.Inventory.AddItem(itemData, quantity);
             if (success)
             {
+                // Phát âm thanh nhặt đồ
+                if (AudioManager.Instance != null && pickupSound != null)
+                {
+                    AudioManager.Instance.PlaySFX(pickupSound, transform.position);
+                }
+
                 // 🔥 ĐÚNG CHUẨN SRP: Chỉ báo cáo trạng thái vào RAM, giao phó việc lưu ổ cứng cho SaveLoadManager
                 if (SaveLoadManager.Instance != null)
                 {
                     SaveLoadManager.Instance.RegisterDestroyedEntity(_uniqueInstanceID);
                 }
 
-                Destroy(gameObject);
+                ObjectPoolManager.Instance.ReturnToPool(gameObject);
             }
             else
             {
@@ -83,7 +117,7 @@ namespace Gameplay.World
         {
             if (data != null && data.destroyedEntityIDs != null && data.destroyedEntityIDs.Contains(_uniqueInstanceID))
             {
-                Destroy(gameObject);
+                ObjectPoolManager.Instance.ReturnToPool(gameObject);
             }
         }
 

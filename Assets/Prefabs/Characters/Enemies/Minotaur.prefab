@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
   movementSmoothing: 12
+  steeringSmoothing: 10
   pathUpdateCooldown: 0.3
   destinationChangeThreshold: 0.3
 --- !u!114 &6498095765475665029
@@ -224,11 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
-  lootTable:
-  - item: {fileID: 0}
-    minAmount: 0
-    maxAmount: 0
-    chance: 0
+  lootTable: []
   minDropForce: 1
   maxDropForce: 1
 --- !u!114 &7182632794066684126
@@ -256,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1524ab91021112946860a2f05fb6158f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isStaticBoss: 0
+  isStaticBoss: 1
 --- !u!114 &4803080520964295810
 MonoBehaviour:
   m_ObjectHideFlags: 0

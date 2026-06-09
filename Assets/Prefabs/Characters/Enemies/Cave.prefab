@@ -276,9 +276,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 272
   checkRadius: 0.5
-  localWaveConfig: {fileID: 11400000, guid: 94ce4986709564246abb3df6a5c7de5e, type: 2}
+  localWaveConfig: {fileID: 11400000, guid: 3360cfa32c301b94fbdb9d15ec5fa96d, type: 2}
 --- !u!208 &3592732275702027793
 NavMeshObstacle:
   m_ObjectHideFlags: 0

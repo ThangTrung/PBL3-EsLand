@@ -29,7 +29,7 @@ namespace Gameplay.Characters
             // Load Máu: Nếu là game mới (playerHealth mặc định 100), hoặc giá trị đã lưu
             if (_health != null)
             {
-                _health.SetCurrentHealth(data.playerHealth);
+                _health.InternalSetHealth(data.playerHealth);
             }
         }
 

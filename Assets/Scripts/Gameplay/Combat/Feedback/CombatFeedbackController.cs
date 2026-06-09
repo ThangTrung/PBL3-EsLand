@@ -22,6 +22,9 @@ namespace Gameplay.Combat.Feedback
         private Coroutine _knockbackRoutine;
         private bool _isKnockedBack;
 
+        private const float SuperArmorMassThreshold = 100f;
+        private bool _hasSuperArmor;
+
         private void Awake() { InitializeReferences(); }
 
         private void InitializeReferences()
@@ -30,6 +33,8 @@ namespace Gameplay.Combat.Feedback
             if (_rb == null) _rb = GetComponent<Rigidbody2D>();
             if (_health == null) _health = GetComponent<IDamageable>();
             
+            if (_rb != null) _hasSuperArmor = _rb.mass >= SuperArmorMassThreshold;
+
             if (_spriteRenderer != null && _originalMaterial == null)
             {
                 _originalMaterial = _spriteRenderer.material;
@@ -96,8 +101,19 @@ namespace Gameplay.Combat.Feedback
             var playerMove = GetComponent<Gameplay.Characters.PlayerMovementController>();
             if (playerMove != null) playerMove.IsKnockedBack = true;
 
+            // Xử lý Super Armor cho Boss (Khối lượng quá lớn)
+            if (_hasSuperArmor)
+            {
+                // Boss không bị văng đi, chỉ nhấp nháy đỏ
+                _isKnockedBack = false;
+                _knockbackRoutine = null;
+                yield break;
+            }
+
             _rb.velocity = Vector2.zero;
-            _rb.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+            // Cân bằng lực đẩy dựa trên khối lượng để đảm bảo cảm giác nhất quán giữa các loại quái
+            float appliedForce = knockbackForce * (_rb != null ? _rb.mass : 1f);
+            _rb.AddForce(direction * appliedForce, ForceMode2D.Impulse);
 
             yield return new WaitForSeconds(knockbackDuration);
 

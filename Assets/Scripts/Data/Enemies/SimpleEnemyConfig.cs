@@ -59,5 +59,16 @@ namespace Data.Enemies
             tintColor = tint;
             horizontalAlignmentOffset = horizontalOffset;
         }
+
+        private void OnValidate()
+        {
+            // Failsafe Data Validation: Ngăn chặn các thông số logic bị gán sai trong Inspector
+            if (moveSpeed <= 0f) moveSpeed = 2.5f;
+            if (maxHealth <= 0f) maxHealth = 10f;
+            if (baseDamage < 0f) baseDamage = 0f;
+            if (baseAttackRange < 0.1f) baseAttackRange = 0.1f;
+            if (detectionRange < baseAttackRange) detectionRange = baseAttackRange * 1.5f;
+            if (attackCooldown < 0.1f) attackCooldown = 0.1f;
+        }
     }
 }
