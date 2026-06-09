@@ -308,6 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
   movementSmoothing: 12
+  steeringSmoothing: 10
   pathUpdateCooldown: 0.3
   destinationChangeThreshold: 0.3
 --- !u!114 &10735087916148781
@@ -464,10 +465,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 392395142569534924, guid: 729121cd642537c47b12e4e4f38ad9b5, type: 3}
   lootTable: []
   minDropForce: 4
   maxDropForce: 8
+  spawnSpread: 0.5
 --- !u!114 &4978641527725849985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupPrefab: {fileID: 4634665239845342496, guid: ba43089bdddfa004c92d035940846e5f, type: 3}
   lootTable:
   - item: {fileID: 11400000, guid: 9c918819363f5d0458752071cfe01b5b, type: 2}
     minAmount: 1
@@ -540,6 +540,7 @@ MonoBehaviour:
     chance: 1
   minDropForce: 2
   maxDropForce: 5
+  spawnSpread: 0.5
 --- !u!114 &3103530344665725775
 MonoBehaviour:
   m_ObjectHideFlags: 0

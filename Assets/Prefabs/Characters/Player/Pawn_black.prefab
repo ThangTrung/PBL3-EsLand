@@ -144,10 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHunger: 100
-  maxThirst: 100
   maxStamina: 100
   hungerDrainRate: 5
-  thirstDrainRate: 7
   staminaRegenRate: 10
   thresholdPercentage: 0.1
   slowMultiplier: 0.5
@@ -155,7 +153,6 @@ MonoBehaviour:
   healthLossInterval: 5
   healthLossAmount: 1
   currentHunger: 0
-  currentThirst: 0
   currentStamina: 0
 --- !u!114 &429650107241706086
 MonoBehaviour:
@@ -190,7 +187,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1673750509214528949}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -216,8 +213,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 9c9ebdfb882ddd74e953313905d6a30c, type: 2}
-  flashDuration: 0.15
-  knockbackForce: 5
+  flashDuration: 0.2
+  knockbackForce: 12
   knockbackDuration: 0.25
 --- !u!114 &1242101239882915100
 MonoBehaviour:
@@ -292,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSortingLayer: Elevation_A
+  targetSortingLayer: Elevation_C
 --- !u!114 &7325752597181233141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b071d60d45e1c4db94214b66620bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentElevation: 
+  currentElevation: Elevation_A
 --- !u!114 &-1529173501678560173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,8 +685,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1002
-  m_SortingLayer: 2
+  m_SortingLayerID: 1004
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -5948806968594788206, guid: f06e2727e33304d9d86114733c00ba84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

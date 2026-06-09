@@ -343,13 +343,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHunger: 100
-  maxThirst: 100
   maxStamina: 100
   hungerDrainRate: 5
-  thirstDrainRate: 7
   staminaRegenRate: 10
+  thresholdPercentage: 0.1
+  slowMultiplier: 0.5
+  damageMultiplier: 0.5
+  healthLossInterval: 5
+  healthLossAmount: 1
   currentHunger: 0
-  currentThirst: 0
   currentStamina: 0
 --- !u!114 &7595401221576010176
 MonoBehaviour:
