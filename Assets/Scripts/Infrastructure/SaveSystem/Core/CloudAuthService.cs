@@ -48,30 +48,35 @@ namespace Infrastructure.SaveSystem.Core
 
                 yield return www.SendWebRequest();
 
-                if (www.result != UnityWebRequest.Result.Success)
+                if (www.result == UnityWebRequest.Result.ConnectionError)
                 {
-                    Debug.LogError($"[CloudAuthService] Login Error: {www.error}");
-                    callback?.Invoke(false, "Lỗi kết nối Server");
+                    Debug.LogError($"[CloudAuthService] Network Error: {www.error}");
+                    callback?.Invoke(false, "Không thể kết nối Server (Kiểm tra IP)");
                 }
                 else
                 {
                     try
                     {
-                        AuthResponse response = JsonUtility.FromJson<AuthResponse>(www.downloadHandler.text);
-                        if (response.success)
+                        string responseText = www.downloadHandler.text;
+                        AuthResponse response = JsonUtility.FromJson<AuthResponse>(responseText);
+                        
+                        if (www.result == UnityWebRequest.Result.Success && response != null && response.success)
                         {
                             CurrentUserID = response.userID.ToString();
                             callback?.Invoke(true, response.message);
                         }
                         else
                         {
-                            callback?.Invoke(false, response.message);
+                            string msg = response != null && !string.IsNullOrEmpty(response.message) 
+                                ? response.message 
+                                : $"Lỗi Server ({www.responseCode})";
+                            callback?.Invoke(false, msg);
                         }
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogError($"[CloudAuthService] JSON Parse Error: {ex.Message}");
-                        callback?.Invoke(false, "Lỗi dữ liệu từ Server");
+                        Debug.LogError($"[CloudAuthService] Response Error: {ex.Message}. Raw: {www.downloadHandler.text}");
+                        callback?.Invoke(false, "Lỗi phản hồi từ hệ thống");
                     }
                 }
             }

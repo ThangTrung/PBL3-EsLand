@@ -1,0 +1,1852 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="P1.1 Login Auto-Registration Cloud Bootstrap" id="act_7ed1f6f7ed23">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Read username and password from Login UI" vertex="1">
+          <mxGeometry x="105" y="120" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Fields empty?" vertex="1">
+          <mxGeometry x="130" y="205" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Show validation warning and keep login button enabled" vertex="1">
+          <mxGeometry x="85" y="215" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Disable login button and call CloudAuthService.Login" vertex="1">
+          <mxGeometry x="85" y="320" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="POST /api/auth/login to Express backend" vertex="1">
+          <mxGeometry x="105" y="410" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Username exists?" vertex="1">
+          <mxGeometry x="130" y="500" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Password valid?" vertex="1">
+          <mxGeometry x="130" y="620" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Insert new user and return new userID" vertex="1">
+          <mxGeometry x="105" y="630" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Return failure message; re-enable login button" vertex="1">
+          <mxGeometry x="85" y="750" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Set CurrentUserID from successful response" vertex="1">
+          <mxGeometry x="85" y="750" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="EnableCloudMode(userID, serverIp)" vertex="1">
+          <mxGeometry x="105" y="840" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Cloud load success?" vertex="1">
+          <mxGeometry x="130" y="930" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Log warning if cloud load failed, but continue navigation" vertex="1">
+          <mxGeometry x="85" y="940" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="SceneLoader.Load MainMenu through Loading scene" vertex="1">
+          <mxGeometry x="85" y="1060" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1165" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n7" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n8" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n8" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n9" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n13" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n14" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="n15" target="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.2 Cloud Save Loading Hydration" id="act_4f3676facbfc">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Start LoadGame or EnableCloudMode" vertex="1">
+          <mxGeometry x="105" y="125" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Cloud enabled and handler exists?" vertex="1">
+          <mxGeometry x="130" y="215" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Load local encrypted JSON with FileDataHandler" vertex="1">
+          <mxGeometry x="85" y="235" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Call CloudDataHandler.LoadRoutine" vertex="1">
+          <mxGeometry x="105" y="350" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="GET /api/loadgame/{userID}" vertex="1">
+          <mxGeometry x="105" y="440" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Network or protocol error?" vertex="1">
+          <mxGeometry x="130" y="525" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Fallback to local load and log warning" vertex="1">
+          <mxGeometry x="105" y="540" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Save row exists?" vertex="1">
+          <mxGeometry x="130" y="650" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Use returned InventoryJSON" vertex="1">
+          <mxGeometry x="105" y="770" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Use default empty GameData JSON" vertex="1">
+          <mxGeometry x="105" y="770" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Parse JSON into GameData" vertex="1">
+          <mxGeometry x="105" y="865" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Find all active and inactive ISaveable MonoBehaviours" vertex="1">
+          <mxGeometry x="85" y="950" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Loop: call LoadData(gameData) for each saveable object" vertex="1">
+          <mxGeometry x="85" y="1040" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1125" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n7" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n9" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n10" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n4" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n8" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="n14" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.3 Hybrid Save Pipeline" id="act_ca41e1de6c75">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="SaveGame triggered by auto-save, key press, sleep, inventory change, or quit" vertex="1">
+          <mxGeometry x="85" y="125" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Busy, missing data, or quitting?" vertex="1">
+          <mxGeometry x="130" y="225" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Abort save" vertex="1">
+          <mxGeometry x="120" y="245" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="FindAllSaveableObjects if cache is empty" vertex="1">
+          <mxGeometry x="105" y="360" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Remove null or destroyed saveable references" vertex="1">
+          <mxGeometry x="85" y="450" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Loop through ISaveable objects and call SaveData(gameData)" vertex="1">
+          <mxGeometry x="85" y="540" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Serialize GameData to JSON" vertex="1">
+          <mxGeometry x="105" y="635" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="XOR encrypt and write local pbl3_esland_save.json" vertex="1">
+          <mxGeometry x="85" y="725" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Cloud save enabled?" vertex="1">
+          <mxGeometry x="130" y="815" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="POST userID and inventoryJSON to /api/savegame" vertex="1">
+          <mxGeometry x="85" y="940" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="PlayerSaves row exists?" vertex="1">
+          <mxGeometry x="130" y="1030" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="UPDATE InventoryJSON and LastUpdated" vertex="1">
+          <mxGeometry x="105" y="1050" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="INSERT PlayerSaves row" vertex="1">
+          <mxGeometry x="105" y="1050" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1160" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n10" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n12" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n13" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n14" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.4 Main Menu New Game Continue" id="act_4bd25641de2c">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="MainMenuController.Start" vertex="1">
+          <mxGeometry x="105" y="120" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Call SaveLoadManager.HasData" vertex="1">
+          <mxGeometry x="105" y="205" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Has saved progress?" vertex="1">
+          <mxGeometry x="130" y="295" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Enable Continue button" vertex="1">
+          <mxGeometry x="105" y="410" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Disable and dim Continue button" vertex="1">
+          <mxGeometry x="105" y="410" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Player selects action" vertex="1">
+          <mxGeometry x="130" y="515" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="NewGame: create blank GameData" vertex="1">
+          <mxGeometry x="105" y="660" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Sync blank save to cloud to overwrite old progress" vertex="1">
+          <mxGeometry x="85" y="750" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Continue: keep loaded GameData" vertex="1">
+          <mxGeometry x="105" y="680" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="SceneLoader.Load Map2Kt via Loading scene" vertex="1">
+          <mxGeometry x="105" y="860" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="960" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n4" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n5" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fillColor=#f8cecc;" value="New Game">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n7" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Continue">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n9" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.5 Player Interaction Dispatch" id="act_730be05aa6b2">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Receive left mouse click and convert screen position to world position" vertex="1">
+          <mxGeometry x="85" y="125" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Any UI open or placement mode active?" vertex="1">
+          <mxGeometry x="130" y="225" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Ignore interaction and stop movement" vertex="1">
+          <mxGeometry x="105" y="250" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Physics2D.OverlapCircleAll on interactable layer" vertex="1">
+          <mxGeometry x="85" y="375" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Found IInteractable target?" vertex="1">
+          <mxGeometry x="130" y="470" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="No target: do nothing" vertex="1">
+          <mxGeometry x="120" y="490" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="target.CanInteract(player)?" vertex="1">
+          <mxGeometry x="130" y="600" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Show forbidden feedback and exit" vertex="1">
+          <mxGeometry x="105" y="620" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Move/follow target until within interaction range" vertex="1">
+          <mxGeometry x="85" y="735" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Attack cooldown ready?" vertex="1">
+          <mxGeometry x="130" y="830" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Wait until cooldown expires" vertex="1">
+          <mxGeometry x="105" y="845" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Enough stamina?" vertex="1">
+          <mxGeometry x="130" y="955" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Abort action" vertex="1">
+          <mxGeometry x="120" y="967" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Consume stamina, trigger animation, wait delay, call target.Interact(player)" vertex="1">
+          <mxGeometry x="85" y="1070" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1170" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n6" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n8" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n12" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n11" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n13" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n15" target="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.6 Resource Harvesting Loot" id="act_ad218be8ab30">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Player interacts with ResourceNode" vertex="1">
+          <mxGeometry x="105" y="125" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Required tool equipped?" vertex="1">
+          <mxGeometry x="130" y="215" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Reject interaction" vertex="1">
+          <mxGeometry x="120" y="235" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Calculate final gathering damage from tool and stats" vertex="1">
+          <mxGeometry x="85" y="345" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Reduce resource HP and invoke damage events" vertex="1">
+          <mxGeometry x="85" y="435" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="HP &lt;= 0?" vertex="1">
+          <mxGeometry x="130" y="530" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Stay damaged; wait for next interaction" vertex="1">
+          <mxGeometry x="105" y="540" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Mark dead/stump, disable colliders and obstacle" vertex="1">
+          <mxGeometry x="85" y="650" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Iterate loot table and roll drop chance" vertex="1">
+          <mxGeometry x="105" y="740" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Spawn loot through LootFactory and ObjectPoolManager" vertex="1">
+          <mxGeometry x="85" y="830" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="PlayerPickup trigger starts pickup flying after delay" vertex="1">
+          <mxGeometry x="85" y="920" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Inventory has space?" vertex="1">
+          <mxGeometry x="130" y="1015" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Stop flying and leave pickup in world" vertex="1">
+          <mxGeometry x="105" y="1030" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Add item, register destroyed pickup ID, return pickup to pool" vertex="1">
+          <mxGeometry x="85" y="1140" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1230" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n7" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n13" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n15" target="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.7 Inventory Item Action" id="act_4123d11e946c">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Open inventory and right-click slot" vertex="1">
+          <mxGeometry x="105" y="125" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Slot empty?" vertex="1">
+          <mxGeometry x="130" y="215" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Do not show action menu" vertex="1">
+          <mxGeometry x="105" y="228" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Create action context and show valid Use / Equip / Unequip / Drop buttons" vertex="1">
+          <mxGeometry x="85" y="330" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Selected action" vertex="1">
+          <mxGeometry x="130" y="445" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Use: call IItemUsable.Use(owner)" vertex="1">
+          <mxGeometry x="105" y="600" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Use succeeded?" vertex="1">
+          <mxGeometry x="130" y="700" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Consume one item from slot" vertex="1">
+          <mxGeometry x="105" y="830" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Equip: validate equippable and durability" vertex="1">
+          <mxGeometry x="105" y="600" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Remove from inventory, equip item, return old item if any" vertex="1">
+          <mxGeometry x="85" y="710" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Unequip or Drop: move item back to inventory or remove equipped item" vertex="1">
+          <mxGeometry x="85" y="600" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Notify inventory and equipment UI changed" vertex="1">
+          <mxGeometry x="105" y="920" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1035" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Use">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n6" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Equip">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n6" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Unequip / Drop">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n9" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n11" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.8 Crafting Recipe Execution" id="act_4f9b9f6656d6">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Player opens Crafting UI and selects recipe" vertex="1">
+          <mxGeometry x="85" y="125" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L3" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Recipe requires tool?" vertex="1">
+          <mxGeometry x="130" y="220" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Correct tool equipped?" vertex="1">
+          <mxGeometry x="130" y="360" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Craft button disabled" vertex="1">
+          <mxGeometry x="120" y="500" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Loop through ingredients and CountItem in inventory" vertex="1">
+          <mxGeometry x="85" y="500" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L3" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="All ingredients enough?" vertex="1">
+          <mxGeometry x="130" y="605" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Enable Craft button" vertex="1">
+          <mxGeometry x="120" y="735" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="On click: TryCraft validates again" vertex="1">
+          <mxGeometry x="105" y="830" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Remove each ingredient from inventory" vertex="1">
+          <mxGeometry x="105" y="915" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Add result item to inventory and refresh recipe detail" vertex="1">
+          <mxGeometry x="85" y="1000" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1075" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n4" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n7" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.9 Building Placement" id="act_7aec55fc6fe4">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Use PlaceableItem from inventory" vertex="1">
+          <mxGeometry x="105" y="125" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="StartPlacement: store current item and player, instantiate ghost prefab" vertex="1">
+          <mxGeometry x="85" y="215" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Disable ghost colliders, rigidbodies, and gameplay scripts" vertex="1">
+          <mxGeometry x="85" y="320" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Loop while placing: ghost follows mouse position" vertex="1">
+          <mxGeometry x="85" y="415" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Correct terrain layer?" vertex="1">
+          <mxGeometry x="130" y="510" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Mark ghost invalid and show forbidden cursor" vertex="1">
+          <mxGeometry x="85" y="525" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Overlaps obstacle?" vertex="1">
+          <mxGeometry x="130" y="640" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Mark ghost valid and show normal cursor" vertex="1">
+          <mxGeometry x="105" y="765" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Input action" vertex="1">
+          <mxGeometry x="130" y="860" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Left click valid: instantiate real building under terrain parent" vertex="1">
+          <mxGeometry x="85" y="990" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Remove one placeable item from inventory" vertex="1">
+          <mxGeometry x="105" y="998" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Right click or after placement: cancel, destroy ghost, reset cursor" vertex="1">
+          <mxGeometry x="85" y="990" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1120" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n6" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Left click">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n10" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fillColor=#f8cecc;" value="Right click">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.10 Cooking Tower Processing" id="act_a19cdec3b310">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Player interacts with CookingTower" vertex="1">
+          <mxGeometry x="105" y="120" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Open CookingTowerUI and InventoryPanelUI" vertex="1">
+          <mxGeometry x="105" y="210" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Player clicks inventory item; route fuel to slot 1, other items to input slot 0" vertex="1">
+          <mxGeometry x="85" y="305" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Tower slot accepts item?" vertex="1">
+          <mxGeometry x="130" y="410" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Leave player inventory unchanged" vertex="1">
+          <mxGeometry x="105" y="425" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Consume one item from player inventory and update tower UI" vertex="1">
+          <mxGeometry x="85" y="540" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Every Update: inspect input slot and find matching CookingRecipe" vertex="1">
+          <mxGeometry x="85" y="635" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Valid recipe and output can accept result?" vertex="1">
+          <mxGeometry x="130" y="735" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Reset cooking progress if invalid" vertex="1">
+          <mxGeometry x="105" y="755" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Current fuel available?" vertex="1">
+          <mxGeometry x="130" y="870" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="If fuel slot has fuel, consume one fuel item and set burn time" vertex="1">
+          <mxGeometry x="85" y="885" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Decrease fuel time and increase cooking progress" vertex="1">
+          <mxGeometry x="85" y="1000" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Cooking complete?" vertex="1">
+          <mxGeometry x="130" y="1090" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Consume input, add or stack output, reset progress, notify UI" vertex="1">
+          <mxGeometry x="85" y="1210" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1300" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n5" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n9" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n11" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n14" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n14" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="n15" target="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.11 Enemy Spawn Director" id="act_3e99006c9df6">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Update spawn timer each frame" vertex="1">
+          <mxGeometry x="105" y="125" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Player transform available?" vertex="1">
+          <mxGeometry x="130" y="215" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Try resolve TargetTracker.PlayerTarget" vertex="1">
+          <mxGeometry x="105" y="235" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Timer reached wave spawn rate?" vertex="1">
+          <mxGeometry x="130" y="345" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Find active SpawnArea near player using Physics2D overlap" vertex="1">
+          <mxGeometry x="85" y="485" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Valid area found and budget available?" vertex="1">
+          <mxGeometry x="130" y="590" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Abort this spawn tick" vertex="1">
+          <mxGeometry x="120" y="615" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Select random enemy from WaveConfig" vertex="1">
+          <mxGeometry x="105" y="735" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Get valid spawn point inside SpawnArea and outside obstacles" vertex="1">
+          <mxGeometry x="85" y="825" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Spawn point valid?" vertex="1">
+          <mxGeometry x="130" y="925" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Create enemy through EnemyFactory and ObjectPoolManager" vertex="1">
+          <mxGeometry x="85" y="1045" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Initialize, reset, OnSpawn, register enemy cost and active count" vertex="1">
+          <mxGeometry x="85" y="1140" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1240" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n5" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n7" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n11" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.12 Enemy AI Combat Death Loot" id="act_a849f92104d6">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="EnemyBase.Update" vertex="1">
+          <mxGeometry x="120" y="125" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Enemy dead?" vertex="1">
+          <mxGeometry x="130" y="215" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Handle death process and return to pool when animation completes" vertex="1">
+          <mxGeometry x="85" y="220" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Find or refresh player target" vertex="1">
+          <mxGeometry x="105" y="330" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Apply status effect speed multiplier to movement controller" vertex="1">
+          <mxGeometry x="85" y="420" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Execute current AI state" vertex="1">
+          <mxGeometry x="105" y="510" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Target valid and in detection range?" vertex="1">
+          <mxGeometry x="130" y="600" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Patrol or return to patrol state" vertex="1">
+          <mxGeometry x="105" y="620" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="CanStartAttack?" vertex="1">
+          <mxGeometry x="130" y="735" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Chase target with movement strategy" vertex="1">
+          <mxGeometry x="105" y="745" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="AttackState: stop movement, face target, begin attack animation" vertex="1">
+          <mxGeometry x="85" y="860" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L2" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="At trigger frame, strategy applies melee, projectile, or status damage" vertex="1">
+          <mxGeometry x="85" y="960" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L2" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Enemy receives lethal damage?" vertex="1">
+          <mxGeometry x="130" y="1060" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n15" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="OnDie: stop movement, play death animation, trigger loot drop, unregister enemy" vertex="1">
+          <mxGeometry x="85" y="1180" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Continue state loop after cooldown or return to chase" vertex="1">
+          <mxGeometry x="85" y="1190" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n17" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1300" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n8" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n10" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n14" target="n15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n14" target="n16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n15" target="n17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="n16" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.13 Boss Arena Lifecycle" id="act_626b0a57828d">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Player enters BossArenaSpawner trigger" vertex="1">
+          <mxGeometry x="105" y="125" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Arena defeated or boss already spawned?" vertex="1">
+          <mxGeometry x="130" y="225" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Ignore trigger" vertex="1">
+          <mxGeometry x="120" y="250" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Loop through ISpawnCondition components" vertex="1">
+          <mxGeometry x="105" y="370" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="All conditions met?" vertex="1">
+          <mxGeometry x="130" y="470" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Show first unmet condition feedback" vertex="1">
+          <mxGeometry x="105" y="485" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Create boss via EnemyFactory at spawn point" vertex="1">
+          <mxGeometry x="85" y="605" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Set boss target to player and subscribe boss health OnDie" vertex="1">
+          <mxGeometry x="85" y="700" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Set spawned flag and raise OnBossSpawnedEvent" vertex="1">
+          <mxGeometry x="85" y="795" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="ArenaLockdownManager locks barriers" vertex="1">
+          <mxGeometry x="105" y="885" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Boss dies?" vertex="1">
+          <mxGeometry x="130" y="980" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Mark defeated, unsubscribe death event, raise OnBossDefeatedEvent, unlock barriers" vertex="1">
+          <mxGeometry x="85" y="1100" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1205" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n6" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n12" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fillColor=#f8cecc;" value="No, combat continues">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n13" target="n14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.14 Boss Phase Transition" id="act_a1177b6df52f">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Boss health changes" vertex="1">
+          <mxGeometry x="120" y="125" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Raise boss health UI update" vertex="1">
+          <mxGeometry x="105" y="210" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Already transitioning?" vertex="1">
+          <mxGeometry x="130" y="300" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Ignore phase check until transition completes" vertex="1">
+          <mxGeometry x="85" y="315" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Phase 1 and HP &lt;= 66%?" vertex="1">
+          <mxGeometry x="130" y="435" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Phase 2 and HP &lt;= 33%?" vertex="1">
+          <mxGeometry x="130" y="570" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Keep current phase behavior" vertex="1">
+          <mxGeometry x="105" y="595" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="TriggerTransition(next phase): exit current phase and assign next phase" vertex="1">
+          <mxGeometry x="85" y="715" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Update attack strategy and cooldown based on phase" vertex="1">
+          <mxGeometry x="85" y="815" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="ChangeState BossTransitionState and play transition animation" vertex="1">
+          <mxGeometry x="85" y="905" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="After timer or animation finish: enter new phase and return to chase" vertex="1">
+          <mxGeometry x="85" y="995" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1085" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n4" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n7" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n10" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="n12" target="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.15 Map Gate Unlock Persistence" id="act_d3059ca43970">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="MapGateController.Start" vertex="1">
+          <mxGeometry x="105" y="125" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Gate already unlocked by loaded data?" vertex="1">
+          <mxGeometry x="130" y="215" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Keep gate visuals inactive" vertex="1">
+          <mxGeometry x="105" y="235" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Subscribe to target boss health OnDie" vertex="1">
+          <mxGeometry x="105" y="360" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Boss dies and gate receives event" vertex="1">
+          <mxGeometry x="105" y="480" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Gate still locked?" vertex="1">
+          <mxGeometry x="130" y="570" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Set unlocked, play optional VFX, hide gate visuals and colliders" vertex="1">
+          <mxGeometry x="85" y="690" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="During SaveData: add gateID to GameData.openedGates" vertex="1">
+          <mxGeometry x="85" y="810" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="915" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n3" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P1.16 Escape Boat Victory" id="act_c46d2125d53a">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="L1" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Input / Event" vertex="1">
+          <mxGeometry x="0" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Core Logic" vertex="1">
+          <mxGeometry x="380" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" parent="1" style="swimlane;startSize=40;fillColor=none;html=1;fontStyle=1;align=center;verticalAlign=top;" value="Data / Side Effects" vertex="1">
+          <mxGeometry x="760" width="380" height="1480" as="geometry" />
+        </mxCell>
+        <mxCell id="n1" parent="L2" style="ellipse;fillColor=#000;strokeColor=none;" value="" vertex="1">
+          <mxGeometry x="175" y="60" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="n2" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Player interacts with placed EscapeBoatController" vertex="1">
+          <mxGeometry x="85" y="125" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="GameManager.HandleVictory" vertex="1">
+          <mxGeometry x="105" y="220" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Pause game time with Time.timeScale = 0" vertex="1">
+          <mxGeometry x="105" y="310" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Raise GameEvents.OnVictory" vertex="1">
+          <mxGeometry x="105" y="405" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="UIManager closes inventory, equipment, crafting, cooking, and action menu" vertex="1">
+          <mxGeometry x="85" y="495" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="VictoryPanelUI starts cinematic fade sequence" vertex="1">
+          <mxGeometry x="85" y="605" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Fade black background, fade in victory text, show restart button" vertex="1">
+          <mxGeometry x="85" y="700" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="L1" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" value="Restart clicked?" vertex="1">
+          <mxGeometry x="130" y="810" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="L3" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Keep victory screen displayed" vertex="1">
+          <mxGeometry x="105" y="825" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="L1" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Reset timeScale, delete save data, reload active scene" vertex="1">
+          <mxGeometry x="85" y="935" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="L2" style="ellipse;shape=endState;fillColor=#000;" value="" vertex="1">
+          <mxGeometry x="175" y="1025" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n1" target="n2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="n2" target="n3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n3" target="n4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="n4" target="n5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="n5" target="n6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="n6" target="n7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="n7" target="n8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="n8" target="n9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="n9" target="n10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="No">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n9" target="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="Yes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n11" target="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#f00;" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

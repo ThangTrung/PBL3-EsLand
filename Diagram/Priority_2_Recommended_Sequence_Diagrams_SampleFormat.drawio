@@ -1,0 +1,352 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="P2.1 Home Save Point Sleep" id="seq_02d209e1aa98">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1625" pageHeight="1780" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};participant=umlActor;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Player" vertex="1">
+          <mxGeometry x="40.0" width="120.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" parent="p1" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="55.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="HomeSavePoint" vertex="1">
+          <mxGeometry x="210.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" parent="p2" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="GameEvents" vertex="1">
+          <mxGeometry x="410.0" width="130.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" parent="p3" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="60.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="UIManager" vertex="1">
+          <mxGeometry x="590.0" width="130.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" parent="p4" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="60.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="CloudTransitionUI" vertex="1">
+          <mxGeometry x="770.0" width="160.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" parent="p5" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="75.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Player Components&lt;br&gt;Health, Survival, Respawn" vertex="1">
+          <mxGeometry x="980.0" width="190.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" parent="p6" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="90.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p7" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="TimeManager" vertex="1">
+          <mxGeometry x="1220.0" width="130.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a7" parent="p7" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="60.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p8" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="SaveLoadManager" vertex="1">
+          <mxGeometry x="1390.0" width="155.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a8" parent="p8" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="72.5" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" edge="1" parent="1" source="a1" target="a2" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Interact(home)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="192" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" source="a2" target="a2" style="curved=1;html=1;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="PerformSleepRoutine()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="365" y="210" />
+              <mxPoint x="365" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" source="a2" target="a3" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="OnSleepRequested(home, player)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" source="a3" target="a4" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="PerformSleepTransition(home, player)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="565" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" source="a4" target="a1" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="player.SetCanMove(false)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="378" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" source="a4" target="a5" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="FadeOut(&quot;Resting...&quot;)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="752" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" source="a4" target="a2" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="ExecuteSleepLogic(player)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" source="a2" target="a6" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Heal, restore stamina, update respawn point">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="560" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" source="a2" target="a7" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="SkipToMorning()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="785" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m10" edge="1" parent="1" source="a2" target="a8" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="SaveGame()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="876" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m11" edge="1" parent="1" source="a4" target="a1" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="FadeIn(); player.SetCanMove(true)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="378" y="735" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.2 Elevation Layer Transition" id="seq_b0daf7aaec26">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1280" pageHeight="1780" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};participant=umlActor;verticalAlign=bottom;labelPosition=center;verticalLabelPosition=top;align=center;size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Entity Collider&lt;br&gt;Player, Enemy, Loot" vertex="1">
+          <mxGeometry x="40.0" width="160.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" parent="p1" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="75.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="ElevationGateway" vertex="1">
+          <mxGeometry x="250.0" width="160.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" parent="p2" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="75.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="ElevationAgent" vertex="1">
+          <mxGeometry x="460.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" parent="p3" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="AutoAssignSortingLayer" vertex="1">
+          <mxGeometry x="660.0" width="180.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" parent="p4" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="85.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="LootFactory" vertex="1">
+          <mxGeometry x="890.0" width="130.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" parent="p5" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="60.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="EnemyFactory" vertex="1">
+          <mxGeometry x="1070.0" width="130.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" parent="p6" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="60.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" parent="1" style="shape=umlFrame;html=1;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=light-dark(#000000,#1F2020);height=20;width=30;fillColor=light-dark(#eeeeee,#1f2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="opt" vertex="1">
+          <mxGeometry x="850.0" y="480.0" width="380.0" height="160.0" as="geometry" />
+        </mxCell>
+        <mxCell id="f1_txt" parent="f1" style="text;strokeColor=light-dark(#000000,#1F2020);fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;labelBackgroundColor=default;" value="[spawned objects inherit context]" vertex="1">
+          <mxGeometry x="30" width="340.0" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" edge="1" parent="1" source="a1" target="a2" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="OnTriggerEnter2D(collision)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="225" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" source="a2" target="a3" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Filter valid layers and find ElevationAgent">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="432" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" source="a2" target="a3" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="ChangeElevation(targetElevationLayer)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="432" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" source="a3" target="a4" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="targetSortingLayer = new layer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="642" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" source="a4" target="a4" style="curved=1;html=1;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="ApplyLayer() to renderers and children">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="830" y="400" />
+              <mxPoint x="830" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" source="a1" target="a5" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="SpawnLoot(..., elevationLayer)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="538" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" source="a1" target="a6" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="CreateEnemy(..., parent)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="628" y="585" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" source="a5" target="a3" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Spawned agent applies matching elevation layer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="745" y="690" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.3 Performance Culling Cycle" id="seq_f49d2a69275a">
+    <mxGraphModel dx="1117" dy="826" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1310" pageHeight="1780" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="CullableEntity" vertex="1">
+          <mxGeometry x="40.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" parent="p1" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="PerformanceManager" vertex="1">
+          <mxGeometry x="240.0" width="170.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" parent="p2" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="80.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Player Transform" vertex="1">
+          <mxGeometry x="460.0" width="150.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" parent="p3" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="70.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Renderer / Collider2D" vertex="1">
+          <mxGeometry x="660.0" width="170.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" parent="p4" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="80.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Animator" vertex="1">
+          <mxGeometry x="880.0" width="130.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" parent="p5" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="60.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="p6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};size=65;fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="Gameplay Logic Scripts" vertex="1">
+          <mxGeometry x="1060.0" width="170.0" height="1740" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" parent="p6" style="points=[];perimeter=orthogonalPerimeter;html=1;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&amp;quot;edgeStyle&amp;quot;:&amp;quot;elbowEdgeStyle&amp;quot;,&amp;quot;elbow&amp;quot;:&amp;quot;vertical&amp;quot;,&amp;quot;curved&amp;quot;:0,&amp;quot;rounded&amp;quot;:0};fillColor=light-dark(#eeeeee,#1f2020);strokeColor=light-dark(#000000,#1F2020);fontColor=light-dark(#333333,#cccccc);labelBackgroundColor=default;" value="" vertex="1">
+          <mxGeometry x="80.0" y="107" width="10" height="1530" as="geometry" />
+        </mxCell>
+        <mxCell id="m1" edge="1" parent="1" source="a1" target="a2" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="OnEnable(): Register(this)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m2" edge="1" parent="1" source="a2" target="a2" style="curved=1;html=1;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="CullingRoutine tick">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="405" y="220" />
+              <mxPoint x="405" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m3" edge="1" parent="1" source="a2" target="a3" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Find player if missing">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m4" edge="1" parent="1" source="a2" target="a1" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="For each entity: compare distance squared">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m5" edge="1" parent="1" source="a2" target="a1" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="SetCullState(distance &gt; radius)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m6" edge="1" parent="1" source="a1" target="a4" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Enable/disable renderers and colliders">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m7" edge="1" parent="1" source="a1" target="a5" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Enable/disable animator">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m8" edge="1" parent="1" source="a1" target="a6" style="verticalAlign=bottom;html=1;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Enable/disable cached logic scripts">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m9" edge="1" parent="1" source="a2" target="a2" style="curved=1;html=1;endArrow=block;strokeColor=light-dark(#000000,#1F2020);labelBackgroundColor=default;" value="Yield after objectsPerFrame to stagger work">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="405" y="690" />
+              <mxPoint x="405" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

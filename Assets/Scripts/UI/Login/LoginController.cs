@@ -46,12 +46,24 @@ namespace UI.Login
                 {
                     ShowStatus(message, Color.green);
                     
-                    // Load data game từ Cloud ngay sau khi login thành công
-                    // SaveLoadManager đã được chỉnh sửa để không tự load ở Start
-                    SaveLoadManager.Instance.LoadGame();
-                    
-                    // Chuyển sang Main Menu (đi qua scene Loading)
-                    Invoke(nameof(GoToMainMenu), 0.8f);
+                    // Thiết lập user ID và cấu hình Cloud
+                    string serverIp = Infrastructure.Networking.NetworkSettings.Instance != null 
+                        ? Infrastructure.Networking.NetworkSettings.Instance.ServerIp 
+                        : "localhost";
+
+                    SaveLoadManager.Instance.EnableCloudMode(CloudAuthService.CurrentUserID, serverIp, (cloudSuccess, cloudMsg) => {
+                        if (cloudSuccess)
+                        {
+                            Debug.Log($"[LoginController] Cloud connected. {cloudMsg}");
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"[LoginController] Cloud load warning: {cloudMsg}");
+                        }
+                        
+                        // Chuyển sang Main Menu sau khi đã setup xong Cloud (đi qua scene Loading)
+                        GoToMainMenu();
+                    });
                 }
                 else
                 {

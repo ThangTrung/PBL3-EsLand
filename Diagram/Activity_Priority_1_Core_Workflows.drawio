@@ -1,0 +1,604 @@
+<mxfile host="app.diagrams.net" modified="2026-06-09T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="act-p1-1-login-bootstrap" name="P1.1 Login Auto-Registration Cloud Bootstrap">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.1 - User Login, Auto-Registration, and Cloud Bootstrap Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="850" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="470" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Read username and password from Login UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="390" y="140" width="190" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Fields empty?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="425" y="225" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Show validation warning and keep login button enabled" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="650" y="235" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Disable login button and call CloudAuthService.Login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="375" y="340" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="a4" value="POST /api/auth/login to Express backend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="375" y="430" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Username exists?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="425" y="520" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Password valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="210" y="640" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Insert new user and return new userID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="560" y="650" width="200" height="60" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Return failure message; re-enable login button" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="40" y="770" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Set CurrentUserID from successful response" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="375" y="770" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="a8" value="EnableCloudMode(userID, serverIp)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="375" y="860" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d4" value="Cloud load success?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="425" y="950" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a9" value="Log warning if cloud load failed, but continue navigation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="650" y="960" width="230" height="60" as="geometry"/></mxCell>
+        <mxCell id="a10" value="SceneLoader.Load MainMenu through Loading scene" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="365" y="1080" width="240" height="60" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="467" y="1185" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="d4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a10"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x16" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="a10"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x17" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a10" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-2-cloud-load" name="P1.2 Cloud Save Loading Hydration">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.2 - Cloud Save Loading and Game State Hydration Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="850" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="470" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Start LoadGame or EnableCloudMode" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="375" y="145" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Cloud enabled and handler exists?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="405" y="235" width="160" height="100" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Load local encrypted JSON with FileDataHandler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="85" y="255" width="230" height="60" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Call CloudDataHandler.LoadRoutine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="375" y="370" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a4" value="GET /api/loadgame/{userID}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="375" y="460" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Network or protocol error?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="545" width="150" height="90" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Fallback to local load and log warning" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="90" y="560" width="225" height="60" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Save row exists?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="425" y="670" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Use returned InventoryJSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="250" y="790" width="190" height="55" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Use default empty GameData JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="530" y="790" width="210" height="55" as="geometry"/></mxCell>
+        <mxCell id="a8" value="Parse JSON into GameData" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="375" y="885" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a9" value="Find all active and inactive ISaveable MonoBehaviours" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="350" y="970" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="a10" value="Loop: call LoadData(gameData) for each saveable object" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="350" y="1060" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="467" y="1145" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a2" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x16" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="a10"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x17" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a10" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-3-hybrid-save" name="P1.3 Hybrid Save Pipeline">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.3 - Hybrid Save Pipeline Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="800" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="470" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="SaveGame triggered by auto-save, key press, sleep, inventory change, or quit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="340" y="145" width="290" height="65" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Busy, missing data, or quitting?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="400" y="245" width="170" height="100" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Abort save" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="675" y="265" width="150" height="55" as="geometry"/></mxCell>
+        <mxCell id="a3" value="FindAllSaveableObjects if cache is empty" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="365" y="380" width="240" height="60" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Remove null or destroyed saveable references" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="365" y="470" width="240" height="60" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Loop through ISaveable objects and call SaveData(gameData)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="350" y="560" width="270" height="65" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Serialize GameData to JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="375" y="655" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a7" value="XOR encrypt and write local pbl3_esland_save.json" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="350" y="745" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Cloud save enabled?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="420" y="835" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="a8" value="POST userID and inventoryJSON to /api/savegame" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="350" y="960" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="d3" value="PlayerSaves row exists?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="1050" width="150" height="90" as="geometry"/></mxCell>
+        <mxCell id="a9" value="UPDATE InventoryJSON and LastUpdated" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="180" y="1070" width="200" height="60" as="geometry"/></mxCell>
+        <mxCell id="a10" value="INSERT PlayerSaves row" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="595" y="1070" width="190" height="60" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="467" y="1180" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a10"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x16" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a10" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-4-main-menu" name="P1.4 Main Menu New Game Continue">
+    <mxGraphModel dx="1100" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="1050" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.4 - Main Menu New Game and Continue Selection Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="830" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="460" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="MainMenuController.Start" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="365" y="140" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Call SaveLoadManager.HasData" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="365" y="225" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Has saved progress?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="315" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Enable Continue button" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="170" y="430" width="190" height="55" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Disable and dim Continue button" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="590" y="430" width="210" height="55" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Player selects action" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="535" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="a5" value="NewGame: create blank GameData" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="165" y="680" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Sync blank save to cloud to overwrite old progress" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="145" y="770" width="260" height="65" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Continue: keep loaded GameData" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="565" y="700" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="a8" value="SceneLoader.Load Map2Kt via Loading scene" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="350" y="880" width="250" height="60" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="457" y="980" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a2" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="New Game" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" value="Continue" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-5-interaction-dispatch" name="P1.5 Player Interaction Dispatch">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.5 - Player World Interaction Dispatch Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="830" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="470" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Receive left mouse click and convert screen position to world position" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="335" y="145" width="300" height="65" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Any UI open or placement mode active?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="395" y="245" width="180" height="110" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Ignore interaction and stop movement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="660" y="270" width="210" height="60" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Physics2D.OverlapCircleAll on interactable layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="350" y="395" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Found IInteractable target?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="490" width="150" height="95" as="geometry"/></mxCell>
+        <mxCell id="a4" value="No target: do nothing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="510" width="170" height="55" as="geometry"/></mxCell>
+        <mxCell id="d3" value="target.CanInteract(player)?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="620" width="150" height="95" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Show forbidden feedback and exit" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="640" width="190" height="55" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Move/follow target until within interaction range" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="350" y="755" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="d4" value="Attack cooldown ready?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="415" y="850" width="140" height="90" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Wait until cooldown expires" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="170" y="865" width="185" height="55" as="geometry"/></mxCell>
+        <mxCell id="d5" value="Enough stamina?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="425" y="975" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a8" value="Abort action" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="987" width="150" height="55" as="geometry"/></mxCell>
+        <mxCell id="a9" value="Consume stamina, trigger animation, wait delay, call target.Interact(player)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="330" y="1090" width="310" height="70" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="467" y="1190" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="d4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="d4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="d5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d5" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d5" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x16" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-6-resource-loot" name="P1.6 Resource Harvesting Loot">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.6 - Resource Harvesting and Loot Collection Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="830" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="470" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Player interacts with ResourceNode" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="375" y="145" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Required tool equipped?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="415" y="235" width="140" height="90" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Reject interaction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="255" width="160" height="55" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Calculate final gathering damage from tool and stats" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="350" y="365" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Reduce resource HP and invoke damage events" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="360" y="455" width="250" height="60" as="geometry"/></mxCell>
+        <mxCell id="d2" value="HP &lt;= 0?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="425" y="550" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Stay damaged; wait for next interaction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="665" y="560" width="210" height="60" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Mark dead/stump, disable colliders and obstacle" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="350" y="670" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Iterate loot table and roll drop chance" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="370" y="760" width="230" height="60" as="geometry"/></mxCell>
+        <mxCell id="a8" value="Spawn loot through LootFactory and ObjectPoolManager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="335" y="850" width="300" height="60" as="geometry"/></mxCell>
+        <mxCell id="a9" value="PlayerPickup trigger starts pickup flying after delay" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="345" y="940" width="280" height="60" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Inventory has space?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="415" y="1035" width="140" height="90" as="geometry"/></mxCell>
+        <mxCell id="a10" value="Stop flying and leave pickup in world" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="1050" width="210" height="60" as="geometry"/></mxCell>
+        <mxCell id="a11" value="Add item, register destroyed pickup ID, return pickup to pool" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="330" y="1160" width="310" height="65" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="467" y="1250" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a10"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a11"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a11" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-7-inventory-action" name="P1.7 Inventory Item Action">
+    <mxGraphModel dx="1100" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="1150" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.7 - Inventory Item Action Workflow Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="800" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="460" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Open inventory and right-click slot" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="365" y="145" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Slot empty?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="415" y="235" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Do not show action menu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="650" y="248" width="180" height="55" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Create action context and show valid Use / Equip / Unequip / Drop buttons" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="330" y="350" width="290" height="70" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Selected action" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="465" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Use: call IItemUsable.Use(owner)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="60" y="620" width="210" height="60" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Use succeeded?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="105" y="720" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Consume one item from slot" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="60" y="850" width="210" height="55" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Equip: validate equippable and durability" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="325" y="620" width="240" height="60" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Remove from inventory, equip item, return old item if any" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="310" y="730" width="270" height="65" as="geometry"/></mxCell>
+        <mxCell id="a8" value="Unequip or Drop: move item back to inventory or remove equipped item" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="650" y="620" width="240" height="70" as="geometry"/></mxCell>
+        <mxCell id="a9" value="Notify inventory and equipment UI changed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="345" y="940" width="260" height="60" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="457" y="1055" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" value="Use" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="Equip" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" value="Unequip / Drop" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-8-crafting" name="P1.8 Crafting Recipe Execution">
+    <mxGraphModel dx="1100" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.8 - Crafting Recipe Validation and Execution Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="820" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="460" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Player opens Crafting UI and selects recipe" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="345" y="145" width="260" height="60" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Recipe requires tool?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="400" y="240" width="150" height="90" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Correct tool equipped?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="120" y="380" width="150" height="90" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Craft button disabled" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="105" y="520" width="180" height="55" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Loop through ingredients and CountItem in inventory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="340" y="520" width="270" height="65" as="geometry"/></mxCell>
+        <mxCell id="d3" value="All ingredients enough?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="400" y="625" width="150" height="90" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Enable Craft button" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="385" y="755" width="180" height="55" as="geometry"/></mxCell>
+        <mxCell id="a5" value="On click: TryCraft validates again" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="365" y="850" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Remove each ingredient from inventory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="360" y="935" width="230" height="55" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Add result item to inventory and refresh recipe detail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="335" y="1020" width="280" height="60" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="457" y="1095" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-9-building-placement" name="P1.9 Building Placement">
+    <mxGraphModel dx="1100" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.9 - Building Placement Validation Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="800" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="460" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Use PlaceableItem from inventory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="365" y="145" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a2" value="StartPlacement: store current item and player, instantiate ghost prefab" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="325" y="235" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Disable ghost colliders, rigidbodies, and gameplay scripts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="340" y="340" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Loop while placing: ghost follows mouse position" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="340" y="435" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Correct terrain layer?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="405" y="530" width="140" height="90" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Mark ghost invalid and show forbidden cursor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="650" y="545" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Overlaps obstacle?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="660" width="130" height="85" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Mark ghost valid and show normal cursor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="350" y="785" width="250" height="60" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Input action" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="415" y="880" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Left click valid: instantiate real building under terrain parent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="110" y="1010" width="260" height="70" as="geometry"/></mxCell>
+        <mxCell id="a8" value="Remove one placeable item from inventory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="390" y="1018" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a9" value="Right click or after placement: cancel, destroy ghost, reset cursor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="635" y="1010" width="250" height="70" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="457" y="1140" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" value="Left click" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" value="Right click" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-10-cooking" name="P1.10 Cooking Tower Processing">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.10 - Cooking Tower Processing Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="800" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="470" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Player interacts with CookingTower" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="375" y="140" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Open CookingTowerUI and InventoryPanelUI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="355" y="230" width="260" height="60" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Player clicks inventory item; route fuel to slot 1, other items to input slot 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="330" y="325" width="310" height="70" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Tower slot accepts item?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="430" width="150" height="90" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Leave player inventory unchanged" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="445" width="200" height="60" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Consume one item from player inventory and update tower UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="335" y="560" width="300" height="65" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Every Update: inspect input slot and find matching CookingRecipe" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="330" y="655" width="310" height="65" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Valid recipe and output can accept result?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="395" y="755" width="180" height="105" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Reset cooking progress if invalid" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="775" width="210" height="60" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Current fuel available?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="890" width="150" height="90" as="geometry"/></mxCell>
+        <mxCell id="a8" value="If fuel slot has fuel, consume one fuel item and set burn time" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="80" y="905" width="260" height="65" as="geometry"/></mxCell>
+        <mxCell id="a9" value="Decrease fuel time and increase cooking progress" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="350" y="1020" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="d4" value="Cooking complete?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="415" y="1110" width="140" height="90" as="geometry"/></mxCell>
+        <mxCell id="a10" value="Consume input, add or stack output, reset progress, notify UI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="330" y="1230" width="310" height="65" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="467" y="1320" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="d4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x16" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a10"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x17" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a10" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="act-p1-11-enemy-spawn" name="P1.11 Enemy Spawn Director">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.11 - Enemy Spawn Director Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="800" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="470" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Update spawn timer each frame" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="375" y="145" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Player transform available?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="405" y="235" width="160" height="95" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Try resolve TargetTracker.PlayerTarget" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="660" y="255" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Timer reached wave spawn rate?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="395" y="365" width="170" height="100" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Find active SpawnArea near player using Physics2D overlap" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="335" y="505" width="300" height="65" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Valid area found and budget available?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="390" y="610" width="180" height="105" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Abort this spawn tick" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="635" width="170" height="55" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Select random enemy from WaveConfig" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="370" y="755" width="230" height="55" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Get valid spawn point inside SpawnArea and outside obstacles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="335" y="845" width="300" height="65" as="geometry"/></mxCell>
+        <mxCell id="d4" value="Spawn point valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="420" y="945" width="130" height="85" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Create enemy through EnemyFactory and ObjectPoolManager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="335" y="1065" width="300" height="65" as="geometry"/></mxCell>
+        <mxCell id="a8" value="Initialize, reset, OnSpawn, register enemy cost and active count" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="330" y="1160" width="310" height="65" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="467" y="1260" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a2" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="d4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x16" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-12-enemy-ai" name="P1.12 Enemy AI Combat Death Loot">
+    <mxGraphModel dx="1200" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.12 - Enemy AI State and Combat Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="800" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="470" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="EnemyBase.Update" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="380" y="145" width="210" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Enemy dead?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="425" y="235" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Handle death process and return to pool when animation completes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="640" y="240" width="270" height="70" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Find or refresh player target" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="375" y="350" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Apply status effect speed multiplier to movement controller" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="340" y="440" width="290" height="60" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Execute current AI state" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="385" y="530" width="200" height="55" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Target valid and in detection range?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="395" y="620" width="170" height="100" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Patrol or return to patrol state" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="660" y="640" width="205" height="60" as="geometry"/></mxCell>
+        <mxCell id="d3" value="CanStartAttack?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="420" y="755" width="130" height="85" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Chase target with movement strategy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="650" y="765" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="a8" value="AttackState: stop movement, face target, begin attack animation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="330" y="880" width="310" height="65" as="geometry"/></mxCell>
+        <mxCell id="a9" value="At trigger frame, strategy applies melee, projectile, or status damage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="325" y="980" width="320" height="65" as="geometry"/></mxCell>
+        <mxCell id="d4" value="Enemy receives lethal damage?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="400" y="1080" width="170" height="100" as="geometry"/></mxCell>
+        <mxCell id="a10" value="OnDie: stop movement, play death animation, trigger loot drop, unregister enemy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="120" y="1200" width="320" height="70" as="geometry"/></mxCell>
+        <mxCell id="a11" value="Continue state loop after cooldown or return to chase" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="570" y="1210" width="260" height="60" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="467" y="1320" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="d4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a10"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x15" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d4" target="a11"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x16" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a10" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x17" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a11" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-13-boss-arena" name="P1.13 Boss Arena Lifecycle">
+    <mxGraphModel dx="1100" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.13 - Boss Arena Unlock and Boss Lifecycle Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="830" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="460" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Player enters BossArenaSpawner trigger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="350" y="145" width="250" height="60" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Arena defeated or boss already spawned?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="390" y="245" width="170" height="105" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Ignore trigger" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="665" y="270" width="160" height="55" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Loop through ISpawnCondition components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="350" y="390" width="250" height="60" as="geometry"/></mxCell>
+        <mxCell id="d2" value="All conditions met?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="490" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Show first unmet condition feedback" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="650" y="505" width="220" height="60" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Create boss via EnemyFactory at spawn point" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="345" y="625" width="260" height="60" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Set boss target to player and subscribe boss health OnDie" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="320" y="720" width="310" height="65" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Set spawned flag and raise OnBossSpawnedEvent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="335" y="815" width="280" height="60" as="geometry"/></mxCell>
+        <mxCell id="a8" value="ArenaLockdownManager locks barriers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="360" y="905" width="230" height="60" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Boss dies?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="420" y="1000" width="110" height="80" as="geometry"/></mxCell>
+        <mxCell id="a9" value="Mark defeated, unsubscribe death event, raise OnBossDefeatedEvent, unlock barriers" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="310" y="1120" width="330" height="70" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="457" y="1225" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" value="No, combat continues" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x14" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-14-boss-phase" name="P1.14 Boss Phase Transition">
+    <mxGraphModel dx="1100" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.14 - Boss Phase Transition Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="800" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="460" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Boss health changes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="365" y="145" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Raise boss health UI update" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="365" y="230" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Already transitioning?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="410" y="320" width="130" height="90" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Ignore phase check until transition completes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="640" y="335" width="230" height="60" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Phase 1 and HP &lt;= 66%?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="400" y="455" width="150" height="95" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Phase 2 and HP &lt;= 33%?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="400" y="590" width="150" height="95" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Keep current phase behavior" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="645" y="615" width="190" height="55" as="geometry"/></mxCell>
+        <mxCell id="a5" value="TriggerTransition(next phase): exit current phase and assign next phase" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="325" y="735" width="300" height="65" as="geometry"/></mxCell>
+        <mxCell id="a6" value="Update attack strategy and cooldown based on phase" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="345" y="835" width="260" height="60" as="geometry"/></mxCell>
+        <mxCell id="a7" value="ChangeState BossTransitionState and play transition animation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="335" y="925" width="280" height="60" as="geometry"/></mxCell>
+        <mxCell id="a8" value="After timer or animation finish: enter new phase and return to chase" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="325" y="1015" width="300" height="65" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="457" y="1105" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a2" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x12" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x13" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a8" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-15-map-gate" name="P1.15 Map Gate Unlock Persistence">
+    <mxGraphModel dx="1000" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.15 - Map Gate Unlock and Persistence Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="780" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="435" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="MapGateController.Start" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="340" y="145" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Gate already unlocked by loaded data?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="365" y="235" width="170" height="100" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Keep gate visuals inactive" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="620" y="255" width="190" height="60" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Subscribe to target boss health OnDie" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="325" y="380" width="250" height="60" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Boss dies and gate receives event" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="340" y="500" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Gate still locked?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="390" y="590" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a5" value="Set unlocked, play optional VFX, hide gate visuals and colliders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="300" y="710" width="300" height="70" as="geometry"/></mxCell>
+        <mxCell id="a6" value="During SaveData: add gateID to GameData.openedGates" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="305" y="830" width="290" height="65" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="432" y="935" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d2" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="act-p1-16-escape-victory" name="P1.16 Escape Boat Victory">
+    <mxGraphModel dx="1100" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="950" pageHeight="1050" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="t" value="P1.16 - Escape Boat Victory Workflow Activity Diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" vertex="1" parent="1"><mxGeometry x="40" y="20" width="800" height="40" as="geometry"/></mxCell>
+        <mxCell id="s" value="" style="ellipse;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="460" y="80" width="30" height="30" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Player interacts with placed EscapeBoatController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="340" y="145" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="a2" value="GameManager.HandleVictory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="365" y="240" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Pause game time with Time.timeScale = 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="350" y="330" width="250" height="60" as="geometry"/></mxCell>
+        <mxCell id="a4" value="Raise GameEvents.OnVictory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="365" y="425" width="220" height="55" as="geometry"/></mxCell>
+        <mxCell id="a5" value="UIManager closes inventory, equipment, crafting, cooking, and action menu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="315" y="515" width="320" height="70" as="geometry"/></mxCell>
+        <mxCell id="a6" value="VictoryPanelUI starts cinematic fade sequence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="340" y="625" width="270" height="60" as="geometry"/></mxCell>
+        <mxCell id="a7" value="Fade black background, fade in victory text, show restart button" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="320" y="720" width="310" height="70" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Restart clicked?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="415" y="830" width="120" height="80" as="geometry"/></mxCell>
+        <mxCell id="a8" value="Keep victory screen displayed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="650" y="845" width="190" height="55" as="geometry"/></mxCell>
+        <mxCell id="a9" value="Reset timeScale, delete save data, reload active scene" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="330" y="955" width="290" height="65" as="geometry"/></mxCell>
+        <mxCell id="e" value="" style="ellipse;html=1;shape=doubleEllipse;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1"><mxGeometry x="457" y="1045" width="36" height="36" as="geometry"/></mxCell>
+        <mxCell id="x1" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="s" target="a1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x2" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a1" target="a2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x3" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a2" target="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x4" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a3" target="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x5" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a4" target="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x6" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a5" target="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x7" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a6" target="a7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x8" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a7" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x9" value="No" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x10" value="Yes" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="d1" target="a9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="x11" style="endArrow=block;html=1;rounded=0;" edge="1" parent="1" source="a9" target="e"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

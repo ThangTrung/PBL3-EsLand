@@ -10,7 +10,8 @@ namespace UI.Settings
         Exit,
         Settings,
         Help,
-        Custom
+        Custom,
+        LogOut
     }
 
     [System.Serializable]

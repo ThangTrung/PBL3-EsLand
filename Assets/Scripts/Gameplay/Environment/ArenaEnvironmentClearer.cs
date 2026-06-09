@@ -47,6 +47,14 @@ namespace Gameplay.Environment
                 if (col.CompareTag("Player") || col.CompareTag("Enemy") || col.gameObject == this.gameObject)
                     continue;
 
+                // [GLOBAL SAFETY FIX] KHÔNG bao giờ được xóa Tilemap.
+                // Một Tilemap là object bao trùm toàn bộ bản đồ. Việc xóa nó sẽ làm hỏng toàn bộ map.
+                if (col.GetComponent<UnityEngine.Tilemaps.Tilemap>() != null || col.GetComponent<CompositeCollider2D>() != null)
+                {
+                    Debug.Log($"[ArenaClearer] Đã bỏ qua vật thể nền tảng: {col.gameObject.name} (Tilemap/Composite)");
+                    continue;
+                }
+
                 // Nếu là đối tượng từ Object Pool, hãy trả nó về Pool để tối ưu hiệu suất
                 var poolable = col.GetComponent<IPoolable>();
                 if (poolable != null)

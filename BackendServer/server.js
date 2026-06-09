@@ -1,4 +1,5 @@
-﻿const express = require('express');
+require('dotenv').config();
+const express = require('express');
 const sql = require('mssql');
 const bodyParser = require('body-parser');
 
@@ -8,10 +9,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Cấu hình kết nối SQL Server
 const dbConfig = {
-    user: 'sa', 
-    password: '@Khoa121206',
-    server: 'localhost', 
-    database: 'EsLandDB',
+    user: process.env.DB_USER, 
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER, 
+    database: process.env.DB_NAME,
     options: {
         encrypt: false,
         trustServerCertificate: true
@@ -51,7 +52,7 @@ app.post('/api/auth/login', async (req, res) => {
         }
     } catch (err) {
         console.error("Lỗi Auth Server:", err.message);
-        res.status(500).send({ success: false, error: err.message });
+        res.status(500).send({ success: false, message: "Lỗi Server: " + err.message });
     }
 });
 
@@ -127,7 +128,7 @@ app.get('/api/loadgame/:userID', async (req, res) => {
     }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log("Backend Server đang chạy tại: http://localhost:" + PORT);
 });

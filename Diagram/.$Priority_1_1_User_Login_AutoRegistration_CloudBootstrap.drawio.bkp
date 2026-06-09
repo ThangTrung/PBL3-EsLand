@@ -1,0 +1,276 @@
+<mxfile host="app.diagrams.net" modified="2026-06-09T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="priority-1-1-login-cloud-bootstrap" name="P1.1 Login AutoRegistration Cloud Bootstrap">
+    <mxGraphModel dx="2200" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2150" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Priority 1.1 - User Login, Auto-Registration, and Cloud Bootstrap" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="900" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="p_user" value="User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_login" value="LoginController" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="210" y="70" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_authsvc" value="CloudAuthService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="70" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_authapi" value="Express Auth API&lt;br&gt;POST /api/auth/login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="70" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_usersdb" value="SQL Server&lt;br&gt;Users" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="70" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_saveload" value="SaveLoadManager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="70" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_clouddata" value="CloudDataHandler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="70" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_loadapi" value="Express Load API&lt;br&gt;GET /api/loadgame/:userID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1390" y="70" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_savesdb" value="SQL Server&lt;br&gt;PlayerSaves" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1580" y="70" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="p_scene" value="SceneLoader /&lt;br&gt;LoadingManager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1810" y="70" width="150" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="life_user" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="100" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_login" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="280" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_authsvc" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="465" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_authapi" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="665" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_usersdb" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="865" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_saveload" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_clouddata" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_loadapi" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="1465" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_savesdb" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="1665" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+        <mxCell id="life_scene" value="" style="shape=line;html=1;strokeColor=#666666;strokeWidth=1;dashed=1;dashPattern=3 3;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="1885" y="120" width="1" height="1080" as="geometry" />
+        </mxCell>
+
+        <mxCell id="act_login" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="274" y="150" width="12" height="870" as="geometry" />
+        </mxCell>
+        <mxCell id="act_authsvc" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="459" y="195" width="12" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="act_authapi" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="659" y="235" width="12" height="245" as="geometry" />
+        </mxCell>
+        <mxCell id="act_saveload" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1064" y="595" width="12" height="355" as="geometry" />
+        </mxCell>
+        <mxCell id="act_clouddata" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1264" y="665" width="12" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="act_loadapi" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="1459" y="705" width="12" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="msg1" value="1. Click Login(username, password)" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="160" as="sourcePoint" />
+            <mxPoint x="274" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg2" value="2. Login(username, password, callback)" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="286" y="205" as="sourcePoint" />
+            <mxPoint x="459" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg3" value="3. POST /api/auth/login&lt;br&gt;JSON credentials" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="471" y="245" as="sourcePoint" />
+            <mxPoint x="659" y="245" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg4" value="4. SELECT ID, Password&lt;br&gt;WHERE Username = @Username" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="671" y="285" as="sourcePoint" />
+            <mxPoint x="865" y="285" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="frag_auth" value="alt authentication result" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="305" width="395" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="frag_auth_sep" value="" style="endArrow=none;html=1;rounded=0;dashed=1;strokeColor=#999999;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="375" as="sourcePoint" />
+            <mxPoint x="965" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="auth_existing_note" value="[Existing user] Compare plain-text password.&lt;br&gt;Valid password returns 200 success; invalid password returns 401." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="585" y="327" width="350" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_new_note" value="[Username not found] INSERT INTO Users&lt;br&gt;and return 201 success with new userID." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="585" y="392" width="350" height="35" as="geometry" />
+        </mxCell>
+
+        <mxCell id="msg5a" value="5a. user row / no rows" style="endArrow=open;html=1;rounded=0;fontSize=11;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="865" y="325" as="sourcePoint" />
+            <mxPoint x="671" y="325" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg5b" value="5b. INSERT username/password&lt;br&gt;OUTPUT INSERTED.ID" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="671" y="405" as="sourcePoint" />
+            <mxPoint x="865" y="405" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg5c" value="5c. new userID" style="endArrow=open;html=1;rounded=0;fontSize=11;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="865" y="445" as="sourcePoint" />
+            <mxPoint x="671" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg6" value="6. HTTP response&lt;br&gt;200 / 201 success or 401 failure" style="endArrow=open;html=1;rounded=0;fontSize=11;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="659" y="500" as="sourcePoint" />
+            <mxPoint x="471" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="frag_failure" value="opt login failure" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;dashed=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontStyle=1;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="205" y="520" width="385" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="msg7fail" value="7f. callback(false, message)&lt;br&gt;status red; loginButton enabled" style="endArrow=open;html=1;rounded=0;fontSize=11;dashed=1;strokeColor=#b85450;fontColor=#b85450;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="459" y="555" as="sourcePoint" />
+            <mxPoint x="286" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="msg7" value="7. Parse success; set CurrentUserID" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="471" y="610" as="sourcePoint" />
+            <mxPoint x="286" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg8" value="8. EnableCloudMode(userID, serverIp, onComplete)" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="286" y="645" as="sourcePoint" />
+            <mxPoint x="1064" y="645" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg9" value="9. new CloudDataHandler(serverIp, userID)" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1076" y="685" as="sourcePoint" />
+            <mxPoint x="1264" y="685" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg10" value="10. LoadRoutine(callback)" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1076" y="725" as="sourcePoint" />
+            <mxPoint x="1264" y="725" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg11" value="11. GET /api/loadgame/{userID}" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1276" y="765" as="sourcePoint" />
+            <mxPoint x="1459" y="765" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg12" value="12. SELECT InventoryJSON&lt;br&gt;WHERE UserID = @UserID" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1471" y="805" as="sourcePoint" />
+            <mxPoint x="1665" y="805" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="frag_save" value="alt cloud save lookup" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1380" y="825" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="save_note" value="[Save exists] return InventoryJSON.&lt;br&gt;[No save] return default empty GameData JSON." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1395" y="852" width="350" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="msg13" value="13. saved JSON / no rows" style="endArrow=open;html=1;rounded=0;fontSize=11;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1665" y="845" as="sourcePoint" />
+            <mxPoint x="1471" y="845" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg14" value="14. 200 GameData JSON" style="endArrow=open;html=1;rounded=0;fontSize=11;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1459" y="930" as="sourcePoint" />
+            <mxPoint x="1276" y="930" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg15" value="15. callback(GameData, cloud message)" style="endArrow=open;html=1;rounded=0;fontSize=11;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1264" y="970" as="sourcePoint" />
+            <mxPoint x="1076" y="970" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg16" value="16. ProcessLoadedData()&lt;br&gt;apply GameData to ISaveable objects" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1076" y="1010" as="sourcePoint" />
+            <mxPoint x="1125" y="1010" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1125" y="1040" />
+              <mxPoint x="1076" y="1040" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg17" value="17. onComplete(success or warning)" style="endArrow=open;html=1;rounded=0;fontSize=11;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1064" y="1080" as="sourcePoint" />
+            <mxPoint x="286" y="1080" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg18" value="18. GoToMainMenu(): Load(&quot;MainMenu&quot;)" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="286" y="1120" as="sourcePoint" />
+            <mxPoint x="1885" y="1120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg19" value="19. Set TargetSceneName=MainMenu;&lt;br&gt;load Loading scene then async MainMenu" style="endArrow=block;html=1;rounded=0;fontSize=11;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1885" y="1160" as="sourcePoint" />
+            <mxPoint x="1935" y="1160" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1935" y="1190" />
+              <mxPoint x="1885" y="1190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="note1" value="Note: Backend route combines login and registration. If username is missing, it auto-creates a new Users record and returns the generated userID." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1240" width="560" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="note2" value="Note: LoginController navigates to MainMenu after cloud setup callback. A cloud-load warning is logged, but navigation still proceeds." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="630" y="1240" width="560" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="note3" value="Source code anchors: LoginController.OnLoginClicked, CloudAuthService.Login, SaveLoadManager.EnableCloudMode, CloudDataHandler.LoadRoutine, server.js /api/auth/login and /api/loadgame/:userID." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="1240" width="660" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
