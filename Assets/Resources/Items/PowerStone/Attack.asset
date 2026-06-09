@@ -21,7 +21,7 @@ MonoBehaviour:
   fuelTime: 0
   equipSlot: 0
   overrideController: {fileID: 0}
-  damageBuff: 100
+  damageBuff: 2.5
   defenseBuff: 0
   healthBuff: 0
   speedBuff: 0

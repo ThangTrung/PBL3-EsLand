@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MinotaurConfig
   m_EditorClassIdentifier: 
   enemyType: Minotaur
-  maxHealth: 50
+  maxHealth: 100
   baseDamage: 5
-  baseAttackRange: 2.5
+  baseAttackRange: 3.5
   detectionRange: 12
   patrolRadius: 5
   attackCooldown: 1.5

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Data.Spawning;
 
 namespace Gameplay.Spawning
@@ -11,7 +11,8 @@ namespace Gameplay.Spawning
     public class SpawnArea : MonoBehaviour
     {
         [Header("Area Settings")]
-        [SerializeField] private LayerMask obstacleLayer;
+        [SerializeField] private LayerMask landLayer;      // Layer của Tilemap Đất
+        [SerializeField] private LayerMask obstacleLayer;  // Layer của Cây, Đá, Tường...
         [SerializeField] private float checkRadius = 0.5f;
         
         [Header("Local Ecosystem (Optional)")]
@@ -62,9 +63,14 @@ namespace Gameplay.Spawning
 
                 if (!_collider.OverlapPoint(randomPoint)) continue;
 
-                // [FIX] Bỏ qua các Trigger (như chính SpawnArea này) hoặc các vật thể không phải cản trở vật lý.
+                // 1. CHẮC CHẮN PHẢI NẰM TRÊN ĐẤT LIỀN
+                if (Physics2D.OverlapPoint(randomPoint, landLayer) == null) continue;
+
+                // 2. KHÔNG ĐƯỢC ĐỤNG VẬT CẢN TRÊN ĐẤT
                 Collider2D hit = Physics2D.OverlapCircle(randomPoint, checkRadius, obstacleLayer);
-                if (hit == null || hit.isTrigger || hit.gameObject == gameObject) return randomPoint;
+                if (hit != null && !hit.isTrigger && hit.gameObject != gameObject) continue;
+                
+                return randomPoint; // Điểm spawn an toàn tuyệt đối
             }
 
             return Vector3.zero;

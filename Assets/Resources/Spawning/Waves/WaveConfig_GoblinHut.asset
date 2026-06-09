@@ -13,6 +13,21 @@ MonoBehaviour:
   m_Name: WaveConfig_GoblinHut
   m_EditorClassIdentifier: 
   waveName: Goblin Camp
-  totalBudget: 35
-  spawnRate: 3.5
-  enemies: []
+  totalBudget: 25
+  spawnRate: 10
+  enemies:
+  - prefab: {fileID: 8933322250166544142, guid: 7fd37b1bfbd73744ab98d62f77229b72, type: 3}
+    config: {fileID: 11400000, guid: aca2157a912d39e46947faa440d937b9, type: 2}
+    animConfig: {fileID: 11400000, guid: 0f43ebc491e2fb341a69b8ce4f8ef27f, type: 2}
+    weight: 10
+    cost: 5
+  - prefab: {fileID: 1478829586205786322, guid: 6fa87989bdb50d445b5f807c92ea582a, type: 3}
+    config: {fileID: 11400000, guid: b8e07b8997a73074486c8e254379c2b7, type: 2}
+    animConfig: {fileID: 11400000, guid: 1bbf3df6d8ccde847accba4ffee3cdcb, type: 2}
+    weight: 10
+    cost: 5
+  - prefab: {fileID: 1151469278727597528, guid: 069f6df63d4dcf449b8d980a63995334, type: 3}
+    config: {fileID: 11400000, guid: 639a6897e4dede947840bdf08968503d, type: 2}
+    animConfig: {fileID: 11400000, guid: 50f6367c4c8f34b4b82a811cd762cc22, type: 2}
+    weight: 10
+    cost: 5

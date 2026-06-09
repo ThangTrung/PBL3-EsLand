@@ -14,5 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveName: Pirate Fish
   totalBudget: 20
-  spawnRate: 4
-  enemies: []
+  spawnRate: 10
+  enemies:
+  - prefab: {fileID: 210266348712898137, guid: 030d5b2e927b6f8428231fd786110c60, type: 3}
+    config: {fileID: 11400000, guid: 3b2bda0869f6e004cad1fa0f3dd145b5, type: 2}
+    animConfig: {fileID: 11400000, guid: 2372e310571e766479c2f7922a9c6b06, type: 2}
+    weight: 10
+    cost: 5
+  - prefab: {fileID: 2083409326931047421, guid: 7a5d27a60fd60c04d826dfebdb1e966b, type: 3}
+    config: {fileID: 11400000, guid: f70348c9546e76a45b2da9aead98af63, type: 2}
+    animConfig: {fileID: 11400000, guid: de2eef4ea9ec553489d79d317b6d33ed, type: 2}
+    weight: 5
+    cost: 10

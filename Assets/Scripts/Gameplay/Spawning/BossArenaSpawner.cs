@@ -56,7 +56,8 @@ namespace Gameplay.Spawning
                         if (!cond.IsMet(other.transform))
                         {
                             Debug.Log($"[Boss Arena] {cond.GetFeedbackMessage()}");
-                            // TODO: Bắn Event UI để hiển thị lên màn hình người chơi
+                            // [Phase 3] Bắn Event UI để hiển thị lên màn hình người chơi
+                            Core.Events.GameEvents.OnShowNotification?.Invoke(cond.GetFeedbackMessage());
                             break;
                         }
                     }

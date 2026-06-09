@@ -38,7 +38,13 @@ namespace Core.Events
         /// <summary>
         /// Phát ra khi người chơi chiến thắng trò chơi (thoát đảo).
         /// </summary>
-        public static Action OnVictory;
+        
+        /// <summary>
+        /// Phát ra khi cần hiển thị một thông báo hệ thống lên màn hình (Ví dụ: Thiếu điều kiện mở Boss).
+        /// Payload: Nội dung thông báo.
+        /// </summary>
+        public static Action<string> OnShowNotification;
+public static Action OnVictory;
 
         public static void RaiseVictory()
         {
