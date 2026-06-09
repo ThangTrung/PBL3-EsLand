@@ -58,6 +58,8 @@ namespace UI.MainMenu
             if (SaveLoadManager.Instance != null)
             {
                 SaveLoadManager.Instance.NewGame();
+                // Ghi đè dữ liệu trắng lên Cloud ngay lập tức để xóa save cũ
+                SaveLoadManager.Instance.SyncToCloudManual(null);
             }
             
             // Chuyển vào scene chơi game
