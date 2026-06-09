@@ -24,5 +24,6 @@ namespace Infrastructure.Networking
 
         public string ServerIp => serverIp;
         public string LoginUrl => $"http://{serverIp}:{port}/api/auth/login";
+        public string RegisterUrl => $"http://{serverIp}:{port}/api/auth/register";
     }
 }
