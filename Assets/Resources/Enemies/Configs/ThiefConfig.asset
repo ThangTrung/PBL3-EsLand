@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ThiefConfig
   m_EditorClassIdentifier: 
   enemyType: Thief
-  maxHealth: 25
+  maxHealth: 100
   baseDamage: 5
   baseAttackRange: 2.5
   detectionRange: 12

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TurtleConfig
   m_EditorClassIdentifier: 
   enemyType: Turtle
-  maxHealth: 50
+  maxHealth: 100
   baseDamage: 5
   baseAttackRange: 1.5
   detectionRange: 12

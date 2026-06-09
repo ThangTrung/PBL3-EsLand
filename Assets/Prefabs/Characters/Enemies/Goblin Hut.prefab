@@ -80,9 +80,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2009ad8b008745e4db94c4b17af5a608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  landLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1040
   checkRadius: 0.5
   localWaveConfig: {fileID: 11400000, guid: e871c1f0b34dbc1428818e4b9ebd755d, type: 2}
 --- !u!1 &2849427325783477418
@@ -99,7 +102,6 @@ GameObject:
   - component: {fileID: 1259556710947931409}
   - component: {fileID: 3247711211415364723}
   - component: {fileID: -3631522493373477972}
-  - component: {fileID: 1091802003790565926}
   - component: {fileID: 4135203174822228755}
   - component: {fileID: 4897047868396106879}
   - component: {fileID: 4537323394694363705}
@@ -165,8 +167,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1002
-  m_SortingLayer: 2
+  m_SortingLayerID: 1004
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -990880166183406556, guid: b3a8243d8e152254d8955ba4f31a4e1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -215,7 +217,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -348,23 +350,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &1091802003790565926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2849427325783477418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2009ad8b008745e4db94c4b17af5a608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 272
-  checkRadius: 0.5
-  localWaveConfig: {fileID: 11400000, guid: e871c1f0b34dbc1428818e4b9ebd755d, type: 2}
 --- !u!208 &4135203174822228755
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -393,7 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d26d9c87418ecd4db67e10cd1d6dc31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSortingLayer: Elevation_A
+  targetSortingLayer: Elevation_C
 --- !u!114 &4537323394694363705
 MonoBehaviour:
   m_ObjectHideFlags: 0

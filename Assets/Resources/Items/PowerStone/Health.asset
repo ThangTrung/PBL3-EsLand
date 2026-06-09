@@ -23,5 +23,5 @@ MonoBehaviour:
   overrideController: {fileID: 0}
   damageBuff: 0
   defenseBuff: 0
-  healthBuff: 100
+  healthBuff: 10
   speedBuff: 0

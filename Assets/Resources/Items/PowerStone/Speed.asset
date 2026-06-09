@@ -24,4 +24,4 @@ MonoBehaviour:
   damageBuff: 0
   defenseBuff: 0
   healthBuff: 0
-  speedBuff: 100
+  speedBuff: 1.5

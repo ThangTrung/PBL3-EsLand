@@ -1,4 +1,4 @@
-﻿using Core.Contracts.Equipment;
+using Core.Contracts.Equipment;
 using Core.Contracts.Shared;
 using Gameplay.Components;
 using UI.Cursor;
@@ -26,7 +26,10 @@ namespace Gameplay.Characters
         private PlayerMovementController _movement;
         private PlayerSurvivalController _survival;
         private Highlight _currentHover;
-        private Camera _cachedCamera;
+        
+        // [Phase 1: Anti-Spam] Biến lưu trữ Coroutine tương tác hiện tại
+        private Coroutine _currentInteractionRoutine;
+private Camera _cachedCamera;
 
         private Camera MainCamera
         {
@@ -157,29 +160,40 @@ namespace Gameplay.Characters
                 return;
             }
 
+            // Nếu đang trong thời gian cooldown, từ chối lệnh click mới luôn (Chống Spam xếp hàng)
+            if (_attackTimer > 0) return;
+
+            // Hủy trình tự tương tác cũ nếu có click mới
+            if (_currentInteractionRoutine != null)
+            {
+                StopCoroutine(_currentInteractionRoutine);
+            }
+
             _movement.SetFollowTarget(targetTransform, interactionRange, () => 
             {
                 FaceTarget(targetTransform.position);
-                StartCoroutine(ExecuteAttackSequence(target));
+                // Lưu lại Coroutine đang chạy
+                _currentInteractionRoutine = StartCoroutine(ExecuteAttackSequence(target, targetTransform));
             });
         }
 
-        private System.Collections.IEnumerator ExecuteAttackSequence(IInteractable specificTarget)
+        private System.Collections.IEnumerator ExecuteAttackSequence(IInteractable specificTarget, Transform targetTransform = null)
         {
             if (specificTarget == null) 
             {
+                _currentInteractionRoutine = null;
                 yield break;
             }
 
-            while (_attackTimer > 0) yield return null;
-
             if (!CanAttack()) 
             {
+                _currentInteractionRoutine = null;
                 yield break;
             }
             
             if (!specificTarget.CanInteract(_facade))
             {
+                _currentInteractionRoutine = null;
                 yield break; 
             }
 
@@ -191,6 +205,7 @@ namespace Gameplay.Characters
             {
                 if (!_survival.TryConsumeStamina(staminaCost))
                 {
+                    _currentInteractionRoutine = null;
                     yield break;
                 }
             }
@@ -200,11 +215,62 @@ namespace Gameplay.Characters
 
             yield return new WaitForSeconds(interactionDelay);
 
-            if (specificTarget != null)
+            // [Phase 2] Xác thực khoảng cách (Impact Validation) triệt để - FIXED
+            bool isTargetValid = true;
+
+            // Kiểm tra xem quái có bị destroy/despawn trong lúc chờ Animation không
+            if (targetTransform == null || specificTarget as UnityEngine.Object == null)
+            {
+                isTargetValid = false;
+            }
+            else
+            {
+                float validDistance = interactionRange + 0.3f;
+                var targetCollider = targetTransform.GetComponent<Collider2D>();
+                var myCollider = _facade != null ? _facade.GetComponent<Collider2D>() : null;
+
+                if (targetCollider != null && myCollider != null)
+                {
+                    // Đo khoảng cách giữa 2 viền vật lý (Boundary-to-Boundary)
+                    if (!myCollider.IsTouching(targetCollider))
+                    {
+                        var result = Physics2D.Distance(myCollider, targetCollider);
+                        if (result.distance > validDistance)
+                        {
+                            isTargetValid = false;
+                        }
+                    }
+                }
+                else
+                {
+                    // Fallback cho trường hợp không có Collider: Cho phép tâm-đến-tâm lới lỏng (NavMesh Tolerance)
+                    float centerDist = Vector2.Distance(transform.position, targetTransform.position);
+                    if (centerDist > Mathf.Max(validDistance, 1.8f))
+                    {
+                        isTargetValid = false;
+                    }
+                }
+            }
+
+            if (isTargetValid)
             {
                 specificTarget.Interact(_facade);
             }
+
+            // Dọn dẹp khi kết thúc
+            _currentInteractionRoutine = null;
         }
+
+        // [Phase 3] Hook ngắt tương tác dành cho Movement/Input Controller
+        public void CancelInteraction()
+        {
+            if (_currentInteractionRoutine != null)
+            {
+                StopCoroutine(_currentInteractionRoutine);
+                _currentInteractionRoutine = null;
+            }
+        }
+
 
         private void FaceTarget(Vector3 targetPos)
         {
