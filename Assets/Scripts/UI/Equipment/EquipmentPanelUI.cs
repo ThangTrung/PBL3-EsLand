@@ -47,7 +47,12 @@ namespace UI.Equipment
 
         private void Awake()
         {
-            if (equipmentPanel == null) equipmentPanel = transform.Find("EquipmentPanel")?.gameObject;
+            if (equipmentPanel == null)
+            {
+                equipmentPanel = transform.Find("EquipmentPanel")?.gameObject;
+                if (equipmentPanel == null) equipmentPanel = transform.Find("MainContain")?.gameObject;
+            }
+            
             if (equipmentPanel != null) equipmentPanel.SetActive(false);
         }
 
@@ -55,13 +60,18 @@ namespace UI.Equipment
 
         public void ToggleUI()
         {
-            var currentState = equipmentPanel && equipmentPanel.activeSelf;
-            SetVisible(!currentState);
+            SetVisible(!IsVisible);
         }
 
         public void SetVisible(bool visible)
         {
-            if (equipmentPanel) equipmentPanel.SetActive(visible);
+            if (equipmentPanel == null)
+            {
+                Debug.LogWarning($"EquipmentPanelUI on {gameObject.name} has no equipmentPanel assigned and couldn't find 'EquipmentPanel' or 'MainContain' child.");
+                return;
+            }
+
+            equipmentPanel.SetActive(visible);
             
             if (_provider is IUIEventListener uiListener)
                 uiListener.OnUIStateChanged("Equipment", visible);
