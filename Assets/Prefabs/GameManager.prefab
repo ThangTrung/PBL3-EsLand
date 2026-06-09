@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: pbl3_esland_save.json
-  useCloudSave: 0
+  useCloudSave: 1
   useAutoSave: 1
   autoSaveInterval: 60
 --- !u!114 &2383916834073469810

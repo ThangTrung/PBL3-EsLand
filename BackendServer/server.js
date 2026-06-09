@@ -18,6 +18,43 @@ const dbConfig = {
     }
 };
 
+// API POST: Đăng nhập hoặc Đăng ký tự động
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        console.log("Yêu cầu đăng nhập:", username);
+
+        const pool = await sql.connect(dbConfig);
+        
+        // Kiểm tra user tồn tại
+        let userResult = await pool.request()
+            .input('Username', sql.NVarChar, username)
+            .query('SELECT ID, Password FROM Users WHERE Username = @Username');
+
+        if (userResult.recordset.length > 0) {
+            const user = userResult.recordset[0];
+            // So sánh mật khẩu (demo dùng text thuần, thực tế nên dùng bcrypt)
+            if (user.Password === password) {
+                res.status(200).send({ success: true, userID: user.ID, message: "Đăng nhập thành công!" });
+            } else {
+                res.status(401).send({ success: false, message: "Sai mật khẩu!" });
+            }
+        } else {
+            // Tự động đăng ký nếu chưa có
+            let insertResult = await pool.request()
+                .input('Username', sql.NVarChar, username)
+                .input('Password', sql.NVarChar, password)
+                .query('INSERT INTO Users (Username, Password) OUTPUT INSERTED.ID VALUES (@Username, @Password)');
+            
+            const newUserID = insertResult.recordset[0].ID;
+            res.status(201).send({ success: true, userID: newUserID, message: "Tài khoản mới đã được tạo!" });
+        }
+    } catch (err) {
+        console.error("Lỗi Auth Server:", err.message);
+        res.status(500).send({ success: false, error: err.message });
+    }
+});
+
 // API POST: Lưu hoặc Cập nhật dữ liệu túi đồ (UPSERT)
 app.post('/api/savegame', async (req, res) => {
     try {
@@ -70,8 +107,19 @@ app.get('/api/loadgame/:userID', async (req, res) => {
             // Trả về đúng cục JSON Data túi đồ
             res.status(200).send(result.recordset[0].InventoryJSON);
         } else {
-            // CÚ CHỐT: Nếu người chơi mới, trả về cấu trúc JSON rỗng chuẩn thay vì báo lỗi 404
-            res.status(200).send(JSON.stringify({ inventory: { savedItems: [] } }));
+            // Trả về cấu trúc GameData rỗng chuẩn để Unity JsonUtility có thể parse
+            res.status(200).send(JSON.stringify({ 
+                _inventories: [], 
+                _equippedItems: [],
+                _resourceNodes: [],
+                _droppedItems: [],
+                _openedGates: [],
+                _destroyedEntityIDs: [],
+                _activeEnemies: [],
+                playerHealth: 100,
+                playerPosition: { x: 0, y: 0, z: 0 },
+                respawnPoint: { x: 0, y: 0, z: 0 }
+            }));
         }
     } catch (err) {
         console.error("Lỗi Server:", err);

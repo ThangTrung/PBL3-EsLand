@@ -19,7 +19,7 @@ namespace Infrastructure.SaveSystem.Core
         [SerializeField] private string fileName = "pbl3_esland_save.json";
         
         [Header("Cấu hình Cloud (Bật/Tắt tự động)")]
-        [SerializeField] private bool useCloudSave = false; // Bật nếu muốn lúc nào cũng lưu mây (phải thiết lập IP/ID trước)
+        [SerializeField] private bool useCloudSave = false; 
 
         [Header("Cấu hình Auto-Save")]
         [SerializeField] private bool useAutoSave = true; 
@@ -29,7 +29,6 @@ namespace Infrastructure.SaveSystem.Core
         private GameData gameData;
         private List<ISaveable> saveableObjects;
         
-        // Hỗ trợ Hybrid Save: Luôn có Local, Cloud có thể bật/tắt
         private IDataHandler _localDataHandler;
         private CloudDataHandler _cloudDataHandler;
 
@@ -52,16 +51,13 @@ namespace Infrastructure.SaveSystem.Core
             string projectRootPath = Application.dataPath + "/..";
             _localDataHandler = new FileDataHandler(projectRootPath, fileName);
 
-            // 2. Khởi tạo Cloud nếu được bật mặc định (Demo nhanh)
-            if (useCloudSave)
+            // 2. Chỉ tự động Load nếu KHÔNG ở màn hình khởi đầu (Login/MainMenu)
+            string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            if (sceneName != "Login" && sceneName != "MainMenu")
             {
-                _cloudDataHandler = new CloudDataHandler("localhost", SystemInfo.deviceUniqueIdentifier);
+                saveableObjects = FindAllSaveableObjects();
+                LoadGame();
             }
-
-            saveableObjects = FindAllSaveableObjects();
-            
-            // 3. Tự động tải dữ liệu khi bắt đầu (Ưu tiên Cloud nếu có, fallback về Local)
-            LoadGame();
             
             _autoSaveTimer = 0f;
         }
@@ -76,6 +72,14 @@ namespace Infrastructure.SaveSystem.Core
             
             // Lập tức thử tải dữ liệu từ mây về
             LoadGameFromCloud(onComplete);
+        }
+
+        public bool HasData()
+        {
+            if (gameData == null) return false;
+            
+            // Logic đơn giản: Nếu có bất kỳ inventory nào có chứa item hoặc dữ liệu người chơi
+            return gameData.inventories.Any(inv => inv.slots != null && inv.slots.Count > 0) || gameData.playerHealth < 100f;
         }
 
         private void Update()
@@ -132,6 +136,12 @@ namespace Infrastructure.SaveSystem.Core
         private void LoadGameFromCloud(Action<bool, string> onComplete = null)
         {
             IsLoading = true;
+            if (_cloudDataHandler == null)
+            {
+                onComplete?.Invoke(false, "Cloud handler not initialized.");
+                return;
+            }
+
             StartCoroutine(_cloudDataHandler.LoadRoutine((loadedData, message) => {
                 if (loadedData != null)
                 {
@@ -151,6 +161,8 @@ namespace Infrastructure.SaveSystem.Core
         {
             if (this.gameData == null) NewGame();
 
+            if (saveableObjects == null) saveableObjects = FindAllSaveableObjects();
+
             try 
             {
                 foreach (ISaveable saveableObj in saveableObjects)
@@ -162,29 +174,20 @@ namespace Infrastructure.SaveSystem.Core
             finally { IsLoading = false; }
         }
 
-        /// <summary>
-        /// Lưu game tự động. Ghi vào Local và đẩy lên Cloud (nếu bật).
-        /// </summary>
         public void SaveGame()
         {
             if (IsLoading || _localDataHandler == null || gameData == null || _isQuitting) return;
 
             GatherDataToSave();
             
-            // 1. Luôn lưu vào ổ cứng (Backup an toàn)
             _localDataHandler.Save(gameData);
 
-            // 2. Bắn lên Cloud (Chạy ngầm không ảnh hưởng game)
             if (useCloudSave && _cloudDataHandler != null)
             {
-                StartCoroutine(_cloudDataHandler.SaveRoutine(gameData, null)); // Null callback cho auto-save
+                StartCoroutine(_cloudDataHandler.SaveRoutine(gameData, null)); 
             }
         }
 
-        /// <summary>
-        /// API cho UI gọi khi người chơi bấm nút "Đồng bộ Cloud".
-        /// Có callback để UI biết hiện thông báo Thành công / Thất bại.
-        /// </summary>
         public void SyncToCloudManual(Action<bool, string> onComplete)
         {
             if (IsLoading || gameData == null)
@@ -194,11 +197,8 @@ namespace Infrastructure.SaveSystem.Core
             }
 
             GatherDataToSave();
-            
-            // Vẫn lưu Local để chắc chắn
             _localDataHandler.Save(gameData);
 
-            // Gửi lên mây và chờ phản hồi
             if (useCloudSave && _cloudDataHandler != null)
             {
                 StartCoroutine(_cloudDataHandler.SaveRoutine(gameData, onComplete));

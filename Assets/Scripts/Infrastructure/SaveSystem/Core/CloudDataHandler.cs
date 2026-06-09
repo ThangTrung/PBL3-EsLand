@@ -22,6 +22,8 @@ namespace Infrastructure.SaveSystem.Core
         {
             _serverIP = string.IsNullOrEmpty(serverIP) ? "localhost" : serverIP;
             _userId = string.IsNullOrEmpty(userId) ? SystemInfo.deviceUniqueIdentifier : userId;
+            
+            Debug.Log($"[CloudDataHandler] Initialized with ServerIP: {_serverIP}, UserID: {_userId}");
         }
 
         // Bỏ qua Load/Save đồng bộ vì WebRequest yêu cầu bất đồng bộ (Coroutine)
