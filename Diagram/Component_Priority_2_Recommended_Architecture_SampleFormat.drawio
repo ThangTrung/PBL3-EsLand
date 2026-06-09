@@ -1,0 +1,282 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="P2.1 Scene Navigation Menu" id="component_adbe5aabfe">
+    <mxGraphModel dx="662" dy="393" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_dbb70eef67" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.1 - Scene Navigation, Login, Main Menu, and Loading Components" vertex="1">
+          <mxGeometry as="geometry" x="60" y="30" width="980" height="40" />
+        </mxCell>
+        <mxCell id="login" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;LoginController&lt;/b&gt;&lt;br&gt;Authenticate and configure cloud" vertex="1">
+          <mxGeometry as="geometry" x="70" y="120" width="220" height="100" />
+        </mxCell>
+        <mxCell id="main" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;MainMenuController&lt;/b&gt;&lt;br&gt;New game / continue decisions" vertex="1">
+          <mxGeometry as="geometry" x="70" y="340" width="220" height="100" />
+        </mxCell>
+        <mxCell id="saveload" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;SaveLoadManager&lt;/b&gt;&lt;br&gt;HasData, NewGame, LoadGame" vertex="1">
+          <mxGeometry as="geometry" x="420" y="220" width="220" height="100" />
+        </mxCell>
+        <mxCell id="loader" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;b&gt;SceneLoader&lt;/b&gt;&lt;br&gt;Target scene static API" vertex="1">
+          <mxGeometry as="geometry" x="720" y="180" width="220" height="100" />
+        </mxCell>
+        <mxCell id="loading" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;LoadingManager&lt;/b&gt;&lt;br&gt;Async scene transition" vertex="1">
+          <mxGeometry as="geometry" x="720" y="390" width="220" height="100" />
+        </mxCell>
+        <mxCell id="scene" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;Unity SceneManager&lt;/b&gt;&lt;br&gt;Load Loading/MainMenu/Game scene" vertex="1">
+          <mxGeometry as="geometry" x="720" y="610" width="220" height="100" />
+        </mxCell>
+        <mxCell id="cloud" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;CloudAuthService&lt;/b&gt;&lt;br&gt;Login state" vertex="1">
+          <mxGeometry as="geometry" x="420" y="500" width="220" height="100" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="login" target="cloud" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.4;entryDx=0;entryDy=0;" value="Login">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="login" target="saveload" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" value="EnableCloudMode">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="main" target="saveload" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" value="HasData / NewGame">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="login" target="loader" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.1;exitDx=0;exitDy=0;entryX=0;entryY=0.2;entryDx=0;entryDy=0;" value="Go MainMenu">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="main" target="loader" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" value="Load game scene">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="loader" target="loading" style="endArrow=block;endFill=0;html=1;rounded=1;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="TargetSceneName">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="loading" target="scene" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Async load">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="SceneLoader centralizes transitions through the Loading scene." vertex="1">
+          <mxGeometry as="geometry" x="70" y="590" width="300" height="75" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.2 Saveable World State" id="component_18bf1a276e">
+    <mxGraphModel dx="662" dy="393" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_81b08f4f4d" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.2 - Saveable World State Components" vertex="1">
+          <mxGeometry as="geometry" x="60" y="30" width="980" height="40" />
+        </mxCell>
+        <mxCell id="slm" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;SaveLoadManager&lt;/b&gt;&lt;br&gt;FindAllSaveableObjects" vertex="1">
+          <mxGeometry as="geometry" x="420" y="90" width="220" height="100" />
+        </mxCell>
+        <mxCell id="contract" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;b&gt;ISaveable&lt;/b&gt;&lt;br&gt;SaveData(GameData)&lt;br&gt;LoadData(GameData)" vertex="1">
+          <mxGeometry as="geometry" x="420" y="280" width="220" height="100" />
+        </mxCell>
+        <mxCell id="gameData" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;GameData&lt;/b&gt;&lt;br&gt;Unified save DTO" vertex="1">
+          <mxGeometry as="geometry" x="420" y="500" width="220" height="100" />
+        </mxCell>
+        <mxCell id="player" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;PlayerSaveHandler&lt;/b&gt;&lt;br&gt;Health, position, respawn" vertex="1">
+          <mxGeometry as="geometry" x="60" y="260" width="220" height="100" />
+        </mxCell>
+        <mxCell id="inventory" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Inventory / Equipment&lt;/b&gt;&lt;br&gt;InventoryController, EquipmentManager" vertex="1">
+          <mxGeometry as="geometry" x="60" y="500" width="220" height="100" />
+        </mxCell>
+        <mxCell id="world" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;World Saveables&lt;/b&gt;&lt;br&gt;ResourceNode, MapGate, ItemPickup" vertex="1">
+          <mxGeometry as="geometry" x="760" y="260" width="220" height="100" />
+        </mxCell>
+        <mxCell id="enemy" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Enemy Saveables&lt;/b&gt;&lt;br&gt;EnemySaveHandler, BossArenaSpawner" vertex="1">
+          <mxGeometry as="geometry" x="760" y="500" width="220" height="100" />
+        </mxCell>
+        <mxCell id="store" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;Storage Backends&lt;/b&gt;&lt;br&gt;FileDataHandler + CloudDataHandler" vertex="1">
+          <mxGeometry as="geometry" x="420" y="720" width="220" height="100" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="slm" target="contract" style="endArrow=block;endFill=0;html=1;rounded=1;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Discovers by interface">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="player" target="contract" style="endArrow=block;endFill=0;html=1;rounded=1;dashed=1;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;" value="Implements">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="inventory" target="contract" style="endArrow=block;endFill=0;html=1;rounded=1;dashed=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" value="Implements">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="world" target="contract" style="endArrow=block;endFill=0;html=1;rounded=1;dashed=1;exitX=0;exitY=0.4;exitDx=0;exitDy=0;entryX=1;entryY=0.35;entryDx=0;entryDy=0;" value="Implements">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="enemy" target="contract" style="endArrow=block;endFill=0;html=1;rounded=1;dashed=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" value="Implements">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="contract" target="gameData" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Read / write sections">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="gameData" target="store" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Serialize JSON">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="This diagram clarifies which runtime modules contribute to the saved game state." vertex="1">
+          <mxGeometry as="geometry" x="60" y="720" width="320" height="80" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.3 Runtime Optimization" id="component_7882b33eb4">
+    <mxGraphModel dx="662" dy="393" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_34c4f34233" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.3 - Performance, Pooling, and Runtime Optimization Components" vertex="1">
+          <mxGeometry as="geometry" x="60" y="30" width="980" height="40" />
+        </mxCell>
+        <mxCell id="perf" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;PerformanceManager&lt;/b&gt;&lt;br&gt;Distance-based culling loop" vertex="1">
+          <mxGeometry as="geometry" x="420" y="100" width="220" height="100" />
+        </mxCell>
+        <mxCell id="cull" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;CullableEntity&lt;/b&gt;&lt;br&gt;Registers renderers, colliders, animator, scripts" vertex="1">
+          <mxGeometry as="geometry" x="80" y="280" width="270" height="110" />
+        </mxCell>
+        <mxCell id="unityComp" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;Unity Runtime Components&lt;/b&gt;&lt;br&gt;Renderer, Collider2D, Animator, MonoBehaviours" vertex="1">
+          <mxGeometry as="geometry" x="80" y="520" width="280" height="110" />
+        </mxCell>
+        <mxCell id="poolMgr" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;ObjectPoolManager&lt;/b&gt;&lt;br&gt;UnityEngine.Pool wrappers" vertex="1">
+          <mxGeometry as="geometry" x="760" y="280" width="220" height="100" />
+        </mxCell>
+        <mxCell id="prefabs" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;Pooled Prefabs&lt;/b&gt;&lt;br&gt;Enemies, projectiles, loot" vertex="1">
+          <mxGeometry as="geometry" x="760" y="520" width="220" height="100" />
+        </mxCell>
+        <mxCell id="ai" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;AI / Spawning&lt;/b&gt;&lt;br&gt;EnemyFactory, EnemySpawnDirector" vertex="1">
+          <mxGeometry as="geometry" x="420" y="520" width="220" height="100" />
+        </mxCell>
+        <mxCell id="player" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Player Transform&lt;/b&gt;&lt;br&gt;Culling distance reference" vertex="1">
+          <mxGeometry as="geometry" x="420" y="300" width="220" height="100" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="cull" target="perf" style="endArrow=block;endFill=0;html=1;rounded=1;dashed=1;exitX=1;exitY=0.2;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" value="Register / unregister">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="perf" target="player" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Measure distance">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="perf" target="unityComp" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0;exitY=0.85;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" value="Enable / disable">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="cull" target="unityComp" style="endArrow=open;endFill=0;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Caches references">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="ai" target="poolMgr" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.6;entryDx=0;entryDy=0;" value="Get / return">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="poolMgr" target="prefabs" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Instantiate / reuse">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="ai" target="prefabs" style="endArrow=open;endFill=0;html=1;rounded=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" value="Prefab dependency">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="Pooling reduces allocation churn; culling reduces active renderer/collider/script work." vertex="1">
+          <mxGeometry as="geometry" x="420" y="720" width="360" height="80" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.4 Audio Visual Feedback" id="component_d296554158">
+    <mxGraphModel dx="662" dy="393" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_2cdf747877" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.4 - Audio and Visual Feedback Infrastructure Components" vertex="1">
+          <mxGeometry as="geometry" x="60" y="30" width="980" height="40" />
+        </mxCell>
+        <mxCell id="audioMgr" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;AudioManager&lt;/b&gt;&lt;br&gt;IAudioService implementation" vertex="1">
+          <mxGeometry as="geometry" x="420" y="120" width="220" height="100" />
+        </mxCell>
+        <mxCell id="audioData" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;AudioData Assets&lt;/b&gt;&lt;br&gt;SFX/BGM clips, volume, loop settings" vertex="1">
+          <mxGeometry as="geometry" x="760" y="120" width="260" height="100" />
+        </mxCell>
+        <mxCell id="audioContract" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;b&gt;IAudioService&lt;/b&gt;&lt;br&gt;PlaySFX, PlayBGM" vertex="1">
+          <mxGeometry as="geometry" x="80" y="120" width="220" height="100" />
+        </mxCell>
+        <mxCell id="uiAudio" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;UI Audio Handlers&lt;/b&gt;&lt;br&gt;UIAudioHandler, UIPanelAudioListener" vertex="1">
+          <mxGeometry as="geometry" x="80" y="360" width="220" height="100" />
+        </mxCell>
+        <mxCell id="gameAudio" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Gameplay Audio Listeners&lt;/b&gt;&lt;br&gt;Health, pickup, resource listeners" vertex="1">
+          <mxGeometry as="geometry" x="420" y="360" width="220" height="100" />
+        </mxCell>
+        <mxCell id="visual" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Visual Feedback&lt;/b&gt;&lt;br&gt;Highlight, FadeBehind, transitions, camera shake" vertex="1">
+          <mxGeometry as="geometry" x="760" y="360" width="270" height="100" />
+        </mxCell>
+        <mxCell id="events" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;b&gt;Gameplay/UI Events&lt;/b&gt;&lt;br&gt;Damage, pickup, panel open, transition" vertex="1">
+          <mxGeometry as="geometry" x="420" y="580" width="220" height="100" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="audioMgr" target="audioContract" style="endArrow=block;endFill=0;html=1;rounded=1;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" value="Implements">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="audioMgr" target="audioData" style="endArrow=open;endFill=0;html=1;rounded=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" value="Consumes config">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="uiAudio" target="audioContract" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" value="Requests sound">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="gameAudio" target="audioContract" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0;exitY=0.35;exitDx=0;exitDy=0;entryX=1;entryY=0.85;entryDx=0;entryDy=0;" value="Requests sound">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="events" target="uiAudio" style="endArrow=open;endFill=0;html=1;rounded=1;exitX=0;exitY=0.35;exitDx=0;exitDy=0;entryX=1;entryY=0.8;entryDx=0;entryDy=0;" value="Panel events">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="events" target="gameAudio" style="endArrow=open;endFill=0;html=1;rounded=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" value="Gameplay events">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="events" target="visual" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.8;entryDx=0;entryDy=0;" value="Trigger feedback">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="Feedback layer is cross-cutting and supports both UI and gameplay modules." vertex="1">
+          <mxGeometry as="geometry" x="80" y="600" width="300" height="80" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="P2.5 Editor Tooling" id="component_e5da33722d">
+    <mxGraphModel dx="662" dy="393" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title_9059751c55" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=18;fontStyle=1;whiteSpace=wrap;" value="P2.5 - Unity Editor Tooling and Content Authoring Components" vertex="1">
+          <mxGeometry as="geometry" x="60" y="30" width="980" height="40" />
+        </mxCell>
+        <mxCell id="editor" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;b&gt;Unity Editor Tools&lt;/b&gt;&lt;br&gt;Assets/Scripts/Editor" vertex="1">
+          <mxGeometry as="geometry" x="420" y="90" width="220" height="100" />
+        </mxCell>
+        <mxCell id="level" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Level Design Tools&lt;/b&gt;&lt;br&gt;SmartLevelDesigner, commands, generation config" vertex="1">
+          <mxGeometry as="geometry" x="80" y="290" width="270" height="110" />
+        </mxCell>
+        <mxCell id="prefab" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Prefab Tools&lt;/b&gt;&lt;br&gt;PrefabComponentSynchronizer, EnemyPrefabBuilder" vertex="1">
+          <mxGeometry as="geometry" x="420" y="290" width="270" height="110" />
+        </mxCell>
+        <mxCell id="migration" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;Migration Utilities&lt;/b&gt;&lt;br&gt;CharacterDataMigrationTool, SaveSystemIdEditorTool" vertex="1">
+          <mxGeometry as="geometry" x="760" y="290" width="280" height="110" />
+        </mxCell>
+        <mxCell id="assets" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;b&gt;Authored Assets&lt;/b&gt;&lt;br&gt;Prefabs, ScriptableObjects, scenes" vertex="1">
+          <mxGeometry as="geometry" x="420" y="530" width="270" height="100" />
+        </mxCell>
+        <mxCell id="runtime" parent="1" style="shape=module;align=left;spacingLeft=20;align=center;verticalAlign=top;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;b&gt;Runtime Game&lt;/b&gt;&lt;br&gt;Uses authored assets only" vertex="1">
+          <mxGeometry as="geometry" x="420" y="750" width="220" height="100" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="editor" target="level" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.2;entryDx=0;entryDy=0;" value="Author level layout">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="editor" target="prefab" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Build/sync prefabs">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="editor" target="migration" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.2;entryDx=0;entryDy=0;" value="Run migration checks">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="level" target="assets" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" value="Generate scene objects">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="prefab" target="assets" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Create/update prefabs">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="migration" target="assets" style="endArrow=block;endFill=1;html=1;rounded=1;exitX=0;exitY=0.65;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" value="Normalize asset data">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="assets" target="runtime" style="endArrow=open;endFill=0;html=1;rounded=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="Runtime dependency">
+          <mxGeometry as="geometry" relative="1" width="50" height="50" />
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;spacingLeft=5;fillColor=#fff2cc;strokeColor=#d6b656;" value="Editor tooling is not part of runtime, but it explains how complex content is authored." vertex="1">
+          <mxGeometry as="geometry" x="80" y="560" width="300" height="80" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -14,7 +14,17 @@ namespace Gameplay.Environment
         
         [Header("Trạng thái hiện tại")]
         [SerializeField, ReadOnly] private string currentElevation;
-        public string CurrentElevation => currentElevation;
+        public string CurrentElevation 
+        {
+            get 
+            {
+                if (_layerAssigner != null) 
+                {
+                    currentElevation = _layerAssigner.targetSortingLayer;
+                }
+                return currentElevation;
+            }
+        }
 
         private void Awake()
         {
