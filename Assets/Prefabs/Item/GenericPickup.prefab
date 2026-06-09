@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8217013304682326953}
   - component: {fileID: 2976913694317076406}
   - component: {fileID: -5687218834995106676}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: GenericPickup
   m_TagString: Loot
   m_Icon: {fileID: 0}
@@ -77,15 +77,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-<<<<<<< Updated upstream
   m_SortingLayerID: 1002
   m_SortingLayer: 2
   m_SortingOrder: 5
-=======
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
->>>>>>> Stashed changes
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

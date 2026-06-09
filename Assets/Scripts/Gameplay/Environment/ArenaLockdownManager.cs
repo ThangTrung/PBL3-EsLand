@@ -1,5 +1,6 @@
 using UnityEngine;
 using Gameplay.Spawning;
+using Core.Contracts.Environment;
 
 namespace Gameplay.Environment
 {
@@ -8,8 +9,7 @@ namespace Gameplay.Environment
         [Tooltip("Kéo BossArenaSpawner vào đây để lắng nghe sự kiện")]
         [SerializeField] private BossArenaSpawner arenaSpawner;
         
-        [Tooltip("Danh sách các rào chắn (tường vô hình/cửa) cần kích hoạt khi đánh Boss")]
-        [SerializeField] private GameObject[] barriers;
+        private IArenaBarrier[] _barriers;
 
         private void Awake()
         {
@@ -18,8 +18,11 @@ namespace Gameplay.Environment
                 arenaSpawner = GetComponentInParent<BossArenaSpawner>();
             }
             
-            // Tắt rào chắn lúc mới vào map
-            SetBarriersActive(false);
+            // Tự động tìm tất cả các rào chắn có interface IArenaBarrier
+            _barriers = GetComponentsInChildren<IArenaBarrier>(true);
+            
+            // Mở khóa rào chắn lúc mới vào map
+            SetBarriersLocked(false);
         }
 
         private void OnEnable()
@@ -42,22 +45,25 @@ namespace Gameplay.Environment
 
         private void HandleBossSpawned()
         {
-            SetBarriersActive(true);
+            SetBarriersLocked(true);
         }
 
         private void HandleBossDefeated()
         {
-            SetBarriersActive(false);
+            SetBarriersLocked(false);
         }
 
-        private void SetBarriersActive(bool isActive)
+        private void SetBarriersLocked(bool isLocked)
         {
-            if (barriers == null) return;
-            foreach (var barrier in barriers)
+            if (_barriers == null) return;
+            foreach (var barrier in _barriers)
             {
                 if (barrier != null)
                 {
-                    barrier.SetActive(isActive);
+                    if (isLocked)
+                        barrier.Lock();
+                    else
+                        barrier.Unlock();
                 }
             }
         }

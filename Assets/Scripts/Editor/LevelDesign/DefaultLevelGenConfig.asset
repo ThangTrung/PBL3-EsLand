@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b368143ba0cced34eac68ec0fde1156e, type: 3}
+  m_Name: DefaultLevelGenConfig
+  m_EditorClassIdentifier: 
+  fishHutPrefab: {fileID: 8350306305746991969, guid: 2f0180929ce5058469659ab6f1279e8e, type: 3}
+  cavePrefab: {fileID: 6863229811700202304, guid: 377ce7b55be1e214faf773e0aa21c0b0, type: 3}
+  goblinHutPrefab: {fileID: 2849427325783477418, guid: f3f77fe356a5a41439d94f62f325e21e, type: 3}
+  fishHutWaterDistance: {x: 2, y: 5}
+  fishHutCount: 3
+  fishHutSpacing: 15
+  landSpawnerInlandDistance: 6
+  caveCount: 3
+  goblinHutCount: 3
+  landSpawnerSpacing: 25
+  bossArenaPadding: 5
+  bossArenaPrefabs:
+  - {fileID: 1427421440198515868, guid: 8563f7f3980b9fc44b168fe560ed0363, type: 3}
+  - {fileID: 22490467829728251, guid: 0d6016029f20e1f49823d92bd9d178e7, type: 3}
+  - {fileID: 3100973342889636040, guid: e4b6004246e14944ca326eb5eea824d5, type: 3}
+  - {fileID: 1630710643339635426, guid: b5a7c391ba8ba1040b0a331e5072f47a, type: 3}

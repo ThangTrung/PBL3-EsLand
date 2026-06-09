@@ -12,13 +12,34 @@ namespace Infrastructure.SaveSystem.Core
 
         public string Id => id;
 
+        private void Awake()
+        {
+            // [SENIOR FIX] Đảm bảo luôn có ID khi chạy, kể cả khi Instantiate từ code
+            if (string.IsNullOrEmpty(id))
+            {
+                GenerateGuid();
+            }
+        }
+
         [ContextMenu("Generate Guid for ID")]
         public void GenerateGuid() // Đổi thành public để Tool bên ngoài gọi được
         {
             id = System.Guid.NewGuid().ToString();
             #if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(this);
+            if (!Application.isPlaying)
+            {
+                UnityEditor.EditorUtility.SetDirty(this);
+            }
             #endif
+        }
+
+        /// <summary>
+        /// Ép sinh ID mới. Dùng cho Object Pooling khi tái sử dụng object 
+        /// nhưng muốn nó được coi là một thực thể mới hoàn toàn.
+        /// </summary>
+        public void ForceNewId()
+        {
+            GenerateGuid();
         }
 
         private void OnValidate()

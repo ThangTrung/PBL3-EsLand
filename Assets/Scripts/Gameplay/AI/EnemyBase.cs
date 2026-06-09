@@ -19,7 +19,7 @@ namespace Gameplay.AI
     [RequireComponent(typeof(EnemyMovementController))]
     public abstract class EnemyBase : Character, IPoolable, IResettable, IInteractable
     {
-        private const float DefaultPatrolReachDistance = 0.3f;
+        private const float DefaultPatrolReachDistance = 0.55f; // [FIX] Phải lớn hơn StopDistance của Controller (0.5f)
         private const float DeathFallbackDelay = 2.5f; // Increased for safety
 
         protected CharacterHealth HealthInternal;
@@ -109,6 +109,9 @@ namespace Gameplay.AI
             }
         }
 
+        protected bool HasSuperArmor { get; private set; }
+        protected const float SuperArmorMassThreshold = 100f;
+
         protected override void Awake()
         {
             base.Awake();
@@ -117,10 +120,20 @@ namespace Gameplay.AI
             AnimationController = GetComponentInChildren<CharacterAnimationController>();
             StatusEffectController = GetComponent<Gameplay.Combat.StatusEffects.StatusEffectController>();     
 
+            if (TryGetComponent<Rigidbody2D>(out var rb))
+            {
+                HasSuperArmor = rb.mass >= SuperArmorMassThreshold;
+            }
+
             if (HealthInternal != null)
             {
                 HealthInternal.OnDie += HandleDie;
                 HealthInternal.OnDamageTaken += HandleDamageTaken;
+            }
+
+            if (AnimationController != null)
+            {
+                AnimationController.OnFrameChanged += HandleAnimationFrameChanged;
             }
 
             FindTarget();
@@ -166,6 +179,11 @@ namespace Gameplay.AI
 
         private void InitializeMovementStrategy()
         {
+            if (ConfigInternal != null && MovementController != null)
+            {
+                MovementController.SetBaseMoveSpeed(ConfigInternal.MoveSpeed);
+            }
+
             var agent = GetComponent<NavMeshAgent>();
             if (agent != null)
             {
@@ -193,6 +211,11 @@ namespace Gameplay.AI
             {
                 HealthInternal.OnDie -= HandleDie;
                 HealthInternal.OnDamageTaken -= HandleDamageTaken;
+            }
+
+            if (AnimationController != null)
+            {
+                AnimationController.OnFrameChanged -= HandleAnimationFrameChanged;
             }
         }
 
@@ -269,6 +292,35 @@ namespace Gameplay.AI
             _isSwappingEntities = false;
             if (HealthInternal != null) HealthInternal.SetMaxHealth(ConfigInternal?.MaxHealth ?? 100f, true);
             
+            // [CRITICAL FIX] Reset Movement Controller & NavMesh Agent
+            if (MovementController != null)
+            {
+                MovementController.SetCanMove(true);
+            }
+
+            var agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                // [Senior Fix] Xóa sạch ký ức vị trí cũ của Agent khi hồi sinh từ Pool
+                agent.enabled = false; 
+                agent.enabled = true;
+                
+                // Ép Agent nhảy tới vị trí hiện tại của Transform một cách an toàn
+                if (agent.isOnNavMesh)
+                {
+                    agent.Warp(transform.position);
+                }
+                else if (NavMesh.SamplePosition(transform.position, out var hit, 5f, NavMesh.AllAreas))
+                {
+                    agent.Warp(hit.position);
+                }
+
+                agent.updateRotation = false;
+                agent.updatePosition = false;
+                agent.updateUpAxis = false;
+                if (agent.isOnNavMesh) agent.isStopped = true;
+            }
+
             SetInitialState();
             
             if (StatusEffectController != null) StatusEffectController.ClearAllEffects();
@@ -276,15 +328,6 @@ namespace Gameplay.AI
             if (sr != null) sr.enabled = true;
             var col = GetComponent<Collider2D>();
             if (col != null) col.enabled = true;
-
-            var agent = GetComponent<NavMeshAgent>();
-            if (agent != null)
-            {
-                agent.updateRotation = false;
-                agent.updatePosition = false;
-                agent.updateUpAxis = false;
-                if (agent.isOnNavMesh) agent.isStopped = true;
-            }
 
             if (AnimationController != null) { AnimationController.ResetAnimationLock(); AnimationController.PlayIdle(); }
         }
@@ -295,6 +338,7 @@ namespace Gameplay.AI
         {
             IsDeadInternal = true;
             StopMovement();
+            _currentState = null; // [CRITICAL] Reset state when returning to pool
         }
 
         public void ChangeState(IAIState newState)
@@ -307,19 +351,17 @@ namespace Gameplay.AI
 
         public void MoveTowardsPosition(Vector3 position)
         {
-            if (MovementController == null) return;
-            MovementController.SetTargetPosition(position, DefaultPatrolReachDistance);
+            _movementStrategy?.Move(position, DefaultPatrolReachDistance);
         }
 
         public void FollowTarget(Transform target, float stopDistance = 1.0f, System.Action onReached = null)
         {
-            if (MovementController == null) return;
-            MovementController.SetFollowTarget(target, stopDistance, onReached);
+            _movementStrategy?.Follow(target, stopDistance, onReached);
         }
 
         public void StopMovement()
         {
-            MovementController?.StopMovement();
+            _movementStrategy?.StopMovement();
         }
 
         public void FaceTarget()
@@ -378,13 +420,36 @@ namespace Gameplay.AI
                 }
             }
 
-            if (_currentState != null && _currentState.GetType() != typeof(HitState))
+            // [PHASE 2 FIX] Cấp Super Armor cho Boss (Khối lượng >= 100f)
+            var rb = GetComponent<Rigidbody2D>();
+            bool hasSuperArmor = rb != null && rb.mass >= 100f;
+
+            if (!hasSuperArmor && _currentState != null && _currentState.GetType() != typeof(HitState))
             {
                 ChangeState(new HitState());
             }
         }
 
-        private void TriggerLootDrop()
+        private void HandleAnimationFrameChanged(int frame, string state)
+        {
+            if (state == AnimationStateNames.Death)
+            {
+                var seq = AnimationController.Config.GetSequence(state);
+                if (seq.HasValue && seq.Value.multiTriggerFrames != null)
+                {
+                    foreach (int triggerFrame in seq.Value.multiTriggerFrames)
+                    {
+                        if (frame == triggerFrame)
+                        {
+                            TriggerLootDrop();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        protected virtual void TriggerLootDrop()
         {
             if (_lootDropped) return;
             _lootDropped = true;
