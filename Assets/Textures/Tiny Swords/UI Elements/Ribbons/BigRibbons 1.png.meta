@@ -112,7 +112,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 4
+  - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -125,7 +125,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
+  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -146,13 +146,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 29
-        y: 516
+        y: 127
         width: 100
-        height: 105
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -168,13 +167,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 191
-        y: 528
+        y: 127
         width: 66
-        height: 91
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -186,61 +184,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BigRibbons_2
-      rect:
-        serializedVersion: 2
-        x: 319
-        y: 518
-        width: 99
-        height: 103
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3e90cc9a3c1786790800000000000000
-      internalID: -7536648891223242269
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BigRibbons_3
-      rect:
-        serializedVersion: 2
-        x: 29
-        y: 388
-        width: 100
-        height: 105
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d1e5d97f90564ce00800000000000000
-      internalID: 1064086505449676317
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: BigRibbons_4
       rect:
         serializedVersion: 2
         x: 191
-        y: 400
+        y: 127
         width: 66
-        height: 91
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -256,13 +209,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 319
-        y: 390
-        width: 99
-        height: 103
+        y: 127
+        width: 1
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -278,13 +230,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 29
-        y: 260
+        y: 127
         width: 100
-        height: 105
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -300,13 +251,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 191
-        y: 272
+        y: 127
         width: 66
-        height: 91
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -322,13 +272,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 319
-        y: 262
-        width: 99
-        height: 103
+        y: 127
+        width: 1
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -344,13 +293,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 29
-        y: 132
+        y: 127
         width: 100
-        height: 105
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -366,13 +314,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 191
-        y: 144
+        y: 127
         width: 66
-        height: 91
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -388,13 +335,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 319
-        y: 134
-        width: 99
-        height: 103
+        y: 127
+        width: 1
+        height: 1
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -416,7 +362,6 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -432,13 +377,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 191
-        y: 16
-        width: 66
-        height: 91
+        y: 4
+        width: 99
+        height: 105
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -455,12 +399,11 @@ TextureImporter:
         serializedVersion: 2
         x: 319
         y: 6
-        width: 99
+        width: 1
         height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -472,7 +415,6 @@ TextureImporter:
       edges: []
       weights: []
     outline: []
-    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -482,8 +424,6 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    spriteCustomMetadata:
-      entries: []
     nameFileIdTable:
       BigRibbons_0: -4892212827595964496
       BigRibbons_1: 351974544103463365

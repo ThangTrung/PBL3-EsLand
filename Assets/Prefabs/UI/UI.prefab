@@ -2821,16 +2821,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4862806744107184298}
     - target: {fileID: 8550628403286207419, guid: eafc90503a35fac41b255467e897e4c9, type: 3}
-      propertyPath: thirstImage
-      value: 
-      objectReference: {fileID: 3835589485028729635}
-    - target: {fileID: 8550628403286207419, guid: eafc90503a35fac41b255467e897e4c9, type: 3}
       propertyPath: staminaImage
       value: 
       objectReference: {fileID: 688515701659565741}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8946172045701269532, guid: eafc90503a35fac41b255467e897e4c9, type: 3}
+    - {fileID: 5133492282801882958, guid: eafc90503a35fac41b255467e897e4c9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eafc90503a35fac41b255467e897e4c9, type: 3}
@@ -2854,17 +2851,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13bee80fe4e44ec47a42c562302763f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3835589485028729635 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6020110453628600625, guid: eafc90503a35fac41b255467e897e4c9, type: 3}
-  m_PrefabInstance: {fileID: 7399830762527810066}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4862806744107184298 stripped

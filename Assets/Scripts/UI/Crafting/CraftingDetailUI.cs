@@ -86,17 +86,15 @@ namespace UI.Crafting
         private void PopulateIngredients(CraftingRecipe recipe)
         {
             // 2. Sinh UI nguyên liệu mới từ ObjectPool
-            bool canCraft = true;
             foreach (var ingredient in recipe.Ingredients)
             {
                 int have = GetInventoryItemCount(ingredient.Item);
                 
-                if (have < ingredient.Amount) canCraft = false;
-
                 if (ingredientSlotPrefab != null)
                 {
-                    GameObject slotGO = ObjectPoolManager.Instance.Get(ingredientSlotPrefab.gameObject, Vector3.zero);
-                    slotGO.transform.SetParent(ingredientsContainer, false);
+                    // [FIX UI SHRINK] Truyền trực tiếp parent vào Get và ObjectPoolManager sẽ lo phần reset scale/parent an toàn.
+                    GameObject slotGO = ObjectPoolManager.Instance.Get(ingredientSlotPrefab.gameObject, Vector3.zero, Quaternion.identity, ingredientsContainer);
+                    slotGO.transform.localPosition = Vector3.zero; // Đảm bảo vị trí local chuẩn trong Layout Group
                     slotGO.transform.SetAsLastSibling(); // Xếp đúng thứ tự hiển thị từ trên xuống
                     
                     CraftingIngredientSlotUI slotUI = slotGO.GetComponent<CraftingIngredientSlotUI>();
@@ -107,10 +105,10 @@ namespace UI.Crafting
                 }
             }
 
-            // 3. Cập nhật trạng thái Nút Tạo
+            // 3. Cập nhật trạng thái Nút Tạo (Bao gồm kiểm tra nguyên liệu và công cụ yêu cầu)
             if (craftButton != null)
             {
-                craftButton.interactable = canCraft;
+                craftButton.interactable = CraftingService.CanCraft(recipe, _inventoryHolder);
             }
         }
 
@@ -135,7 +133,7 @@ namespace UI.Crafting
             }
 
             // Gọi tới dịch vụ trung gian chuyên biệt cho Crafting
-            if (CraftingService.TryCraft(currentRecipe, _inventoryHolder.Inventory))
+            if (CraftingService.TryCraft(currentRecipe, _inventoryHolder))
             {
                 UpdateDetails(currentRecipe);
             }

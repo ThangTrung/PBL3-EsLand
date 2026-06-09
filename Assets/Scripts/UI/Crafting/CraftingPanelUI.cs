@@ -88,6 +88,7 @@ namespace UI.Crafting
 
                 // Sinh ra Slot mới
                 CraftingRecipeSlotUI slot = Instantiate(recipeSlotPrefab, recipeListContainer);
+                slot.transform.localScale = Vector3.one;
                 slot.Init(recipe);
                 
                 // Đăng ký sự kiện: Khi slot này bị click, truyền dữ liệu qua DetailUI

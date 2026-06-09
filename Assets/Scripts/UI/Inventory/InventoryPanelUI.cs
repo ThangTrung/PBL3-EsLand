@@ -145,6 +145,7 @@ namespace UI.Inventory
             {
                 var index = i;
                 var go = Instantiate(slotPrefab, slotsContainer);
+                go.transform.localScale = Vector3.one;
                 var slotUI = go.GetComponent<InventorySlotUI>();
                 if (!slotUI) continue;
                 slotUI.Init(index, _inventory.ActionHandler);

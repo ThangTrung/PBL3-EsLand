@@ -20,6 +20,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 701bccc0b907127478612bd9864ce51e, type: 3}
   maxStack: 64
   fuelTime: 0
-  healthRestore: 0
+  healthRestore: 20
   hungerRestore: 60
-  thirstRestore: 0

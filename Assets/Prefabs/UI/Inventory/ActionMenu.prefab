@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 971559547840282441}
   - component: {fileID: 2333365809004286921}
   - component: {fileID: 3106235915327941135}
+  - component: {fileID: 327976324557671673}
   m_Layer: 0
   m_Name: Btn_Equip
   m_TagString: Untagged
@@ -387,6 +388,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &327976324557671673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157596292141352232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &2115512935301274238
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +668,7 @@ GameObject:
   - component: {fileID: 7700843094755747909}
   - component: {fileID: 2937997259919251852}
   - component: {fileID: 4773297511202686592}
+  - component: {fileID: 1915994228534467704}
   m_Layer: 0
   m_Name: Btn_Unequip
   m_TagString: Untagged
@@ -763,6 +778,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1915994228534467704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3460289836710874655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &3851073940450574437
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +939,7 @@ GameObject:
   - component: {fileID: 7620426171991533953}
   - component: {fileID: 8029197918413708573}
   - component: {fileID: 7916205993104397344}
+  - component: {fileID: -8428224321445638020}
   m_Layer: 0
   m_Name: ActionMenu
   m_TagString: Untagged
@@ -1018,6 +1047,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuUI: {fileID: 8029197918413708573}
+--- !u!114 &-8428224321445638020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5348300532206170073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &6106169340369348389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,6 +1072,7 @@ GameObject:
   - component: {fileID: 4341986942492046581}
   - component: {fileID: 7384507190771776675}
   - component: {fileID: 3633001683943684709}
+  - component: {fileID: 1028628686758205944}
   m_Layer: 0
   m_Name: Btn_Use
   m_TagString: Untagged
@@ -1139,6 +1182,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1028628686758205944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6106169340369348389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &7220320962467514228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1341,7 @@ GameObject:
   - component: {fileID: 2185542140643953318}
   - component: {fileID: 3283084777542335903}
   - component: {fileID: 2140019772985769350}
+  - component: {fileID: 8769929695613063408}
   m_Layer: 0
   m_Name: Btn_Drop
   m_TagString: Untagged
@@ -1394,3 +1451,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8769929695613063408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8247230076172692345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Types;
 using Data.Items;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Data.Crafting
         [SerializeField] [TextArea] private string description = "Mô tả công thức chế tạo...";
 
         [Header("Requirements")]
+        [SerializeField] private ToolType requiredTool = ToolType.None;
         [SerializeField] private List<CraftingIngredient> ingredients = new List<CraftingIngredient>();
 
         [Header("Results")]
@@ -30,6 +32,7 @@ namespace Data.Crafting
         
         // Sử dụng IReadOnlyList để bảo vệ tính toàn vẹn của dữ liệu, ngăn việc sửa đổi từ bên ngoài (Encapsulation)
         public IReadOnlyList<CraftingIngredient> Ingredients => ingredients;
+        public ToolType RequiredTool => requiredTool;
         
         public ItemData ResultItem => resultItem;
         public GameObject ResultPrefab => resultPrefab;

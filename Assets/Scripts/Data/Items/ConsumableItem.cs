@@ -10,7 +10,6 @@ namespace Data.Items
         [Header("Consumable Stats")]
         public float healthRestore;
         public float hungerRestore;
-        public float thirstRestore;
 
         public bool Use(Character user)
         {
@@ -30,12 +29,6 @@ namespace Data.Items
                 if (hungerRestore > 0f)
                 {
                     survival.AddHunger(hungerRestore);
-                    used = true;
-                }
-                
-                if (thirstRestore > 0f)
-                {
-                    survival.AddThirst(thirstRestore);
                     used = true;
                 }
             }

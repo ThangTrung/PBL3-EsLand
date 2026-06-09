@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 4223544028143802468}
   - component: {fileID: 44924570452619927}
   - component: {fileID: 1801401450183044315}
+  - component: {fileID: 1993949913357274070}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -319,6 +320,19 @@ MonoBehaviour:
   tooltipRoot: {fileID: 1793591180835859137}
   tooltipName: {fileID: 4201695136883979999}
   tooltipDesc: {fileID: 6018517194659751397}
+--- !u!114 &1993949913357274070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4324002469762958207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1f3a961c5969e49b9bb18644462bd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverType: 1
 --- !u!1 &6194195099075849651
 GameObject:
   m_ObjectHideFlags: 0

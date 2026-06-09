@@ -369,7 +369,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthImage: {fileID: 1378442668813425626}
   hungerImage: {fileID: 2723923678958686904}
-  thirstImage: {fileID: 6020110453628600625}
   staminaImage: {fileID: 8016235532219063487}
   lerpSpeed: 5
 --- !u!1 &5102171588558800876

@@ -1,6 +1,7 @@
 ﻿using Core.Contracts.Equipment;
 using Core.Contracts.Shared;
 using Gameplay.Components;
+using UI.Cursor;
 using UnityEngine;
 
 namespace Gameplay.Characters
@@ -92,7 +93,36 @@ namespace Gameplay.Characters
             {
                 if (_currentHover != null) _currentHover.SetHighlight(false);
                 _currentHover = newHover;
-                if (_currentHover != null) _currentHover.SetHighlight(true);
+                if (_currentHover != null)
+                {
+                    _currentHover.SetHighlight(true);
+                    UpdateInteractionCursor(newHover);
+                }
+                else
+                {
+                    if (CursorManager.Instance != null) CursorManager.Instance.SetNormalCursor();
+                }
+            }
+        }
+
+        private void UpdateInteractionCursor(Highlight hover)
+        {
+            if (CursorManager.Instance == null) return;
+
+            var interactable = hover.GetComponent<IInteractable>() ?? hover.GetComponentInParent<IInteractable>();
+            if (interactable == null)
+            {
+                CursorManager.Instance.SetNormalCursor();
+                return;
+            }
+
+            if (interactable.CanInteract(_facade))
+            {
+                CursorManager.Instance.SetPointerCursor();
+            }
+            else
+            {
+                CursorManager.Instance.SetForbiddenCursor();
             }
         }
 
