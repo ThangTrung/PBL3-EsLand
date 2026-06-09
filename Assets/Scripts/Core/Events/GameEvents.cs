@@ -44,5 +44,12 @@ namespace Core.Events
         {
             OnVictory?.Invoke();
         }
+
+        /// <summary>
+        /// Phát ra khi một bảng UI độc quyền được mở (ví dụ: Settings, Guide).
+        /// Các bảng UI khác đang mở nên lắng nghe sự kiện này để tự đóng lại.
+        /// Payload: GameObject của bảng UI vừa mở (để nó không tự đóng chính nó).
+        /// </summary>
+        public static Action<UnityEngine.GameObject> OnExclusiveUIOpened;
     }
 }
