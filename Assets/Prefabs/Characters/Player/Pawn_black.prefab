@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHunger: 100
   maxStamina: 100
-  hungerDrainRate: 5
+  hungerDrainRate: 0.1
   staminaRegenRate: 10
   thresholdPercentage: 0.1
   slowMultiplier: 0.5

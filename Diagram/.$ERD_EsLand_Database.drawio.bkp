@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" modified="2026-06-10T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="erd-esland-db" name="ERD EsLand Database">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="ERD Database - EsLand Hybrid Cloud Save" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="360" y="30" width="880" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="SQL Server lưu tài khoản và một bản save JSON cho mỗi người chơi" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#666666;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="410" y="70" width="780" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="users" value="Users" style="swimlane;whiteSpace=wrap;html=1;startSize=42;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=16;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="130" y="180" width="360" height="280" as="geometry"/>
+        </mxCell>
+        <mxCell id="users-id" value="PK  ID : INT IDENTITY(1,1)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" vertex="1" parent="users">
+          <mxGeometry x="16" y="52" width="330" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="users-username" value="UQ  Username : NVARCHAR(50) NOT NULL" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="users">
+          <mxGeometry x="16" y="87" width="330" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="users-password" value="Password : NVARCHAR(100) NOT NULL" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="users">
+          <mxGeometry x="16" y="122" width="330" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="users-created" value="CreatedAt : DATETIME DEFAULT GETDATE()" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="users">
+          <mxGeometry x="16" y="157" width="330" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="users-note" value="Dùng cho đăng nhập và đăng ký tài khoản" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=12;fontColor=#666666;" vertex="1" parent="users">
+          <mxGeometry x="16" y="210" width="328" height="48" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="saves" value="PlayerSaves" style="swimlane;whiteSpace=wrap;html=1;startSize=42;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=16;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="720" y="180" width="390" height="280" as="geometry"/>
+        </mxCell>
+        <mxCell id="saves-userid" value="PK, FK  UserID : INT" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" vertex="1" parent="saves">
+          <mxGeometry x="16" y="52" width="350" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="saves-json" value="InventoryJSON : NVARCHAR(MAX) NOT NULL" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="saves">
+          <mxGeometry x="16" y="87" width="350" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="saves-updated" value="LastUpdated : DATETIME DEFAULT GETDATE()" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="saves">
+          <mxGeometry x="16" y="122" width="350" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="saves-note" value="Một người chơi có tối đa một bản lưu cloud hiện tại" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=12;fontColor=#666666;" vertex="1" parent="saves">
+          <mxGeometry x="16" y="210" width="358" height="48" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rel" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=ERoneToZeroOrOne;endFill=0;startArrow=ERone;startFill=0;fontSize=13;" edge="1" parent="1" source="users" target="saves">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel-label-left" value="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="292" width="30" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel-label-right" value="0..1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="650" y="292" width="50" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel-caption" value="Users.ID = PlayerSaves.UserID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="505" y="335" width="200" height="36" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="json" value="GameData JSON Document" style="swimlane;whiteSpace=wrap;html=1;startSize=42;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=16;align=center;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="290" y="560" width="770" height="310" as="geometry"/>
+        </mxCell>
+        <mxCell id="json-desc" value="Đây không phải bảng SQL riêng. Toàn bộ cấu trúc dưới đây được serialize thành chuỗi JSON và lưu trong PlayerSaves.InventoryJSON." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=12;fontColor=#666666;" vertex="1" parent="json">
+          <mxGeometry x="20" y="52" width="730" height="42" as="geometry"/>
+        </mxCell>
+        <mxCell id="json-player" value="Player: playerHealth, playerPosition, respawnPoint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=13;align=left;spacingLeft=12;" vertex="1" parent="json">
+          <mxGeometry x="20" y="112" width="350" height="38" as="geometry"/>
+        </mxCell>
+        <mxCell id="json-inv" value="inventories[] - inventoryID, slots[]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=13;align=left;spacingLeft=12;" vertex="1" parent="json">
+          <mxGeometry x="20" y="164" width="350" height="38" as="geometry"/>
+        </mxCell>
+        <mxCell id="json-slots" value="ItemSlotSaveData: itemID, quantity, slotIndex, currentDurability" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=13;align=left;spacingLeft=12;" vertex="1" parent="json">
+          <mxGeometry x="20" y="216" width="350" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="json-equipped" value="equippedItems[] - slot, itemID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=13;align=left;spacingLeft=12;" vertex="1" parent="json">
+          <mxGeometry x="400" y="112" width="350" height="38" as="geometry"/>
+        </mxCell>
+        <mxCell id="json-world" value="resourceNodes[], droppedItems[], activeEnemies[]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=13;align=left;spacingLeft=12;" vertex="1" parent="json">
+          <mxGeometry x="400" y="164" width="350" height="38" as="geometry"/>
+        </mxCell>
+        <mxCell id="json-progress" value="openedGates[], destroyedEntityIDs[]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=13;align=left;spacingLeft=12;" vertex="1" parent="json">
+          <mxGeometry x="400" y="216" width="350" height="38" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="json-link" value="serialize / deserialize" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;dashed=1;strokeColor=#b85450;fillColor=#f8cecc;endArrow=open;endFill=0;fontSize=12;" edge="1" parent="1" source="saves-json" target="json">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="api-note" value="API sử dụng database: POST /api/auth/login, POST /api/auth/register, POST /api/savegame, GET /api/loadgame/:userID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="225" width="320" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="security-note" value="Ghi chú bảo vệ báo cáo: Password hiện đang lưu plain text cho demo. Hướng cải tiến: hash bằng bcrypt, thêm token/JWT và HTTPS." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;align=left;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1170" y="560" width="320" height="110" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
