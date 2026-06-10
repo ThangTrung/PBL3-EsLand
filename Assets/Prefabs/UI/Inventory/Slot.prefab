@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverType: 1
+  disabledType: 2
 --- !u!1 &6194195099075849651
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,8 +688,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6574313578489692094, guid: 148e1ab80b2b14ce5858df57aeae24e0, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 148e1ab80b2b14ce5858df57aeae24e0, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

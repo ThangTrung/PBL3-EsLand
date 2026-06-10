@@ -1,0 +1,55 @@
+<mxfile host="Electron" agent="Codex">
+  <diagram id="erd-esland-db" name="ERD EsLand Database">
+    <mxGraphModel dx="1285" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="users" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=42;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=16;align=center;verticalAlign=top;" value="Users" vertex="1">
+          <mxGeometry height="280" width="360" x="130" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="users-id" parent="users" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" value="PK  ID : INT IDENTITY(1,1)" vertex="1">
+          <mxGeometry height="30" width="330" x="16" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="users-username" parent="users" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" value="UQ  Username : NVARCHAR(50) NOT NULL" vertex="1">
+          <mxGeometry height="30" width="330" x="16" y="87" as="geometry" />
+        </mxCell>
+        <mxCell id="users-password" parent="users" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" value="Password : NVARCHAR(100) NOT NULL" vertex="1">
+          <mxGeometry height="30" width="330" x="16" y="122" as="geometry" />
+        </mxCell>
+        <mxCell id="users-created" parent="users" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" value="CreatedAt : DATETIME DEFAULT GETDATE()" vertex="1">
+          <mxGeometry height="30" width="330" x="16" y="157" as="geometry" />
+        </mxCell>
+        <mxCell id="users-note" parent="users" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=12;fontColor=#666666;" value="Dùng cho đăng nhập và đăng ký tài khoản" vertex="1">
+          <mxGeometry height="48" width="328" x="16" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="saves" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=42;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=16;align=center;verticalAlign=top;" value="PlayerSaves" vertex="1">
+          <mxGeometry height="280" width="390" x="750" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="saves-userid" parent="saves" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontStyle=1;" value="PK, FK  UserID : INT" vertex="1">
+          <mxGeometry height="30" width="350" x="16" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="saves-json" parent="saves" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" value="InventoryJSON : NVARCHAR(MAX) NOT NULL" vertex="1">
+          <mxGeometry height="30" width="350" x="16" y="87" as="geometry" />
+        </mxCell>
+        <mxCell id="saves-updated" parent="saves" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" value="LastUpdated : DATETIME DEFAULT GETDATE()" vertex="1">
+          <mxGeometry height="30" width="350" x="16" y="122" as="geometry" />
+        </mxCell>
+        <mxCell id="saves-note" parent="saves" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;fontSize=12;fontColor=#666666;" value="Một người chơi có tối đa một bản lưu cloud hiện tại" vertex="1">
+          <mxGeometry height="48" width="358" x="16" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="rel" edge="1" parent="1" source="users" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=ERoneToZeroOrOne;endFill=0;startArrow=ERone;startFill=0;fontSize=13;" target="saves" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-label-left" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;" value="1" vertex="1">
+          <mxGeometry height="24" width="30" x="500" y="288" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-label-right" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;" value="0..1" vertex="1">
+          <mxGeometry height="24" width="50" x="700" y="288" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-caption" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="Users.ID = PlayerSaves.UserID" vertex="1">
+          <mxGeometry height="36" width="200" x="505" y="335" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
