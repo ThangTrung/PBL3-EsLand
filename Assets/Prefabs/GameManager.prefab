@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2383916834073469810}
   - component: {fileID: 3198088254119310884}
   - component: {fileID: 8773390693153452999}
+  - component: {fileID: 1289050645067286025}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -47,9 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18db912a529940e4cb371163ed4c860b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: pbl3_esland_save.json
-  useCloudSave: 0
-  useAutoSave: 1
+  useCloudSave: 1
+  useAutoSave: 0
   autoSaveInterval: 60
 --- !u!114 &2383916834073469810
 MonoBehaviour:
@@ -99,3 +99,17 @@ MonoBehaviour:
     m_Bits: 2048
   validColor: {r: 0, g: 1, b: 0, a: 0.5}
   invalidColor: {r: 1, g: 0, b: 0, a: 0.5}
+--- !u!114 &1289050645067286025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5232591920100833636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d56cda64110ab429af58c0b6eb952a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkOnStart: 1
+  continuousCheckInEditor: 1

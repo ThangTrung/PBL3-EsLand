@@ -174,22 +174,32 @@ namespace Infrastructure.SaveSystem.Core
         {
             if (this.gameData == null) 
             {
+                Debug.LogWarning("[SaveSystem] GameData is null, skipping process.");
                 IsLoading = false;
                 return;
             }
 
             if (saveableObjects == null) saveableObjects = FindAllSaveableObjects();
 
+            Debug.Log($"[SaveSystem] Processing data for {saveableObjects.Count} saveable objects...");
             try 
             {
                 foreach (ISaveable saveableObj in saveableObjects)
                 {
                     if (saveableObj != null)
+                    {
+                        var mono = saveableObj as MonoBehaviour;
+                        string objName = mono != null ? mono.gameObject.name : "Unknown";
+                        Debug.Log($"[SaveSystem] Loading data for: {objName} ({saveableObj.GetType().Name})");
                         saveableObj.LoadData(gameData);
+                    }
                 }
                 Debug.Log("[SaveSystem] Data processed successfully to all objects.");
             }
-            catch (Exception e) { Debug.LogError($"[SaveSystem] Error processing data: {e.Message}"); }
+            catch (Exception e) 
+            { 
+                Debug.LogError($"[SaveSystem] Error processing data: {e.Message}\n{e.StackTrace}"); 
+            }
             finally { IsLoading = false; }
         }
 

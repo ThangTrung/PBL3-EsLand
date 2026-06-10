@@ -48,8 +48,17 @@ namespace Infrastructure.SaveSystem.Handlers
 
             // Tìm đúng Inventory theo ID trong GameData
             InventorySaveData invData = data.inventories.Find(i => i.inventoryID == inventoryID);
-            if (invData == null) return;
+            if (invData == null) 
+            {
+                Debug.Log($"[InventorySave] No data found for inventoryID: {inventoryID}");
+                return;
+            }
 
+            Debug.Log($"[InventorySave] Loading {invData.slots.Count} items into inventory: {inventoryID}");
+            
+            // 🔥 QUAN TRỌNG: Tạm thời ngắt sự kiện để không bị Save ngược lên Cloud trong khi đang Load
+            inventory.OnInventoryChanged -= TriggerSave;
+            
             inventory.Clear();
 
             foreach (var savedItem in invData.slots)
@@ -57,18 +66,23 @@ namespace Infrastructure.SaveSystem.Handlers
                 ItemData itemAsset = ItemDatabase.Instance.GetItemByID(savedItem.itemID);
                 if (itemAsset != null)
                 {
-                    // Giả định AddItem có thể nhận durability (cần check InventoryController)
-                    // Ở bản demo này ta load item và số lượng trước
                     inventory.AddItem(itemAsset, savedItem.quantity);
                     
-                    // Nếu slot hỗ trợ độ bền, ta sẽ set ở đây (cần mở rộng InventorySlot)
                     var slot = inventory.GetSlotAt(savedItem.slotIndex);
                     if (slot != null && slot is InventorySlot concreteSlot)
                     {
                         concreteSlot.SetData(itemAsset, savedItem.quantity, savedItem.currentDurability);
                     }
                 }
+                else
+                {
+                    Debug.LogWarning($"[InventorySave] ItemID not found in database: {savedItem.itemID}");
+                }
             }
+            
+            // 🔥 Đăng ký lại sự kiện sau khi xong
+            inventory.OnInventoryChanged += TriggerSave;
+            inventory.NotifyChanged();
         }
 
         public void SaveData(GameData data)
@@ -88,7 +102,7 @@ namespace Infrastructure.SaveSystem.Handlers
                 {
                     invData.slots.Add(new ItemSlotSaveData
                     {
-                        itemID = slot.ItemData.name,
+                        itemID = slot.ItemData.ID, // 🔥 ĐÃ SỬA: Dùng ID (GUID) thay vì .name
                         quantity = slot.Amount,
                         slotIndex = i,
                         currentDurability = (int)slot.CurrentDurability

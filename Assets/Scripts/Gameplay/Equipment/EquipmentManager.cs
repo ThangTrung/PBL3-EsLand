@@ -69,6 +69,12 @@ namespace Gameplay.Equipment
             }
 
             // 2. Đắp đồ từ file save vào lại cho nhân vật bằng ItemDatabase
+            if (ItemDatabase.Instance == null)
+            {
+                Debug.LogError("[EquipmentManager] ItemDatabase.Instance is NULL! Cannot load equipment.");
+                return;
+            }
+
             foreach (var equipData in data.equippedItems)
             {
                 ItemData foundItem = ItemDatabase.Instance.GetItemByID(equipData.itemID);
@@ -88,12 +94,22 @@ namespace Gameplay.Equipment
             // Vét toàn bộ đồ đang mặc nhét vào sổ ghi chép
             foreach (var kvp in _equippedItems)
             {
-                if (kvp.Value is UnityEngine.Object objItem)
+                // Kiểm tra item có thuộc tính ID (GUID) để lưu chuẩn xác
+                if (kvp.Value is ItemData itemAsset)
                 {
                     data.equippedItems.Add(new EquippedItemSaveData
                     {
                         slot = kvp.Key,
-                        itemID = objItem.name // Ghi đúng cái tên file (ví dụ: "Axe", "Defense")
+                        itemID = itemAsset.ID // Sử dụng GUID để ItemDatabase.GetItemByID tìm được
+                    });
+                }
+                else if (kvp.Value is UnityEngine.Object objItem)
+                {
+                    // Fallback nếu không phải ItemData (hiếm gặp)
+                    data.equippedItems.Add(new EquippedItemSaveData
+                    {
+                        slot = kvp.Key,
+                        itemID = objItem.name
                     });
                 }
             }

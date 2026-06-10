@@ -21,7 +21,17 @@ namespace Gameplay.Characters
         {
             // Tránh trường hợp game mới tinh ép nhân vật về (0,0,0) nếu map ông không bắt đầu ở đó.
             if (data.playerPosition != Vector3.zero)
-                transform.position = data.playerPosition;
+            {
+                var agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+                if (agent != null && agent.enabled)
+                {
+                    agent.Warp(data.playerPosition);
+                }
+                else
+                {
+                    transform.position = data.playerPosition;
+                }
+            }
 
             if (_respawnable != null && data.respawnPoint != Vector3.zero)
                 _respawnable.RespawnPoint = data.respawnPoint;

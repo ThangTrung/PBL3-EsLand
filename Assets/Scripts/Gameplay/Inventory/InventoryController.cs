@@ -44,13 +44,18 @@ namespace Gameplay.Inventory
 
         public bool AddItem(ItemData item, int amount = 1)
         {
-            if (!item || amount <= 0) return false;
+            if (item == null) 
+            {
+                Debug.LogWarning("[Inventory] Attempted to add a null item.");
+                return false;
+            }
+            if (amount <= 0) return false;
             var remaining = amount;
 
             // Try to stack with existing items first (Compare by ID)
             if (item.MaxStack > 1)
             {
-                foreach (var slot in _slots.Where(s => !s.IsEmpty && s.ItemData.ID == item.ID))
+                foreach (var slot in _slots.Where(s => !s.IsEmpty && s.ItemData != null && s.ItemData.ID == item.ID))
                 {
                     var canAdd = item.MaxStack - slot.Amount;
                     if (canAdd <= 0) continue;
@@ -173,6 +178,12 @@ namespace Gameplay.Inventory
 
             InitializeSlots();
             Clear();
+
+            if (ItemDatabase.Instance == null)
+            {
+                Debug.LogError("[InventoryController] ItemDatabase.Instance is NULL! Cannot load inventory items.");
+                return;
+            }
 
             foreach (var slotData in myData.slots)
             {
