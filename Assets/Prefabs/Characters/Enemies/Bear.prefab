@@ -163,7 +163,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2567eceb74ec84fa0229a62f57e875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootTable: []
+  lootTable:
+  - item: {fileID: 0}
+    minAmount: 0
+    maxAmount: 0
+    chance: 0
   minDropForce: 4
   maxDropForce: 8
   spawnSpread: 0.5

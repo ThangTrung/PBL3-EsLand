@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseMoveSpeed: 3
   movementSmoothing: 10
+  steeringSmoothing: 10
   pathUpdateCooldown: 0.5
   destinationChangeThreshold: 0.5
 --- !u!114 &632000086624642076

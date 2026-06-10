@@ -38,16 +38,15 @@ namespace UI.Settings
                 case SettingsActionType.LogOut:
                     if (Infrastructure.SaveSystem.Core.SaveLoadManager.Instance != null)
                     {
-                        // 1. Lưu game lên cloud
+                        // 1. Lưu game lên cloud lần cuối
                         Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.SyncToCloudManual((success, msg) => {
                             Debug.Log($"[Settings] Đã lưu tiến trình trước khi đăng xuất: {msg}");
                             
-                            // 2. Xóa thông tin đăng nhập
-                            Infrastructure.SaveSystem.Core.CloudAuthService.Logout();
+                            // 2. Xóa sạch dữ liệu trong bộ nhớ (Reset System)
+                            Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.ResetSystem();
                             
-                            // 3. Xóa dữ liệu tạm và hủy đối tượng quản lý để khởi tạo lại khi về Login
-                            Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.DeleteSaveData();
-                            Destroy(Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.gameObject);
+                            // 3. Xóa thông tin đăng nhập
+                            Infrastructure.SaveSystem.Core.CloudAuthService.Logout();
                             
                             // 4. Chuyển về màn hình Login
                             Core.SceneManagement.SceneLoader.Load("Login");

@@ -30,7 +30,26 @@ namespace Data.Items
 
         public void Initialize()
         {
-            _itemLookup = allItems.ToDictionary(item => item.ID, item => item);
+            _itemLookup.Clear();
+            foreach (var item in allItems)
+            {
+                if (item == null) continue;
+
+                if (string.IsNullOrEmpty(item.ID))
+                {
+                    Debug.LogError($"[ItemDatabase] Item '{item.name}' has a NULL or EMPTY ID! Please assign a GUID in the inspector.");
+                    continue;
+                }
+
+                if (_itemLookup.ContainsKey(item.ID))
+                {
+                    Debug.LogError($"[ItemDatabase] DUPLICATE ID FOUND: '{item.ID}' is used by both '{_itemLookup[item.ID].name}' and '{item.name}'. IDs must be unique!");
+                    continue;
+                }
+
+                _itemLookup.Add(item.ID, item);
+            }
+            Debug.Log($"[ItemDatabase] Successfully indexed {_itemLookup.Count} items.");
         }
 
         public ItemData GetItemByID(string id)
@@ -39,8 +58,21 @@ namespace Data.Items
             
             if (_itemLookup.Count == 0 && allItems.Count > 0) Initialize();
             
-            _itemLookup.TryGetValue(id, out var item);
-            return item;
+            // 1. Tìm theo GUID (Ưu tiên)
+            if (_itemLookup.TryGetValue(id, out var item))
+            {
+                return item;
+            }
+
+            // 2. Fallback: Tìm theo Tên file (Dành cho các bản save cũ lưu "Axe", "Defense"...)
+            var fallbackItem = allItems.FirstOrDefault(i => i.name == id || i.ItemName == id);
+            if (fallbackItem != null)
+            {
+                Debug.Log($"[ItemDatabase] Fallback found item '{id}' by name instead of ID.");
+                return fallbackItem;
+            }
+
+            return null;
         }
 
 #if UNITY_EDITOR

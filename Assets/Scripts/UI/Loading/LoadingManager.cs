@@ -34,6 +34,7 @@ namespace UI.Loading
 
         private IEnumerator LoadAsync(string sceneName)
         {
+            Debug.Log($"[LoadingManager] Starting async load for scene: {sceneName}");
             yield return null; // Đợi 1 frame để UI khởi tạo xong
 
             float startTime = Time.time;
@@ -54,13 +55,19 @@ namespace UI.Loading
                 }
 
                 // Nếu đã load xong data (0.9) và đã qua thời gian tối thiểu
-                if (operation.progress >= 0.9f && (Time.time - startTime) >= minLoadingTime)
+                if (operation.progress >= 0.9f)
                 {
-                    operation.allowSceneActivation = true;
+                    Debug.Log($"[LoadingManager] Scene {sceneName} progress: {operation.progress}. Waiting for min time...");
+                    if ((Time.time - startTime) >= minLoadingTime)
+                    {
+                        Debug.Log($"[LoadingManager] Activation allowed for {sceneName}");
+                        operation.allowSceneActivation = true;
+                    }
                 }
 
                 yield return null;
             }
+            Debug.Log($"[LoadingManager] Scene {sceneName} load COMPLETED.");
         }
     }
 }
