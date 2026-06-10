@@ -179,6 +179,9 @@ namespace Infrastructure.SaveSystem.Core
                 return;
             }
 
+            // 1. Dọn dẹp các đối tượng đã bị phá hủy trước khi nạp dữ liệu vào các đối tượng còn sống
+            CleanupDestroyedEntities();
+
             if (saveableObjects == null) saveableObjects = FindAllSaveableObjects();
 
             Debug.Log($"[SaveSystem] Processing data for {saveableObjects.Count} saveable objects...");
@@ -201,6 +204,28 @@ namespace Infrastructure.SaveSystem.Core
                 Debug.LogError($"[SaveSystem] Error processing data: {e.Message}\n{e.StackTrace}"); 
             }
             finally { IsLoading = false; }
+        }
+
+        private void CleanupDestroyedEntities()
+        {
+            if (gameData == null || gameData.destroyedEntityIDs == null || gameData.destroyedEntityIDs.Count == 0) return;
+
+            Debug.Log($"[SaveSystem] Cleaning up {gameData.destroyedEntityIDs.Count} destroyed entities...");
+            
+            SaveableEntity[] allEntities = FindObjectsOfType<SaveableEntity>(true);
+            int count = 0;
+            
+            foreach (var entity in allEntities)
+            {
+                if (gameData.destroyedEntityIDs.Contains(entity.Id))
+                {
+                    // [MANDATE] If the object was destroyed, remove it from the scene
+                    Destroy(entity.gameObject);
+                    count++;
+                }
+            }
+            
+            Debug.Log($"[SaveSystem] Successfully removed {count} previously destroyed objects.");
         }
 
         public void SaveGame()

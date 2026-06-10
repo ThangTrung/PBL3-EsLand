@@ -174,6 +174,13 @@ namespace Gameplay.Characters
         private void HandleDie()
         {
             Debug.Log($"[Enemy] {characterName} đã bị tiêu diệt.");
+            
+            // 🔥 QUAN TRỌNG: Lưu lại trạng thái đã chết để không bị hồi sinh khi Load game
+            if (TryGetComponent<Infrastructure.SaveSystem.Core.SaveableEntity>(out var saveable) && Infrastructure.SaveSystem.Core.SaveLoadManager.Instance != null)
+            {
+                Infrastructure.SaveSystem.Core.SaveLoadManager.Instance.RegisterDestroyedEntity(saveable.Id);
+            }
+
             DropLoot();
             Destroy(gameObject, 2f);
         }

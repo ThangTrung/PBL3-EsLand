@@ -48,12 +48,15 @@ namespace Gameplay.World
             _spawnTime = Time.time;
             _isFlying = false;
             _playerTransform = null;
-            quantity = 1;
 
-            // [CRITICAL] Refresh ID for pooled entities to avoid GUID collision with previously destroyed items
+            // [SENIOR FIX] Chỉ sinh ID mới nếu ID hiện tại đang trống (Dành cho vật phẩm rơi từ quái/cây)
+            // Vật phẩm đặt sẵn trong Scene sẽ giữ nguyên ID cố định để Save/Load hoạt động.
             if (TryGetComponent<SaveableEntity>(out var saveable))
             {
-                saveable.ForceNewId();
+                if (string.IsNullOrEmpty(saveable.Id))
+                {
+                    saveable.ForceNewId();
+                }
                 _uniqueInstanceID = saveable.Id;
             }
         }
