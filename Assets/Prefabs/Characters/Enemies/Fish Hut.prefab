@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8760089124550064839}
   - component: {fileID: 8667392463968601405}
   - component: {fileID: 3960053239592499372}
-  - component: {fileID: -3677203756225217772}
   - component: {fileID: -8131376292614924979}
   - component: {fileID: 8800315660785504431}
   - component: {fileID: -72642746647629155}
@@ -277,23 +276,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &-3677203756225217772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8350306305746991969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2009ad8b008745e4db94c4b17af5a608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 272
-  checkRadius: 0.5
-  localWaveConfig: {fileID: 11400000, guid: e2920ebfe994d7c4988bdc10e59903ca, type: 2}
 --- !u!208 &-8131376292614924979
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -428,8 +410,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2009ad8b008745e4db94c4b17af5a608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  landLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1040
   checkRadius: 0.5
   localWaveConfig: {fileID: 11400000, guid: e2920ebfe994d7c4988bdc10e59903ca, type: 2}

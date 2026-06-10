@@ -52,6 +52,12 @@ namespace Gameplay.Characters
             
             if (input.sqrMagnitude > 0.01f || !_movement.IsFollowingTarget)
             {
+                // [Phase 3] Hủy đòn đánh nếu người chơi bấm nút di chuyển (WASD)
+                if (input.sqrMagnitude > 0.01f && _interaction != null)
+                {
+                    _interaction.CancelInteraction();
+                }
+
                 _movement.Move(input);
             }
         }

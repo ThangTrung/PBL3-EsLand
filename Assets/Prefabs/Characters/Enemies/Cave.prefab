@@ -110,11 +110,11 @@ GameObject:
   - component: {fileID: 4987545557046811403}
   - component: {fileID: -4842219907759351064}
   - component: {fileID: 6385098747328691065}
-  - component: {fileID: 134762663185589043}
   - component: {fileID: 3592732275702027793}
   - component: {fileID: 4512419530944578696}
   - component: {fileID: 243103622908005836}
   - component: {fileID: 4348470507412712319}
+  - component: {fileID: 3921043537991566369}
   m_Layer: 12
   m_Name: Cave
   m_TagString: Enemy
@@ -262,23 +262,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!114 &134762663185589043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6863229811700202304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2009ad8b008745e4db94c4b17af5a608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 272
-  checkRadius: 0.5
-  localWaveConfig: {fileID: 11400000, guid: 3360cfa32c301b94fbdb9d15ec5fa96d, type: 2}
 --- !u!208 &3592732275702027793
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -333,3 +316,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fc2453165567d4489f5a3024d8af97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3921043537991566369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863229811700202304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2009ad8b008745e4db94c4b17af5a608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  landLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  checkRadius: 0.5
+  localWaveConfig: {fileID: 11400000, guid: 3360cfa32c301b94fbdb9d15ec5fa96d, type: 2}

@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 1933660577070698041}
   - component: {fileID: 6076643295030977242}
   - component: {fileID: 1263488590254913282}
+  - component: {fileID: 5059916183413521851}
   m_Layer: 0
   m_Name: Ogre Boss Arena
   m_TagString: Untagged
@@ -303,6 +304,29 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1280
   clearOnStart: 1
+--- !u!114 &5059916183413521851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427421440198515868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d3a5aeec745b941894db8cfdfa903b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredItems:
+  - item: {fileID: 11400000, guid: 66ce93e8ca7865f4aa05e1499b1ed03e, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: eea875398b90e994390384ef82a5f5a4, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 46a2282f224387242abaae5d7aa40f5f, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 9c918819363f5d0458752071cfe01b5b, type: 2}
+    amount: 1
+  feedbackMessage: "B\u1EA1n ch\u01B0a thu th\u1EADp \u0111\u1EE7 4 Vi\xEAn \u0110\xE1
+    S\u1EE9c M\u1EA1nh t\u1EEB c\xE1c Boss kh\xE1c!"
 --- !u!1 &5139865590605811911
 GameObject:
   m_ObjectHideFlags: 0

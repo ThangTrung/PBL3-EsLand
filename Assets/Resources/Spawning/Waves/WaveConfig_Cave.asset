@@ -13,6 +13,21 @@ MonoBehaviour:
   m_Name: WaveConfig_Cave
   m_EditorClassIdentifier: 
   waveName: Cave Biome
-  totalBudget: 25
-  spawnRate: 3
-  enemies: []
+  totalBudget: 20
+  spawnRate: 10
+  enemies:
+  - prefab: {fileID: 2441053647874892881, guid: 28b593f723084eb4daa3894be745664e, type: 3}
+    config: {fileID: 11400000, guid: 1fa9e24332f1de94fb347308be465c69, type: 2}
+    animConfig: {fileID: 11400000, guid: 3b8f058f0b768b6489f6af77336a8111, type: 2}
+    weight: 5
+    cost: 10
+  - prefab: {fileID: 8517149262209526456, guid: 1b36238ada535a24ab750fd3136ba34f, type: 3}
+    config: {fileID: 11400000, guid: 0013404e6e0acfc498d74f0d23168cc0, type: 2}
+    animConfig: {fileID: 11400000, guid: 96479b4dde2824744a509315c134bf58, type: 2}
+    weight: 5
+    cost: 10
+  - prefab: {fileID: 229274262878235575, guid: 7755bd6f7e7146a49a3b142eea96578d, type: 3}
+    config: {fileID: 11400000, guid: e7a630454c622a04f9661495de5a506f, type: 2}
+    animConfig: {fileID: 11400000, guid: 179399356d6996b468dfc2ec9d3947ae, type: 2}
+    weight: 5
+    cost: 10

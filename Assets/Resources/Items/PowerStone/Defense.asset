@@ -22,6 +22,6 @@ MonoBehaviour:
   equipSlot: 3
   overrideController: {fileID: 0}
   damageBuff: 0
-  defenseBuff: 100
+  defenseBuff: 2.5
   healthBuff: 0
   speedBuff: 0
